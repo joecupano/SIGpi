@@ -1246,7 +1246,7 @@ stage_5(){
 	echo "  Last question will ask you to create a password for the SuperUser"
 	echo "  account to manage the VoIP server"
 	echo " "
-	sleep 15
+	sleep 9
 	sudo dpkg-reconfigure mumble-server
 
 	cat <<EOF
