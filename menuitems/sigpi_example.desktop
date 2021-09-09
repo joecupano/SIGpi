@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=SIGpi Example
+Comment=SIGpi Example
+Exec=sigpi_example.sh
+Icon=/usr/share/icons/sigpi_icon_32x32.png
+Terminal=true
+X-MultipleArgs=false
+Type=Application
+Categories=SigPi;
+StartupNotify=true
