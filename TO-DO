@@ -1,0 +1,4 @@
+TO-DO
+
+- RPi3 enable SPI in raspi-config so feature available in LimeSuite
+- Performing test CMAKE_HAVE_LIBC_PTHREAD failed during SoapyRemote compile. Does it matter?
