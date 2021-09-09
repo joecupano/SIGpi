@@ -164,12 +164,12 @@ Stage 2
 	- SoapyRemote
     - GPSd and Chrony
 	- Liquid-DSP
-
-Stage 3
 	- GNUradio 3.7X
     - Kismet
 	- GQRX
 	- CubicSDR
+
+Stage 3
 	- SDRangel Dependencies
 	- SDRangel
     - SDRangel Wisdom File
@@ -427,8 +427,7 @@ stage_2(){
 	make
 	sudo make install
 	sudo ldconfig
-	SoapySDRUtil --probe     
-
+	
 	#
 	# INSTALL SOAPYHACKRF
 	#
@@ -445,8 +444,7 @@ stage_2(){
 	make
 	sudo make install
 	sudo ldconfig
-	SoapySDRUtil --probe   
-
+	
 	#
 	# INSTALL SOAPYPLUTOSDR
 	#
@@ -520,21 +518,6 @@ stage_2(){
 	sudo make install
 	sudo ldconfig
 
-	rm $SIGPI_INSTALL_STAGE2
-	touch $SIGPI_INSTALL_STAGE3
-}
-
-stage_3(){
-	
-	echo " "
-    echo "###"
-    echo "###"
-	echo "### SIGpi Install (Stage 3)"
-	echo "###"
-	echo "###"
-	echo " "
-	cd $SIGPI_SOURCE
-
 	#
 	# INSTALL GNUradio 3.7.X
 	#
@@ -583,6 +566,22 @@ stage_3(){
     echo " ## "
 	echo " "
     sudo apt-get install -y cubicsdr
+
+	rm $SIGPI_INSTALL_STAGE2
+	touch $SIGPI_INSTALL_STAGE3
+}
+
+stage_3(){
+	
+	echo " "
+    echo "###"
+    echo "###"
+	echo "### SIGpi Install (Stage 3)"
+	echo "###"
+	echo "###"
+	echo " "
+	cd $SIGPI_SOURCE
+
 
 	#
 	# INSTALL SDRANGEL
@@ -999,17 +998,13 @@ stage_4(){
 	echo " ## "
     echo " ## "
     echo " "
-	if test -f "$SIGPI_OPTION_BUILDHAM"; then
-		wget https://sourceforge.net/projects/hamlib/files/hamlib-4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
-		tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
-		cd $SIGPI_SOURCE/hamlib-4.3
-		./configure --prefix=/usr/local --enable-static
-		make
-		sudo make install
-		sudo ldconfig
-	else
-		sudo apt-get install -y hamlib
-	fi
+	wget https://sourceforge.net/projects/hamlib/files/hamlib-4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
+	tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
+	cd $SIGPI_SOURCE/hamlib-4.3
+	./configure --prefix=/usr/local --enable-static
+	make
+	sudo make install
+	sudo ldconfig
 
 	#
 	# INSTALL GPREDICT
@@ -1239,7 +1234,7 @@ stage_5(){
 	echo "  account to manage the VoIP server"
 	echo " "
 	sleep 15
-	dpkg-reconfigure mumble-server
+	sudo dpkg-reconfigure mumble-server
 
 	cat <<EOF
 For configurations for the remainder of the software consult 
