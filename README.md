@@ -25,6 +25,7 @@ Stage 1
 	- Ensure OS is current (update,upgrade)
 	- Pulse Audio Control (PAVU)
 	- Audacity
+
 Stage 2
 	- AX.25 and utilities
 	- VoIP Server/Client (Murmur/Mumble)
@@ -39,12 +40,12 @@ Stage 2
 	- SoapyRemote
 	- GPSd and Chrony
 	- Liquid-DSP
-
-Stage 3
 	- GNUradio 3.7.X
 	- Kismet
 	- GQRX
 	- CubicSDR
+
+Stage 3
 	- SDRangel Dependencies
 	- SDRangel
 	- SDRangel Wisdom File
