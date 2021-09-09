@@ -569,6 +569,19 @@ stage_2(){
 
 	rm $SIGPI_INSTALL_STAGE2
 	touch $SIGPI_INSTALL_STAGE3
+	
+	echo " "
+    echo "###"
+    echo "###"
+	echo "###      System needs to reboot for all changes to occur."
+	echo "###     Reboot will begin in 15 seconsds unless CTRL-C hit."
+    echo "###"
+	echo "###     After reboot run the script again to begin Stage 3"
+    echo "###"
+    echo "###"
+	sleep 17
+	sudo sync
+	sudo reboot
 }
 
 stage_3(){
@@ -998,7 +1011,7 @@ stage_4(){
 	echo " ## "
     echo " ## "
     echo " "
-	wget https://sourceforge.net/projects/hamlib/files/hamlib-4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
+	wget https://github.com/Hamlib/Hamlib/releases/download/4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
 	cd $SIGPI_SOURCE/hamlib-4.3
 	./configure --prefix=/usr/local --enable-static
