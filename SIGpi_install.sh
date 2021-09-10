@@ -73,7 +73,7 @@ SIGPI_SOURCE=$HOME/source
 SIGPI_HOME=$HOME/source/SIGbox
 
 # SDRangel Source directory
-SIGPI_SDRANGEL=$SIGPIHOME/SDRangel
+SIGPI_SDRANGEL=$SIGPI_HOME/SDRangel
 
 SIGPI_INSTALL_STAGE1=$SIGPI_HOME/stage_1
 SIGPI_INSTALL_STAGE2=$SIGPI_HOME/stage_2
@@ -882,7 +882,7 @@ stage_3(){
 	make -j4 install
 	cp /opt/install/LimeSuite/lib/SoapySDR/modules0.7/libLMS7Support.so /opt/install/SoapySDR/lib/SoapySDR/modules0.7
 
-	#SopayRemote
+	#SoapyRemote
 	echo " "
     echo "  # "
     echo "  # "
