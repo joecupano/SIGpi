@@ -542,6 +542,24 @@ stage_2(){
 	python3-gi-cairo libsamplerate0-dev
 	sudo apt-get install -y gnuradio
 
+    #
+    # INSTALL KISMET
+    #
+    echo " "
+    echo " ##"
+    echo " ##"
+    echo "- Install Kismet"
+    echo " ##"
+    echo " ##"
+    echo " "
+    wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
+    echo 'deb https://www.kismetwireless.net/repos/apt/release/buster buster main' | sudo tee /etc/apt/sources.list.d/kismet.list
+	sudo apt update
+    sudo apt-get install -y kismet
+    #
+    # Say yes when asked about suid helpers
+    #
+
 	#
 	# INSTALL GQRX-SDR
 	#
@@ -954,24 +972,6 @@ stage_3(){
     # Add VOX for Transimtting with SDRangel
 	cd $SIGPI_SOURCE
 	git clone https://gitlab.wibisono.or.id/published/voxangel.git
-
-    #
-    # INSTALL KISMET
-    #
-    echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install Kismet"
-    echo " ##"
-    echo " ##"
-    echo " "
-    wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
-    echo 'deb https://www.kismetwireless.net/repos/apt/release/buster buster main' | sudo tee /etc/apt/sources.list.d/kismet.list
-	sudo apt update
-    sudo apt-get install -y kismet
-    #
-    # Say yes when asked about suid helpers
-    #
 
 	rm $SIGPI_INSTALL_STAGE3
 	touch $SIGPI_INSTALL_STAGE4
