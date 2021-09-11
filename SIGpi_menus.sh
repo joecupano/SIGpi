@@ -54,6 +54,7 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/flr
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gnuradio-grc.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gpredict.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gqrx.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/message_aggregator.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/mumble.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/qsstv.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/wsjtx.desktop
