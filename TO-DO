@@ -2,3 +2,20 @@ TO-DO
 
 - RPi3 enable SPI in raspi-config so feature available in LimeSuite
 - Performing test CMAKE_HAVE_LIBC_PTHREAD failed during SoapyRemote compile. Does it matter?
+
+- Add the following applications; 
+--- Radiosonde (WX Balloon fun)
+--- Splat (P2P RF Comm links analysis)
+--- HackTV (Analogue TV TX for HackRF)
+--- Tempest-for-Eliza (demonstrate electromagnetic emissions from computer systems)
+--- Welle (DAB/DAB+ Software Radio)
+--- Multimon-ng (for its POCSAG capability)
+
+- Consider the following applications
+--- Drivers for BladeRF, Airspy, 
+--- AX25-xtools
+--- dmrconfig
+
+
+
+
