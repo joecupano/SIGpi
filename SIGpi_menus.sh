@@ -47,21 +47,21 @@ sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 # Add SigPi Category for each installed application
 #
 
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/CubicSDR.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/flarq.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/fldigi.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/flrig.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gnuradio-grc.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gpredict.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/gqrx.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/message_aggregator.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/mumble.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/qsstv.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/wsjtx.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" $DESKTOP_FILES/xastir.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" /usr/local/share/applications/direwolf.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" /usr/local/share/Lime/Desktop/lime-suite.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY/" /opt/install/sdrangel/share/applications/sdrangel.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/applications/direwolf.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/Lime/Desktop/lime-suite.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /opt/install/sdrangel/share/applications/sdrangel.desktop
 
 ##
 ## NOTES:
