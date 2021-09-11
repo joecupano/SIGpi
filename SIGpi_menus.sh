@@ -16,15 +16,15 @@
 SIGPI_SOURCE=$HOME/source
 
 # Home directory
-SIGPI_HOME=$HOME/source/SIGbox
+SIGPI_HOME=$SIGPI_SOURCE/SIGbox
 
 # Desktop directories
 SIGPI_DESKTOP=$SIGPI_HOME/desktop
-SIGPI_BACKGROUNDS=$IGPI_DESKTOP/backgrounds
+SIGPI_BACKGROUNDS=$SIGPI_DESKTOP/backgrounds
 SIGPI_ICONS=$SIGPI_DESKTOP/icons
 SIGPI_LOGO=$SIGPI_DESKTOP/logo
 SIGPI_MENU=$SIGPI_DESKTOP/menu
-SIGPI_BACKGROUNDS=$IGPI_DESKTOP/backgrounds
+SIGPI_BACKGROUNDS=$SIGPI_DESKTOP/backgrounds
 
 # Desktop Destination Directories
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
@@ -40,7 +40,7 @@ SIGPI_MENU_CATEGORY=SigPi
 # 
 
 sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
-sudo cp $SIGPI_MENU/SigPi.directory $DTOP_DIRECTORY
+sudo cp $SIGPI_MENU/SigPi.directory $DESKTOP_DIRECTORY
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 
 #
