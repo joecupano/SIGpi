@@ -39,9 +39,9 @@ SIGPI_MENU_CATEGORY=SigPi
 # Copy Menuitems into relevant directories
 # 
 
-sudo cp $SIGPI_MENUITEMS/sigpi_example.desktop $DESKTOP_FILES
-sudo cp $SIGPI_MENUITEMS/SigPi.directory $DTOP_DIRECTORY
-sudo cp $SIGPI_MENUITEMS/*.png $DTOP_ICONS
+sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
+sudo cp $SIGPI_MENU/SigPi.directory $DTOP_DIRECTORY
+sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 
 #
 # Add SigPi Category for each installed application
