@@ -24,13 +24,12 @@ SIGPI_BACKGROUNDS=$SIGPI_DESKTOP/backgrounds
 SIGPI_ICONS=$SIGPI_DESKTOP/icons
 SIGPI_LOGO=$SIGPI_DESKTOP/logo
 SIGPI_MENU=$SIGPI_DESKTOP/menu
-SIGPI_BACKGROUNDS=$SIGPI_DESKTOP/backgrounds
 
 # Desktop Destination Directories
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
 DESKTOP_FILES=/usr/share/applications
 DESKTOP_ICONS=/usr/share/icons
-#DTOP_XDG_MENU=/usr/local/share/extra-xdg-menus
+DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
@@ -41,7 +40,9 @@ SIGPI_MENU_CATEGORY=SigPi
 
 sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
 sudo cp $SIGPI_MENU/SigPi.directory $DESKTOP_DIRECTORY
+sudo cp $SIGPI_MENU/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
+#sudo ln -s $DESKTOP_XDG_MENU/SigPi.menu /etc/xdg/menus/applications-merged/SigPi.menu
 
 #
 # Add SigPi Category for each installed application
