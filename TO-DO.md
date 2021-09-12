@@ -5,17 +5,12 @@ TO-DO
 - SigPi SSL self-signed cert and key
 
 - Add the following applications in Beta; 
---- ~~Radiosonde (WX Balloon fun)~~
---- ~~Splat (P2P RF Comm links analysis)~~
---- ~~HackTV (Analogue TV TX for HackRF)~~
---- ~~Tempest-for-Eliza (demonstrate electromagnetic emissions from computer systems)~~
---- Welle (DAB/DAB+ Software Radio)
---- ~~Multimon-ng (for its POCSAG capability)~~
+-- Welle (DAB/DAB+ Software Radio)
 
 - Consider the following applications
---- Drivers for BladeRF, Airspy, 
---- AX25-xtools
---- dmrconfig
+-- Drivers for BladeRF, Airspy, 
+-- AX25-xtools
+-- dmrconfig
 
 
 
