@@ -27,7 +27,7 @@
 ### - HackRF
 ### - LimeSDR
 ### - PlutoSDR
-### - Bluetooth Baseband Library"
+### - Bluetooth Baseband Library
 ### - Ubertooth Tools
 ### - SoapySDR
 ### - SoapyRTLSDR
@@ -223,17 +223,20 @@ EOF
 	echo " - Create Swap file to improve compile time"
 	echo " ## "
     echo " "
+	if test -f /swapfile; then
+		sudo rm /swapfile
+	fi
 	sudo fallocate -l 2G /swapfile
 	sudo chmod 600 /swapfile
 	sudo mkswap /swapfile
 	sudo swapon /swapfile
 
-    echo " ## "
+        echo " ## "
 	echo " - Ensure OS is current (update,upgrade)"
 	echo " ## "
     echo " "
-	sudo apt-get -y update
-	sudo apt-get -y upgrade
+	sudo apt-get update
+	sudo apt-get upgrade
 
 	echo " "
 	echo " ## "
@@ -273,11 +276,10 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
 	sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -subj "/C=US/ST=New York/L=Hudson Valley/O=Hudson Valley Digital Network/OU=SIGpi/CN=hvdn.org" -keyout $SIGPI_API_SSL_KEY -out $SIGPI_API_SSL_CRT
 	sudo chown pi:pi $SIGPI_API_SSL_KEY >/dev/null 2>&1
 	sudo chown pi:pi $SIGPI_API_SSL_CRT >/dev/null 2>&1
- 
-    #
+
+	#
     # INSTALL PULSE AUDIO CONTROL
     #
-	
 	echo " "
     echo " ##"
     echo " ##"
@@ -290,7 +292,6 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
 	#
 	# INSTALL AUDACITY
 	#
-	
 	echo " "
     echo " ##"
     echo " ##"
@@ -430,6 +431,7 @@ stage_2(){
 	#
 	# INSTALL BLUETOOTH BASEBAND LIRBARY
 	#
+
 	echo " "
     echo " ## "
     echo " ## "
@@ -441,13 +443,14 @@ stage_2(){
 	cd libbtbb
 	mkdir build && cd build
 	cmake ..
-	make
+	make -j4
 	sudo make install
 	sudo ldconfig
 
 	#
 	# INSTALL UBERTOOTH TOOLS
 	#
+
 	echo " "
     echo " ## "
     echo " ## "
@@ -460,7 +463,7 @@ stage_2(){
 	cd ubertooth/host
 	mkdir build && cd build
 	cmake ..
-	make
+	make -j4
 	sudo make install
 	
 	# Wireshark Plug-in
@@ -468,19 +471,20 @@ stage_2(){
 	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
 	mkdir build && cd build
 	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-	make
+	make -j4
 	sudo make install
 	
 	# BTBR Plugin
 	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
 	mkdir build && cd build
 	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-	make
+	make -j4
 	sudo make install
 
 	#
 	# INSTALL SOAPYSDR
 	#
+
 	echo " "
     echo " ## "
     echo " ## "
@@ -650,7 +654,7 @@ stage_2(){
     # Say yes when asked about suid helpers
     #
 
-	#
+#
     # INSTALL WIRESHARK
     #
     
@@ -729,7 +733,7 @@ stage_2(){
 	#
 	# INSTALL GQRX-SDR
 	#
-	
+
 	echo " "
     echo " ## "
     echo " ## "
@@ -738,7 +742,7 @@ stage_2(){
     echo " ## "
 	echo " "
     sudo apt-get install -y gqrx-sdr
-	
+
 	#
 	# INSTALL CUBICSDR
 	#
@@ -753,7 +757,7 @@ stage_2(){
     sudo apt-get install -y cubicsdr
 
 	#
-    # INSTALL UNIVERAL RADIO HACKER
+    # INSTALL UNIVERSAL RADIO HACKER
     #
     
 	echo " "
@@ -821,7 +825,6 @@ stage_2(){
 	git clone https://git.osmocom.org/op25
 	cd op25
 	./install.sh
-
 
 	rm $SIGPI_INSTALL_STAGE2
 	touch $SIGPI_INSTALL_STAGE3
@@ -1435,6 +1438,7 @@ stage_5(){
     echo " ##"
     echo " "
     if test -f "$SIGPI_OPTION_BUILDHAM"; then
+		sudo apt-get install -y qt5-default libpulse-dev
 		sudo apt-get install -y libhamlib-dev libv4l-dev
 		sudo apt-get install -y libopenjp2-7 libopenjp2-7-dev
 		wget http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz -P $HOME/Downloads
@@ -1446,6 +1450,18 @@ stage_5(){
 	else
 		sudo apt-get install -y qsstv
 	fi
+
+	#
+	# INSTALL HAM RADIO MENUS
+	#
+    echo " "
+    echo " ##"
+    echo " ##"
+	echo " - Ham Radio App Menu"
+    echo " ##"
+    echo " ##"
+	echo " "
+    sudo apt-get install -y hamradiomenus
 
 	#
 	# CONFIGURATIONS
@@ -1520,6 +1536,13 @@ fi
 
 if test -f "$SIGPI_INSTALL_STAGE5"; then
 	stage_5
+fi
+
+# Get to her emeans were done. Shutoff and delete swapfile
+
+if test -f /swapfile; then
+	sudo swapoff /swapfile
+	sudo rm /swapfile
 fi
 
 echo "*** "
