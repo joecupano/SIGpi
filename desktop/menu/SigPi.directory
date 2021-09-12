@@ -1,5 +1,5 @@
 [Desktop Entry]
-Type=Directory
-Encoding=UTF-8
 Name=SigPi
+Comment=SigPi
 Icon=/usr/share/icons/sigpi_icon_32x32.png
+Type=Directory
