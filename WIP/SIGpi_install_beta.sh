@@ -39,6 +39,7 @@
 ### - GNUradio 3.7X
 ### - Kismet
 ###	- Wireshark
+### - HackTV
 ###	- LTE Cell Scanner
 ###	- IMSI Catcher
 ### - GQRX
@@ -51,10 +52,14 @@
 ### - SDRangel Wisdom File
 ### - VOX for SDRangel
 ### - Gpredict
+### - Splat
 ### - HamLib
 ### - DireWolf 1.7
 ### - Linpac
 ### - Xastir
+### - Multimon-NG
+### - RadioSonde
+### - TEMPEST for Eliza
 ### - FLdigi Suite (FLxmlrpc, Flrig, Fldigi)
 ### - WSJT-X
 ### - QSSTV
@@ -72,9 +77,18 @@ FLRIG_PKG="flrig-1.4.2.tar.gz"
 FLDIGI_PKG="fldigi-4.1.20.tar.gz"
 WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
 QSSTV_PKG="qsstv_9.5.8.tar.gz"
+LIBBTBB_VERSION="2020-12-R1"
+UBERTOOTH_VERSION="2020-12-R1"
+GRGSM_VERSION="0.42.2"
+URH_VERSION="2.9.2"
+
 
 # Source Directory
 SIGPI_SOURCE=$HOME/source
+
+# Executable Directory (will be created as root)
+SIGPI_OPT=/opt/SIGpi
+SIGPI_EXE=$SIGPI_OPT/bin
 
 # SIGpi Home directory
 SIGPI_HOME=$SIGPI_SOURCE/SIGbox
@@ -91,7 +105,6 @@ SIGPI_INSTALL_STAGE5=$SIGPI_HOME/stage_5
 
 # Install options
 SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
-
 
 # SigPi SSL Cert and Key
 SIGPI_API_SSL_KEY=$SIGPI_HOME/SIGpi_api.key
@@ -113,6 +126,14 @@ stage_1(){
 	##
     ## CREATE DIRECTORIES
     ##
+
+	if [ ! -d "$SIGPI_OPT" ]; then
+    	mkdir $SIGPI_OPT
+    fi
+    
+	if [ ! -d "$SIGPI_EXE" ]; then
+    	mkdir $SIGPI_EXE
+    fi
 
     if [ ! -d "$SIGPI_SOURCE" ]; then
     	mkdir $SIGPI_SOURCE
@@ -182,6 +203,7 @@ Stage 2
 	- GNUradio 3.7X
     - Kismet
 	- Wireshark
+	- HackTV
 	- LTE Cell Scanner
 	- IMSI Catcher
 	- GQRX
@@ -199,9 +221,12 @@ Stage 3
 Stage 4
 	- HamLib
     - Gpredict
+	- Splat
     - DireWolf 1.7
 	- Linpac
 	- Xastir
+	- Multimon-NG
+	- RadioSonde
 
 Stage 5
 	- FLdigi Suite (FLxmlrpc, Flrig, Fldigi)
@@ -257,7 +282,8 @@ libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev pulseaudio libopencv-dev 
 libaio-dev libnova-dev libwxgtk-media3.0-dev gettext libcairo2-dev ffmpeg libavcodec-dev libpcap-dev\
 libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev portaudio19-dev doxygen \
 libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python-docutils
-	sudo apt-get install -y qt5-default libpulse-dev libliquid-dev
+	sudo apt-get install -y qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev \
+libavdevice-dev libavutil-dev 
 	sudo python3 -m pip install --upgrade pip
     sudo pip3 install pygccxml
 
@@ -440,6 +466,7 @@ stage_2(){
     echo " ## "
 	echo " "
 	cd $SIGPI_SOURCE
+	git clone https://github.com/greatscottgadgets/libbtbb.git
 	cd libbtbb
 	mkdir build && cd build
 	cmake ..
@@ -654,7 +681,7 @@ stage_2(){
     # Say yes when asked about suid helpers
     #
 
-#
+	#
     # INSTALL WIRESHARK
     #
     
@@ -666,6 +693,22 @@ stage_2(){
     echo " ##"
     echo " "
     sudo apt install -y wireshark
+
+	#
+	# INSTALL HACKTV
+	#
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo "- Install HackTV"
+    echo " ##"
+    echo " ##"
+    echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/fsphil/hacktv.git
+	cd hacktv
+	make
+	sudo make install
 
     #
     # INSTALL LTE Cell Scanner
@@ -1273,8 +1316,21 @@ stage_4(){
     sudo apt-get install -y gpredict
 
 	#
+	# INSTALL SPLAT
+	#
+    echo " "
+    echo " ##"
+    echo " ##"
+	echo " - Install Splat"
+	echo " ##"
+    echo " ##"
+	echo " "
+	sudo apt-get install -y splat
+
+	#
 	# INSTALL DIREWOLF
 	#
+
     echo " "
     echo " ##"
     echo " ##"
@@ -1294,6 +1350,7 @@ stage_4(){
 	#
 	# INSTALL LINPAC (PACKET TERMINAL)
 	#
+
     echo " "
     echo " ##"
     echo " ##"
@@ -1317,10 +1374,252 @@ stage_4(){
     sudo apt-get install -y xastir
 	sudo usermod -a -G xastir-ax25 pi
 
+	#
+	# INSTALL MULTIMON-NG
+	#
+
+    echo " "
+    echo " ##"
+    echo " ##"
+	echo " - Install Multimon-NG"
+	echo " ##"
+    echo " ##"
+	echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/EliasOenal/multimon-ng.git
+	cd multimon-ng
+	mkdir build && cd build
+	qmake ../multimon-ng.pro
+	make
+	sudo make install
+
+
+	#
+	# INSTALL RADIOSONDE
+	#
+
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install RadioSonde (RS)"
+	echo " ##"
+    echo " ##"
+    echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/rs1729/RS.git
+	cd $SIGPI_SOURCE/RS
+	
+	echo "  #"
+    echo "  - C34"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/c34
+	gcc c34dft.c -lm -o c34dft
+	gcc c50dft.c -lm -o c50dft
+	sudo chown root:root c34dft c50dft
+	sudo cp c34dft c50dft $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - M10"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/m10
+	gcc m10ptu.c -lm -o m10ptu
+	gcc m10gtop.c -lm -o m10gtop
+	gcc m12.c -lm -o m12
+	sudo chown root:root m10ptu m10gtop m12
+	sudo cp m10ptu m10gtop m12 $SIGPI_EXE
+
+	echo "  #"
+    echo "  - Meisei"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/meisei
+	gcc meisei_ecc.c -lm -o meisei_ecc
+	gcc meisei_ims.c -lm -o meisei_ims
+	gcc meisei_rs.c -lm -o meisei_rs
+	sudo chown root:root meisei_ecc meisei_ims meisei_rs
+	sudo cp meisei_ecc meisei_ims meisei_rs $SIGPI_EXE
+
+	echo "  #"
+    echo "  - RS92"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/rs92
+	gcc rs92gps.c -lm -o rs92gps
+	sudo chown root:root rs92gps
+	sudo cp rs92gps $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - RS41"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/rs42
+	gcc rs41ptu.c -lm -o rs41ptu
+	sudo chown root:root rs41ptu
+	sudo cp rs41ptu $SIGPI_EXE
+
+	echo "  #"
+    echo "  - RS41"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/lms6
+	gcc lms6.c -lm -o lms6
+	gcc lms6ccsds.c -lm -o lms6ccsds
+	gcc lms6ecc.c -lm -o lms6ecc
+	gcc lmsX2446.c -lm -o lmsX2446 
+	sudo chown root:root lms6 lms6ccsds lms6ecc lmsX2446 
+	sudo cp lms6 lms6ccsds lms6ecc lmsX2446 $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - ECC"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/ecc
+	gcc bch_ecc.c -lm -o bch_ecc
+	gcc crc_polymod.c -lm -o crc_polymod
+	gcc ecc-rs_gf16.c -lm -o ecc-rs_gf16
+	gcc ecc-rs_vaisala.c -lm -o ecc-rs_vaisala
+	sudo chown root:root bch_ecc crc_polymod ecc-rs_gf16 ecc-rs_vaisala
+	sudo cp bch_ecc crc_polymod ecc-rs_gf16 ecc-rs_vaisala $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - IQ"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/iq
+	gcc shift_IQ.c -lm -o shift_IQ
+	gcc wavIQ.c -lm -o wavIQ
+	sudo chown root:root shift_IQ wavIQ
+	sudo cp shift_IQ wavIQ $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - IMET"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/imet
+	gcc imet1ab.c -lm -o imet1ab
+	gcc imet1ab_cpafsk.c -lm -o imet1ab_cpafsk
+	gcc imet1rs_dft.c -lm -o imet1rs_dft
+	gcc imet1rs_dft_1.c -lm -o imet1rs_dft_1
+	gcc imet1rsb.c -lm -o imet1rsb
+	sudo chown root:root imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1
+	sudo cp imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1 $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - DFM-06/DFM-09"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/dfm
+	gcc dfm06ptu.c -lm -o dfm06ptu
+	sudo chown root:root dfm06ptu
+	sudo cp dfm06ptu $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - MK2A"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/mk2a
+	gcc mk2a.c -lm -o mk2a
+	gcc mk2a1680mode.c -lm -o mk2a1680mod
+	gcc mk2alms1680.c -lm -o mk2alms1680
+	sudo chown root:root mk2a mk2a1680mod mk2alms1680
+	sudo cp mk2a mk2a1680mod mk2alms1680 $SIGPI_EXE
+
+	echo "  #"
+    echo "  - MRZ"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/mrz
+	gcc mp3h1.c -lm -o mp3h1
+	sudo chown root:root mp3h1
+	sudo cp mp3h1 $SIGPI_EXE
+
+	echo "  #"
+    echo "  - DropSonde"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/dropsonde
+	gcc rt94drop.c -lm -o rt94drop
+	sudo chown root:root rt94drop
+	sudo cp rt94drop $SIGPI_EXE
+
+	echo "  #"
+    echo "  - Decod RS Module"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/rs_module
+	sudo gcc -c demod_dft.c
+	gcc -c rs_datum.c
+	gcc -c rs_demod.c
+	gcc -c rs_bch_ecc.c
+	gcc -c rs_rs41.c
+	gcc -c rs_rs92.c
+	gcc -c rs_main41.c
+	gcc rs_main41.o rs_rs41.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs41mod
+	gcc -c rs_main92.c
+	gcc rs_main92.o rs_rs92.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs92mod
+	sudo cp rs41mod rs92mode $SIGPI_EXE
+	
+	echo "  #"
+    echo "  - Decoders"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/demod
+	sudo gcc -c demod_dft.c
+	gcc rs41dm_dft.c demod_dft.o -lm -o rs41dm_dft
+	gcc dfm09dm_dft.c demod_dft.o -lm -o dfm09dm_dft
+	gcc m10dm_dft.c demod_dft.o -lm -o m10dm_dft
+	gcc lms6dm_dft.c demod_dft.o -lm -o lms6dm_dft
+	gcc rs92dm_dft.c demod_dft.o -lm -o rs92dm_dft
+	sudo chown root:root rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft
+	sudo cp rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft sudo cp rt94drop $SIGPI_EXE
+
+	echo "  #"
+    echo "  - Tools"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/tools
+	gcc -C pa-stdout.c
+	sudo cp pa-stdout $SIGPI_EXE
+	sudo cp metno_netcdf_gpx.py pos2aprs.pl pos2gpx.pl pos2kml.pl pos2nmea.pl $SIGPI_EXE
+
+	echo "  #"
+    echo "  - Scan"
+	echo "  #"
+	echo " "
+	cd $SIGPI_SOURCE/RS/scan
+	gcc -C dft_detect.c
+	gcc -C reset_usb.c
+	gcc -C rs_detect.c
+	gcc -C scan_fft_pow.c
+	gcc -C scan_fft_simple.c
+	sudo cp diff_detect reset_usb rs_detect scan_fft_pow scan_fft_simpl $SIGPI_EXE
+	sudo cp plot_fft_pow.py plot_fft_simple.py rtlsdr_scan.pl scan_multi.sh scan_multi_rs.pl $SIGPI_EXE
+
+	#
+	# INSTALL TEMPEST FOR ELIZA
+	#
+	
+    echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install TEMPEST for ELiza"
+	echo " ## "
+    echo " ## "
+    echo " "
+	wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
+	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
+	cd $SIGPI_SOURCE/tempest_for_eliza-1.0.5
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
+
 	rm $SIGPI_INSTALL_STAGE4
 	touch $SIGPI_INSTALL_STAGE5
 
-	echo " "
+    echo " "
     echo "###"
     echo "###"
 	echo "###      System needs to reboot for all changes to occur."
@@ -1452,18 +1751,6 @@ stage_5(){
 	fi
 
 	#
-	# INSTALL HAM RADIO MENUS
-	#
-    echo " "
-    echo " ##"
-    echo " ##"
-	echo " - Ham Radio App Menu"
-    echo " ##"
-    echo " ##"
-	echo " "
-    sudo apt-get install -y hamradiomenus
-
-	#
 	# CONFIGURATIONS
 	#
 
@@ -1538,7 +1825,7 @@ if test -f "$SIGPI_INSTALL_STAGE5"; then
 	stage_5
 fi
 
-# Get to her emeans were done. Shutoff and delete swapfile
+# Get to here means were done. Shutoff and delete swapfile
 
 if test -f /swapfile; then
 	sudo swapoff /swapfile
