@@ -42,6 +42,9 @@ sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
 sudo cp $SIGPI_MENU/SigPi.directory $DESKTOP_DIRECTORY
 sudo cp $SIGPI_MENU/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
+sudo cp /usr/local/share/applications/direwolf.desktop $DESKTOP_FILES
+sudo cp /usr/local/share/Lime/Desktop/lime-suite.desktop $DESKTOP_FILES
+sudo cp /opt/install/sdrangel/share/applications/sdrangel.desktop $DESKTOP_FILES
 sudo ln -s $DESKTOP_XDG_MENU/SigPi.menu /etc/xdg/menus/applications-merged/SigPi.menu
 
 #
@@ -60,9 +63,9 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mu
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/applications/direwolf.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/Lime/Desktop/lime-suite.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /opt/install/sdrangel/share/applications/sdrangel.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
 
 ##
 ## NOTES:
@@ -130,7 +133,6 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /opt/install/sdra
 
  /usr/share/desktop-directories/HamRadio.directory
 '
-
 
 
 
