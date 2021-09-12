@@ -4,13 +4,13 @@ TO-DO
 - Performing test CMAKE_HAVE_LIBC_PTHREAD failed during SoapyRemote compile. Does it matter?
 - SigPi SSL self-signed cert and key
 
-- Add the following applications; 
---- Radiosonde (WX Balloon fun)
---- Splat (P2P RF Comm links analysis)
---- HackTV (Analogue TV TX for HackRF)
---- Tempest-for-Eliza (demonstrate electromagnetic emissions from computer systems)
+- Add the following applications in Beta; 
+--- ~~Radiosonde (WX Balloon fun)~~
+--- ~~Splat (P2P RF Comm links analysis)~~
+--- ~~HackTV (Analogue TV TX for HackRF)~~
+--- ~~Tempest-for-Eliza (demonstrate electromagnetic emissions from computer systems)~~
 --- Welle (DAB/DAB+ Software Radio)
---- Multimon-ng (for its POCSAG capability)
+--- ~~Multimon-ng (for its POCSAG capability)~~
 
 - Consider the following applications
 --- Drivers for BladeRF, Airspy, 
