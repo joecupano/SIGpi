@@ -42,7 +42,7 @@ sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
 sudo cp $SIGPI_MENU/SigPi.directory $DESKTOP_DIRECTORY
 sudo cp $SIGPI_MENU/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
-#sudo ln -s $DESKTOP_XDG_MENU/SigPi.menu /etc/xdg/menus/applications-merged/SigPi.menu
+sudo ln -s $DESKTOP_XDG_MENU/SigPi.menu /etc/xdg/menus/applications-merged/SigPi.menu
 
 #
 # Add SigPi Category for each installed application
