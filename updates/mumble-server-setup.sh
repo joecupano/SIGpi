@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###
-### Murmer-Server-Setup
+### Mumble-Server-Setup
 ### 
 
 ##

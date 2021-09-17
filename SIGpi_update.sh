@@ -6,31 +6,27 @@
 ### 
 
 ###
-###   REVISION: v02
-###
-
-###
 ###
 ### This script is part of the SIGbox Project.
 ###
-### Given a Raspberry Pi 4 4GB RAM 32GB microSD with Raspberry Pi OS Full (32-bit) installed
-### This script installs drivers and applications for RF use cases that include hacking and 
-### Amateur Radio Digital Modes.
-###
-### Applications and driver updates include
+### Updates RELEASE_1 with the following applications
 ###
 ### - Bluetooth Baseband Library
 ### - Ubertooth Tools
 ###	- Wireshark
-### - HackTV
-###	- LTE Cell Scanner
 ###	- IMSI Catcher
-### - Universal Radio Hacker
-### - Inspectrum
 ### - RTL_433
 ### - Splat
 ### - Multimon-NG
 ### - TEMPEST for Eliza
+###
+### Future update to include
+###
+### * HackTV
+###	* LTE Cell 
+### * Universal Radio Hacker
+### * Inspectrum
+
 
 
 ##
@@ -39,12 +35,6 @@
 
 # Package Versions
 
-HAMLIB_PKG="hamlib-4.3.tar.gz"
-FLXMLRPC_PKG="flxmlrpc-0.1.4.tar.gz"
-FLRIG_PKG="flrig-1.4.2.tar.gz"
-FLDIGI_PKG="fldigi-4.1.20.tar.gz"
-WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
-QSSTV_PKG="qsstv_9.5.8.tar.gz"
 LIBBTBB_VERSION="2020-12-R1"
 UBERTOOTH_VERSION="2020-12-R1"
 GRGSM_VERSION="0.42.2"

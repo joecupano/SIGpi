@@ -1,12 +1,13 @@
 #!/bin/bash
 
 ###
-### SIGpi_config-packet
+### SIGpi_config-direwolf
 ### 
 
 ###
-###   REVISION: 20210905-0420 
+### Config firewolf.conf located in $HOME
 ###
+
 if [ !${1} ]; then
     echo "missing callsign"
     exit 0
