@@ -14,7 +14,6 @@
 ### - Bluetooth Baseband Library
 ### - Ubertooth Tools
 ###	- Wireshark
-###	- IMSI Catcher
 ### - RTL_433
 ### - Splat
 ### - Multimon-NG
@@ -23,10 +22,10 @@
 ### Future update to include
 ###
 ### * HackTV
+###	- IMSI Catcher
 ###	* LTE Cell 
 ### * Universal Radio Hacker
 ### * Inspectrum
-
 
 
 ##
@@ -79,7 +78,7 @@ SIGPI_INSTALL_STAGE5=$SIGPI_HOME/stage_5
 SIGPI_INSTALL_COMPLETE=$SIGPI_HOME/INSTALLED
 SIGPI_UPDATE_STAGEU1=$SIGPI_HOME/stage_U1
 SIGPI_UPDATE_STAGEU2=$SIGPI_HOME/stage_U2
-SIGPI_UPDATE_COMPLETE=$SIGPI_HOME/UPDATED
+SIGPI_UPDATE_COMPLETE=$SIGPI_HOME/UPDATED_R1
 
 # Install options
 SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
@@ -97,30 +96,6 @@ stage_U1(){
 	##
     ## CREATE DIRECTORIES
     ##
-
-	if [ ! -d "$SIGPI_OPT" ]; then
-    	mkdir $SIGPI_OPT
-		sudo mkdir -p $SIGPI_OPT
-		sudo chown pi:users $SIGPI_OPT
-    fi
-    
-	if [ ! -d "$SIGPI_EXE" ]; then
-    	mkdir $SIGPI_EXE
-		sudo mkdir -p $SIGPI_EXE
-		sudo chown pi:users $SIGPI_EXE
-    fi
-
-    if [ ! -d "$SIGPI_SOURCE" ]; then
-    	mkdir $SIGPI_SOURCE
-    fi
-    
-    if [ ! -d "$SIGPI_HOME" ]; then
-    	mkdir $SIGPI_HOME
-    fi
-    
-	if [ ! -d "$SIGPI_SDRANGEL" ]; then
-    	mkdir $SIGPI_SDRANGEL
-    fi
 
 	cd $SIGPI_SOURCE
 
@@ -365,113 +340,6 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
     sudo apt install -y wireshark
 
 	#
-	# INSTALL HACKTV  soapysdr.c:135:5: error: too many arguments to function ‘SoapySDRDevice_setupStream’
-	#
-	#
-	#echo " "
-    #echo " ##"
-    #echo " ##"
-    #echo " - Install HackTV  (KNown issue with SoapySDR)"
-    #echo " ##"
-    #echo " ##"
-    #echo " "
-    #cd $SIGPI_SOURCE
-	#git clone https://github.com/fsphil/hacktv.git
-	#cd hacktv
-	#make
-	#sudo make install
-
-    #
-    # INSTALL LTE Cell Scanner (Could not fine ITPP library)
-    #
-    #
-	#echo " "
-    #echo " ##"
-    #echo " ##"
-    #echo " - Install LTE Cell Scanner"
-    #echo " ##"
-    #echo " ##"
-    #echo " "
-    #cd $SIGPI_SOURCE
-	#git clone https://github.com/Evrytania/LTE-Cell-Scanner.git
-	#cd LTE-Cell-Scanner
-	#mkdir build && cd build
-	#cmake ..
-	#make
-	#sudo make install
-
-    #
-    # INSTALL IMSI Catcher
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo " - Install IMSI Catcher"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/Oros42/IMSI-catcher.git
-	cd IMSI-catcher
-	
-	#
-    # INSTALL GR-GSM
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo " - Install GR-GSM"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone git clone https://git.osmocom.org/gr-gsm
-	cd gr-gsm
-	mkdir build && cd build
-	cmake ..
-	make -j 4
-	sudo make install
-	sudo ldconfig
-	echo 'export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH' >> ~/.bashrc
-
-	#
-    # INSTALL UNIVERSAL RADIO HACKER
-    #
-    
-	#echo " "
-    #echo " ##"
-    #echo " ##"
-    #echo "- Install Universal Radio Hacker"
-    #echo " ##"
-    #echo " ##"
-    #echo " "
-    #cd $SIGPI_SOURCE
-	#git clone https://github.com/jopohl/urh/
-	#cd urh
-	#python setup.py install  # Issue with Line 44
-
-	#
-    # INSTALL INSPECTRUM
-    #
-
-	#echo " "
-    #echo " ##"
-    #echo " ##"
-    #echo "- Install Inspectrum "
-    #echo " ##"
-    #echo " ##"
-    #echo " "
-    #cd $SIGPI_SOURCE
-	#git clone https://github.com/miek/inspectrum.git
-	#cd inspectrum
-	#mkdir build && cd build
-	#cmake ..
-	#make
-	#sudo make install
-
-	#
     # INSTALL RTL_433
     #
 
@@ -556,6 +424,122 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
 	sudo make install
 	sudo ldconfig
 
+}
+
+stage_U2(){
+
+	echo " "
+
+	#
+    # INSTALL GR-GSM  (needs Gnuiradio 3.8)
+    #
+    
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo " - Install GR-GSM"
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://git.osmocom.org/gr-gsm
+	#cd gr-gsm
+	#mkdir build && cd build
+	#cmake ..
+	#make -j 4
+	#sudo make install
+	#sudo ldconfig
+	#echo 'export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH' >> ~/.bashrc
+
+	#
+	# INSTALL HACKTV  soapysdr.c:135:5: error: too many arguments to function ‘SoapySDRDevice_setupStream’
+	#
+	#
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo " - Install HackTV  (KNown issue with SoapySDR)"
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://github.com/fsphil/hacktv.git
+	#cd hacktv
+	#make
+	#sudo make install
+
+    #
+    # INSTALL LTE Cell Scanner (Could not fine ITPP library)
+    #
+    #
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo " - Install LTE Cell Scanner"
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://github.com/Evrytania/LTE-Cell-Scanner.git
+	#cd LTE-Cell-Scanner
+	#mkdir build && cd build
+	#cmake ..
+	#make
+	#sudo make install
+
+    #
+    # INSTALL IMSI Catcher
+    #
+    
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo " - Install IMSI Catcher"
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://github.com/Oros42/IMSI-catcher.git
+	#cd IMSI-catcher
+	
+	#
+    # INSTALL UNIVERSAL RADIO HACKER
+    #
+    
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo "- Install Universal Radio Hacker"
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://github.com/jopohl/urh/
+	#cd urh
+	#python setup.py install  # Issue with Line 44
+
+	#
+    # INSTALL INSPECTRUM
+    #
+
+	#echo " "
+    #echo " ##"
+    #echo " ##"
+    #echo "- Install Inspectrum "
+    #echo " ##"
+    #echo " ##"
+    #echo " "
+    #cd $SIGPI_SOURCE
+	#git clone https://github.com/miek/inspectrum.git
+	#cd inspectrum
+	#mkdir build && cd build
+	#cmake ..
+	#make
+	#sudo make install
+}
+
+stage_U3(){
+
 	#
 	# INSTALL SIGPI MENU
 	#
@@ -584,25 +568,8 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
 	# Add SigPi Category for each installed application
 	#
 
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
-
-	# Remove Rogue desktop file to ensure we use the one we provided for direwolf
-	sudo rm -rf /usr/local/share/applications/direwolf.desktop
+	 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
+	 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
 
 
 	#
@@ -618,7 +585,6 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
 	echo " "
 	cd $SIGPI_SOURCE
 
-
 	cat <<EOF
 For configurations for the remainder of the software consult 
 the README on the SIGbox Repo.
@@ -628,7 +594,6 @@ https://github.com/joecupano/SIGbox/blob/main/README.md
 EOF
 
 }
-
 
 ##
 ## START
@@ -648,7 +613,7 @@ echo " "
 if test ! -f "$SIGPI_INSTALL_COMPLETE"; then
 	echo "*** "
 	echo "*** "
-	echo "***   UPDATE FAIL - Does not appear this is a complete install"
+	echo "***   UPDATE FAIL - Does not appear to be a completed RELEASE-1 install"
 	echo "*** "
 	echo "*** "
 	echo " "
@@ -656,6 +621,8 @@ if test ! -f "$SIGPI_INSTALL_COMPLETE"; then
 fi
 
 stage_U1
+stage_U2
+stage_U3
 
 # Make python scripts executable in /opt/SIGpi/bin
 cd $SIGPI_EXE
