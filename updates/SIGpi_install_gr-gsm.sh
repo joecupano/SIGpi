@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###
-### SIGpi INstall GR_GSM
+### SIGpi Install GR_GSM
 ###
 ### 
 
@@ -60,13 +60,13 @@ SIGPI_API_SSL_CRT=$SIGPI_HOME/SIGpi_api.crt
 
 echo "### "
 echo "### "
-echo "###  SIGpi Update - GNUradio 3.8 Install"
+echo "###  SIGpi - GR-GSM Install"
 echo "### "
 echo "### "
 echo " "
 
 #
-# INSTALL GNUradio 3.8
+# INSTALL GR-GSM (requires GNUradio 3.8)
 #
 
 echo " "
@@ -76,32 +76,19 @@ echo " - Install GR-GSM"
 echo " ##"
 echo " ##"
 echo " "
-cd $SIGPI_SOURCE
 sudo apt-get install -y osmo-sdr libosmosdr-dev
 sudo apt-get install -y libosmocore libosmocore-dev
 sudo apt-get install -y libosmocore-utils
 sudo dpkg -L libosmocore-utils
-sudo apt-get install -y libcppunit-dev swig doxygen liblog4cpp5-dev python-docutils
-sudo apt-get install -y apt install gr-osmosdr
-ls -lhF /usr/share/gnuradio/grc/blocks/osmosdr_*
-ls -lhF /usr/share/gnuradio/grc/blocks/rtlsdr_*
-git clone https://github.com/ptrkrysik/gr-gsm.git
-free -m
+cd $SIGPI_SOURCE
+git clone https://git.osmocom.org/gr-gsm
+cd gr-gsm
 mkdir build && cd build
-cmake ../
-echo $MAKEFLAGS
-make
+cmake ..
+make -j4
 sudo make install
 sudo ldconfig
-
-#vi /etc/bash.bashrc
-#
-#export PYTHONPATH=/usr/lib/python3/dist-packages
-#export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3/dist-packages
-#export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python3.8/dist-packages
-#
-#source /etc/bash.bashrc
-
+echo 'export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH' >> ~/.bashrc
 
 #
 # Copy Menuitems into relevant directories
