@@ -17,40 +17,6 @@
 ### This script installs drivers and applications for RF use cases that include hacking and 
 ### Amateur Radio Digital Modes.
 ###
-### Applications and drivers include
-###
-### - Pulse Audio Control (PAVU)
-### - Audacity
-### - AX.25 and utilities
-### - VoIP Server/Client (Murmur/Mumble)
-### - RTLSDR
-### - HackRF
-### - LimeSDR
-### - PlutoSDR
-### - SoapySDR
-### - SoapyRTLSDR
-### - SoapyHackRF
-### - SoapyPlutoSDR
-### - SoapyRemote
-### - GPSd and Chrony
-### - Liquid-DSP
-### - GNUradio 3.7X
-### - Kismet
-### - GQRX
-### - CubicSDR
-### - SDRangel Dependencies
-### - SDRangel
-### - SDRangel Wisdom File
-### - VOX for SDRangel
-### - Gpredict
-### - HamLib
-### - DireWolf 1.7
-### - Linpac
-### - Xastir
-### - FLdigi Suite (FLxmlrpc, Flrig, Fldigi)
-### - WSJT-X
-### - QSSTV
-### - Ham Radio Menus
 
 
 ##
@@ -65,6 +31,7 @@ FLRIG_PKG="flrig-1.4.2.tar.gz"
 FLDIGI_PKG="fldigi-4.1.20.tar.gz"
 WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
 QSSTV_PKG="qsstv_9.5.8.tar.gz"
+GNURADIO_PKG="gnuradio_3.8"
 
 # Source Directory
 SIGPI_SOURCE=$HOME/source
@@ -97,9 +64,9 @@ SIGPI_INSTALL_STAGE2=$SIGPI_HOME/sigpi_libsdrivers
 SIGPI_INSTALL_STAGE3=$SIGPI_HOME/sigpi_gnuradio
 SIGPI_INSTALL_STAGE4=$SIGPI_HOME/sigpi_sdrapps
 SIGPI_INSTALL_STAGE5=$SIGPI_HOME/sigpi_sdrangel
-SIGPI_INSTALL_STAGE6=$SIGPI_HOME/sigpi_sdrpacket
-SIGPI_INSTALL_STAGE7=$SIGPI_HOME/sigpi_sdrham
-SIGPI_INSTALL_STAGE8=$SIGPI_HOME/sigpi_custom
+SIGPI_INSTALL_STAGE6=$SIGPI_HOME/sigpi_packet
+SIGPI_INSTALL_STAGE7=$SIGPI_HOME/sigpi_ham
+SIGPI_INSTALL_STAGE8=$SIGPI_HOME/sigpi_wrapping
 SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
 
 ##
@@ -118,7 +85,7 @@ sigpi_dependencies(){
 	echo " "
     echo "### "
     echo "### "
-	echo "###  Dependencies"
+	echo "###  DEPENDENCIES"
 	echo "### "
     echo "### "
 	echo " "
@@ -190,30 +157,6 @@ sigpi_dependencies(){
 	sudo python3 -m pip install --upgrade pip
 	sudo pip3 install pygccxml
 
-    #
-    # INSTALL PULSE AUDIO CONTROL
-    #
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo " - Install Pulse Audio Control (PAVU)"
-    echo " ##"
-    echo " ##"
-    echo " "
-    sudo apt-get install -y pavucontrol
-
-	#
-	# INSTALL AUDACITY
-	#
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo " - Install Audacity (Audio Editing)"
-	echo " ##"
-    echo " ##"
-    echo " "
-    sudo apt-get install -y audacity
-
     rm $SIGPI_INSTALL_STAGE1
     touch $SIGPI_INSTALL_STAGE2
 }
@@ -223,7 +166,7 @@ sigpi_libsdrivers(){
     echo " "
 	echo "### "
     echo "### "
-	echo "###   Drivers and Libraries"
+	echo "###   LIBRARIES AND DRIVERS"
     echo "### "
     echo "### "
 	cd $SIGPI_SOURCE
@@ -604,17 +547,18 @@ sigpi_libsdrivers(){
 
 sigpi_gnuradio(){
 	
-    #
+    echo " "
+	echo " ###"
+	echo " ###"
+	echo " ###  GNURADIO 3.8"
+	echo " ###"
+	echo " ###"
+	echo " "
+	
+	#
 	# INSTALL GNURADIO 3.8
 	#
 
-	echo " "
-	echo " ##"
-	echo " ##"
-	echo " - Install GNUradio 3.8"
-	echo " ##"
-	echo " ##"
-	echo " "
 	cd $SIGPI_SOURCE
 	git clone https://github.com/gnuradio/gnuradio.git
 	cd gnuradio
@@ -635,6 +579,14 @@ sigpi_gnuradio(){
 }
 
 sigpi_sdrapps(){
+
+	echo " "
+	echo " ###"
+	echo " ###"
+	echo " ###  SDR APPS"
+	echo " ###"
+	echo " ###"
+	echo " "
 
 	#
     # INSTALL RTL_433
@@ -836,7 +788,7 @@ sigpi_sdrangel(){
 	echo " "
     echo "###"
     echo "###"
-	echo "###   SDRangel Package"
+	echo "###   SDRANGEL"
 	echo "###"
 	echo "###"
 	echo " "
@@ -1212,7 +1164,7 @@ sigpi_packet(){
 	echo " "
     echo "###"
     echo "###"
-	echo "###   STAGE 4"
+	echo "###   PACKET RADIO"
 	echo "###"
     echo "###"
     echo " "
@@ -1301,7 +1253,7 @@ sigpi_packet(){
 sigpi_ham(){
 	echo "###"
     echo "###"
-	echo "###   STAGE 5"
+	echo "###   AMATEUR RADIO"
 	echo "###"
     echo "###"
     echo " "
@@ -1434,7 +1386,39 @@ sigpi_ham(){
 	
 }
 
-sigpi_custom(){
+sigpi_wrapping(){
+
+	echo " "
+	echo " ###"
+	echo " ###"
+	echo " ###  FINAL APPS AND CONFIG"
+	echo " ###"
+	echo " ###"
+	echo " "
+
+	#
+    # INSTALL PULSE AUDIO CONTROL
+    #
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install Pulse Audio Control (PAVU)"
+    echo " ##"
+    echo " ##"
+    echo " "
+    sudo apt-get install -y pavucontrol
+
+	#
+	# INSTALL AUDACITY
+	#
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install Audacity (Audio Editing)"
+	echo " ##"
+    echo " ##"
+    echo " "
+    sudo apt-get install -y audacity
 
 	#
 	# INSTALL SIGPI MENU
@@ -1493,33 +1477,19 @@ sigpi_custom(){
     echo " "
     echo " ##"
     echo " ##"
-	echo " - Application Configurations"
+	echo " - VoIP Server Config"
     echo " ##"
     echo " ##"
 	echo " "
 	cd $SIGPI_SOURCE
 
-    echo " "
-    echo "  #"
-    echo "  #"
-	echo "  - VoIP Server Config"
-    echo "  #"
-    echo "  #"
-	echo " "
-	echo "  When the pop-up window appears, anser NO to the first two questions."
+    echo "  When the pop-up window appears, answer NO to the first two questions."
 	echo "  Last question will ask you to create a password for the SuperUser"
 	echo "  account to manage the VoIP server"
 	echo " "
 	sleep 9
 	sudo dpkg-reconfigure mumble-server
 
-	cat <<EOF
-For configurations for the remainder of the software consult 
-the README on the SIGbox Repo.
-
-https://github.com/joecupano/SIGbox/blob/main/README.md
-
-EOF
 	rm $SIGPI_INSTALL_STAGE5
     touch $SIGPI_HOME/INSTALLED
 }
@@ -1550,15 +1520,27 @@ if test -f "$SIGPI_INSTALL_STAGE2"; then
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE3"; then
-	sigpi_sdrangel
+	sigpi_gnuradio
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE4"; then
-	stage_4
+	sigpi_sdrapps
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE5"; then
-	stage_5
+	sigpi_sdrangel
+fi
+
+if test -f "$SIGPI_INSTALL_STAGE6"; then
+	sigpi_packet
+fi
+
+if test -f "$SIGPI_INSTALL_STAGE7"; then
+	sigpi_ham
+fi
+
+if test -f "$SIGPI_INSTALL_STAGE8"; then
+	sigpi_packaging
 fi
 
 echo "*** "
