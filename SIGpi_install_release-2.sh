@@ -1,12 +1,12 @@
 #!/bin/bash
 
 ###
-### SIGpi_install
+### SIGpi_install_Release-2
 ###
 ### 
 
 ###
-###   REVISION: v02
+###   REVISION: 20210925-0900
 ###
 
 ###
@@ -27,8 +27,6 @@
 ### - HackRF
 ### - LimeSDR
 ### - PlutoSDR
-### - Bluetooth Baseband Library
-### - Ubertooth Tools
 ### - SoapySDR
 ### - SoapyRTLSDR
 ### - SoapyHackRF
@@ -38,31 +36,21 @@
 ### - Liquid-DSP
 ### - GNUradio 3.7X
 ### - Kismet
-###	- Wireshark
-### - HackTV
-###	- LTE Cell Scanner
-###	- IMSI Catcher
 ### - GQRX
 ### - CubicSDR
-### - Universal Radio Hacker
-### - Inspectrum
-### - RTL_433
 ### - SDRangel Dependencies
 ### - SDRangel
 ### - SDRangel Wisdom File
 ### - VOX for SDRangel
 ### - Gpredict
-### - Splat
 ### - HamLib
 ### - DireWolf 1.7
 ### - Linpac
 ### - Xastir
-### - Multimon-NG
-### - RadioSonde
-### - TEMPEST for Eliza
 ### - FLdigi Suite (FLxmlrpc, Flrig, Fldigi)
 ### - WSJT-X
 ### - QSSTV
+### - Ham Radio Menus
 
 
 ##
@@ -77,18 +65,9 @@ FLRIG_PKG="flrig-1.4.2.tar.gz"
 FLDIGI_PKG="fldigi-4.1.20.tar.gz"
 WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
 QSSTV_PKG="qsstv_9.5.8.tar.gz"
-LIBBTBB_VERSION="2020-12-R1"
-UBERTOOTH_VERSION="2020-12-R1"
-GRGSM_VERSION="0.42.2"
-URH_VERSION="2.9.2"
-
 
 # Source Directory
 SIGPI_SOURCE=$HOME/source
-
-# Executable Directory (will be created as root)
-SIGPI_OPT=/opt/SIGpi
-SIGPI_EXE=$SIGPI_OPT/bin
 
 # SIGpi Home directory
 SIGPI_HOME=$SIGPI_SOURCE/SIGbox
@@ -113,47 +92,42 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 
 # SigPi Install Change Tracking through touched files
-SIGPI_INSTALL_STAGE1=$SIGPI_HOME/stage_1
-SIGPI_INSTALL_STAGE2=$SIGPI_HOME/stage_2
-SIGPI_INSTALL_STAGE3=$SIGPI_HOME/stage_3
-SIGPI_INSTALL_STAGE4=$SIGPI_HOME/stage_4
-SIGPI_INSTALL_STAGE5=$SIGPI_HOME/stage_5
-
-# Install options
+SIGPI_INSTALL_STAGE1=$SIGPI_HOME/sigpi_dependencies
+SIGPI_INSTALL_STAGE2=$SIGPI_HOME/sigpi_libsdrivers
+SIGPI_INSTALL_STAGE3=$SIGPI_HOME/sigpi_gnuradio
+SIGPI_INSTALL_STAGE4=$SIGPI_HOME/sigpi_sdrapps
+SIGPI_INSTALL_STAGE5=$SIGPI_HOME/sigpi_sdrangel
+SIGPI_INSTALL_STAGE6=$SIGPI_HOME/sigpi_sdrpacket
+SIGPI_INSTALL_STAGE7=$SIGPI_HOME/sigpi_sdrham
+SIGPI_INSTALL_STAGE8=$SIGPI_HOME/sigpi_custom
 SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
-
-# SigPi SSL Cert and Key
-SIGPI_API_SSL_KEY=$SIGPI_HOME/SIGpi_api.key
-SIGPI_API_SSL_CRT=$SIGPI_HOME/SIGpi_api.crt
 
 ##
 ## FUNCTIONS
 ##
 
-stage_1(){
+sigpi_dependencies(){
 
     ##
-    ## READ ARGS DIRECTORIES
+    ## READ ARGS
     ##
     if $1 = "BUILDHAM"; then
 		touch $SIGPI_OPTION_BUILDHAM
 	fi
 
-	##
-    ## CREATE DIRECTORIES
-    ##
+	echo " "
+    echo "### "
+    echo "### "
+	echo "###  Dependencies"
+	echo "### "
+    echo "### "
+	echo " "
 
-	if [ ! -d "$SIGPI_OPT" ]; then
-    	mkdir $SIGPI_OPT
-		sudo mkdir -p $SIGPI_OPT
-		sudo chown pi:users $SIGPI_OPT
-    fi
-    
-	if [ ! -d "$SIGPI_EXE" ]; then
-    	mkdir $SIGPI_EXE
-		sudo mkdir -p $SIGPI_EXE
-		sudo chown pi:users $SIGPI_EXE
-    fi
+    echo " "
+	echo " ## "
+	echo " - Create Directoriees"
+	echo " ## "
+    echo " "
 
     if [ ! -d "$SIGPI_SOURCE" ]; then
     	mkdir $SIGPI_SOURCE
@@ -170,108 +144,11 @@ stage_1(){
     touch $SIGPI_INSTALL_STAGE1
 	cd $SIGPI_SOURCE
 
-	cat <<EOF
-
-###
-###
-###  SIGpi Install Script"
-###	
-###	 REVISION:  20200906-0900
-###
-
-INTRODUCTION:
-
-Designed for a Raspberry OS Full (32-bit) fresh install with SSH and VNC enabled
-from the Raspberry Pi Configuration tool. If not, CTRL-C out of this script.
-
-This script installs relevant drivers and applications as a platform for SIGINT fun. Tools
-do include transmit capability so it is YOUR reponsibility for compliance to regulations and
-licenses specific to the country you will be operating from.
-	
-The script runs in stages creating a swapfile and rebooting after the completion of some stages.
-After reboot you type the same command as you did to start this script. The script will know where
-it left off. Only RTLSDR, HackRF, LimeSDR, and PlutoSDR drivers are included in the build.
-	
-Below is a list of software installed. The install is in a particular order given dependencies
-by other applications.
-
-Total install time will take over three hours with SDRangel and its dependencies take almost
-half that time. If Amateur Radio Digital modes do not interest you, you can skip
-installing Stage 5.
-
-Stage 1
-	- Ensure OS is current (update,upgrade)
-    - Pulse Audio Control (PAVU)
-	- Audacity
-	
-Stage 2
-	- AX.25 and utilities
-	- VoIP Server/Client (Murmur/Mumble)
-	- RTLSDR
-	- HackRF
-	- LimeSDR
-	- PlutoSDR
-	- Bluetooth Baseband Library"
-	- Ubertooth Tools
-	- SoapySDR
-	- SoapyRTLSDR
-	- SoapyHackRF
-	- SoapyPlutoSDR
-	- SoapyRemote
-    - GPSd and Chrony
-	- Liquid-DSP
-	- GNUradio 3.7X
-    - Kismet
-	- Wireshark
-	- HackTV
-	- LTE Cell Scanner
-	- IMSI Catcher
-	- GQRX
-	- CubicSDR
-	- Universal Radio Hacker
-	- Inspectrum
-	- RTL_433
-
-Stage 3
-	- SDRangel Dependencies
-	- SDRangel
-    - SDRangel Wisdom File
-    - VOX for SDRangel
-
-Stage 4
-	- HamLib
-    - Gpredict
-	- Splat
-    - DireWolf 1.7
-	- Linpac
-	- Xastir
-	- Multimon-NG
-	- RadioSonde
-
-Stage 5
-	- FLdigi Suite (FLxmlrpc, Flrig, Fldigi)
-	- WSJT-X
-	- QSSTV
-		
-EOF
-
-	echo " "
-    echo "### "
-    echo "### "
-	echo "###  SIGpi Install (Stage 1)"
-	echo "### "
-    echo "### "
-	echo " "
-	cd $SIGPI_SOURCE
-
     echo " "
 	echo " ## "
 	echo " - Create Swap file to improve compile time"
 	echo " ## "
     echo " "
-	if test -f /swapfile; then
-		sudo rm /swapfile
-	fi
 	sudo fallocate -l 2G /swapfile
 	sudo chmod 600 /swapfile
 	sudo mkswap /swapfile
@@ -293,37 +170,25 @@ EOF
     echo " ## "
 	echo " "
 
-    sudo apt-get install -y \
-git cmake g++ pkg-config autoconf automake libtool libfftw3-dev libusb-1.0-0-dev libusb-dev \
-build-essential qtbase5-dev qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev \
-qttools5-dev qttools5-dev-tools libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev \
-qml-module-qtlocation  qml-module-qtlocation qml-module-qtpositioning qml-module-qtquick-window2 \
-qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts \
-libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev \
-libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev pulseaudio libopencv-dev libxml2-dev bison flex \
-libaio-dev libnova-dev libwxgtk-media3.0-dev gettext libcairo2-dev ffmpeg libavcodec-dev libpcap-dev\
-libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev portaudio19-dev doxygen \
-libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python-docutils libavahi-common-dev libavahi-client-dev \
-	sudo apt-get install -y qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev
-	sudo apt-get install gnuplot-x11 libavdevice-dev libavutil-dev 
-	sudo python3 -m pip install --upgrade pip
-    sudo pip3 install pygccxml
+    sudo apt-get install -y git cmake g++ pkg-config autoconf automake libtool build-essential \
+	pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
 
-	#
-	# CREATE SELF-SIGNED SSSL CERT AND KEY
-	#
-	
-	echo " "
-	echo "## "
-	echo "## "
-	echo " -               Generating self-signed SSL certificate  (3 year lifetime)"
-	echo " -  /C=US/ST=New York/L=Hudson Valley/O=Hudson Valley Digital Network/OU=SIGpi/CN=hvdn.org"
-	echo "## "
-	echo "## "
-	echo " "
-	sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -subj "/C=US/ST=New York/L=Hudson Valley/O=Hudson Valley Digital Network/OU=SIGpi/CN=hvdn.org" -keyout $SIGPI_API_SSL_KEY -out $SIGPI_API_SSL_CRT
-	sudo chown pi:pi $SIGPI_API_SSL_KEY >/dev/null 2>&1
-	sudo chown pi:pi $SIGPI_API_SSL_CRT >/dev/null 2>&1
+	sudo apt-get install -y libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev \
+	libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev \
+	libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev libavdevice-dev libavutil-dev \
+	libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev \
+	libpcap-dev libcppunit-dev libbluetooth-dev python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
+
+	sudo apt-get install -y python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins \
+	python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils
+
+	sudo apt-get install -y qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools \
+	libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 \
+	qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev \
+	qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
+
+	sudo python3 -m pip install --upgrade pip
+	sudo pip3 install pygccxml
 
     #
     # INSTALL PULSE AUDIO CONTROL
@@ -353,128 +218,15 @@ libcppunit-dev libbluetooth-dev graphviz gnuplot python-pyside python-qt4 python
     touch $SIGPI_INSTALL_STAGE2
 }
 
-stage_2(){
+sigpi_libsdrivers(){
 
     echo " "
 	echo "### "
     echo "### "
-	echo "###   STAGE 2"
+	echo "###   Drivers and Libraries"
     echo "### "
     echo "### "
 	cd $SIGPI_SOURCE
-
-	#
-	# INSTALL AX.25
-	#
-
-    echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install AX.25 and utilities"
-    echo " ## "
-    echo " ## "
-	echo " "
-	sudo apt-get install -y libax25 ax25-apps ax25-tools
-    echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
-
-    #
-    # INSTALL VOIP (MURMUR SERVER AND MUMBLE)
-    #
-
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - VoIP Server (Murmur)"
-    echo " ## "
-    echo " ## "
-	echo " "
-    sudo apt-get install -y mumble-server
-	
-    echo " "
-    echo " ## "
-    echo " ## "
-	echo " - VoIP Client (Mumble)"
-	echo " ## "
-    echo " ## "
-	echo " "
-    sudo apt-get install -y mumble
-
-	#
-	# INSTALL RTLSDR
-	#
-
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install RTLSDR"
-	echo " ## "
-    echo " ## "
-	echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/osmocom/rtl-sdr.git
-	cd rtl-sdr
-	mkdir build	
-	cd build
-	cmake ../
-	make
-	sudo make install
-	sudo ldconfig
-	sudo apt-get install -y gr-osmosdr
-	
-	#
-	# INSTALL HACKRF
-	#
-	
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install HackRF"
-	echo " ## "
-    echo " ## "
-	echo " "
-	sudo apt-get install -y hackrf libhackrf-dev
-	sudo hackrf_info
-
-	#
-	# INSTALL LIMESDR SUITE
-	#
-	
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install LimeSDR Suite"
-	echo " ## "
-    echo " ## "
-	echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/myriadrf/LimeSuite.git
-	cd LimeSuite
-	git checkout stable
-	mkdir builddir && cd builddir
-	cmake ../
-	make -j4
-	sudo make install
-	sudo ldconfig
-
-	#
-	# INSTALL PLUTOSDR
-	#
-	
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install PlutoSDR"
-	echo " ## "
-    echo " ## "
-	echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/analogdevicesinc/libiio.git
-	cd libiio
-	mkdir build; cd build
-	cmake ..
-	make -j4
-	sudo make install
-	sudo ldconfig
 
 	# APT
 	# Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
@@ -498,7 +250,7 @@ stage_2(){
 	echo " "
     echo "  # "
     echo "  # "
-	echo "  -- CM265cc"
+	echo "  -- CM256cc"
 	echo "  # "
     echo "  # "
 	echo " "
@@ -606,10 +358,30 @@ stage_2(){
     echo "  # "
 	echo " "
     cd $SIGPI_SOURCE
-	git clone https://github.com/f4exb/libsigmf.git
+	git clone https://github.com/deepsig/libsigmf.git
 	cd libsigmf
 	mkdir build; cd build
 	cmake ..
+	make -j4
+	sudo make install
+	sudo ldconfig
+	
+    #
+	# INSTALL LIQUID-DSP
+	#
+
+	echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install Liquid-DSP"
+	echo " ## "
+    echo " ## "
+	echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/jgaeddert/liquid-dsp
+	cd liquid-dsp
+	./bootstrap.sh
+	./configure --enable-fftoverride 
 	make -j4
 	sudo make install
 	sudo ldconfig
@@ -635,38 +407,94 @@ stage_2(){
 	sudo ldconfig
 
 	#
-	# INSTALL UBERTOOTH TOOLS
+	# INSTALL AX.25
+	#
+
+    echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install AX.25 and utilities"
+    echo " ## "
+    echo " ## "
+	echo " "
+	sudo apt-get install -y libax25 ax25-apps ax25-tools
+    echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
+
+	#
+	# INSTALL RTLSDR
 	#
 
 	echo " "
     echo " ## "
     echo " ## "
-	echo " - Install Ubertooth Tools"
+	echo " - Install RTLSDR"
 	echo " ## "
     echo " ## "
 	echo " "
-	cd $SIGPI_SOURCE
-	git clone https://github.com/greatscottgadgets/ubertooth.git
-	cd ubertooth/host
-	mkdir build && cd build
+    cd $SIGPI_SOURCE
+	git clone https://github.com/osmocom/rtl-sdr.git
+	cd rtl-sdr
+	mkdir build	
+	cd build
+	cmake ../
+	make
+	sudo make install
+	sudo ldconfig
+	
+	#
+	# INSTALL HACKRF
+	#
+	
+	echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install HackRF"
+	echo " ## "
+    echo " ## "
+	echo " "
+	sudo apt-get install -y hackrf libhackrf-dev
+	sudo hackrf_info
+
+	#
+	# INSTALL LIMESDR SUITE
+	#
+	
+	echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install LimeSDR Suite"
+	echo " ## "
+    echo " ## "
+	echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/myriadrf/LimeSuite.git
+	cd LimeSuite
+	git checkout stable
+	mkdir builddir && cd builddir
+	cmake ../
+	make -j4
+	sudo make install
+	sudo ldconfig
+
+	#
+	# INSTALL PLUTOSDR
+	#
+	
+	echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install PlutoSDR"
+	echo " ## "
+    echo " ## "
+	echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/analogdevicesinc/libiio.git
+	cd libiio
+	mkdir build; cd build
 	cmake ..
 	make -j4
 	sudo make install
-	
-	# Wireshark Plug-in
-	sudo apt-get install wireshark wireshark-dev libwireshark-dev
-	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
-	mkdir build && cd build
-	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-	make -j4
-	sudo make install
-	
-	# BTBR Plugin
-	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-	mkdir build && cd build
-	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-	make -j4
-	sudo make install
+	sudo ldconfig
 	
 	#
 	# INSTALL SOAPYSDR
@@ -768,7 +596,131 @@ stage_2(){
 	make
 	sudo make install
 	sudo ldconfig
+
+	rm $SIGPI_INSTALL_STAGE2
+	touch $SIGPI_INSTALL_STAGE3
 	
+}
+
+sigpi_gnuradio(){
+	
+    #
+	# INSTALL GNURADIO 3.8
+	#
+
+	echo " "
+	echo " ##"
+	echo " ##"
+	echo " - Install GNUradio 3.8"
+	echo " ##"
+	echo " ##"
+	echo " "
+	cd $SIGPI_SOURCE
+	git clone https://github.com/gnuradio/gnuradio.git
+	cd gnuradio
+	git checkout maint-3.8
+	git submodule update --init --recursive
+	mkdir build && cd build
+	cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
+	make -j4
+	sudo make install
+	sudo ldconfig
+	cd ~
+	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
+	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+
+	rm $SIGPI_INSTALL_STAGE3
+	touch $SIGPI_INSTALL_STAGE4
+	
+}
+
+sigpi_sdrapps(){
+
+	#
+    # INSTALL RTL_433
+    #
+
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install RTL_433"
+    echo " ##"
+    echo " ##"
+    echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/merbanan/rtl_433.git
+	cd rtl_433
+	mkdir build && cd build
+	cmake ..
+	make
+	sudo make install
+
+	#
+    # INSTALL OP25
+    #
+
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install OP25"
+    echo " ##"
+    echo " ##"
+    echo " "
+    cd $SIGPI_SOURCE
+	git clone https://git.osmocom.org/op25
+	cd op25
+	./install.sh
+	
+	#
+	# INSTALL SPLAT
+	#
+    echo " "
+    echo " ##"
+    echo " ##"
+	echo " - Install Splat"
+	echo " ##"
+    echo " ##"
+	echo " "
+	sudo apt-get install -y splat
+
+	#
+	# INSTALL MULTIMON-NG
+	#
+
+    echo " "
+    echo " ##"
+    echo " ##"
+	echo " - Install Multimon-NG"
+	echo " ##"
+    echo " ##"
+	echo " "
+    cd $SIGPI_SOURCE
+	git clone https://github.com/EliasOenal/multimon-ng.git
+	cd multimon-ng
+	mkdir build && cd build
+	qmake ../multimon-ng.pro
+	make
+	sudo make install
+
+	#
+	# INSTALL TEMPEST FOR ELIZA
+	#
+	
+    echo " "
+    echo " ## "
+    echo " ## "
+	echo " - Install TEMPEST for ELiza"
+	echo " ## "
+    echo " ## "
+    echo " "
+	wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
+	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
+	cd $SIGPI_SOURCE/tempest_for_eliza-1.0.5
+	./configure
+	make
+	sudo make install
+	sudo ldconfig
+
     #
 	# INSTALL GPSD AND CHRONY
 	#
@@ -781,55 +733,58 @@ stage_2(){
     echo " ##"
     echo " "
     sudo apt-get install -y gpsd gpsd-clients python-gps chrony
-	
+
+	#
+    # INSTALL WIRESHARK
     #
-	# INSTALL LIQUID-DSP
+    
+	echo " "
+    echo " ##"
+    echo " ##"
+    echo " - Install Wireshark"
+    echo " ##"
+    echo " ##"
+    echo " "
+    sudo apt install -y wireshark
+
+	#
+	# INSTALL UBERTOOTH TOOLS
 	#
 
 	echo " "
     echo " ## "
     echo " ## "
-	echo " - Install Liquid-DSP"
+	echo " - Install Ubertooth Tools"
 	echo " ## "
     echo " ## "
 	echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/jgaeddert/liquid-dsp
-	cd liquid-dsp
-	./bootstrap.sh
-	./configure --enable-fftoverride 
+	cd $SIGPI_SOURCE
+	git clone https://github.com/greatscottgadgets/ubertooth.git
+	cd ubertooth/host
+	mkdir build && cd build
+	cmake ..
 	make -j4
 	sudo make install
-	sudo ldconfig
-
-	#
-	# INSTALL GNUradio 3.7.X
-	#
-
-	# From GNUradio Wiki
-	# https://wiki.gnuradio.org/index.php/InstallingGRFromSource_on_Raspberry_Pi
-	echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install GNUradio 3.7.X"
-    echo " ## "
-    echo " ## "
-	echo " "
-
-	# Pre-requisite files
-	sudo apt-get install -y libboost-all-dev libgmp-dev swig python3-numpy \
-	python3-scipy python3-scapy python3-mako python3-sphinx python3-lxml \
-	libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
-	liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
-	python3-zmq python3-scipy libpthread-stubs0-dev libusb-1.0-0 libusb-1.0-0-dev \
-	libudev-dev python3-setuptools liborc-0.4-0 liborc-0.4-dev \
-	python3-gi-cairo libsamplerate0-dev libosmocore-dev gnuradio-dev
-	sudo apt-get install -y gnuradio
-	sudo apt-get install -y gr-osmosdr
+	
+	# Wireshark Plug-in
+	sudo apt-get install wireshark wireshark-dev libwireshark-dev
+	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
+	mkdir build && cd build
+	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
+	make -j4
+	sudo make install
+	
+	# BTBR Plugin
+	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
+	mkdir build && cd build
+	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
+	make -j4
+	sudo make install
 
     #
     # INSTALL KISMET
     #
+
     echo " "
     echo " ##"
     echo " ##"
@@ -846,101 +801,9 @@ stage_2(){
     #
 
 	#
-    # INSTALL WIRESHARK
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install Wireshark"
-    echo " ##"
-    echo " ##"
-    echo " "
-    sudo apt install -y wireshark
-
-	#
-	# INSTALL HACKTV
-	#
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install HackTV"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/fsphil/hacktv.git
-	cd hacktv
-	make
-	sudo make install
-
-    #
-    # INSTALL LTE Cell Scanner
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install LTE Cell Scanner"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/Evrytania/LTE-Cell-Scanner.git
-	cd LTE-Cell-Scanner
-	mkdir build && cd build
-	cmake ..
-	make
-	sudo make install
-
-    #
-    # INSTALL IMSI Catcher
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install IMSI Catcher"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/Oros42/IMSI-catcher.git
-	cd IMSI-catcher
-	#git clone https://git.osmocom.org/gr-gsm
-	#cd gr-gsm
-	#mkdir build && cd build
-	#cmake ..
-	#make -j 4
-	#sudo make install
-	#sudo ldconfig
-	#echo 'export PYTHONPATH=/usr/local/lib/python3/dist-packages/:$PYTHONPATH' >> ~/.bashrc
-
-	#
-    # INSTALL GR-GSM
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install GR-GSM"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/ptrkrysik/gr-gsm.git
-	cd gr-gsm
-	mkdir build && cd build
-	cmake ..
-	mkdir $HOME/.grc_gnuradio/ $HOME/.gnuradio/
-	make -j4
-	sudo make install
-	sudo ldconfig
-
-	#
 	# INSTALL GQRX-SDR
 	#
-
+	
 	echo " "
     echo " ## "
     echo " ## "
@@ -963,99 +826,17 @@ stage_2(){
 	echo " "
     sudo apt-get install -y cubicsdr
 
-	#
-    # INSTALL UNIVERSAL RADIO HACKER
-    #
-    
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install Universal Radio Hacker"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/jopohl/urh/
-	cd urh
-	python setup.py install
-
-	#
-    # INSTALL INSPECTRUM
-    #
-
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install Inspectrum"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/miek/inspectrum.git
-	cd inspectrum
-	mkdir build && cd build
-	cmake ..
-	make
-	sudo make install
-
-	#
-    # INSTALL RTL_433
-    #
-
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install RTL_433"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/merbanan/rtl_433.git
-	cd rtl_433
-	mkdir build && cd build
-	cmake ..
-	make
-	sudo make install
-
-	#
-    # INSTALL OP25
-    #
-
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo "- Install OP25"
-    echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://git.osmocom.org/op25
-	cd op25
-	./install.sh
+	rm $SIGPI_INSTALL_STAGE4
+	touch $SIGPI_INSTALL_STAGE5
 	
-	rm $SIGPI_INSTALL_STAGE2
-	touch $SIGPI_INSTALL_STAGE3
-	
-	echo " "
-    echo "###"
-    echo "###"
-	echo "###      System needs to reboot for all changes to occur."
-	echo "###     Reboot will begin in 15 seconsds unless CTRL-C hit."
-    echo "###"
-	echo "###     After reboot run the script again to begin Stage 3"
-    echo "###"
-    echo "###"
-	sleep 17
-	sudo sync
-	sudo reboot
 }
 
-stage_3(){
+sigpi_sdrangel(){
 	
 	echo " "
     echo "###"
     echo "###"
-	echo "###   STAGE 3"
+	echo "###   SDRangel Package"
 	echo "###"
 	echo "###"
 	echo " "
@@ -1356,7 +1137,6 @@ stage_3(){
 	echo "  # "
     echo "  # "
 	echo " "
-    sudo apt-get -y install libavahi-client-dev
 	cd $SIGPI_SDRANGEL
 	git clone https://github.com/pothosware/SoapyRemote.git
 	cd SoapyRemote
@@ -1423,24 +1203,12 @@ stage_3(){
 	cd $SIGPI_SOURCE
 	git clone https://gitlab.wibisono.or.id/published/voxangel.git
 
-	rm $SIGPI_INSTALL_STAGE3
-	touch $SIGPI_INSTALL_STAGE4
+	rm $SIGPI_INSTALL_STAGE5
+	touch $SIGPI_INSTALL_STAGE6
 	
-	echo " "
-    echo "###"
-    echo "###"
-	echo "###      System needs to reboot for all changes to occur."
-	echo "###     Reboot will begin in 15 seconsds unless CTRL-C hit."
-    echo "###"
-	echo "###     After reboot run the script again to begin Stage 4"
-    echo "###"
-    echo "###"
-	sleep 17
-	sudo sync
-	sudo reboot
 }
 
-stage_4(){
+sigpi_packet(){
 	echo " "
     echo "###"
     echo "###"
@@ -1482,21 +1250,8 @@ stage_4(){
     sudo apt-get install -y gpredict
 
 	#
-	# INSTALL SPLAT
-	#
-    echo " "
-    echo " ##"
-    echo " ##"
-	echo " - Install Splat"
-	echo " ##"
-    echo " ##"
-	echo " "
-	sudo apt-get install -y splat
-
-	#
 	# INSTALL DIREWOLF
 	#
-
     echo " "
     echo " ##"
     echo " ##"
@@ -1516,7 +1271,6 @@ stage_4(){
 	#
 	# INSTALL LINPAC (PACKET TERMINAL)
 	#
-
     echo " "
     echo " ##"
     echo " ##"
@@ -1539,266 +1293,12 @@ stage_4(){
     echo " "
     sudo apt-get install -y xastir
 	sudo usermod -a -G xastir-ax25 pi
-	#
-	# INSTALL MULTIMON-NG
-	#
-
-    echo " "
-    echo " ##"
-    echo " ##"
-	echo " - Install Multimon-NG"
-	echo " ##"
-    echo " ##"
-	echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/EliasOenal/multimon-ng.git
-	cd multimon-ng
-	mkdir build && cd build
-	qmake ../multimon-ng.pro
-	make
-	sudo make install
-
-
-	#
-	# INSTALL RADIOSONDE
-	#
-
-	echo " "
-    echo " ##"
-    echo " ##"
-    echo " - Install RadioSonde (RS)"
-	echo " ##"
-    echo " ##"
-    echo " "
-    cd $SIGPI_SOURCE
-	git clone https://github.com/rs1729/RS.git
-	cd $SIGPI_SOURCE/RS
+	rm $SIGPI_INSTALL_STAGE6
+	touch $SIGPI_INSTALL_STAGE7
 	
-	echo "  #"
-    echo "  - C34"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/c34
-	gcc c34dft.c -lm -o c34dft
-	gcc c50dft.c -lm -o c50dft
-	sudo chown root:root c34dft c50dft
-	sudo cp c34dft c50dft $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - M10"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/m10
-	gcc m10ptu.c -lm -o m10ptu
-	gcc m10gtop.c -lm -o m10gtop
-	gcc m12.c -lm -o m12
-	sudo chown root:root m10ptu m10gtop m12
-	sudo cp m10ptu m10gtop m12 $SIGPI_EXE
-
-	echo "  #"
-    echo "  - Meisei"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/meisei
-	gcc meisei_ecc.c -lm -o meisei_ecc
-	gcc meisei_ims.c -lm -o meisei_ims
-	gcc meisei_rs.c -lm -o meisei_rs
-	sudo chown root:root meisei_ecc meisei_ims meisei_rs
-	sudo cp meisei_ecc meisei_ims meisei_rs $SIGPI_EXE
-
-	echo "  #"
-    echo "  - RS92"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/rs92
-	gcc rs92gps.c -lm -o rs92gps
-	sudo chown root:root rs92gps
-	sudo cp rs92gps $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - RS41"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/rs42
-	gcc rs41ptu.c -lm -o rs41ptu
-	sudo chown root:root rs41ptu
-	sudo cp rs41ptu $SIGPI_EXE
-
-	echo "  #"
-    echo "  - RS41"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/lms6
-	gcc lms6.c -lm -o lms6
-	gcc lms6ccsds.c -lm -o lms6ccsds
-	gcc lms6ecc.c -lm -o lms6ecc
-	gcc lmsX2446.c -lm -o lmsX2446 
-	sudo chown root:root lms6 lms6ccsds lms6ecc lmsX2446 
-	sudo cp lms6 lms6ccsds lms6ecc lmsX2446 $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - ECC"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/ecc
-	gcc bch_ecc.c -lm -o bch_ecc
-	gcc crc_polymod.c -lm -o crc_polymod
-	gcc ecc-rs_gf16.c -lm -o ecc-rs_gf16
-	gcc ecc-rs_vaisala.c -lm -o ecc-rs_vaisala
-	sudo chown root:root bch_ecc crc_polymod ecc-rs_gf16 ecc-rs_vaisala
-	sudo cp bch_ecc crc_polymod ecc-rs_gf16 ecc-rs_vaisala $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - IQ"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/iq
-	gcc shift_IQ.c -lm -o shift_IQ
-	gcc wavIQ.c -lm -o wavIQ
-	sudo chown root:root shift_IQ wavIQ
-	sudo cp shift_IQ wavIQ $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - IMET"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/imet
-	gcc imet1ab.c -lm -o imet1ab
-	gcc imet1ab_cpafsk.c -lm -o imet1ab_cpafsk
-	gcc imet1rs_dft.c -lm -o imet1rs_dft
-	gcc imet1rs_dft_1.c -lm -o imet1rs_dft_1
-	gcc imet1rsb.c -lm -o imet1rsb
-	sudo chown root:root imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1
-	sudo cp imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1 $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - DFM-06/DFM-09"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/dfm
-	gcc dfm06ptu.c -lm -o dfm06ptu
-	sudo chown root:root dfm06ptu
-	sudo cp dfm06ptu $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - MK2A"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/mk2a
-	gcc mk2a.c -lm -o mk2a
-	gcc mk2a1680mode.c -lm -o mk2a1680mod
-	gcc mk2alms1680.c -lm -o mk2alms1680
-	sudo chown root:root mk2a mk2a1680mod mk2alms1680
-	sudo cp mk2a mk2a1680mod mk2alms1680 $SIGPI_EXE
-
-	echo "  #"
-    echo "  - MRZ"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/mrz
-	gcc mp3h1.c -lm -o mp3h1
-	sudo chown root:root mp3h1
-	sudo cp mp3h1 $SIGPI_EXE
-
-	echo "  #"
-    echo "  - DropSonde"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/dropsonde
-	gcc rt94drop.c -lm -o rt94drop
-	sudo chown root:root rt94drop
-	sudo cp rt94drop $SIGPI_EXE
-
-	echo "  #"
-    echo "  - Decod RS Module"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/rs_module
-	sudo gcc -c demod_dft.c
-	gcc -c rs_datum.c
-	gcc -c rs_demod.c
-	gcc -c rs_bch_ecc.c
-	gcc -c rs_rs41.c
-	gcc -c rs_rs92.c
-	gcc -c rs_main41.c
-	gcc rs_main41.o rs_rs41.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs41mod
-	gcc -c rs_main92.c
-	gcc rs_main92.o rs_rs92.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs92mod
-	sudo cp rs41mod rs92mode $SIGPI_EXE
-	
-	echo "  #"
-    echo "  - Decoders"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/demod
-	sudo gcc -c demod_dft.c
-	gcc rs41dm_dft.c demod_dft.o -lm -o rs41dm_dft
-	gcc dfm09dm_dft.c demod_dft.o -lm -o dfm09dm_dft
-	gcc m10dm_dft.c demod_dft.o -lm -o m10dm_dft
-	gcc lms6dm_dft.c demod_dft.o -lm -o lms6dm_dft
-	gcc rs92dm_dft.c demod_dft.o -lm -o rs92dm_dft
-	sudo chown root:root rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft
-	sudo cp rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft sudo cp rt94drop $SIGPI_EXE
-
-	echo "  #"
-    echo "  - Tools"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/tools
-	gcc -C pa-stdout.c
-	sudo cp pa-stdout $SIGPI_EXE
-	sudo cp metno_netcdf_gpx.py pos2aprs.pl pos2gpx.pl pos2kml.pl pos2nmea.pl $SIGPI_EXE
-
-	echo "  #"
-    echo "  - Scan"
-	echo "  #"
-	echo " "
-	cd $SIGPI_SOURCE/RS/scan
-	gcc -C dft_detect.c
-	gcc -C reset_usb.c
-	gcc -C rs_detect.c
-	gcc -C scan_fft_pow.c
-	gcc -C scan_fft_simple.c
-	sudo cp diff_detect reset_usb rs_detect scan_fft_pow scan_fft_simpl $SIGPI_EXE
-	sudo cp plot_fft_pow.py plot_fft_simple.py rtlsdr_scan.pl scan_multi.sh scan_multi_rs.pl $SIGPI_EXE
-
-	#
-	# INSTALL TEMPEST FOR ELIZA
-	#
-	
-    echo " "
-    echo " ## "
-    echo " ## "
-	echo " - Install TEMPEST for ELiza"
-	echo " ## "
-    echo " ## "
-    echo " "
-	wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
-	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
-	cd $SIGPI_SOURCE/tempest_for_eliza-1.0.5
-	./configure
-	make
-	sudo make install
-	sudo ldconfig
-
-	rm $SIGPI_INSTALL_STAGE4
-	touch $SIGPI_INSTALL_STAGE5
-
-	echo " "
-    echo "###"
-    echo "###"
-	echo "###      System needs to reboot for all changes to occur."
-	echo "###     Reboot will begin in 15 seconsds unless CTRL-C hit."
-    echo "###"
-	echo "###     After reboot run the script again to begin Stage 5"
-    echo "###"
-    echo "###"
-    sleep 17
-	sudo sync
-	sudo reboot
 }
 
-stage_5(){
+sigpi_ham(){
 	echo "###"
     echo "###"
 	echo "###   STAGE 5"
@@ -1895,7 +1395,6 @@ stage_5(){
     echo " ##"
     echo " "
     if test -f "$SIGPI_OPTION_BUILDHAM"; then
-		sudo apt-get install -y qt5-default libpulse-dev
 		sudo apt-get install -y libhamlib-dev libv4l-dev
 		sudo apt-get install -y libopenjp2-7 libopenjp2-7-dev
 		wget http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz -P $HOME/Downloads
@@ -1907,6 +1406,35 @@ stage_5(){
 	else
 		sudo apt-get install -y qsstv
 	fi
+
+    #
+    # INSTALL VOIP (MURMUR SERVER AND MUMBLE)
+    #
+
+	echo " "
+    echo " ## "
+    echo " ## "
+	echo " - VoIP Server (Murmur)"
+    echo " ## "
+    echo " ## "
+	echo " "
+    sudo apt-get install -y mumble-server
+	
+    echo " "
+    echo " ## "
+    echo " ## "
+	echo " - VoIP Client (Mumble)"
+	echo " ## "
+    echo " ## "
+	echo " "
+    sudo apt-get install -y mumble
+
+	rm $SIGPI_INSTALL_STAGE7
+	touch $SIGPI_INSTALL_STAGE8
+	
+}
+
+sigpi_custom(){
 
 	#
 	# INSTALL SIGPI MENU
@@ -1952,6 +1480,7 @@ stage_5(){
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
 
 	# Remove Rogue desktop file to ensure we use the one we provided for direwolf
 	sudo rm -rf /usr/local/share/applications/direwolf.desktop
@@ -2004,7 +1533,7 @@ echo "### "
 echo "### "
 echo "###  SIGpi Install "
 echo "### "
-echo "### REVISION:  20200906-0900"
+echo "###    RELEASE v02"
 echo "### "
 echo " "
 
@@ -2013,15 +1542,15 @@ echo " "
 ##
 
 if test -f "$SIGPI_INSTALL_STAGE1"; then
-	stage_1
+	sigpi_dependencies
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE2"; then
-	stage_2
+	sigpi_libsdrivers
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE3"; then
-	stage_3
+	sigpi_sdrangel
 fi
 
 if test -f "$SIGPI_INSTALL_STAGE4"; then
@@ -2030,13 +1559,6 @@ fi
 
 if test -f "$SIGPI_INSTALL_STAGE5"; then
 	stage_5
-fi
-
-# Get to here means were done. Shutoff and delete swapfile
-
-if test -f /swapfile; then
-	sudo swapoff /swapfile
-	sudo rm /swapfile
 fi
 
 echo "*** "
