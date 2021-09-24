@@ -77,24 +77,17 @@ echo " ##"
 echo " ##"
 echo " "
 
-echo " - Setup Temporary Swap"
+echo " - Remove GNUradio 3.7.X package"
 echo " "
-sudo fallocate -l 2G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
+sudo apt-get remove -y gnuradio
+
 
 echo " - Check Dependencies"
 echo " "
-sudo apt update --allow-releaseinfo-change
-sudo apt upgrade
-sudo apt install git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy \
-python3-mako python3-sphinx python3-lxml doxygen libfftw3-dev \
-libsdl1.2-dev libgsl-dev libqwt-qt5-dev libqt5opengl5-dev python3-pyqt5 \
-liblog4cpp5-dev libzmq3-dev python3-yaml python3-click python3-click-plugins \
-python3-zmq python3-scipy libpthread-stubs0-dev libusb-1.0-0 libusb-1.0-0-dev \
-libudev-dev python3-setuptools build-essential liborc-0.4-0 liborc-0.4-dev \
-python3-gi-cairo
+sudo apt-get install -y git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy python3-mako \
+python3-sphinx python3-lxml doxygen libfftw3-dev libsdl1.2-dev libgsl-dev libqwt-qt5-dev \
+libqt5opengl5-dev python3-pyqt5 liblog4cpp5-dev libzmq3-dev python3-yaml python3-click \
+python3-click-plugins python3-zmq python3-scipy python3-pip python3-gi-cairo
 
 echo " - Clone GNUradio 3.8"
 echo " "
@@ -103,11 +96,15 @@ git clone https://github.com/gnuradio/gnuradio.git
 cd gnuradio
 git checkout maint-3.8
 git submodule update --init --recursive
-mkdir build && cd 
+mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
 make -j4
 sudo make install
 sudo ldconfig
+cd ~
+echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
+echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+
 
 
 #
@@ -126,15 +123,7 @@ sudo ln -s $DESKTOP_XDG_MENU/SigPi.menu /etc/xdg/menus/applications-merged/SigPi
 # Add SigPi Category for each installed application
 #
 
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/radiosonde.desktop
-
-
-# Make python scripts executable in /opt/SIGpi/bin
-cd $SIGPI_EXE
-sudo chmod 755 *py 
-cd $SIGPI_HOME
-
-# Shutoff and delete swapfile
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/gnuradio-grc.desktop
 
 echo "*** "
 echo "*** "
