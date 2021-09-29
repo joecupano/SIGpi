@@ -98,7 +98,7 @@ select_startscreen(){
 }
 
 select_sdrdevices() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SDR Devices" --checklist --separate-output \
         "Choose SDR devices " 20 80 12\
         "rtl-sdr" "RTL2832U & R820T2-Based " ON \
         "hackrf" "Hack RF One " OFF \
@@ -118,7 +118,7 @@ select_sdrdevices() {
 }
 
 select_gnuradio() {
-    FUN=$(whiptail --title "SigPi Installer" --radiolist --separate-output \
+    FUN=$(whiptail --title "GNUradio" --radiolist --separate-output \
         "Choose GNUradio version" 20 80 12 \
         "gnuradio-3.7" "Installed from distro (Raspberry Pi OS) " ON \
         "gnuradio-3.8" "Compiled from Repo (required for gr-gsm) " OFF \
@@ -131,7 +131,7 @@ select_gnuradio() {
 }
 
 select_decoders() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "Digital Decoders" --checklist --separate-output \
         "Choose Decoders " 20 120 12\
         "aptdec" "Decodes images transmitted by NOAA weather satellites " ON \
         "rtl_433" "Generic data receiver with sensor support mainly for UHF ISM Bands " ON \
@@ -147,7 +147,7 @@ select_decoders() {
 }
 
 select_sdrapps() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SDR Applications" --checklist --separate-output \
         "Choose SDR Applications" 20 80 12 \
         "gqrx" "SDR Receiver " ON \
         "cubicsdr" "SDR Receiver " OFF \
@@ -161,15 +161,58 @@ select_sdrapps() {
 }
 
 select_hamradio() {
+	FUN=$(whiptail --title "Ham Control Library" --radiolist --separate-output \
+        "USed for exterbal control of Aateur Radio and some SDR transceivers as \
+		well as antenna rotors. Choose HAMlib version" 20 80 12 \
+        "hamlib-3.3" "Installed from distro " ON \
+        "hamlib-4.3" "Compiled from Repo (~20 minutes compile time) " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIG_CONFIG
+
+    FUN=$(whiptail --title "Fldigi Suite" --radiolist --separate-output \
+        "Used for MFSK, PSK31, CW, RTTY. WEFAX and many others \
+		Choose Fldigi version" 20 80 12 \
+        "fldigi-4.1.01" "Installed from distro " ON \
+        "fldigi-4.1.20" "Compiled from Repo (~40 minutes compile time) " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIG_CONFIG
+
+	FUN=$(whiptail --title "Weak Signal Amateur Radio" --radiolist --separate-output \
+        "Used for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR \
+		digital modes. Choose WSJT-X version" 20 80 12 \
+        "wsjtx-2.0" "Installed from distro " ON \
+        "wsjtx-2.4.0" "Compiled from Repo (~20 minutes compile time) " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIG_CONFIG
+
+	FUN=$(whiptail --title "SigPi Installer" --radiolist --separate-output \
+        "Choose QSSTV version" 20 80 12 \
+        "qsstv-9.2.6" "Installed from distro " ON \
+        "qsstv-9.5.8" "Compiled from Repo (~20 minutes compile time) " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIG_CONFIG
+
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Choose Amateur Radio Applications" 20 80 12 \
-        "fldigi" "Digital Mode suite of applications with Radio control " OFF \
+        "Choose Packet Radio Applications" 20 80 12 \
         "direWolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
         "linpac" "Packet Radio Temrinal with mail client " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
-        "wsjt-x" "Digital Modes for Weak Signal Communicaitons " OFF \
-        "qsstv" "SSTV " OFF \
-        "QSSTV-9.2.4" "Lates stable" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -710,6 +753,10 @@ install_sigpimenu(){
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
 
+	# Add Desktop links
+	sudo cp $SIGPI_MENU/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
+
+
 	# Remove Rogue desktop file to ensure we use the one we provided for direwolf
 	sudo rm -rf /usr/local/share/applications/direwolf.desktop
 }
@@ -1150,6 +1197,8 @@ then
 	sudo make install
 	sudo ldconfig
 fi
+
+install_sigpimenu
 
 echo -e "${SIG_BANNER_COLOR}"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
