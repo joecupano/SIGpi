@@ -1,8 +1,7 @@
 Welcome to SIGpi-installer
 
-This script is part of the SIGbox Project. Given a Raspberry Pi4 with 4GB RAM, a 32GB microSD with
-Raspberry Pi OS Full (32-bit) installed, this script installs drivers and applications for signals
-intelligence (SIGINT) and Amateur Radio use.
+Given a Raspberry Pi4 with 4GB RAM, a 32GB microSD with Raspberry Pi OS Full (32-bit) installed, 
+this script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use.
 
 Installation will continue with the following steps:
 
@@ -10,6 +9,9 @@ Installation will continue with the following steps:
 - Select GNUradio version
 - Choose SDR applications
 - Choose Amateur Radio applications
-- Choose additional utilities
+- Choose Additional Tools
 
-Let's begin ...
+This installation can take three hours to install with almost half that time spent compiling/building
+GNuradio and SDRangel.
+
+Let's begin.

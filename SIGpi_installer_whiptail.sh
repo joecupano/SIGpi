@@ -120,7 +120,6 @@ select_gnuradio() {
         "Choose GNUradio version" 20 80 12 \
         "gnuradio-3.7" "Installed from distro (Raspberry Pi OS) " ON \
         "gnuradio-3.8" "Compiled from Repo (required for gr-gsm) " OFF \
-        "gnuradio-3.9" "Compiled from Repo " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -701,9 +700,10 @@ select_sdrapps
 select_hamradio
 select_utilities
 TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
-
+TERM=ansi whiptail --infobox "Running Update and Upgrade" 10 100
+sudo apt-get update
+sudo apt-get upgrade
 install_dependencies
-
 install_libraries
 
 ##
@@ -850,25 +850,6 @@ then
 	git clone https://github.com/gnuradio/gnuradio.git
 	cd gnuradio
 	git checkout maint-3.8
-	git submodule update --init --recursive
-	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
-	make -j4
-	sudo make install
-	sudo ldconfig
-	cd ~
-	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
-	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
-fi
-
-# GNUradio 3.9
-if grep -Fxq "gnuradio-3.9" $SIG_CONFIG
-then
-    cd $SIGPI_SOURCE
-	TERM=ansi whiptail --infobox "Installing Gnuradio 3.9" 10 100
-	git clone https://github.com/gnuradio/gnuradio.git
-	cd gnuradio
-	git checkout maint-3.9
 	git submodule update --init --recursive
 	mkdir build && cd build
 	cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
