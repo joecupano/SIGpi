@@ -216,7 +216,6 @@ install_dependencies(){
     	mkdir $SIGPI_SDRANGEL
     fi
 
-    touch $SIGPI_INSTALL_STAGE1
 	cd $SIGPI_SOURCE
 
 	sudo fallocate -l 2G /swapfile
@@ -766,7 +765,7 @@ sudo apt-get install -y libax25 ax25-apps ax25-tools
 echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 
 # RTL-SDR
-if grep -Fq "rtl-sdr" $SIG_CONFIG
+if grep rtl-sdr "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/osmocom/rtl-sdr.git
@@ -780,14 +779,14 @@ then
 fi
 
 # HackRF
-if grep -Fq "hackrf" $SIG_CONFIG
+if grep hackrf "$SIG_CONFIG"
 then
     sudo apt-get install -y hackrf libhackrf-dev
 	sudo hackrf_info
 fi
 
 # PlutoSDR
-if grep -Fq "libiio" $SIG_CONFIG
+if grep libiio "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/analogdevicesinc/libiio.git
@@ -800,7 +799,7 @@ then
 fi
 
 # LimeSDR
-if grep -Fq "limesuite" $SIG_CONFIG
+if grep limesuite "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/myriadrf/LimeSuite.git
@@ -815,7 +814,7 @@ fi
 
 # SoapySDR
 #
-if grep -Fq "SoapySDR" $SIG_CONFIG
+if grep SoapySDR "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapySDR.git
@@ -829,7 +828,7 @@ then
 fi
 
 # SoapyRTLSDR
-if grep -Fq "SoapyRTLSDR" $SIG_CONFIG
+if grep SoapyRTLSDR "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRTLSDR.git
@@ -842,7 +841,7 @@ then
 fi
 
 # SoapyHackRF
-if grep -Fq "SoapyHackRF" $SIG_CONFIG
+if grep SoapyHackRF "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyHackRF.git
@@ -855,7 +854,7 @@ then
 fi
 
 # SoapyPlutoSDR
-if grep -Fq "SoapyPlutoSDR" $SIG_CONFIG
+if grep SoapyPlutoSDR "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyPlutoSDR
@@ -868,7 +867,7 @@ then
 fi
 
 # SoapyRemote
-if grep -Fq "SoapyRemote" $SIG_CONFIG
+if grep SoapyRemote "$SIG_CONFIG"
 then
      cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRemote.git
@@ -885,7 +884,7 @@ fi
 ##
 
 # GNUradio 3.7
-if grep -Fq "gnuradio-3.7" $SIG_CONFIG
+if grep gnuradio-3.7 "$SIG_CONFIG"
 then
     echo -e "${SIG_BANNER_COLOR}"
 	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
@@ -896,7 +895,7 @@ then
 fi
 
 # GNUradio 3.8
-if grep -Fq "gnuradio-3.8" $SIG_CONFIG
+if grep gnuradio-3.8 "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	echo -e "${SIG_BANNER_COLOR}"
@@ -929,12 +928,12 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
 # OP25
-if grep -Fq "op25" $SIG_CONFIG
+if grep op25 "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/osmocom/op25.git
 	cd op25
-	if grep -Fq "gnuradio-3.8" $SIG_CONFIG
+	if grep gnuradio-3.8 "$SIG_CONFIG"
 	then
 		cat gr3.8.patch | patch -p1
 		./install_sh
@@ -943,7 +942,7 @@ then
 fi
 
 # Multimon-NG
-if grep -Fq "multimon-ng" $SIG_CONFIG
+if grep multimon-ng "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/EliasOenal/multimon-ng.git
@@ -955,7 +954,7 @@ then
 fi
 
 # Ubertooth Tools
-if grep -Fq "ubertooth-tools" $SIG_CONFIG
+if grep ubertooth-tools "$SIG_CONFIG"
 then
 	cd $SIGPI_SOURCE
 	git clone https://github.com/greatscottgadgets/ubertooth.git
@@ -978,7 +977,7 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
 # rtl_433
-if grep -Fq "rtl_433" $SIG_CONFIG
+if grep rtl_433 "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/merbanan/rtl_433.git
@@ -990,19 +989,19 @@ then
 fi
 
 # gqrx
-if grep -Fq "gqrx" $SIG_CONFIG
+if grep gqrx "$SIG_CONFIG"
 then
     sudo apt-get install -y gqrx-sdr
 fi
 
 # CubicSDR
-if grep -Fq "cubicsdr" $SIG_CONFIG
+if grep cubicsdr "$SIG_CONFIG"
 then
     sudo apt-get install -y cubicsdr
 fi
 
 # SDRangel
-if grep -Fq "sdrangel" $SIG_CONFIG
+if grep sdrangel "$SIG_CONFIG"
 then
     install_sdrangel
 fi
@@ -1018,13 +1017,13 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
 # Fldigi
-if grep -Fq "fldigi" $SIG_CONFIG
+if grep fldigi "$SIG_CONFIG"
 then
     install_fldigi
 fi
 
 # DireWolf
-if grep -Fq "direwolf" $SIG_CONFIG
+if grep direwolf "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://www.github.com/wb2osz/direwolf
@@ -1037,19 +1036,19 @@ then
 fi
 
 # Linpac
-if grep -Fq "linpac" $SIG_CONFIG
+if grep linpac "$SIG_CONFIG"
 then
     sudo apt-get install -y linpac
 fi
 
 # Xastir
-if grep -Fq "xastir" $SIG_CONFIG
+if grep xastir "$SIG_CONFIG"
 then
     sudo apt-get install -y xastir
 fi
 
 # WSJT-X
-if grep -Fq "wsjt-x" $SIG_CONFIG
+if grep wsjt-x "$SIG_CONFIG"
 then
     sudo apt-get install -y wsjtx
 fi
@@ -1060,7 +1059,7 @@ fi
 #fi
 
 # QSSTV
-if grep -Fq "qsstv" $SIG_CONFIG
+if grep qsstv "$SIG_CONFIG"
 then
     sudo apt-get install -y qsstv
 fi
@@ -1071,7 +1070,7 @@ fi
 #fi
 
 # Gpredict
-if grep -Fq "gpredict" $SIG_CONFIG
+if grep gpredict "$SIG_CONFIG"
 then
     sudo apt-get install -y gpredict
 fi
@@ -1087,7 +1086,7 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
 # Wireshark
-if grep -Fq "wireshark" $SIG_CONFIG
+if grep wireshark "$SIG_CONFIG"
 then
     sudo apt-get install wireshark wireshark-dev libwireshark-dev
 	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
@@ -1105,43 +1104,43 @@ then
 fi
 
 # Kismet
-if grep -Fq "kismet" $SIG_CONFIG
+if grep kismet "$SIG_CONFIG"
 then
     install_kismet
 fi
 
 # Audcacity
-if grep -Fq "audacity" $SIG_CONFIG
+if grep audacity "$SIG_CONFIG"
 then
     sudo apt-get install -y audcacity
 fi
 
 # PAVU
-if grep -Fq "pavu" $SIG_CONFIG
+if grep pavu "$SIG_CONFIG"
 then
     sudo apt-get install -y pavucontrol
 fi
 
 # GPS
-if grep -Fq "gps" $SIG_CONFIG
+if grep gps "$SIG_CONFIG"
 then
     sudo apt-get install -y gpsd gpsd-clients python-gps chrony
 fi
 
 # splat
-if grep -Fq "splat" $SIG_CONFIG
+if grep splat "$SIG_CONFIG"
 then
     sudo apt-get install -y splat
 fi
 
 # mumble
-if grep -Fq "mumble" $SIG_CONFIG
+if grep mumble "$SIG_CONFIG"
 then
     sudo apt-get install -y mumble-server mumble
 fi
 
 # Tempest for Eliza
-if grep -Fq "tempest" $SIG_CONFIG
+if grep tempest "$SIG_CONFIG"
 then
     wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
