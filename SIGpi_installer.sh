@@ -1,11 +1,11 @@
 #!/bin/bash
 
 ###
-### SIGpi_install_whiptail
+### SIGpi_installer
 ###
 
 ###
-###   REVISION: 20210925-0900
+###   REVISION: 20210929-2300
 ###
 
 ###
