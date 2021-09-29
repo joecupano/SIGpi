@@ -1,0 +1,116 @@
+###
+### SIGpi Software Inventory
+###
+
+###
+###   REVISION: 20210930-0900
+###
+
+###
+### This is a list of software and versions SIGpi installs 
+###
+
+# Package Versions
+HAMLIB_PKG hamlib-4.3.tar.gz
+FLXMLRPC_PKG flxmlrpc-0.1.4.tar.gz
+FLRIG_PKG flrig-1.4.2.tar.gz
+FLDIGI_PKG fldigi-4.1.20.tar.gz
+WSJTX_PKG wsjtx_2.4.0_armhf.deb
+QSSTV_PKG qsstv_9.5.8.tar.gz
+GNURADIO_PKG gnuradio_3.9
+
+###
+### Packages installed from the distro (Raspberry Pi OS 32-bit)
+###
+
+gnuradio 3.7
+libax25
+ax25-apps
+ax25-tools
+gnuradio 3.7
+gqrx SDR Receiver
+cubicsdr SDR Receiver
+wsjt-x Digital Modes for Weak Signal Communicaitons
+qsstv SSTV
+fldigi
+wsjt-x
+qsstv
+linpac Packet Radio Temrinal with mail client
+xastir APRS Station Tracking and Reporting
+wireshark Network Traffic Analyzer
+audacity Audio Editor
+pavu PulseAudio Control
+mumble VoIP Server and Client
+gpsPS GPS client and NTP sync
+gpredict Satellite Tracking
+splat RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
+
+
+###
+### Packages installed/compiled from Github
+###
+
+rtl-sdr RTL2832U & R820T2-Based
+hackrf Hack RF One
+libiio PlutoSDR
+limesuite LimeSDR
+soapysdr SoapySDR Library
+soapyremote Use any Soapy SDR Remotely
+soapyrtlsdr Soapy SDR Module for RTLSDR
+soapyhackrf Soapy SDR Module for HackRF One
+soapyplutosdr Soapy SDR Module for PlutoSD
+cm256cc
+dab-cmdline/library
+mbelib
+serialDV
+dsdcc
+sgp4
+libsigmf
+liquid-dsp
+libbtbb
+hamlib-4.3
+gnuraido 3.8
+direWolf DireWolf 1.7 Soundcard TNC for APRS
+* fldigi Digital Mode suite of applications with Radio control
+* wsjt-x Digital Modes for Weak Signal Communicaitons
+* QSSTV-9.2.4 Lates stable
+tempest Uses your computer monitor to send out AM radio signals OFF \
+
+
+###
+### Packages installed from add-on repo
+###
+
+kismet Wireless snifferand monitor
+
+
+###
+### Dependencies installed from distro
+###
+
+git cmake g++ pkg-config autoconf automake libtool build-essential \
+pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
+
+libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev \
+libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev \
+libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev libavdevice-dev libavutil-dev \
+libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev \
+libpcap-dev libcppunit-dev libbluetooth-dev python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
+
+python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins \
+python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils
+
+qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools \
+libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 \
+qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev \
+qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
+
+###
+### Python Library Installs via Pip
+###
+
+pygccxml
+
+
+
+    
