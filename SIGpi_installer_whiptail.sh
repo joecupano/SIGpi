@@ -592,7 +592,7 @@ install_kismet(){
     #
 }
 
-install_fldigisuite(){
+install_fldigi(){
 	echo -e "${SIG_BANNER_COLOR}"
 	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Fldigi Suite"
@@ -614,9 +614,9 @@ install_fldigisuite(){
 	./configure --prefix=/usr/local --enable-static
 	make
 	sudo make install
+	sudo ldconfig
 
 	#Install Fldigi
-   	sudo apt install -y libudev-dev
 	wget http://www.w1hkj.com/files/fldigi/fldigi-4.1.20.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/fldigi-4.1.20.tar.gz -C $SIGPI_SOURCE
 	cd $SIGPI_SOURCE/fldigi-4.1.20
@@ -1088,7 +1088,7 @@ echo -e "${SIG_BANNER_RESET}"
 # Wireshark
 if grep wireshark "$SIG_CONFIG"
 then
-    sudo apt-get install wireshark wireshark-dev libwireshark-dev
+    sudo apt-get install -y wireshark wireshark-dev libwireshark-dev
 	cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
 	mkdir build && cd build
 	cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
