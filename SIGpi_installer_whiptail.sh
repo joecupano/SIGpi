@@ -932,9 +932,14 @@ echo -e "${SIG_BANNER_RESET}"
 if grep -Fq "op25" $SIG_CONFIG
 then
     cd $SIGPI_SOURCE
-	git clone https://git.osmocom.org/op25
+	git clone https://github.com/osmocom/op25.git
 	cd op25
-	./install.sh
+	if grep -Fq "gnuradio-3.8" $SIG_CONFIG
+	then
+		cat gr3.8.patch | patch -p1
+		./install_sh
+	else
+		./install.sh
 fi
 
 # Multimon-NG
