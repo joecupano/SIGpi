@@ -68,6 +68,8 @@ SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
 # Tool Variables
 SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
 SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
+SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
+SIG_BANNER_RESET="\e[0m"
 
 
 ###
@@ -197,7 +199,11 @@ select_utilities() {
 }
 
 install_dependencies(){
-	TERM=ansi whiptail --infobox "Installing Dependencies" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Dependencies"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
     if [ ! -d "$SIGPI_SOURCE" ]; then
     	mkdir $SIGPI_SOURCE
     fi
@@ -240,7 +246,11 @@ install_dependencies(){
 }
 
 install_libraries(){
-	TERM=ansi whiptail --infobox "Installing Libraries" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Libraries   (ETA: +30 Minutes)"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	cd $SIGPI_SOURCE
 
 	# APT
@@ -356,7 +366,11 @@ install_libraries(){
 }
 
 install_sdrangel(){
-	TERM=ansi whiptail --infobox "Installing SDRangel (ETA: +80 Minutes)" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install SDRangel (ETA: +80 Minutes)"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	cd $SIGPI_SOURCE
     sudo mkdir -p /opt/build
 	sudo chown pi:users /opt/build
@@ -564,6 +578,11 @@ install_sdrangel(){
 }
 
 install_kismet(){
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Kismet"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	TERM=ansi whiptail --infobox "Installing Kismet" 10 100
     wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
     echo 'deb https://www.kismetwireless.net/repos/apt/release/buster buster main' | sudo tee /etc/apt/sources.list.d/kismet.list
@@ -575,7 +594,11 @@ install_kismet(){
 }
 
 install_fldigisuite(){
-	TERM=ansi whiptail --infobox "Installing Fldigi Suite" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Fldigi Suite"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
     # Install FLxmlrpc
 	wget http://www.w1hkj.com/files/flxmlrpc/flxmlrpc-0.1.4.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/flxmlrpc-0.1.4.tar.gz -C $SIGPI_SOURCE
@@ -605,7 +628,11 @@ install_fldigisuite(){
 }
 
 install_wsjtx(){
-	TERM=ansi whiptail --infobox "Installing WSJT-X" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install WSJT-Xt"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
     wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.4.0_armhf.deb -P $HOME/Downloads
 	sudo dpkg -i $HOME/Downloads/wsjtx_2.4.0_armhf.deb
 	# Will get error next command fixes error and downloads dependencies
@@ -614,7 +641,11 @@ install_wsjtx(){
 }
 
 install_qsstv(){
-	TERM=ansi whiptail --infobox "Installing QSSTV" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install QSSTV"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
     sudo apt-get install -y libhamlib-dev libv4l-dev
 	sudo apt-get install -y libopenjp2-7 libopenjp2-7-dev
 	wget http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz -P $HOME/Downloads
@@ -626,7 +657,11 @@ install_qsstv(){
 }
 
 install_tempest-eliza(){
-	TERM=ansi whiptail --infobox "Installing Tempest for Eliza" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install TEMPEST for Eliza"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
 	cd $SIGPI_SOURCE/tempest_for_eliza-1.0.5
@@ -637,7 +672,11 @@ install_tempest-eliza(){
 }
 
 install_sigpimenu(){
-	TERM=ansi whiptail --infobox "Installing SIGpi Menu and Shortcuts" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install SIGpi Menu and Desktop Shortcuts"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
     #
 	# Copy Menu items into relevant directories
 	# 
@@ -700,7 +739,13 @@ select_sdrapps
 select_hamradio
 select_utilities
 TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
-TERM=ansi whiptail --infobox "Running Update and Upgrade" 10 100
+
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   System Update & Upgrade"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
+
 sudo apt-get update
 sudo apt-get upgrade
 install_dependencies
@@ -710,7 +755,11 @@ install_libraries
 ##  INSTALL DRIVERS
 ##
 
-TERM=ansi whiptail --infobox "Installing Drivers" 10 100
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Drivers"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
 
 # AX.25 and utilities"
 sudo apt-get install -y libax25 ax25-apps ax25-tools
@@ -838,7 +887,11 @@ fi
 # GNUradio 3.7
 if grep -Fxq "gnuradio-3.7" $SIG_CONFIG
 then
-    TERM=ansi whiptail --infobox "Installing Gnuradio 3.7" 10 100
+    echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.7"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	sudo apt-get install -y gnuradio gnuradio-dev
 fi
 
@@ -846,7 +899,11 @@ fi
 if grep -Fxq "gnuradio-3.8" $SIG_CONFIG
 then
     cd $SIGPI_SOURCE
-	TERM=ansi whiptail --infobox "Installing Gnuradio 3.8" 10 100
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.8    (ETA: +60 Minutes)"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
 	git clone https://github.com/gnuradio/gnuradio.git
 	cd gnuradio
 	git checkout maint-3.8
@@ -865,7 +922,11 @@ fi
 ## INSTALL DECODERS
 ##
 
-TERM=ansi whiptail --infobox "Installing Decoders" 10 100
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Decoders"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
 
 # OP25
 if grep -Fxq "op25" $SIG_CONFIG
@@ -905,7 +966,11 @@ fi
 ## INSTALL SDRAPPS
 ##
 
-TERM=ansi whiptail --infobox "Installing SDR applications" 10 100
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install SDR Applications"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
 
 # rtl_433
 if grep -Fxq "rtl_433" $SIG_CONFIG
@@ -941,7 +1006,11 @@ fi
 ## INSTALL AMATEUR RADIO APPLICATIONS
 ##
 
-TERM=ansi whiptail --infobox "Installing Amateur Radio Applications" 10 100
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Amateur Radio Applications"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
 
 # Fldigi
 if grep -Fxq "fldigi" $SIG_CONFIG
@@ -1006,7 +1075,11 @@ fi
 ## INSTALL OTHERAPPS
 ##
 
-TERM=ansi whiptail --infobox "Installing Other Applications" 10 100
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Other Applications/Tools"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_RESET}"
 
 # Wireshark
 if grep -Fxq "wireshark" $SIG_CONFIG
@@ -1074,4 +1147,16 @@ then
 	sudo ldconfig
 fi
 
-TERM=ansi whiptail --title "SigPi Installer" --msgbox "Installation Complete !!" 12 120
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR}"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   System needs to reboot for all changes to occur"
+echo -e "${SIG_BANNER_COLOR} #SIGPI#   Reboot will begin in 15 seconsds unless CTRL-C hit"
+echo -e "${SIG_BANNER_RESET}"
+sleep 17
+sudo sync
+sudo reboot
+exit 0
