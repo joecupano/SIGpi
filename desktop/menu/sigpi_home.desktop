@@ -1,0 +1,11 @@
+[Desktop Entry]
+Version=1.0
+Name=SIGpi Home
+Comment=SIGpi Repo
+Exec=https://github.com/joecupano/SIGbox
+Icon=/usr/share/icons/sigpi_icon_32x32.png
+Terminal=true
+X-MultipleArgs=false
+Type=Application
+Categories=SigPi;
+StartupNotify=true
