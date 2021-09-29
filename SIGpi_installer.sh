@@ -792,8 +792,8 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#   System Update & Upgrade"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
-sudo apt-get update
-sudo apt-get upgrade
+sudo apt-get -y update
+sudo apt-get -y upgrade
 install_dependencies
 install_libraries
 
