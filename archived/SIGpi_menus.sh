@@ -8,22 +8,34 @@
 ###   REVISION: 20210912-1020 
 ###
 
-##
-## INIT VARIABLES AND DIRECTORIES
-##
+###
+### INIT VARIABLES AND DIRECTORIES
+###
+
+# Package Versions
+HAMLIB_PKG="hamlib-4.3.tar.gz"
+FLXMLRPC_PKG="flxmlrpc-0.1.4.tar.gz"
+FLRIG_PKG="flrig-1.4.2.tar.gz"
+FLDIGI_PKG="fldigi-4.1.20.tar.gz"
+WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
+QSSTV_PKG="qsstv_9.5.8.tar.gz"
+GNURADIO_PKG="gnuradio_3.9"
 
 # Source Directory
 SIGPI_SOURCE=$HOME/source
 
-# Home directory
+# SIGpi Home directory
 SIGPI_HOME=$SIGPI_SOURCE/SIGbox
 
+# SDRangel Source directory
+SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
+
 # Desktop directories
-SIGPI_DESKTOP=$SIGPI_HOME/desktop
-SIGPI_BACKGROUNDS=$SIGPI_DESKTOP/backgrounds
-SIGPI_ICONS=$SIGPI_DESKTOP/icons
-SIGPI_LOGO=$SIGPI_DESKTOP/logo
-SIGPI_MENU=$SIGPI_DESKTOP/menu
+SIGPI_THEMES=$SIGPI_HOME/themes
+SIGPI_BACKGROUNDS=$SIGPI_THEMES/backgrounds
+SIGPI_ICONS=$SIGPI_THEMES/icons
+SIGPI_LOGO=$SIGPI_THEMES/logo
+SIGPI_DESKTOP=$SIGPI_THEMES/desktop
 
 # Desktop Destination Directories
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
@@ -34,63 +46,75 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
 
+# SigPi Install Support files
+SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
+SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
+SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
+SIG_BANNER_RESET="\e[0m"
+ 
 #
-# Copy Compiled app Menuitems into relevant directories
+# Copy Menu items into relevant directories
 # 
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $SIGPI_MENU
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $SIGPI_MENU
-sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $SIGPI_MENU
-
-#sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
-sudo cp $SIGPI_MENU/SigPi.directory $DESKTOP_DIRECTORY
-sudo cp $SIGPI_MENU/SigPi.menu $DESKTOP_XDG_MENU
+	
+#sudo cp $SIGPI_DESKTOP/sigpi_example.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/gnuradio/grc/scripts/freedesktop/gnuradio-grc.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/SDRangel/sdrangel/build/sdrangel.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/qsstv/qsstv.desktop $DESKTOP_FILES
+sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
+sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
-sudo cp /usr/local/share/applications/direwolf.desktop $DESKTOP_FILES
-sudo cp /usr/local/share/Lime/Desktop/lime-suite.desktop $DESKTOP_FILES
-sudo cp $SIGPI_MENU/*.desktop $DESKTOP_FILES
-
+	
 #
 # Add SigPi Category for each installed application
 #
 
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
-
+	
 #
 # Add installed applications into SigPi menu
 #
 
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/CubicSDR.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flarq.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/fldigi.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flrig.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gnuradio-grc.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gpredict.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gqrx.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/message_aggregator.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/mumble.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/qsstv.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/wsjtx.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/xastir.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/direwolf.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/lime-suite.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/sdrangel.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/linpac.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gqrx.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/CubicSDR.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrangel.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/direwolf.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/linpac.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/xastir.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/flarq.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/fldigi.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/flrig.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wsjtx.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/message_aggregator.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/qsstv.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/mumble.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gpredict.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wireshark.desktop
+
+# Remove Rogue desktop file to ensure we use the one we provided for direwolf
+sudo rm -rf /usr/local/share/applications/direwolf.desktop
 
 ##
 ## NOTES:
