@@ -96,18 +96,22 @@ before software installation begins. Dependencies are listed below
 git cmake g++ pkg-config autoconf automake libtool build-essential
 pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
 
-libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev
-libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev
-libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev 
+libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev
+libusb-dev libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev
+libavcodec-dev libpthread-stubs0-dev libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev
+libopus-dev libavahi-common-dev libavahi-client-dev 
 
-libavdevice-dev libavutil-dev libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev liborc-0.4-0
-liborc-0.4-dev libsamplerate0-dev libgmp-dev libpcap-dev libcppunit-dev libbluetooth-dev python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
+libavdevice-dev libavutil-dev libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev
+liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev libpcap-dev libcppunit-dev libbluetooth-dev
+python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
 
-python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins
-python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils
+python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click
+python3-click-plugins python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5
+python3-gi-cairo python-docutils
 
-qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools
-libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
+qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev
+qttools5-dev-tools libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qtdeclarative5-dev
+qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ```
 
