@@ -77,11 +77,6 @@ echo " ##"
 echo " ##"
 echo " "
 
-echo " - Remove GNUradio 3.7.X package"
-echo " "
-sudo apt-get remove -y gnuradio
-
-
 echo " - Check Dependencies"
 echo " "
 sudo apt-get install -y git cmake g++ libboost-all-dev libgmp-dev swig python3-numpy python3-mako \
@@ -105,8 +100,6 @@ cd ~
 echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
 echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
 
-
-
 #
 # Copy Menuitems into relevant directories
 # 
@@ -127,7 +120,7 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" /usr/local/share/
 
 echo "*** "
 echo "*** "
-echo "***   UPDATEE COMPLETE"
+echo "***   UPDATE COMPLETE"
 echo "*** "
 echo "*** "
 echo " "
