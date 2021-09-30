@@ -54,18 +54,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
 
-# SigPi Install Change Tracking through touched files
-SIGPI_INSTALL_STAGE1=$SIGPI_HOME/sigpi_dependencies
-SIGPI_INSTALL_STAGE2=$SIGPI_HOME/sigpi_libsdrivers
-SIGPI_INSTALL_STAGE3=$SIGPI_HOME/sigpi_gnuradio
-SIGPI_INSTALL_STAGE4=$SIGPI_HOME/sigpi_sdrapps
-SIGPI_INSTALL_STAGE5=$SIGPI_HOME/sigpi_sdrangel
-SIGPI_INSTALL_STAGE6=$SIGPI_HOME/sigpi_packet
-SIGPI_INSTALL_STAGE7=$SIGPI_HOME/sigpi_ham
-SIGPI_INSTALL_STAGE8=$SIGPI_HOME/sigpi_wrapping
-SIGPI_OPTION_BUILDHAM=$SIGPI_HOME/BUILDHAM
-
-# Tool Variables
+# SigPi Install Support files
 SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
 SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
 SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
@@ -406,6 +395,28 @@ install_libraries(){
 	sudo make install
 	sudo ldconfig
 }
+
+install_gnuradio38(){
+	cd $SIGPI_SOURCE
+	echo -e "${SIG_BANNER_COLOR}"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.8    (ETA: +60 Minutes)"
+	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIG_BANNER_RESET}"
+	git clone https://github.com/gnuradio/gnuradio.git
+	cd gnuradio
+	git checkout maint-3.8
+	git submodule update --init --recursive
+	mkdir build && cd build
+	cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
+	make -j4
+	sudo make install
+	sudo ldconfig
+	cd ~
+	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
+	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+}
+
 
 install_sdrangel(){
 	echo -e "${SIG_BANNER_COLOR}"
@@ -930,38 +941,12 @@ fi
 ## INSTALL GNURADIO
 ##
 
-# GNUradio 3.7
-if grep gnuradio-3.7 "$SIG_CONFIG"
-then
-    echo -e "${SIG_BANNER_COLOR}"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.7"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_RESET}"
-	sudo apt-get install -y gnuradio gnuradio-dev
-fi
-
-# GNUradio 3.8
+# GNUradio
 if grep gnuradio-3.8 "$SIG_CONFIG"
 then
-    cd $SIGPI_SOURCE
-	echo -e "${SIG_BANNER_COLOR}"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.8    (ETA: +60 Minutes)"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_RESET}"
-	git clone https://github.com/gnuradio/gnuradio.git
-	cd gnuradio
-	git checkout maint-3.8
-	git submodule update --init --recursive
-	mkdir build && cd build
-	cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
-	make -j4
-	sudo make install
-	sudo ldconfig
-	cd ~
-	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
-	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+	install_gnuradio38
+else
+	sudo apt-get install -y gnuradio gnuradio-dev
 fi
 
 ##
@@ -973,20 +958,20 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Decoders"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
-
-# OP25
-if grep op25 "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/osmocom/op25.git
-	cd op25
-	if grep gnuradio-3.8 "$SIG_CONFIG"
-	then
-		cat gr3.8.patch | patch -p1
-		./install_sh
-	else
-		./install.sh
-fi
+ 
+# OP25 ---- script crashes at next line and goes to and with EOF error
+#if grep op25 "$SIG_CONFIG"
+#then
+#    cd $SIGPI_SOURCE
+#	 git clone https://github.com/osmocom/op25.git
+#	 cd op25
+#	 if grep gnuradio-3.8 "$SIG_CONFIG"
+#	 then
+#	     cat gr3.8.patch | patch -p1
+#		 ./install_sh
+#	 else
+#		 ./install.sh
+#fi
 
 # Multimon-NG
 if grep multimon-ng "$SIG_CONFIG"
@@ -1095,9 +1080,11 @@ then
 fi
 
 # WSJT-X
-if grep wsjt-x "$SIG_CONFIG"
+if grep wsjt-x2.4.0 "$SIG_CONFIG"
 then
-    sudo apt-get install -y wsjtx
+    install_wsjtx
+else
+	sudo apt-get install -y wsjtx
 fi
 
 #SIGPKGCHK=$(cat $SIG_CONFIG |grep "WSJT-Xc")
@@ -1106,8 +1093,10 @@ fi
 #fi
 
 # QSSTV
-if grep qsstv "$SIG_CONFIG"
+if grep qsstv-9.5.8 "$SIG_CONFIG"
 then
+	install_qsstv
+else
     sudo apt-get install -y qsstv
 fi
 

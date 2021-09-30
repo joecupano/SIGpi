@@ -5,13 +5,15 @@ this script installs drivers and applications for signals intelligence (SIGINT) 
 
 Installation will continue with the following steps:
 
-- Choose SDR devices
+- Choose Devices
 - Select GNUradio version
+- Select Digital Decoders
 - Choose SDR applications
-- Choose Amateur Radio applications
+- Choose Amateur Radio Library and Applications
+- Choose Packet Radio Applications
 - Choose Additional Tools
 
-This installation can take three hours to install with almost half that time spent compiling/building
+This installation can take more than three hours to install with almost half that time spent compiling/building
 GNuradio and SDRangel.
 
 Let's begin.
