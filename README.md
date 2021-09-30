@@ -14,55 +14,100 @@ Much how you see Amateur Radio operators build "go-kits" for remote or emergency
 
 SIGpi is the compute component of SIGbox built on a Raspberry Pi4 4GB RAM and 32GB microSD card. The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
 
-The script runs in stages creating a swapfile and rebooting after the completion of some stages. After reboot you type the same command as you did to start this script. The script will know where it left off. Only RTLSDR, HackRF, LimeSDR, and PlutoSDR drivers are built.
-
-Below is a list of installs per stage. The install are in a particular order given dependencies by other applications. Some are package installs while many require donwloading source and and compiling.
-
-Total install time will take about three hours plus with the SDRangel related packages in Stage 3 taking at least an hour. If Amateur Radio Digital modes do not interest you, you can skip installing Stage 5.
+Total install time will take over three hours if you choose compile some software versus going with packages available
+from the Raspberry Pi OS 32-bit distro. Below is a list of software installed. Asterisk (*) indicate software packages
+that are compiled
 
 ```
-Stage 1
-	- Ensure OS is current (update,upgrade)
-	- Pulse Audio Control (PAVU)
-	- Audacity
 
-Stage 2
-	- AX.25 and utilities
-	- VoIP Server/Client (Murmur/Mumble)
-	- RTLSDR
-	- HackRF
-	- LimeSDR
-	- PlutoSDR
-	- SoapySDR
-	- SoapyRTLSDR
-	- SoapyHackRF
-	- SoapyPlutoSDR
-	- SoapyRemote
-	- GPSd and Chrony
-	- Liquid-DSP
-	- GNUradio 3.7.X
-	- Kismet
-	- GQRX
-	- CubicSDR
+Device Drivers
+- rtl-sdr RTL2832U & R820T2-Based *
+- hackrf Hack RF One *
+- libiio PlutoSDR *
+- limesuite LimeSDR *
+- soapysdr SoapySDR Library *
+- soapyremote Use any Soapy SDR Remotely *
+- soapyrtlsdr Soapy SDR Module for RTLSDR *
+- soapyhackrf Soapy SDR Module for HackRF One *
+- soapyplutosdr Soapy SDR Module for PlutoSD *
 
-Stage 3
-	- SDRangel Dependencies
-	- SDRangel
-	- SDRangel Wisdom File
-	- VOX for SDRangel
+Libraries
+- cm256cc *
+- dab-cmdline/library *
+- mbelib *
+- serialDV *
+- dsdcc *
+- sgp4 *
+- libsigmf *
+- liquid-dsp *
+- libbtbb *
+- Hamlib 3.3-5
+- Hamlib 4.3 *
 
-Stage 4
-	- HamLib 4.3
-	- Gpredict
-	- DireWolf 1.7
-	- Linpac
-	- Xastir
+Digital Decoders
+- 
 
-Stage 5
-	- FLdigi Suite (FLxmlrpc 0.1.4, Flrig 1.4.2, Fldigi 4.1.20)
-	- WSJT-X 2.4.0
-	- QSSTV 9.5.8
-	- SigPi Menus
+SDR Applications
+- gnuradio 3.7
+- gnuradio 3.7 *
+- gqrx SDR Receiver
+- cubicsdr SDR Receiver
+
+Packet Radio
+- libax25
+- ax25-apps
+- ax25-tools
+- direwolf 1.7 *
+
+
+Amateur Radio
+- fldigi 4.1.0
+- fldigi 4.1.20 *
+- wsjt-x 2.4.0
+- wsjt-x 2.4.2 *
+- qsstv
+- qsstv 9.5.8 *
+
+
+Satellite and Geo
+- gpredict Satellite Tracking
+- xastir APRS Station Tracking and Reporting
+- linpac Packet Radio Temrinal with mail client
+
+
+Tools
+- kismet Wireless snifferand monitor
+- wireshark Network Traffic Analyzer
+- audacity Audio Editor
+- pavu PulseAudio Control
+- mumble VoIP Server and Client
+- splat RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
+- gps GPS client and NTP sync
+- tempest Uses your computer monitor to send out AM radio signals *
+
+```
+
+## Dependencies 
+
+Best effort has been made that all software dependencies are satisfied after update/upgrade and
+before software installation begins. Dependencies are listed below
+
+```
+git cmake g++ pkg-config autoconf automake libtool build-essential
+pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
+
+libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev
+libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev
+libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev 
+
+libavdevice-dev libavutil-dev libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev liborc-0.4-0
+liborc-0.4-dev libsamplerate0-dev libgmp-dev libpcap-dev libcppunit-dev libbluetooth-dev python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
+
+python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins
+python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils
+
+qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools
+libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ```
 
@@ -86,37 +131,28 @@ git clone https://github.com/joecupano/SIGbox.git
 cd SIGbox
 ```
 
-- Make SIGpi_install.sh executable
+- Run SIGpi_installer.sh
 
 ```
-chmod 755 SIGpi_install.sh
+./SIGpi_installer.sh
 ```
 
-- Run SIGpi_install.sh
+Follow script instructions.
 
-```
-./SIGpi_install.sh
-```
+### Distro versus Compiled Software versions
 
-Follow script instructions. Know Stage 3 will run for well over an hour.
+Going with the distro releases of software packages for classic and common use cases.
+If you are a more experience signals investigator you may find your needs may require
+the lates versions of software which require compile and alot of patience for the
+time they take to compile. The software packages that can take an hour each to
+compile include:
 
-### Amateur Radion Software versions
+- Hammlib 4.3
+- Fldigi 4.1.20
+- WSJT-X 2.4.2
+- QSSTV 9.5.8
 
-Installing from repo is the default for the following packages
-
-- Fldigi suite
-- QSSTV
-
-If you want the latest stable packages installed for those applications then pass BUILDHAM as argument to the install script the first time you run it.
-
-```
-./SIGpi_install.sh BUILDHAM
-```
-No need to pass the argument again in subsequent stages.
-
-## Post Installation
-
-Though all the software is installed, many apps will require further configuration. Some will require configuration per use if you are using different SDR devices for differenent use cases. This section covers the configurations that only need to be done one time.
+SDRangel can take up to 90 minutes to compile. 
 
 ### Mumble Server (VoIP)
 
@@ -177,6 +213,9 @@ Xastir is an application that provides geospatial mappng of APRS signals. It nee
 #### Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
 
+## Post Installation
+
+Though all the software is installed, many apps will require further configuration. Some will require configuration per use if you are using different SDR devices for differenent use cases. This section covers the configurations that only need to be done one time.
 
 ## What Else
 Yes, I know there are more apps installed. There is no short-cut and must defer you to the  documentation on their respetive sites
