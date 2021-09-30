@@ -13,10 +13,12 @@ Installation will continue with the following steps:
 - Choose Packet Radio Applications
 - Choose Additional Tools
 
-This installation can take up to four hours to install. Example compile/build times include:
+This installation can take four hours to install. Example compile/build times include:
 - GNuradio 3.8 (~50 minutes)
 - SDRangel  (~100 minutes)
 - Hamlib 4.3 (~45 minutes)
+- Fldigi Suite (~30 minutes)
 - QSSTV 9.5.8 (~30 minutes)
+
 
 Let's begin.
