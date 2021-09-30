@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=QSSTV
+GenericName=SSTV and HAMDRM software
+Exec=/usr/local/bin/qsstv
+Terminal=false
+Categories=SigPi;
+Icon=/usr/share/pixmaps/qsstv.png
+Comment=SSTV and HAMDRM for linux
+Type=Application
