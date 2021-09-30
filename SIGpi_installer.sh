@@ -1080,7 +1080,7 @@ then
 fi
 
 # WSJT-X
-if grep wsjt-x2.4.0 "$SIG_CONFIG"
+if grep wsjtx-2.4.0 "$SIG_CONFIG"
 then
     install_wsjtx
 else
