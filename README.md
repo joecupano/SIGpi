@@ -8,7 +8,7 @@ This build script is part of a larger project called SIGbox.
 
 Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGbox is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
 
-![alt-test](https://github.com/joecupano/SIGbox/blob/main/SIGbox_architecture.png)
+![alt-test](https://github.com/joecupano/SIGbox/blob/main/tools/SIGbox_architecture.png)
 
 ## SIGpi
 
