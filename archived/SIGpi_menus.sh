@@ -37,8 +37,8 @@ SIGPI_MENU_CATEGORY=SigPi
 #
 # Copy Compiled app Menuitems into relevant directories
 # 
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/fldigi.desktop $SIGPI_MENU
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/flarq.desktop $SIGPI_MENU
+sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $SIGPI_MENU
+sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $SIGPI_MENU
 sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $SIGPI_MENU
 
 #sudo cp $SIGPI_MENU/sigpi_example.desktop $DESKTOP_FILES
@@ -75,21 +75,21 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wi
 # Add installed applications into SigPi menu
 #
 
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/CubicSDR.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flarq.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/fldigi.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flrig.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gnuradio-grc.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gpredict.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gqrx.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/message_aggregator.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/mumble.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/qsstv.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/wsjtx.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/xastir.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/direwolf.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/lime-suite.desktop
-xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/sdrangel.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/CubicSDR.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flarq.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/fldigi.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/flrig.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gnuradio-grc.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gpredict.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/gqrx.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/message_aggregator.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/mumble.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/qsstv.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/wsjtx.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/xastir.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/direwolf.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/lime-suite.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/sdrangel.desktop
 xdg-desktop-menu install --novendor $DESKTOP_DIRECTORY/SigPi.directory   $DESKTOP_FILES/linpac.desktop
 
 ##
