@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=SIGID Reddit
+Comment=Go to SIGID Reddit site
+Exec=xdg-open https://www.reddit.com/domain/sigidwiki.com/
+Icon=/usr/share/icons/reddit_logo.png
+Terminal=false
+Type=Application
+Categories=SigPi;
