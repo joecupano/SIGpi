@@ -158,7 +158,7 @@ git pull
 - Run SIGpi_update.sh
 - Follow script instructions.
 
-### Distro versus Compiled Software versions
+## Distro versus Compiled Software versions
 
 Going with the distro releases of software packages for classic and common use cases.
 If you are a more experience signals investigator you may find your needs may require
@@ -173,7 +173,7 @@ compile include:
 
 SDRangel can take up to 90 minutes to compile. 
 
-### Mumble Server (VoIP)
+## Mumble Server (VoIP)
 
 This server is only necessary if intent to remotely connect to SIGpi and require audio at that remote location. You have the option of running the server on startup or not. Run the following command. 
 
@@ -187,7 +187,7 @@ sudo dpkg-reconfigure mumble-server
 
 - When asked to create a SuperUser password do something strong.
 
-### APRS and Packet using a VHF/UHF Transceiver
+## APRS and Packet using a VHF/UHF Transceiver
 
 SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at very low RF power levels with SDR devices supported. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
 
@@ -195,7 +195,7 @@ In the past dedicated hardware known as TNCs (terminal node controllers) was use
 
 If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
 
-#### AX.25
+### AX.25
 
 You will need to edit a line in the /etc/ax25/axports file as follows:
 
@@ -219,17 +219,17 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 
 - Save and exit
 
-#### DireWolf
+### DireWolf
 
 DireWolf needs to be running for APRS and Packet applications to have use the AX0 interface defined in the previou section. You will need to configure your
 callsign, the soundcard device to use, and whether using PTT or VOX in the **$HOME/direwolf.conf** file. The conf file itslef is well documented in how to configure else consult the [DireWolf online docs](https://github.com/wb2osz/direwolf/tree/master/doc).
 
 Because a number of factors go into a successful DireWold setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
 
-#### XASTIR
+### XASTIR
 Xastir is an application that provides geospatial mappng of APRS signals. It needs to configured to use the RF interface provided by DireWolf. You must start Direwolf in a separately terminal window before you start Xastir. Be sure to consult [Xastir online documentation](https://xastir.org/index.php/Main_Page) for more info.
 
-#### Gpredict
+## Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
 
 ## Post Installation
