@@ -148,25 +148,15 @@ Follow script instructions.
 ## Update from Release 1
 
 - Login as Pi
-- Updated local repo of SIGbox
+- change diretcory into ~/source/SIGbox
+- Update local repo of SIGbox
 
 ```
-git pull https://github.com/joecupano/SIGbox.git
-```
-
-- Change directory into SIGbox
-
-```
-cd SIGbox
+git pull
 ```
 
 - Run SIGpi_update.sh
-
-```
-./SIGpi_update.sh
-```
-
-Follow script instructions.
+- Follow script instructions.
 
 ### Distro versus Compiled Software versions
 
