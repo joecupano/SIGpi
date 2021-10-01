@@ -117,7 +117,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ```
 
-## Installation
+## Fresh Install
 
 - Login as Pi
 - Create a directory in your home called source and switch into it
@@ -141,6 +141,29 @@ cd SIGbox
 
 ```
 ./SIGpi_installer.sh
+```
+
+Follow script instructions.
+
+## Update from Release 1
+
+- Login as Pi
+- Updated local repo of SIGbox
+
+```
+git pull https://github.com/joecupano/SIGbox.git
+```
+
+- Change directory into SIGbox
+
+```
+cd SIGbox
+```
+
+- Run SIGpi_update.sh
+
+```
+./SIGpi_update.sh
 ```
 
 Follow script instructions.
