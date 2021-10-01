@@ -148,7 +148,7 @@ Follow script instructions.
 ## Update from Release 1
 
 - Login as Pi
-- change diretcory into ~/source/SIGbox
+- change directory into ~/source/SIGbox
 - Update local repo of SIGbox
 
 ```
