@@ -1,11 +1,11 @@
 #!/bin/bash
 
 ###
-### SIGpi_installer
+### SIGpi_Update
 ###
 
 ###
-###   REVISION: 20210929-2300
+###   REVISION: 20211001-2300
 ###
 
 ###
@@ -83,40 +83,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIG_INSTALL_TXT1 24 120 16
-}
-
-select_sdrdevices() {
-    FUN=$(whiptail --title "SDR Devices" --checklist --separate-output \
-        "Choose SDR devices " 20 80 12\
-        "rtl-sdr" "RTL2832U & R820T2-Based " ON \
-        "hackrf" "Hack RF One " OFF \
-        "libiio" "PlutoSDR " OFF \
-        "limesuite" "LimeSDR " OFF \
-        "soapysdr" "SoapySDR Library " ON \
-        "soapyremote" "Use any Soapy SDR Remotely " ON \
-        "soapyrtlsdr" "Soapy SDR Module for RTLSDR " ON \
-        "soapyhackrf" "Soapy SDR Module for HackRF One " OFF \
-        "soapyplutosdr" "Soapy SDR Module for PlutoSD " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
-}
-
-select_gnuradio() {
-    FUN=$(whiptail --title "GNUradio" --radiolist --separate-output \
-        "Choose GNUradio version" 20 80 12 \
-        "gnuradio-3.7" "Installed from distro (Raspberry Pi OS) " ON \
-        "gnuradio-3.8" "Compiled from Repo (required for gr-gsm) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
+    TERM=ansi whiptail --title "SigPi Update" --textbox $SIG_INSTALL_TXT1 24 120 16
 }
 
 select_decoders() {
@@ -124,7 +91,6 @@ select_decoders() {
         "Choose Decoders " 20 120 12\
         "aptdec" "Decodes images transmitted by NOAA weather satellites " ON \
         "rtl_433" "Generic data receiver with sensor support mainly for UHF ISM Bands " ON \
-        "op25" "P25 digital voice decoder which works with RTL-SDR dongles" ON \
         "multimon-ng" "Decoder for POCSGA, FLEX, X10, DTMF, ZVEi, UFSK, AFSK, etc" ON \
         "ubertooth-tools" "Bluetooth BLE and BR tools for Ubertooth device" ON \
         3>&1 1>&2 2>&3)
@@ -135,91 +101,25 @@ select_decoders() {
     echo $FUN >> $SIG_CONFIG
 }
 
-select_sdrapps() {
-    FUN=$(whiptail --title "SDR Applications" --checklist --separate-output \
-        "Choose SDR Applications" 20 80 12 \
-        "gqrx" "SDR Receiver " ON \
-        "cubicsdr" "SDR Receiver " OFF \
-        "sdrangel" "SDRangel " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
-}
-
 select_hamradio() {
-	FUN=$(whiptail --title "Ham Control Library" --radiolist --separate-output \
-        "USed for exterbal control of Aateur Radio and some SDR transceivers as \
-		well as antenna rotors. Choose HAMlib version" 20 80 12 \
-        "hamlib-3.3" "Installed from distro " ON \
-        "hamlib-4.3" "Compiled from Repo (~20 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
+    if (whiptail --title "Fldigi Suite" --yesno "Fldigi - Update from 4.1.01 Distro to 4.1.20 compiled version ?" 8 80 ); then
+        echo "fldigi-4.1.20" >> $SIG_CONFIG
     fi
-    echo $FUN >> $SIG_CONFIG
 
-    FUN=$(whiptail --title "Fldigi Suite" --radiolist --separate-output \
-        "Used for MFSK, PSK31, CW, RTTY. WEFAX and many others \
-		Choose Fldigi version" 20 80 12 \
-        "fldigi-4.1.01" "Installed from distro " ON \
-        "fldigi-4.1.20" "Compiled from Repo (~40 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
+    if (whiptail --title "WSJT-X" --yesno "WSJT-X - Update from 2.0.0 distro to 2.4.2 compiled version ?" 8 80 ); then
+        echo "wsjtx-2.4.0" >> $SIG_CONFIG
     fi
-    echo $FUN >> $SIG_CONFIG
 
-	FUN=$(whiptail --title "Weak Signal Amateur Radio" --radiolist --separate-output \
-        "Used for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR \
-		digital modes. Choose WSJT-X version" 20 80 12 \
-        "wsjtx-2.0" "Installed from distro " ON \
-        "wsjtx-2.4.0" "Compiled from Repo (~20 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
+    if (whiptail --title "QSSTV" --yesno "QSSTV - Update from 9.2.6 distro to 9.5.8 compiled version ?" 8 80 ); then
+        echo "qsstv-9.5.8" >> $SIG_CONFIG
     fi
-    echo $FUN >> $SIG_CONFIG
-
-	FUN=$(whiptail --title "SigPi Installer" --radiolist --separate-output \
-        "Choose QSSTV version" 20 80 12 \
-        "qsstv-9.2.6" "Installed from distro " ON \
-        "qsstv-9.5.8" "Compiled from Repo (~20 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
-
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Choose Packet Radio Applications" 20 80 12 \
-        "direWolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
-        "linpac" "Packet Radio Temrinal with mail client " OFF \
-        "xastir" "APRS Station Tracking and Reporting " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
 }
 
 select_utilities() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SigPi Update" --checklist --separate-output \
         "Choose other Useful Applications" 20 120 12 \
         "wireshark" "Network Traffic Analyzer " OFF \
         "kismet" "Wireless snifferand monitor " OFF \
-        "audacity" "Audio Editor " OFF \
-        "pavu" "PulseAudio Control " OFF \
-        "mumble" "VoIP Server and Client " OFF \
-        "gpsPS" "GPS client and NTP sync " OFF \
-        "gpredict" "Satellite Tracking " OFF \
         "splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
         "tempest" "Uses your computer monitor to send out AM radio signals" OFF \
         3>&1 1>&2 2>&3)
@@ -415,219 +315,6 @@ install_gnuradio38(){
 	cd ~
 	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
 	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
-}
-
-
-install_sdrangel(){
-	echo -e "${SIG_BANNER_COLOR}"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install SDRangel (ETA: +80 Minutes)"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_RESET}"
-	cd $SIGPI_SOURCE
-    sudo mkdir -p /opt/build
-	sudo chown pi:users /opt/build
-	sudo mkdir -p /opt/install
-	sudo chown pi:users /opt/install
-
-	# APT
-	# Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/srcejon/aptdec.git
-	cd aptdec
-	git checkout libaptdec
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/aptdec ..
-	make -j $(nproc) install
-
-	# CM265cc
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/f4exb/cm256cc.git
-	cd cm256cc
-	git reset --hard c0e92b92aca3d1d36c990b642b937c64d363c559
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/cm256cc ..
-	make -j $(nproc) install
-
-	# LibDAB
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/srcejon/dab-cmdline
-	cd dab-cmdline/library
-	git checkout msvc
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libdab ..
-	make -j $(nproc) install
-
-	# MBElib
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/szechyjs/mbelib.git
-	cd mbelib
-	git reset --hard 9a04ed5c78176a9965f3d43f7aa1b1f5330e771f
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/mbelib ..
-	make -j $(nproc) install
-
-	# SerialDV
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/f4exb/serialDV.git
-	cd serialDV
-	git reset --hard "v1.1.4"
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/serialdv ..
-	make -j $(nproc) install
-
-	# DSDcc
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/f4exb/dsdcc.git
-	cd dsdcc
-	git reset --hard "v1.9.3"
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/dsdcc -DUSE_MBELIB=ON -DLIBMBE_INCLUDE_DIR=/opt/install/mbelib/include -DLIBMBE_LIBRARY=/opt/install/mbelib/lib/libmbe.so -DLIBSERIALDV_INCLUDE_DIR=/opt/install/serialdv/include/serialdv -DLIBSERIALDV_LIBRARY=/opt/install/serialdv/lib/libserialdv.so ..
-	make -j $(nproc) install
-
-	# Codec2/FreeDV
-	# Codec2 is already installed from the packager, but this version is required for SDRangel.
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/drowe67/codec2.git
-	cd codec2
-	git reset --hard 76a20416d715ee06f8b36a9953506876689a3bd2
-	mkdir build_linux; cd build_linux
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/codec2 ..
-	make -j $(nproc) install
-
-	# SGP4
-	# python-sgp4 1.4-1 is available in the packager, installing this version just to be sure.
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/dnwrnr/sgp4.git
-	cd sgp4
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/sgp4 ..
-	make -j $(nproc) install
-
-	# LibSigMF
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/f4exb/libsigmf.git
-	cd libsigmf
-	git checkout "new-namespaces"
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libsigmf .. 
-	make -j $(nproc) install
-	sudo ldconfig
-
-	# RTLSDR
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/osmocom/rtl-sdr.git librtlsdr
-	cd librtlsdr
-	git reset --hard be1d1206bfb6e6c41f7d91b20b77e20f929fa6a7
-	mkdir build; cd build
-	cmake -Wno-dev -DDETACH_KERNEL_DRIVER=ON -DCMAKE_INSTALL_PREFIX=/opt/install/librtlsdr ..
-	make -j4 install
-
-	# PlutoSDR
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/analogdevicesinc/libiio.git
-	cd libiio
-	git reset --hard v0.21
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libiio -DINSTALL_UDEV_RULE=OFF ..
-	make -j4 install
-
-	# HackRF
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/mossmann/hackrf.git
-	cd hackrf/host
-	git reset --hard "v2018.01.1"
-	mkdir build; cd build
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libhackrf -DINSTALL_UDEV_RULES=OFF ..
-	make -j4 install
-
-	# LimeSDR
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/myriadrf/LimeSuite.git
-	cd LimeSuite
-	git reset --hard "v20.01.0"
-	mkdir builddir; cd builddir
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/LimeSuite ..
-	make -j4 install
-
-	#SoapySDR
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/pothosware/SoapySDR.git
-	cd SoapySDR
-	git reset --hard "soapy-sdr-0.7.1"
-	mkdir build; cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/opt/install/SoapySDR ..
-	make -j4 install
-	
-	#SoapyRTLSDR
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/pothosware/SoapyRTLSDR.git
-	cd SoapyRTLSDR
-	mkdir build && cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/opt/install/SoapySDR  -DRTLSDR_INCLUDE_DIR=/opt/install/librtlsdr/include -DRTLSDR_LIBRARY=/opt/install/librtlsdr/lib/librtlsdr.so -DSOAPY_SDR_INCLUDE_DIR=/opt/install/SoapySDR/include -DSOAPY_SDR_LIBRARY=/opt/install/SoapySDR/lib/libSoapySDR.so ..
-	make -j4 install
-
-	#SoapyHackRF
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/pothosware/SoapyHackRF.git
-	cd SoapyHackRF
-	mkdir build; cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/opt/install/SoapySDR -DLIBHACKRF_INCLUDE_DIR=/opt/install/libhackrf/include/libhackrf -DLIBHACKRF_LIBRARY=/opt/install/libhackrf/lib/libhackrf.so -DSOAPY_SDR_INCLUDE_DIR=/opt/install/SoapySDR/include -DSOAPY_SDR_LIBRARY=/opt/install/SoapySDR/lib/libSoapySDR.so ..
-	make -j4 install
-
-	#SoapyLimeRF
-    cd $SIGPI_SDRANGEL
-	cd LimeSuite/builddir
-	cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/LimeSuite -DCMAKE_PREFIX_PATH=/opt/install/SoapySDR ..
-	make -j4 install
-	cp /opt/install/LimeSuite/lib/SoapySDR/modules0.7/libLMS7Support.so /opt/install/SoapySDR/lib/SoapySDR/modules0.7
-
-	#SoapyRemote
-	cd $SIGPI_SDRANGEL
-	git clone https://github.com/pothosware/SoapyRemote.git
-	cd SoapyRemote
-	git reset --hard "soapy-remote-0.5.1"
-	mkdir build; cd build
-	cmake -DCMAKE_INSTALL_PREFIX=/opt/install/SoapySDR -DSOAPY_SDR_INCLUDE_DIR=/opt/install/SoapySDR/include -DSOAPY_SDR_LIBRARY=/opt/install/SoapySDR/lib/libSoapySDR.so ..
-	make -j4 install
-
-	#SDRangel
-    cd $SIGPI_SDRANGEL
-	git clone https://github.com/f4exb/sdrangel.git
-	cd sdrangel
-	mkdir build; cd build
-	cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON \
-	-DCMAKE_BUILD_TYPE=RelWithDebInfo \
-	-DHACKRF_DIR=/opt/install/libhackrf \
-	-DRTLSDR_DIR=/opt/install/librtlsdr \
-	-DLIMESUITE_DIR=/opt/install/LimeSuite \
-	-DIIO_DIR=/opt/install/libiio \
-	-DSOAPYSDR_DIR=/opt/install/SoapySDR \
-	-DAPT_DIR=/opt/install/aptdec \
-	-DCM256CC_DIR=/opt/install/cm256cc \
-	-DDSDCC_DIR=/opt/install/dsdcc \
-	-DSERIALDV_DIR=/opt/install/serialdv \
-	-DMBE_DIR=/opt/install/mbelib \
-	-DCODEC2_DIR=/opt/install/codec2 \
-	-DSGP4_DIR=/opt/install/sgp4 \
-	-DLIBSIGMF_DIR=/opt/install/libsigmf \
-	-DDAB_DIR=/opt/install/libdab \
-	-DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
-	make -j4 install
-	# Copy special startup script for this snowflake
-	sudo cp $SIGPI_HOME/snowflakes/SIGpi_sdrangel.sh /usr/local/bin
-
-    cd $HOME/.config/
-	mkdir f4exb
-	cd f4exb
-	# Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-	# This will take a very long time.
-	fftwf-wisdom -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-
-    # Add VOX for Transimtting with SDRangel
-	cd $SIGPI_SOURCE
-	git clone https://gitlab.wibisono.or.id/published/voxangel.git
-	
 }
 
 install_kismet(){
@@ -826,13 +513,11 @@ config_stuff(){
 touch $SIG_CONFIG
 calc_wt_size
 select_startscreen
-select_sdrdevices
-select_gnuradio
 select_decoders
 select_sdrapps
 select_hamradio
 select_utilities
-TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
+TERM=ansi whiptail --title "SigPi Update" --msgbox "Ready to Install" 12 120
 
 echo -e "${SIG_BANNER_COLOR}"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
@@ -846,145 +531,10 @@ install_dependencies
 install_libraries
 
 ##
-##  INSTALL DRIVERS
+## INSTALL GNURADIO 3.8
 ##
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Drivers"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
-
-# AX.25 and utilities"
-sudo apt-get install -y libax25 ax25-apps ax25-tools
-echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
-
-# RTL-SDR
-if grep rtl-sdr "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/osmocom/rtl-sdr.git
-	cd rtl-sdr
-	mkdir build	
-	cd build
-	cmake ../
-	make
-	sudo make install
-	sudo ldconfig
-fi
-
-# HackRF
-if grep hackrf "$SIG_CONFIG"
-then
-    sudo apt-get install -y hackrf libhackrf-dev
-	sudo hackrf_info
-fi
-
-# PlutoSDR
-if grep libiio "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/analogdevicesinc/libiio.git
-	cd libiio
-	mkdir build; cd build
-	cmake ..
-	make -j4
-	sudo make install
-	sudo ldconfig
-fi
-
-# LimeSDR
-if grep limesuite "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/myriadrf/LimeSuite.git
-	cd LimeSuite
-	git checkout stable
-	mkdir builddir && cd builddir
-	cmake ../
-	make -j4
-	sudo make install
-	sudo ldconfig
-fi
-
-# SoapySDR
-#
-if grep SoapySDR "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/pothosware/SoapySDR.git
-	cd SoapySDR
-	mkdir build && cd build
-	cmake ../ -DCMAKE_BUILD_TYPE=Release
-	make -j4
-	sudo make install
-	sudo ldconfig
-	SoapySDRUtil --info
-fi
-
-# SoapyRTLSDR
-if grep SoapyRTLSDR "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/pothosware/SoapyRTLSDR.git
-	cd SoapyRTLSDR
-	mkdir build && cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Release
-	make
-	sudo make install
-	sudo ldconfig
-fi
-
-# SoapyHackRF
-if grep SoapyHackRF "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/pothosware/SoapyHackRF.git
-	cd SoapyHackRF
-	mkdir build && cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Release
-	make
-	sudo make install
-	sudo ldconfig
-fi
-
-# SoapyPlutoSDR
-if grep SoapyPlutoSDR "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/pothosware/SoapyPlutoSDR
-	cd SoapyPlutoSDR
-	mkdir build && cd build
-	cmake ..
-	make
-	sudo make install
-	sudo ldconfig
-fi
-
-# SoapyRemote
-if grep SoapyRemote "$SIG_CONFIG"
-then
-     cd $SIGPI_SOURCE
-	git clone https://github.com/pothosware/SoapyRemote.git
-	cd SoapyRemote
-	mkdir build && cd build
-	cmake ..
-	make
-	sudo make install
-	sudo ldconfig
-fi
-
-##
-## INSTALL GNURADIO
-##
-
-# GNUradio
-if grep gnuradio-3.8 "$SIG_CONFIG"
-then
-	install_gnuradio38
-else
-	sudo apt-get install -y gnuradio gnuradio-dev
-fi
+install_gnuradio38
 
 ##
 ## INSTALL DECODERS
@@ -1057,24 +607,6 @@ then
 	sudo make install
 fi
 
-# gqrx
-if grep gqrx "$SIG_CONFIG"
-then
-    sudo apt-get install -y gqrx-sdr
-fi
-
-# CubicSDR
-if grep cubicsdr "$SIG_CONFIG"
-then
-    sudo apt-get install -y cubicsdr
-fi
-
-# SDRangel
-if grep sdrangel "$SIG_CONFIG"
-then
-    install_sdrangel
-fi
-
 ##
 ## INSTALL AMATEUR RADIO APPLICATIONS
 ##
@@ -1086,66 +618,24 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
 # Fldigi
-if grep fldigi "$SIG_CONFIG"
+if grep fldigi-4.1.20 "$SIG_CONFIG"
 then
+    sudo apt-get -y remove install fldigi flrig flxmlrpc
     install_fldigi
-fi
-
-# DireWolf
-if grep direwolf "$SIG_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://www.github.com/wb2osz/direwolf
-	cd direwolf
-	mkdir build && cd build
-	cmake ..
-	make -j4
-	sudo make install
-	make install-conf
-fi
-
-# Linpac
-if grep linpac "$SIG_CONFIG"
-then
-    sudo apt-get install -y linpac
-fi
-
-# Xastir
-if grep xastir "$SIG_CONFIG"
-then
-    sudo apt-get install -y xastir
 fi
 
 # WSJT-X
 if grep wsjtx-2.4.0 "$SIG_CONFIG"
 then
+    sudo apt-get remove -y wsjtx
     install_wsjtx
-else
-	sudo apt-get install -y wsjtx
 fi
-
-#SIGPKGCHK=$(cat $SIG_CONFIG |grep "WSJT-Xc")
-#if $SIGPKGCHK="WSJT-Xc" ;then
-#    install_wsjtx
-#fi
 
 # QSSTV
 if grep qsstv-9.5.8 "$SIG_CONFIG"
 then
+    sudo apt-get remove -y qsstv
 	install_qsstv
-else
-    sudo apt-get install -y qsstv
-fi
-
-#SIGPKGCHK=$(cat $SIG_CONFIG |grep "QSSTVc")
-#if $SIGPKGCHK="QSSTVc" ;then
-#    install_qsstv
-#fi
-
-# Gpredict
-if grep gpredict "$SIG_CONFIG"
-then
-    sudo apt-get install -y gpredict
 fi
 
 ##
@@ -1182,46 +672,10 @@ then
     install_kismet
 fi
 
-# Audcacity
-if grep audacity "$SIG_CONFIG"
-then
-    sudo apt-get install -y audcacity
-fi
-
-# PAVU
-if grep pavu "$SIG_CONFIG"
-then
-    sudo apt-get install -y pavucontrol
-fi
-
-# GPS
-if grep gps "$SIG_CONFIG"
-then
-    sudo apt-get install -y gpsd gpsd-clients python-gps chrony
-fi
-
 # splat
 if grep splat "$SIG_CONFIG"
 then
     sudo apt-get install -y splat
-fi
-
-# mumble
-if grep mumble "$SIG_CONFIG"
-then
-    sudo apt-get install -y mumble-server mumble
-fi
-
-# Tempest for Eliza
-if grep tempest "$SIG_CONFIG"
-then
-    wget http://www.erikyyy.de/tempest/tempest_for_eliza-1.0.5.tar.gz -P $HOME/Downloads
-	tar -zxvf $HOME/Downloads/tempest_for_eliza-1.0.5.tar.gz -C $SIGPI_SOURCE
-	cd $SIGPI_SOURCE/tempest_for_eliza-1.0.5
-	./configure
-	make
-	sudo make install
-	sudo ldconfig
 fi
 
 install_sigpimenu
