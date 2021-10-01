@@ -57,6 +57,7 @@ SIGPI_MENU_CATEGORY=SigPi
 # SigPi Install Support files
 SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
 SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
+SIG_UPDATE_TXT1=$SIGPI_HOME/updates/SIGpi-update-1.txt
 SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIG_BANNER_RESET="\e[0m"
 
@@ -83,7 +84,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Update" --textbox $SIG_INSTALL_TXT1 24 120 16
+    TERM=ansi whiptail --title "SigPi Update" --textbox $SIG_UPDATE_TXT1 24 120 16
 }
 
 select_decoders() {

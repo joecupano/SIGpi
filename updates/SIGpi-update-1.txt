@@ -1,0 +1,22 @@
+Welcome to SIGpi-update
+
+Given a SigPi Release 1 install, this script updates the installation to Release 2
+
+Installation will continue with the following steps:
+
+- Select Digital Decoders
+- Choose Amateur Radio Applications Updates
+- Choose Additional Tools
+- Install Dependencies and Libraries
+- Install Software Packages
+- Update Menus
+
+This installation can take over two hours to install. Example compile/build times include:
+- GNuradio 3.8 (~50 minutes)
+- Fldigi Suite (~30 minutes)
+- WSJT-X (~20 minutes)
+- QSSTV 9.5.8 (~30 minutes)
+
+Only upgrade Amateur Radio applications if you knowyou have a requirement to do so.
+
+Let's Begin !
