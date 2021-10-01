@@ -5,7 +5,7 @@
 ### 
 
 ###
-###   REVISION: 20210912-1020 
+###   REVISION: 20211001-1020 
 ###
 
 ###
@@ -90,6 +90,9 @@ sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qs
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigidwiki.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigpi_example.desktop
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigpi_home.desktop
 	
 #
 # Add installed applications into SigPi menu
@@ -112,76 +115,9 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.director
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/mumble.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gpredict.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wireshark.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigidwiki.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_example.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_home.desktop
 
 # Remove Rogue desktop file to ensure we use the one we provided for direwolf
 sudo rm -rf /usr/local/share/applications/direwolf.desktop
-
-##
-## NOTES:
-##
-: '
-
- The following are installed with package installs
-
- CubicSDR.desktop
- flarq.desktop
- fldigi.desktop
- flrig.desktop
- gnuradio-grc.desktop
- gpredict.desktop
- gqrx.desktop
- mumble.desktop
- qsstv.desktop
- wsjtx.desktop
- xastir.desktop
-
- Need to create desktop files for
-
- AX.25 and utilities
- axlisten (which needs direwolf running first)
- axcall (which needs direwolf running first)
- Murmur Server
- GPSd and Chrony
- Kismet
- VOX for SDRangel
- DireWolf 1.7
- Linpac
-
-
- DESKTOP FILES
-
- /usr/share/applications/audacity.desktop
- /usr/share/applications/CubicSDR.desktop
- /usr/share/applications/flarq.desktop
- /usr/share/applications/fldigi.desktop
- /usr/share/applications/flrig.desktop
- /usr/share/applications/gnuradio-grc.desktop
- /usr/share/applications/gpredict.desktop
- /usr/share/applications/gqrx.desktop
- /usr/share/applications/mumble.desktop
- /usr/share/applications/pavucontrol.desktop
- /usr/share/applications/qsstv.desktop
- /usr/share/applications/xastir.desktop
- /usr/share/applications/wsjtx.desktop
- /usr/local/share/applications/direwolf.desktop
- /usr/local/share/Lime/Desktop/lime-suite.desktop
- /opt/install/sdrangel/share/applications/sdrangel.desktop
-
- ICONS
-
- /usr/share/pixmaps/CQ.png   (Ham Radio menu icon)
- /usr/share/pixmaps/direwolf_icon.png
- /usr/share/icons/hicolor/64x64/apps/fldigi.png
- /usr/share/icons/hicolor/48x48/apps/flarq.png
- /usr/share/qsstv/qsstv.png
- 
- DESKTOP-DIRECTORIES
-
- /usr/share/desktop-directories/HamRadio.directory
-'
-
-
-
-
-
-
