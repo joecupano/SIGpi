@@ -123,7 +123,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 - Update GNUradio from 3.7 to 3.8
 - Add the following digital decoder libraries/tools
 -- aptdec, CM265cc, LibDAB, MBElib, SerialDV, DSDcc, SGP4, LibSigMF, Liquid-DSP, Multimon-ng, Bluetooth Baseband Library 
-- Option to install latesr-compiled versions of Amater Radio Applications
+- Option to install latest-compiled versions of Amater Radio Applications
 -- Fldigi 4.1.20 (and suite), WSJT-X 2.4.0, QSSTV 9.5.8
 - Install the following software 
 -- Ubertooth Tools
