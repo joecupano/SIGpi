@@ -58,6 +58,8 @@ SIGPI_MENU_CATEGORY=SigPi
 SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
 SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
 SIG_UPDATE_TXT1=$SIGPI_HOME/updates/SIGpi-update-1.txt
+SIG_UPDATE_TXT2=$SIGPI_HOME/updates/SIGpi-update-2.txt
+SIG_UPDATE_TXT3=$SIGPI_HOME/updates/SIGpi-update-3.txt
 SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIG_BANNER_RESET="\e[0m"
 
@@ -88,18 +90,7 @@ select_startscreen(){
 }
 
 select_decoders() {
-    FUN=$(whiptail --title "Digital Decoders" --checklist --separate-output \
-        "Choose Decoders " 20 120 12\
-        "aptdec" "Decodes images transmitted by NOAA weather satellites " ON \
-        "rtl_433" "Generic data receiver with sensor support mainly for UHF ISM Bands " ON \
-        "multimon-ng" "Decoder for POCSGA, FLEX, X10, DTMF, ZVEi, UFSK, AFSK, etc" ON \
-        "ubertooth-tools" "Bluetooth BLE and BR tools for Ubertooth device" ON \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
+    TERM=ansi whiptail --title "Digital Decoders" --textboxput $SIG_UPDATE_TXT2 20 120 12
 }
 
 select_hamradio() {
@@ -117,18 +108,7 @@ select_hamradio() {
 }
 
 select_utilities() {
-    FUN=$(whiptail --title "SigPi Update" --checklist --separate-output \
-        "Choose other Useful Applications" 20 120 12 \
-        "wireshark" "Network Traffic Analyzer " OFF \
-        "kismet" "Wireless snifferand monitor " OFF \
-        "splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
-        "tempest" "Uses your computer monitor to send out AM radio signals" OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
+    TERM=ansi whiptail --title "Useful Applications" --textboxput $SIG_UPDATE_TXT3 20 120 12
 }
 
 install_dependencies(){
@@ -284,15 +264,6 @@ install_libraries(){
 	mkdir build && cd build
 	cmake ..
 	make -j4
-	sudo make install
-	sudo ldconfig
-
-	# Hamlib
-	wget https://github.com/Hamlib/Hamlib/releases/download/4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
-	tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
-	cd $SIGPI_SOURCE/hamlib-4.3
-	./configure --prefix=/usr/local --enable-static
-	make
 	sudo make install
 	sudo ldconfig
 }
@@ -535,7 +506,20 @@ install_libraries
 ## INSTALL GNURADIO 3.8
 ##
 
+sudo apt-get remove -y gnuradio gnuradio-dev
 install_gnuradio38
+
+##
+## INSTALL RTL_433
+##
+
+cd $SIGPI_SOURCE
+git clone https://github.com/merbanan/rtl_433.git
+cd rtl_433
+mkdir build && cd build
+cmake ..
+make
+sudo make install
 
 ##
 ## INSTALL DECODERS
@@ -547,20 +531,6 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Decoders"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
  
-# OP25 ---- script crashes at next line and goes to and with EOF error
-#if grep op25 "$SIG_CONFIG"
-#then
-#    cd $SIGPI_SOURCE
-#	 git clone https://github.com/osmocom/op25.git
-#	 cd op25
-#	 if grep gnuradio-3.8 "$SIG_CONFIG"
-#	 then
-#	     cat gr3.8.patch | patch -p1
-#		 ./install_sh
-#	 else
-#		 ./install.sh
-#fi
-
 # Multimon-NG
 if grep multimon-ng "$SIG_CONFIG"
 then
