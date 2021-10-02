@@ -116,6 +116,29 @@ qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qt
 qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ```
+## Release Notes
+
+# Release 2: 2021-10-02
+- Update install script to be TUI-based using Whiptail-based
+- Update GNUradio from 3.7 to 3.8
+- Add the following digital decoder libraries/tools
+-- aptdec, CM265cc, LibDAB, MBElib, SerialDV, DSDcc, SGP4, LibSigMF, Liquid-DSP, Multimon-ng, Bluetooth Baseband Library 
+- Option to install latesr-compiled versions of Amater Radio Applications
+-- Fldigi 4.1.20 (and suite), WSJT-X 2.4.0, QSSTV 9.5.8
+- Install the following software 
+-- Ubertooth Tools
+-- RTL_433
+- Optional install the following software 
+-- SPLAT
+-- Wireshark
+-- Kismet
+-- TEMPEST for Eliza
+
+
+
+# Release 1: 2021-09-15
+- Initial Release
+
 
 ## Fresh Install
 
@@ -160,13 +183,13 @@ git pull
 
 ## Distro versus Compiled Software versions
 
-Going with the distro releases of software packages for classic and common use cases.
+Go with the distro releases of software packages for classic and common use cases.
 If you are a more experience signals investigator you may find your needs may require
-the lates versions of software which require compile and alot of patience for the
+the latest versions of software which require compile and alot of patience for the
 time they take to compile. The software packages that can take an hour each to
 compile include:
 
-- Hammlib 4.3
+- Hamlib 4.3
 - Fldigi 4.1.20
 - WSJT-X 2.4.2
 - QSSTV 9.5.8

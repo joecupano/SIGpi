@@ -2,9 +2,7 @@ Digital Decoders
 
 The following decoders will be installed:
 
-        "Choose other Useful Applications" 20 120 12 \
-        "wireshark" "Network Traffic Analyzer " OFF \
-        "kismet" "Wireless snifferand monitor " OFF \
-        "splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
-        "tempest" "Uses your computer monitor to send out AM radio signals" OFF \
+- aptdec, CM265cc, LibDAB, MBElib, SerialDV, DSDcc, SGP4
+- LibSigMF, Liquid-DSP, Multimon-ng, Bluetooth Baseband Library 
+
 
