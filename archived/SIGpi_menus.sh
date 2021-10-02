@@ -30,7 +30,7 @@ SIGPI_HOME=$SIGPI_SOURCE/SIGbox
 # SDRangel Source directory
 SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
 
-# Desktop directories
+# Desktop Source directories
 SIGPI_THEMES=$SIGPI_HOME/themes
 SIGPI_BACKGROUNDS=$SIGPI_THEMES/backgrounds
 SIGPI_ICONS=$SIGPI_THEMES/icons
@@ -53,7 +53,7 @@ SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIG_BANNER_RESET="\e[0m"
  
 #
-# Copy Menu items into relevant directories
+# Copy Desktop files not installed via distro
 # 
 	
 #sudo cp $SIGPI_DESKTOP/sigpi_example.desktop $DESKTOP_FILES
