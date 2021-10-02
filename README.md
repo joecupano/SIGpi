@@ -118,7 +118,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 ```
 ## Release Notes
 
-# Release 2: 2021-10-02
+### Release 2: 2021-10-02
 - Update install script to be TUI-based using Whiptail-based
 - Update GNUradio from 3.7 to 3.8
 - Add the following digital decoder libraries/tools
@@ -136,7 +136,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 
 
-# Release 1: 2021-09-15
+### Release 1: 2021-09-15
 - Initial Release
 
 
