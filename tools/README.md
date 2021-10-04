@@ -12,6 +12,5 @@ SIGpi_config_direwolf.sh
 
 ## WIP
 
-SIGpi_install_radiosonde.sh
 SIGpi_install_gr-gsm.sh
 mumble-server-setup.sh
