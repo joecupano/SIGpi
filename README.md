@@ -5,7 +5,7 @@ Release: 20210930-2300
 ## Background
 
 This build script is part of a larger project called SIGbox. This script builds SIGbox on a
-Raspberry Pi4 runnon on Rapsberry Pi OS Full (32-bit.) 
+Raspberry Pi4 runnning Raspberry Pi OS Full (32-bit.) 
 
 NOTE: There is also a build script for Ubuntu 21.04 running on ARM(Pi) amd AMD64 hardware
 at the [SIGbox repo](https://github.com/joecupano/SIGbox)
