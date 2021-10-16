@@ -128,7 +128,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 - Various fixes as part of merging code with [SIGbox](https://github.com/joecupano/SIGbox)
 - SIGpi_update deprecated. This version required to be fresh install
 
-### Release 2: 2021-10-02
+### Release 2.0: 2021-10-02
 - Update install script to be TUI-based using Whiptail-based
 - Update GNUradio from 3.7 to 3.8
 - Add the following digital decoder libraries/tools
@@ -144,7 +144,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 -- Kismet
 -- TEMPEST for Eliza
 
-### Release 1: 2021-09-15
+### Release 1.0: 2021-09-15
 - Initial Release
 
 
