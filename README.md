@@ -121,6 +121,7 @@ qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qt
 qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ```
+
 ## Release Notes
 
 
