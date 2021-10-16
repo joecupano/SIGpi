@@ -4,7 +4,11 @@ Release: 20210930-2300
 
 ## Background
 
-This build script is part of a larger project called SIGbox. 
+This build script is part of a larger project called SIGbox. This script builds SIGbox on a
+Raspberry Pi4 runnon on Rapsberry Pi OS Full (32-bit.) 
+
+NOTE: There is also a build script for Ubuntu 21.04 running on ARM(Pi) amd AMD64 hardware
+at the [SIGbox repo](https://github.com/joecupano/SIGbox)
 
 Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGbox is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
 
