@@ -155,7 +155,7 @@ mkdir ~/source && cd ~/source
 - Clone the Repo
 
 ```
-git clone https://github.com/joecupano/SIGbox.git
+git clone https://github.com/joecupano/SIGpi.git
 ```
 
 - Change directory into SIGbox
@@ -164,10 +164,10 @@ git clone https://github.com/joecupano/SIGbox.git
 cd SIGbox
 ```
 
-- Run SIGpi_installer.sh
+- Run SIGpbox_installer.sh
 
 ```
-./SIGpi_installer.sh
+./SIGbox_installer.sh
 ```
 
 Follow script instructions.
@@ -175,8 +175,8 @@ Follow script instructions.
 ## Update from Release 1
 
 - Login as Pi
-- change directory into ~/source/SIGbox
-- Update local repo of SIGbox
+- change directory into ~/source/SIGpi
+- Update local repo of SIGpi
 
 ```
 git pull
