@@ -1,6 +1,6 @@
 # SIGpi Build Script
 
-Release: 20210930-2300
+Release: 20211016-1300
 
 ## Background
 
@@ -36,20 +36,21 @@ Device Drivers
 - soapyplutosdr Soapy SDR Module for PlutoSD *
 
 Libraries
+- aptdec *        NOAA satellite imagery decoder
 - cm256cc *
-- dab-cmdline/library *
-- mbelib *
-- serialDV *
-- dsdcc *
-- sgp4 *
-- libsigmf *
-- liquid-dsp *
-- libbtbb *
-- Hamlib 3.3-5
-- Hamlib 4.3 *
+- dab-cmdline *   DABD/DAB+
+- mbelib *        P25 Phase 1
+- serialDV *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
+- dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D-Star, etc)
+- sgp4 *          Used for satellite trakcing given TLE data
+- libsigmf *      Used for Signal Metadata Format - sharing of signal data
+- liquid-dsp *    Digital Signal Processing (DSP) library
+- libbtbb *       Bkuetooth Baseband Library
+- Hamlib 3.3-5    API for controlling a myriad of radios
+- Hamlib 4.3 *    API for controlling a myriad of radios
 
-Digital Decoders
-- 
+
+
 
 SDR Applications
 - gnuradio 3.7
@@ -80,7 +81,7 @@ Satellite and Geo
 
 
 Tools
-- kismet Wireless snifferand monitor
+- kismet Wireless sniffer and monitor
 - wireshark Network Traffic Analyzer
 - audacity Audio Editor
 - pavu PulseAudio Control
