@@ -149,16 +149,14 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 - Login as Pi
 - Create a directory in your home called source and switch into it
 - Clone the SIGpi repo
-- Rename the SIGpi diretcory to SIGbox
-- Run SIGbox_installer.sh
+- Run SIGpi_installer.sh
 - Follow script instructions.
 
 ```
 mkdir ~/source && cd ~/source
 git clone https://github.com/joecupano/SIGpi.git
-mv SIGpi SIGbox
-cd SIGbox
-./SIGbox_installer.sh
+cd SIGpi
+./SIGpi_installer.sh
 ```
 
 ## Update from Release 1
@@ -166,12 +164,12 @@ cd SIGbox
 - Login as Pi
 - change directory into ~/source/SIGpi
 - Update local repo of SIGpi
-- Runb SIGbox_update.sh
+- Runb SIGpi_update.sh
 - Follow script instructions.
 
 ```
 git pull
-./SIGbox_update.sh
+./SIGpi_update.sh
 ```
 
 ## Distro versus Compiled Software versions
