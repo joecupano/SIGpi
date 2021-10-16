@@ -126,7 +126,7 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ### Release 2.1: 2021-10-16
 - Various fixes as part of merging code with [SIGbox](https://github.com/joecupano/SIGbox)
-
+- SIGpi_update deprecated. This version required to be fresh install
 
 ### Release 2: 2021-10-02
 - Update install script to be TUI-based using Whiptail-based
@@ -143,8 +143,6 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 -- Wireshark
 -- Kismet
 -- TEMPEST for Eliza
-
-
 
 ### Release 1: 2021-09-15
 - Initial Release
@@ -163,19 +161,6 @@ mkdir ~/source && cd ~/source
 git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ./SIGpi_installer.sh
-```
-
-## Update from Release 1
-
-- Login as Pi
-- change directory into ~/source/SIGpi
-- Update local repo of SIGpi
-- Runb SIGpi_update.sh
-- Follow script instructions.
-
-```
-git pull
-./SIGpi_update.sh
 ```
 
 ## Distro versus Compiled Software versions
