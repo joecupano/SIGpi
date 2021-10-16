@@ -33,7 +33,7 @@ GNURADIO_PKG="gnuradio_3.9"
 SIGPI_SOURCE=$HOME/source
 
 # SIGpi Home directory
-SIGPI_HOME=$SIGPI_SOURCE/SIGbox
+SIGPI_HOME=$SIGPI_SOURCE/SIGpi
 
 # SDRangel Source directory
 SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
