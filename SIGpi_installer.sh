@@ -850,7 +850,13 @@ install_sdrplusplus(){
 	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
 	echo -e "${SIGBOX_BANNER_RESET}"
 
-	sudo apt-get install -y libfftw3-dev libglfw3-dev libglew-dev libvolk2-dev libsoapysdr-dev libad9361-dev libairspyhf-dev 
+	sudo apt-get install -y libglew-dev
+	sudo apt-get install -y libglfw3-dev
+	sudo apt-get install -y libsoapysdr-dev
+	sudo apt-get install -y libad9361-dev 
+	sudo apt-get install -y libairspyhf-dev 
+	sudo apt-get install -y librtaudio-dev
+	sudo apt-get install -y libcodec2-dev
 
 	cd $SIGBOX_SOURCE
 	git clone https://github.com/AlexandreRouma/SDRPlusPlus
@@ -1005,6 +1011,7 @@ install_sigpimenu(){
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
@@ -1031,6 +1038,7 @@ install_sigpimenu(){
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gqrx.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/CubicSDR.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrangel.desktop
+	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrpp.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/direwolf.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/linpac.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/xastir.desktop
@@ -1404,6 +1412,17 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Other Applications/Tools"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
+
+# Artemis
+if grep artemis "$SIGBOX_CONFIG"
+then
+    cd $HOME/Downloads
+	wget https://aresvalley.com/download/193/ 
+	mv index.html artemis.tar.gz
+	tar -zxvf artemis.tar.gz -C $SIGBOX_SOURCE
+	cd $SIGBOX_SOURCE/artemis
+	sudo cp artemis3.svg /usr/share/icons/
+fi
 
 # Wireshark
 if grep wireshark "$SIG_CONFIG"
