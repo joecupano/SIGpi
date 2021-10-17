@@ -828,7 +828,7 @@ install_sdrangel(){
 	-DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
 	make -j4 install
 	# Copy special startup script for this snowflake
-	sudo cp $SIGPI_HOME/snowflakes/SIGpi_sdrangel.sh /usr/local/bin
+	sudo cp $SIGPI_HOME/tools/SIGpi_sdrangel.sh /usr/local/bin
 
     cd $HOME/.config/
 	mkdir f4exb
