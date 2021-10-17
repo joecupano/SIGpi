@@ -5,7 +5,7 @@
 ###
 
 ###
-###   REVISION: 20210929-2300
+###   REVISION: 2021017-0100
 ###
 
 ###
@@ -27,7 +27,6 @@ FLRIG_PKG="flrig-1.4.2.tar.gz"
 FLDIGI_PKG="fldigi-4.1.20.tar.gz"
 WSJTX_PKG="wsjtx_2.4.0_armhf.deb"
 QSSTV_PKG="qsstv_9.5.8.tar.gz"
-GNURADIO_PKG="gnuradio_3.9"
 
 # Source Directory
 SIGPI_SOURCE=$HOME/source
@@ -109,8 +108,8 @@ select_sdrdevices() {
 select_gnuradio() {
     FUN=$(whiptail --title "GNUradio" --radiolist --separate-output \
         "Choose GNUradio version" 20 80 12 \
-        "gnuradio-3.7" "Installed from distro (Raspberry Pi OS) " ON \
-        "gnuradio-3.8" "Compiled from Repo (required for gr-gsm) " OFF \
+        "gnuradio-3.7" "Installed from Distro " OFF \
+		"gnuradio-3.8" "Compiled from Repo " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -124,6 +123,7 @@ select_decoders() {
         "Choose Decoders " 20 120 12\
         "aptdec" "Decodes images transmitted by NOAA weather satellites " ON \
         "rtl_433" "Generic data receiver with sensor support mainly for UHF ISM Bands " ON \
+		"radiosonde" "Decoders used in Balloon flights" ON \
         "op25" "P25 digital voice decoder which works with RTL-SDR dongles" ON \
         "multimon-ng" "Decoder for POCSGA, FLEX, X10, DTMF, ZVEi, UFSK, AFSK, etc" ON \
         "ubertooth-tools" "Bluetooth BLE and BR tools for Ubertooth device" ON \
@@ -141,6 +141,7 @@ select_sdrapps() {
         "gqrx" "SDR Receiver " ON \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " OFF \
+		"sdrplusplus" "SDR++ " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -149,12 +150,12 @@ select_sdrapps() {
     echo $FUN >> $SIG_CONFIG
 }
 
-select_hamradio() {
+select_amateurradio() {
 	FUN=$(whiptail --title "Ham Control Library" --radiolist --separate-output \
-        "USed for exterbal control of Aateur Radio and some SDR transceivers as \
+        "Used for external control of Amateur Radio and some SDR transceivers as \
 		well as antenna rotors. Choose HAMlib version" 20 80 12 \
-        "hamlib-3.3" "Installed from distro " ON \
-        "hamlib-4.3" "Compiled from Repo (~20 minutes compile time) " OFF \
+        "hamlib-3.3" "Installed from distro " OFF \
+        "hamlib-4.3" "Compiled from Repo (~20 minutes compile time) " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -210,17 +211,18 @@ select_hamradio() {
     echo $FUN >> $SIG_CONFIG
 }
 
-select_utilities() {
+select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Choose other Useful Applications" 20 120 12 \
-        "wireshark" "Network Traffic Analyzer " OFF \
+		"artemis" "Real-tim RF Signal Recognition to a large database of signals " OFF \
+        "gps" "GPS client and NTP sync " OFF \
+        "gpredict" "Satellite Tracking " OFF \
+		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
+		"wireshark" "Network Traffic Analyzer " OFF \
         "kismet" "Wireless snifferand monitor " OFF \
         "audacity" "Audio Editor " OFF \
         "pavu" "PulseAudio Control " OFF \
         "mumble" "VoIP Server and Client " OFF \
-        "gpsPS" "GPS client and NTP sync " OFF \
-        "gpredict" "Satellite Tracking " OFF \
-        "splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
         "tempest" "Uses your computer monitor to send out AM radio signals" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -255,25 +257,237 @@ install_dependencies(){
 	sudo mkswap /swapfile
 	sudo swapon /swapfile
 
-    sudo apt-get install -y git cmake g++ pkg-config autoconf automake libtool build-essential \
-	pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
+    sudo apt-get install -y git cmake g++ pkg-config autoconf automake libtool build-essential pulseaudio bison flex gettext ffmpeg
+	sudo apt-get install -y portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig  icu-doc libjs-jquery-ui-docs tcl8.6 tk8.6 libvolk2-doc python-cycler-doc
+	sudo apt-get install -y tk8.6-blt2.5 ttf-bitstream-vera uhd-host dvipng texlive-latex-extra ttf-staypuft tix openssl
+	
+	sudo apt-get install -y libusb-1.0-0 libusb-1.0-0-dev libusb-dev libudev1
+	sudo apt-get install -y libaio-dev libusb-1.0-0-dev libserialport-dev libxml2-dev libavahi-client-dev doxygen graphviz
+	sudo apt-get install -y libfltk1.3 libfltk1.3-dev 
+	sudo apt-get install -y libopenjp2-7 libopenjp2-7-dev libv4l-dev
+	sudo apt-get install -y libsdl1.2-dev libfaad2 libfftw3-dev libfftw3-doc libfftw3-bin libfftw3-dev libfftw3-long3 libfftw3-quad3
 
-	sudo apt-get install -y libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev libusb-dev \
-	libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev \
-	libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev libavdevice-dev libavutil-dev \
-	libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev \
-	libpcap-dev libcppunit-dev libbluetooth-dev python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
+	sudo apt-get install -y libvolk2-bin libvolk2-dev libvolk2.2 libfaad-dev zlib1g zlib1g-dev libasound2-dev 
+	sudo apt-get install -y libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev libavcodec-dev libpthread-stubs0-dev
+	sudo apt-get install -y libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev libopus-dev libavahi-common-dev libavahi-client-dev libavdevice-dev libavutil-dev
+	sudo apt-get install -y libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev liborc-0.4 liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev
+	sudo apt-get install -y libpcap-dev libcppunit-dev libbluetooth-dev qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev
+	sudo apt-get install -y libgles1 libosmesa6 gmp-doc libgmp10-doc libmpfr-dev libmpfrc++-dev libntl-dev libcppunit-doc zlib-dev libpng-dev
+	
+	sudo apt-get install -y libcanberra-gtk-module libcanberra-gtk0 libcppunit-1.15-0 libcppunit-dev  
+	sudo apt-get install -y libfreesrp0 libglfw3 libgmp-dev libgmpxx4ldbl libhidapi-libusb0 libicu-dev libjs-jquery-ui 
+	sudo apt-get install -y liblog4cpp5-dev liblog4cpp5v5 faad libfaad2 libfaad-dev
 
-	sudo apt-get install -y python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins \
-	python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils
+	sudo apt-get install -y python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click python3-click-plugins 
+	sudo apt-get install -y python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5 python3-gi-cairo python-docutils python-gobject python3-nose
 
-	sudo apt-get install -y qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools \
-	libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 \
-	qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev \
-	qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
+	sudo apt-get install -y python3-tornado texlive-extra-utils python-networkx-doc python3-gdal python3-pygraphviz python3-pydot libgle3 python-pyqtgraph-doc 
+	sudo apt-get install -y python-matplotlib-doc python3-cairocffi python3-tk-dbg python-matplotlib-data python3-cycler python3-kiwisolver python3-matplotlib python3-networkx 
+	sudo apt-get install -y python3-opengl python3-pyqt5.qtopengl python3-pyqtgraph python3-tk
 
 	sudo python3 -m pip install --upgrade pip
+	sudo pip3 install pyinstaller
 	sudo pip3 install pygccxml
+	sudo pip3 install qtawesome
+	sudo pip3 install PyQt5
+	sudo pip3 install PyQt4
+	sudo pip3 install PySide
+
+	# RTL-SDR Dependencies
+	sudo apt-get install -y libusb-1.0-0-dev
+
+	# APTdec dependencies
+	sudo apt-get install -y libsndfile-dev libpng-dev
+
+	# LibDAB dab-cmdline dependencies
+	sudo apt-get install -y pkg-config libsndfile1-dev libfftw3-dev portaudio19-dev libfaad-dev zlib1g-dev libusb-1.0-0-dev mesa-common-dev libgl1-mesa-dev libsamplerate0-dev
+
+	# MBElib, SerialDV, SGP4, LibTBB- no dependencies specified
+	
+	# DSDcc - requires MBElib installed prior
+
+	# Liquid-DSP - prefers FFTW installed prior
+
+	# Codec2
+	sudo apt-get install -y octave octave-common octave-signal liboctave-dev gnuplot python3-numpy sox valgrind
+
+install_radiosonde(){
+	#
+	# INSTALL RADIOSONDE
+	#
+	echo -e "${SIGBOX_BANNER_COLOR}"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install RadioSonde"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
+	echo -e "${SIGBOX_BANNER_RESET}"
+
+	cd $SIGBOX_SOURCE
+	git clone https://github.com/rs1729/RS.git
+
+	echo "  "
+	echo "  ## RS92"
+	cd $SIGBOX_SOURCE/RS/rs92
+	gcc rs92gps.c -lm -o rs92gps
+	sudo chown root:root rs92gps
+	sudo cp rs92gps /usr/local/bin
+
+	echo "  "
+	echo "  ## RS41"
+	cd $SIGBOX_SOURCE/RS/rs41
+	cp $SIGBOX_SOURCE/RS/ecc/bch_ecc.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.h .
+	gcc rs41ptu.c -lm -o rs41ptu
+	sudo chown root:root rs41ptu
+	sudo cp rs41ptu /usr/local/bin
+
+	echo "  "
+	echo "  ## DropSonde"
+	cd $SIGBOX_SOURCE/RS/dropsonde
+	gcc rd94drop.c -lm -o rd94drop
+	sudo chown root:root rd94drop
+	sudo cp rd94drop /usr/local/bin
+
+	echo "  "
+	echo "  ## M10"
+	cd $SIGBOX_SOURCE/RS/m10
+	gcc m10ptu.c -lm -o m10ptu
+	gcc m10gtop.c -lm -o m10gtop
+	sudo chown root:root m10ptu m10gtop
+	sudo cp m10ptu m10gtop /usr/local/bin
+	cd $SIGBOX_SOURCE/RS/m10/pilotsonde
+	gcc m12.c -lm -o m12
+	sudo chown root:root m12
+	sudo cp m12 /usr/local/bin
+
+	echo "  "
+	echo "  ## dfm (06 and 09)"
+	cd $SIGBOX_SOURCE/RS/dfm
+	gcc dfm06ptu.c -lm -o dfm06ptu
+	sudo chown root:root dfm06ptu
+	sudo cp dfm06ptu /usr/local/bin
+
+	echo "  "
+	echo "  ## imet"
+	cd $SIGBOX_SOURCE/RS/imet
+	gcc imet1ab.c -lm -o imet1ab
+	gcc imet1ab_cpafsk.c -lm -o imet1ab_cpafsk
+	gcc imet1rs_dft.c -lm -o imet1rs_dft
+	gcc imet1rs_dft_1.c -lm -o imet1rs_dft_1
+	gcc imet1rsb.c -lm -o imet1rsb
+	sudo chown root:root imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1
+	sudo cp imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1 /usr/local/bin
+
+	echo "  "
+	echo "  ## c34"
+	cd $SIGBOX_SOURCE/RS/c34
+	gcc c34dft.c -lm -o c34dft
+	gcc c50dft.c -lm -o c50dft
+	sudo chown root:root c34dft c50dft
+	sudo cp c34dft c50dft /usr/local/bin
+
+	echo "  "
+	echo "  ## lms6"
+	cd $SIGBOX_SOURCE/RS/lms6
+	cp $SIGBOX_SOURCE/RS/ecc/bch_ecc.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.h .
+	gcc lms6.c -lm -o lms6
+	gcc lms6ccsds.c -lm -o lms6ccsds
+	gcc lms6ecc.c -lm -o lms6ecc
+	gcc lmsX2446.c -lm -o lmsX2446 
+	sudo chown root:root lms6 lms6ccsds lms6ecc lmsX2446 
+	sudo cp lms6 lms6ccsds lms6ecc lmsX2446 /usr/local/bin
+
+	echo "  "
+	echo "  ## mk2A"
+	cd $SIGBOX_SOURCE/RS/mk2a
+	gcc mk2a.c -lm -o mk2a
+	gcc mk2a1680mod.c -lm -o mk2a1680mod
+	gcc mk2a_lms1680.c -lm -o mk2a_lms1680
+	sudo chown root:root mk2a mk2a1680mod mk2a_lms1680
+	sudo cp mk2a mk2a1680mod mk2a_lms1680 /usr/local/bin
+
+	echo "  "
+	echo "  ## Meisei"
+	cd $SIGBOX_SOURCE/RS/meisei
+	cp $SIGBOX_SOURCE/RS/ecc/bch_ecc.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.h .
+	gcc meisei_ecc.c -lm -o meisei_ecc
+	gcc meisei_ims.c -lm -o meisei_ims
+	gcc meisei_rs.c -lm -o meisei_rs
+	sudo chown root:root meisei_ecc meisei_ims meisei_rs
+	sudo cp meisei_ecc meisei_ims meisei_rs /usr/local/bin
+
+	echo "  "
+	echo "  ## MRZ"
+	cd $SIGBOX_SOURCE/RS/mrz
+	gcc mp3h1.c -lm -o mp3h1
+	sudo chown root:root mp3h1
+
+	echo "  "
+	echo "  ## Decoders"
+	cd $SIGBOX_SOURCE/RS/demod
+	cp $SIGBOX_SOURCE/RS/ecc/bch_ecc.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.c .
+	cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.h .
+	cp $SIGBOX_SOURCE/RS/rs92/nav_gps_vel.c .
+	sudo gcc -c demod_dft.c
+	gcc rs41dm_dft.c demod_dft.o -lm -o rs41dm_dft
+	gcc dfm09dm_dft.c demod_dft.o -lm -o dfm09dm_dft
+	gcc m10dm_dft.c demod_dft.o -lm -o m10dm_dft
+	gcc lms6dm_dft.c demod_dft.o -lm -o lms6dm_dft
+	gcc rs92dm_dft.c demod_dft.o -lm -o rs92dm_dft
+	sudo chown root:root rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft
+	sudo cp rs41dm_dft dfm09dm_dft m10dm_dft lms6dm_dft rs92dm_dft /usr/local/bin
+
+	echo "  "
+	echo "  ## IQ"
+	cd $SIGBOX_SOURCE/RS/iq
+	gcc shift_IQ.c -lm -o shift_IQ
+	gcc wavIQ.c -lm -o wavIQ
+	sudo chown root:root shift_IQ wavIQ
+	sudo cp shift_IQ wavIQ /usr/local/bin
+
+	echo "  "
+	echo "  ## Scan"
+	cd $SIGBOX_SOURCE/RS/scan
+	#gcc -C dft_detect.c -lm -o dft_detect # Compile issues with line 88 and 93
+	gcc -C dft_detect.c -lm -o dft_detect
+	gcc -C reset_usb.c -lm -o reset_usb
+	gcc -C rs_detect.c -lm -o rs_detect
+	gcc -C scan_fft_pow.c -lm -o scan_fft_pow
+	gcc -C scan_fft_simple.c -lm -o scan_fft_simple
+	sudo chown root:root reset_usb rs_detect scan_fft_pow scan_fft_simple
+	sudo cp dft_detect reset_usb rs_detect scan_fft_pow scan_fft_simple /usr/local/bin
+
+	#echo "  #"
+	#echo "  - Decod RS Module"
+	#echo "  #"
+	#echo " "
+	#cd $SIGBOX_SOURCE/RS/rs_module
+	#cp $SIGBOX_SOURCE/RS/ecc/bch_ecc.c .
+	#cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.c .
+	#cp $SIGBOX_SOURCE/RS/demod/mod/bch_ecc_mod.h .
+	#gcc -c rs_datum.c
+	#gcc -c rs_demod.c
+	#gcc -c rs_bch_ecc.c
+	#gcc -c rs_rs41.c
+	#gcc -c rs_rs92.c
+	#gcc -c rs_main41.c
+	#gcc rs_main41.o rs_rs41.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs41mod
+	#gcc -c rs_main92.c
+	#gcc rs_main92.o rs_rs92.o rs_bch_ecc.o rs_demod.o rs_datum.o -lm -o rs92mod
+	#sudo chown root:root rs41mod rs92mod
+	#sudo cp rs41mod rs92mod /usr/local/bin
+	
+	echo "  "
+	echo "  ## Tools"
+	cd $SIGBOX_SOURCE/RS/tools
+	#pa-stdout.c  compile issued with undfined references so skipping
+	#chown root:root metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl
+	sudo cp metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl postnmea.p1 /usr/local/bin
 }
 
 install_libraries(){
@@ -416,7 +630,6 @@ install_gnuradio38(){
 	echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
 	echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
 }
-
 
 install_sdrangel(){
 	echo -e "${SIG_BANNER_COLOR}"
@@ -630,6 +843,38 @@ install_sdrangel(){
 	
 }
 
+install_sdrplusplus(){
+	echo -e "${SIGBOX_BANNER_COLOR}"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install SDRplusplus"
+	echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
+	echo -e "${SIGBOX_BANNER_RESET}"
+
+	sudo apt-get install -y libfftw3-dev libglfw3-dev libglew-dev libvolk2-dev libsoapysdr-dev libad9361-dev libairspyhf-dev 
+
+	cd $SIGBOX_SOURCE
+	git clone https://github.com/AlexandreRouma/SDRPlusPlus
+	cd SDRPlusPlus
+	mkdir build && cd build
+	cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
+	-DOPT_BUILD_BLADERF_SOURCE=OFF \
+	-DOPT_BUILD_M17_DECODER=ON \
+	-DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
+	-DOPT_BUILD_PLUTOSDR_SOURCE=ON \
+	-DOPT_BUILD_PORTAUDIO_SINK=ON \
+	-DOPT_BUILD_SOAPY_SOURCE=ON \
+	-DOPT_BUILD_AIRSPY_SOURCE=OFF
+	make -j4
+	sudo make install
+	sudo ldconfig
+
+	# SDRplusplus dependencies
+	#sudo apt-get install -y libfftw3-dev libglfw3-dev libglew-dev libvolk2-dev libsoapysdr-dev libairspyhf-dev libiio-dev libad9361-dev librtaudio-dev libhackrf-dev
+	#
+	#wget https://github.com/AlexandreRouma/SDRPlusPlus/releases/download/1.0.3/sdrpp_ubuntu_focal_amd64.deb -D $HOME/Downloads
+	#sudo dpkg -i $HOME/Downloads/sdrpp_ubuntu_focal_amd64.deb
+}
+
 install_kismet(){
 	echo -e "${SIG_BANNER_COLOR}"
 	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
@@ -771,6 +1016,7 @@ install_sigpimenu(){
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/mumble.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigidwiki.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigpi_example.desktop
@@ -794,6 +1040,7 @@ install_sigpimenu(){
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wsjtx.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/message_aggregator.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/qsstv.desktop
+	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrpp.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/mumble.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gpredict.desktop
 	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wireshark.desktop
@@ -830,8 +1077,8 @@ select_sdrdevices
 select_gnuradio
 select_decoders
 select_sdrapps
-select_hamradio
-select_utilities
+select_amateurradio
+select_usefulapps
 TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
 
 echo -e "${SIG_BANNER_COLOR}"
