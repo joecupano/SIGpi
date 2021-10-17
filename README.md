@@ -1,6 +1,6 @@
 # SIGpi Build Script
 
-Release: 20211016-1300
+Release: 20211017-2300
 
 ## Background
 
@@ -41,43 +41,39 @@ Libraries
 - dab-cmdline *   DABD/DAB+
 - mbelib *        P25 Phase 1
 - serialDV *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
-- dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D-Star, etc)
-- sgp4 *          Used for satellite trakcing given TLE data
-- libsigmf *      Used for Signal Metadata Format - sharing of signal data
-- liquid-dsp *    Digital Signal Processing (DSP) library
-- libbtbb *       Bkuetooth Baseband Library
-- Hamlib 3.3-5    API for controlling a myriad of radios
-- Hamlib 4.3 *    API for controlling a myriad of radios
-
-
-
+- dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D-Star, etc) 
+- sgp4 *          Used for satellite trakcing given TLE data 
+- libsigmf *      Used for Signal Metadata Format - sharing of signal data 
+- liquid-dsp *    Digital Signal Processing (DSP) library 
+- libbtbb *       Bkuetooth Baseband Library 
+- Hamlib 3.3-5    API for controlling a myriad of radios 
+- Hamlib 4.3 *    API for controlling a myriad of radios 
 
 SDR Applications
-- gnuradio 3.7
-- gnuradio 3.7 *
-- gqrx SDR Receiver
-- cubicsdr SDR Receiver
+- gnuradio 3.8
+- gqrx            SDR Receiver
+- cubicsdr        SDR Receiver
+- Artemis         Real-time SIGINT from your SDR
 
 Packet Radio
-- libax25
-- ax25-apps
-- ax25-tools
-- direwolf 1.7 *
-
+- libax25         AFSK baseband audio library for AX.25 packet as used by APRS
+- ax25-apps       Command line AX.25 spps
+- ax25-tools      AX.25 for daemon interfaces
+- direwolf 1.7 *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-- fldigi 4.1.0
-- fldigi 4.1.20 *
-- wsjt-x 2.4.0
-- wsjt-x 2.4.2 *
-- qsstv
-- qsstv 9.5.8 *
+- fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+- fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+- wsjt-x 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+- wsjt-x 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+- qsstv           GUI app for SSTV
+- qsstv 9.5.8 *   GUI app for SSTV
 
 
 Satellite and Geo
-- gpredict Satellite Tracking
-- xastir APRS Station Tracking and Reporting
-- linpac Packet Radio Temrinal with mail client
+- gpredict        Satellite Tracking with Radio and Antenna Rotor Control
+- xastir          APRS Station Tracking and Reporting
+- linpac          Packet Radio Terminal with Mail Client
 
 
 Tools
@@ -124,6 +120,12 @@ qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
 
 ## Release Notes
 
+
+### Release 3.0: 2021-10-18
+- Added SDR++ and Artemis
+- Standardize on GNU Radio 3.8
+- Add RadioSonde (decoder/encoder used in Balloon telemetry projects)
+- Further code alignment with SDRbox
 
 ### Release 2.1: 2021-10-16
 - Various fixes as part of merging code with [SIGbox](https://github.com/joecupano/SIGbox)
