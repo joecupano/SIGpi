@@ -554,7 +554,7 @@ install_libraries(){
 
 	# LibDAB
     cd $SIGPI_SOURCE
-	git clone https://github.com/srcejon/dab-cmdline
+	git clone https://github.com/srcejon/dab-cmdline.git
 	cd dab-cmdline/library
 	mkdir build; cd build
 	cmake ..
