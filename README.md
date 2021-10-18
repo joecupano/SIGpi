@@ -12,7 +12,7 @@ at the [SIGbox repo](https://github.com/joecupano/SIGbox)
 
 Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGbox is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/tools/SIGbox_architecture.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/SIGbox_architecture.png)
 
 ## SIGpi
 
@@ -25,15 +25,15 @@ that are compiled
 ```
 
 Device Drivers
-- rtl-sdr RTL2832U & R820T2-Based *
-- hackrf Hack RF One *
-- libiio PlutoSDR *
-- limesuite LimeSDR *
-- soapysdr SoapySDR Library *
-- soapyremote Use any Soapy SDR Remotely *
-- soapyrtlsdr Soapy SDR Module for RTLSDR *
-- soapyhackrf Soapy SDR Module for HackRF One *
-- soapyplutosdr Soapy SDR Module for PlutoSD *
+- [RTL-SDR](https://www.rtl-sdr.com/about-rtl-sdr/) RTL2832U & R820T2-Based *
+- [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
+- [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
+- [LimeSuite](https://github.com/myriadrf/LimeSuite) *
+- [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
+- [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
+- SoapyRTLSDR Soapy SDR Module for RTLSDR *
+- SoapyHackRF Soapy SDR Module for HackRF One *
+- SoapyPlutoSDR Soapy SDR Module for PlutoSD *
 
 Libraries
 - aptdec *        NOAA satellite imagery decoder
@@ -46,13 +46,14 @@ Libraries
 - libsigmf *      Used for Signal Metadata Format - sharing of signal data 
 - liquid-dsp *    Digital Signal Processing (DSP) library 
 - libbtbb *       Bkuetooth Baseband Library 
-- Hamlib 3.3-5    API for controlling a myriad of radios 
-- Hamlib 4.3 *    API for controlling a myriad of radios 
+- [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
-- gnuradio 3.8
-- gqrx            SDR Receiver
-- cubicsdr        SDR Receiver
+- [GNURadio 3.8](https://github.com/gnuradio/gnuradio)
+- [GQRX](https://github.com/csete/gqrx)
+- [SDR Angel](https://github.com/f4exb/sdrangel) *
+- SDR++
+- CubicSDR        SDR Receiver
 - Artemis         Real-time SIGINT from your SDR
 
 Packet Radio
@@ -62,16 +63,16 @@ Packet Radio
 - direwolf 1.7 *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-- fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-- fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-- wsjt-x 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-- wsjt-x 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-- qsstv           GUI app for SSTV
-- qsstv 9.5.8 *   GUI app for SSTV
+- Fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+- Fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+- WSJT-X 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+- WSJT-X 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+- QSSTV           GUI app for SSTV
+- QSSTV 9.5.8 *   GUI app for SSTV
 
 
 Satellite and Geo
-- gpredict        Satellite Tracking with Radio and Antenna Rotor Control
+- [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
 - xastir          APRS Station Tracking and Reporting
 - linpac          Packet Radio Terminal with Mail Client
 
@@ -88,40 +89,10 @@ Tools
 
 ```
 
-## Dependencies 
-
-Best effort has been made that all software dependencies are satisfied after update/upgrade and
-before software installation begins. Dependencies are listed below
-
-```
-git cmake g++ pkg-config autoconf automake libtool build-essential
-pulseaudio bison flex gettext ffmpeg portaudio19-dev doxygen graphviz gnuplot gnuplot-x11 swig
-
-libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev libfftw3-dev libusb-1.0-0 libusb-1.0-0-dev
-libusb-dev libopencv-dev libxml2-dev libaio-dev libnova-dev libwxgtk-media3.0-dev libcairo2-dev
-libavcodec-dev libpthread-stubs0-dev libavformat-dev libfltk1.3-dev libfltk1.3 libsndfile1-dev
-libopus-dev libavahi-common-dev libavahi-client-dev 
-
-libavdevice-dev libavutil-dev libsdl1.2-dev libgsl-dev liblog4cpp5-dev libzmq3-dev libudev-dev
-liborc-0.4-0 liborc-0.4-dev libsamplerate0-dev libgmp-dev libpcap-dev libcppunit-dev libbluetooth-dev
-python-pyside python-qt4 qt5-default libpulse-dev libliquid-dev libswscale-dev libswresample-dev 
-
-python3-pip python3-numpy python3-mako python3-sphinx python3-lxml python3-yaml python3-click
-python3-click-plugins python3-zmq python3-scipy python3-scapy python3-setuptools python3-pyqt5
-python3-gi-cairo python-docutils
-
-qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev
-qttools5-dev-tools libqt5opengl5-dev qtbase5-dev libqt5quick5 libqt5charts5-dev qml-module-qtlocation
-qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls
-qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev qtdeclarative5-dev
-qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev libqwt-qt5-dev
-
-```
-
 ## Release Notes
 
 
-### Release 3.0: 2021-10-18
+### Release 3.0: 2021-10-21
 - Added SDR++ and Artemis
 - Standardize on GNU Radio 3.8
 - Add RadioSonde (decoder/encoder used in Balloon telemetry projects)
