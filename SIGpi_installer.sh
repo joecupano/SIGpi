@@ -311,6 +311,39 @@ install_dependencies(){
 	# Codec2
 	sudo apt-get install -y octave octave-common octave-signal liboctave-dev gnuplot python3-numpy sox valgrind
 
+	# RPiTX
+	#
+	#sudo apt-get install -y ghostscript gsfonts imagemagick imagemagick-6-common imagemagick-6.q16 libheif1 libjxr-tools libjxr0 liblqr-1-0 libmagickcore-6.q16-6 \
+	#libmagickcore-6.q16-6-extra libmagickwand-6.q16-6 libnetpbm10 libpng12-0 libwmf0.2-7 netpbm
+
+
+	# SoapySDR
+	#
+	#sudo apt-get install -y swig avahi-daemon libavahi-client-dev libusb-1.0-0-dev
+
+	# GQRX
+	#
+	#sudo apt-get install -y libfftw3-dev libusb-1.0-0-dev libusb-dev qt5-default qtbase5-dev qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev \
+	#qttools5-dev qttools5-dev-tools libqt5opengl5-dev qtbase5-dev libboost-all-dev libasound2-dev pulseaudio libopencv-dev libxml2-dev libqt5svg5-dev
+
+	# UHD
+	#
+	#sudo apt-get install -y libboost-all-dev libusb-1.0-0-dev python3-mako
+
+	# GNU Radio
+	#
+	#sudo apt-get install -y libboost-all-dev swig libzmq3-dev libfftw3-dev libgsl-dev libcppunit-dev libcomedi-dev libqt4-opengl-dev libqwt-dev libsdl1.2-dev \
+	#libusb-1.0-0-dev libasound2-dev portaudio19-dev libportaudio2 pulseaudio libjack-dev libgmp-dev libsdl1.2-dev liblog4cpp5-dev \
+	#libqwt-qt5-dev libqt5opengl5-dev python3-numpy python3-mako python3-sphinx python3-lxml python3-pyqt5 python3-yaml python3-click \
+	#python3-click-plugins python3-zmq python3-scipy python3-pip python3-gi-cairo
+
+	# SDRangel
+	#
+	#sudo apt-get install -y libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev qttools5-dev qttools5-dev-tools libqt5opengl5-dev qtbase5-dev \
+	#libqt5quick5 libqt5charts5-dev qml-module-qtlocation qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls \
+	#qml-module-qtquick-layouts libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libboost-all-dev libasound2-dev pulseaudio \
+	#libopencv-dev libxml2-dev bison flex ffmpeg libavcodec-dev libavformat-dev libopus-dev graphviz
+
 install_radiosonde(){
 	#
 	# INSTALL RADIOSONDE
@@ -600,6 +633,16 @@ install_libraries(){
 	sudo make install
 	sudo ldconfig
 
+	# Osmosdr
+	#cd $SIGPI_SOURCE
+	#git clone --single-branch --branch gr3.8 --depth 1 git://git.osmocom.org/gr-osmosdr
+	#cd gr-osmosdr
+	#mkdir -p build && cd build
+	#cmake ..
+	#make -j4
+	#sudo make install
+	#sudo ldconfig
+
 	# Hamlib
 	wget https://github.com/Hamlib/Hamlib/releases/download/4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
 	tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
@@ -828,7 +871,7 @@ install_sdrangel(){
 	-DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
 	make -j4 install
 	# Copy special startup script for this snowflake
-	sudo cp $SIGPI_HOME/tools/SIGpi_sdrangel.sh /usr/local/bin/sdrangel
+	sudo cp $SIGPI_HOME/tools/scripts/SIGpi_run_sdrangel.sh /usr/local/bin/sdrangel
 
     cd $HOME/.config/
 	mkdir f4exb
