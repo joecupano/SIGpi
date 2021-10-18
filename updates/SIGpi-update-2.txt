@@ -1,8 +1,0 @@
-Digital Decoders
-
-The following decoders will be installed:
-
-- aptdec, CM265cc, LibDAB, MBElib, SerialDV, DSDcc, SGP4
-- LibSigMF, Liquid-DSP, Multimon-ng, Bluetooth Baseband Library 
-
-

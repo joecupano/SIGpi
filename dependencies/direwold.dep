@@ -1,0 +1,7 @@
+git
+gcc
+g++
+make
+cmake
+libasound2-dev
+libudev-dev

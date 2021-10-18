@@ -1,9 +1,0 @@
-Useful applications
-
-The following applications will be installed:
-
-- wireshark     Network Traffic Analyzer
-- kismet        Wireless snifferand monitor
-- splat         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
-- tempest       Uses your computer monitor to send out AM radio signals
-

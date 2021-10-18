@@ -1,0 +1,5 @@
+cmake
+git
+gcc
+libsndfile-dev
+libpng-dev
