@@ -108,29 +108,12 @@ select_gnuradio() {
     echo $FUN >> $SIG_INSTALL_CONFIG
 }
 
-select_decoders() {
-    FUN=$(whiptail --title "Digital Decoders" --checklist --separate-output \
-        "Choose Decoders " 20 120 12\
-        "aptdec" "Decodes images transmitted by NOAA weather satellites " ON \
-        "rtl_433" "Generic data receiver with sensor support mainly for UHF ISM Bands " ON \
-		"radiosonde" "Decoders used in Balloon flights" ON \
-        "op25" "P25 digital voice decoder which works with RTL-SDR dongles" ON \
-        "multimon-ng" "Decoder for POCSGA, FLEX, X10, DTMF, ZVEi, UFSK, AFSK, etc" ON \
-        "ubertooth-tools" "Bluetooth BLE and BR tools for Ubertooth device" ON \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
-}
-
 select_sdrapps() {
     FUN=$(whiptail --title "SDR Applications" --checklist --separate-output \
         "Choose SDR Applications" 20 80 12 \
-        "gqrx" "SDR Receiver " ON \
+        "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
-        "sdrangel" "SDRangel " OFF \
+        "sdrangel" "SDRangel " ON \
 		"sdrplusplus" "SDR++ " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -178,7 +161,7 @@ select_amateurradio() {
 
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Choose Packet Radio Applications" 20 80 12 \
-        "direWolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
+        "direwolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
         "linpac" "Packet Radio Temrinal with mail client " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
@@ -192,12 +175,12 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Choose other Useful Applications" 20 120 12 \
-		"artemis" "Real-tim RF Signal Recognition to a large database of signals " OFF \
+		"artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
         "gps" "GPS client and NTP sync " OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
-        "kismet" "Wireless snifferand monitor " OFF \
+        "kismet" "Wireless sniffer and monitor " OFF \
         "audacity" "Audio Editor " OFF \
         "pavu" "PulseAudio Control " OFF \
         "mumble" "VoIP Server and Client " OFF \
@@ -302,25 +285,27 @@ fi
 source $SIGPI_SCRIPTS/install_aprs.sh
 
 # Fldigi
-if grep fldigi "$SIG_INSTALL_CONFIG"
+if grep fldigi-4.1.01 "$SIG_INSTALL_CONFIG"
 then
+    sudo apt-get install -y fldigi
+else
     source $SIGPI_SCRIPTS/install_fldigi.sh
 fi
 
 # WSJT-X
-if grep wsjtx-2.4.0 "$SIG_INSTALL_CONFIG"
+if grep wsjtx-2.0.0 "$SIG_INSTALL_CONFIG"
 then
-    source $SIGPI_SCRIPTS/install_wsjtx.sh
+    sudo apt-get install -y wsjtx
 else
-	sudo apt-get install -y wsjtx
+    source $SIGPI_SCRIPTS/install_wsjtx.sh
 fi
 
 # QSSTV
-if grep qsstv-9.5.8 "$SIG_INSTALL_CONFIG"
+if grep qsstv-9.2.6 "$SIG_INSTALL_CONFIG"
 then
-	source $SIGPI_SCRIPTS/install_qsstv.sh
+	sudo apt-get install -y qsstv
 else
-    sudo apt-get install -y qsstv
+    source $SIGPI_SCRIPTS/install_qsstv.sh
 fi
 
 # Gpredict
