@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Artemis
-Type=Application
-StartupWMClass=artemis3
-Exec=$HOME/source/artemis/Artemis
-Terminal=false
-Icon=artemis3
-Categories=SigPi; 
