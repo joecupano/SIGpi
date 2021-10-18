@@ -664,7 +664,7 @@ install_sdrangel(){
 
 	# LibDAB
     cd $SIGPI_SDRANGEL
-	git clone https://github.com/srcejon/dab-cmdline
+	git clone https://github.com/srcejon/dab-cmdline.git
 	cd dab-cmdline/library
 	git checkout msvc
 	mkdir build; cd build
@@ -828,7 +828,7 @@ install_sdrangel(){
 	-DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
 	make -j4 install
 	# Copy special startup script for this snowflake
-	sudo cp $SIGPI_HOME/tools/SIGpi_sdrangel.sh /usr/local/bin
+	sudo cp $SIGPI_HOME/tools/SIGpi_sdrangel.sh /usr/local/bin/sdrangel
 
     cd $HOME/.config/
 	mkdir f4exb
