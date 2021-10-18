@@ -389,7 +389,7 @@ config_stuff(){
 ###  MAIN
 ###
 
-install_dependencies(
+install_dependencies
 
 install_sdrangel
 
