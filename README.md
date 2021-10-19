@@ -92,11 +92,11 @@ Tools
 ## Release Notes
 
 
-### Release 3.0: 2021-10-21
+### Release 3.0: 2021-10-22
+- New install script architecture
 - Added SDR++ and Artemis
 - Standardize on GNU Radio 3.8
 - Add RadioSonde (decoder/encoder used in Balloon telemetry projects)
-- Further code alignment with SDRbox
 
 ### Release 2.1: 2021-10-16
 - Various fixes as part of merging code with [SIGbox](https://github.com/joecupano/SIGbox)
@@ -131,6 +131,7 @@ Tools
 - Follow script instructions.
 
 ```
+sudo apt-get install -y build-essential git
 mkdir ~/source && cd ~/source
 git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
@@ -151,20 +152,6 @@ compile include:
 - QSSTV 9.5.8
 
 SDRangel can take up to 90 minutes to compile. 
-
-## Mumble Server (VoIP)
-
-This server is only necessary if intent to remotely connect to SIGpi and require audio at that remote location. You have the option of running the server on startup or not. Run the following command. 
-
-```
-sudo dpkg-reconfigure mumble-server
-```
-
-- You will first be asked whether you want to autostart the server or not. Select **No** unless you intent on accessing the SigPI remotely all the time.
-
-- When asked to allow mumble-server to use higher priority select **No**.
-
-- When asked to create a SuperUser password do something strong.
 
 ## APRS and Packet using a VHF/UHF Transceiver
 
@@ -192,8 +179,8 @@ sudo nano /etc/ax25/axports
 # name callsign speed paclen window description
 #
 ax0     N0CALL-3      1200    255     4       APRS / Packet
-#1      OH2BNS-1        1200    255     2       144.675 MHz (1200  bps)
-#2      OH2BNS-9        38400   255     7       TNOS/Linux  (38400 bps)
+#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
+#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
 ```
 
 - Save and exit
@@ -210,6 +197,20 @@ Xastir is an application that provides geospatial mappng of APRS signals. It nee
 
 ## Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
+
+## Mumble Server (VoIP)
+
+This server is only necessary if intent to remotely connect to SIGpi and require audio at that remote location. You have the option of running the server on startup or not. Run the following command. 
+
+```
+sudo dpkg-reconfigure mumble-server
+```
+
+- You will first be asked whether you want to autostart the server or not. Select **No** unless you intent on accessing the SigPI remotely all the time.
+
+- When asked to allow mumble-server to use higher priority select **No**.
+
+- When asked to create a SuperUser password do something strong.
 
 ## Post Installation
 
