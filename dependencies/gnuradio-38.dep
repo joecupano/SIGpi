@@ -19,7 +19,6 @@ libsdl1.2-dev
 liblog4cpp5-dev
 libqwt-qt5-dev
 libqt5opengl5-dev
-
 python3-numpy
 python3-mako
 python3-sphinx
