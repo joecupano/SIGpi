@@ -73,7 +73,7 @@ fi
 
 # SoapySDR
 
-if grep SoapySDR "$SIG_CONFIG"
+if grep soapysdr "$SIG_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapySDR.git
@@ -87,7 +87,7 @@ then
 fi
 
 # SoapyRTLSDR
-if grep SoapyRTLSDR "$SIG_CONFIG"
+if grep soapyrtlsdr "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRTLSDR.git
@@ -100,7 +100,7 @@ then
 fi
 
 # SoapyHackRF
-if grep SoapyHackRF "$SIG_CONFIG"
+if grep soapyhackrf "$SIG_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyHackRF.git
@@ -113,7 +113,7 @@ then
 fi
 
 # SoapyPlutoSDR
-if grep SoapyPlutoSDR "$SIG_CONFIG"
+if grep soapyplutosdr "$SIG_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyPlutoSDR
@@ -126,7 +126,7 @@ then
 fi
 
 # SoapyRemote
-if grep SoapyRemote "$SIG_CONFIG"
+if grep soapyremote "$SIG_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRemote.git
