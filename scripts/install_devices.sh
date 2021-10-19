@@ -51,6 +51,10 @@ then
 	git clone https://github.com/analogdevicesinc/libiio.git
 	cd libiio
 	mkdir build; cd build
+	# libaio
+	#   If you want to disable async.  I/O support, set WITH_AIO=OFF.
+	# Unable to find libavahi-common / libavahi-client dependencies.
+	#   If you want to disable DNS-SD (ZeroConf) support, set HAVE_DNS_SD=OFF
 	cmake ..
 	make -j4
 	sudo make install
@@ -119,6 +123,8 @@ then
 	git clone https://github.com/pothosware/SoapyPlutoSDR
 	cd SoapyPlutoSDR
 	mkdir build && cd build
+	# Cannot find Avahi client development files:Avahi is recommended for device
+    # discovery over mDNS.Please install libavahi-client-dev or equivalent
 	cmake ..
 	make
 	sudo make install
