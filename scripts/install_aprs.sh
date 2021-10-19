@@ -30,7 +30,6 @@ if grep xastir "$SIG_CONFIG"
 then
    	sudo apt-get install -y xastir
 fi
-}
 
 # Copy Menu items into relevant directories
 sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
