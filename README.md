@@ -22,72 +22,69 @@ Total install time will take over three hours if you choose compile some softwar
 from the Raspberry Pi OS 32-bit distro. Below is a list of software installed. Asterisk (*) indicate software packages
 that are compiled
 
-```
-
 Device Drivers
-- [RTL-SDR](https://www.rtl-sdr.com/about-rtl-sdr/) RTL2832U & R820T2-Based *
-- [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
-- [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
-- [LimeSuite](https://github.com/myriadrf/LimeSuite) *
-- [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
-- [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
-- SoapyRTLSDR Soapy SDR Module for RTLSDR *
-- SoapyHackRF Soapy SDR Module for HackRF One *
-- SoapyPlutoSDR Soapy SDR Module for PlutoSD *
+* [RTL-SDR](https://www.rtl-sdr.com/about-rtl-sdr/) RTL2832U & R820T2-Based *
+* [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
+* [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
+* [LimeSuite](https://github.com/myriadrf/LimeSuite) *
+* [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
+* [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
+* SoapyRTLSDR Soapy SDR Module for RTLSDR *
+* SoapyHackRF Soapy SDR Module for HackRF One *
+* SoapyPlutoSDR Soapy SDR Module for PlutoSD *
 
 Libraries
-- aptdec *        NOAA satellite imagery decoder
-- cm256cc *
-- dab-cmdline *   DABD/DAB+
-- mbelib *        P25 Phase 1
-- serialDV *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
-- dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D-Star, etc) 
-- sgp4 *          Used for satellite trakcing given TLE data 
-- libsigmf *      Used for Signal Metadata Format - sharing of signal data 
-- liquid-dsp *    Digital Signal Processing (DSP) library 
-- libbtbb *       Bkuetooth Baseband Library 
-- [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
+* aptdec *        NOAA satellite imagery decoder
+* cm256cc *
+* dab-cmdline *   DABD/DAB+
+* mbelib *        P25 Phase 1
+* serialDV *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
+* dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D*Star, etc) 
+* sgp4 *          Used for satellite trakcing given TLE data 
+* libsigmf *      Used for Signal Metadata Format - sharing of signal data 
+* liquid-dsp *    Digital Signal Processing (DSP) library 
+* libbtbb *       Bkuetooth Baseband Library 
+* [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
-- [GNURadio 3.8](https://github.com/gnuradio/gnuradio)
-- [GQRX](https://github.com/csete/gqrx)
-- [SDR Angel](https://github.com/f4exb/sdrangel) *
-- SDR++
-- CubicSDR        SDR Receiver
-- Artemis         Real-time SIGINT from your SDR
+* [GNURadio 3.8](https://github.com/gnuradio/gnuradio)
+* [GQRX](https://github.com/csete/gqrx)
+* [SDR Angel](https://github.com/f4exb/sdrangel) *
+* SDR++
+* CubicSDR        SDR Receiver
+* Artemis         Real-time SIGINT from your SDR
 
 Packet Radio
-- libax25         AFSK baseband audio library for AX.25 packet as used by APRS
-- ax25-apps       Command line AX.25 spps
-- ax25-tools      AX.25 for daemon interfaces
-- direwolf 1.7 *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
+* libax25         AFSK baseband audio library for AX.25 packet as used by APRS
+* ax25-apps       Command line AX.25 spps
+* ax25-tools      AX.25 for daemon interfaces
+* direwolf 1.7 *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-- Fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-- Fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-- WSJT-X 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-- WSJT-X 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-- QSSTV           GUI app for SSTV
-- QSSTV 9.5.8 *   GUI app for SSTV
+* Fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* Fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* WSJT-X 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+* WSJT-X 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
+* QSSTV           GUI app for SSTV
+* QSSTV 9.5.8 *   GUI app for SSTV
 
 
 Satellite and Geo
-- [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
-- xastir          APRS Station Tracking and Reporting
-- linpac          Packet Radio Terminal with Mail Client
+* [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
+* xastir          APRS Station Tracking and Reporting
+* linpac          Packet Radio Terminal with Mail Client
 
 
 Tools
-- kismet Wireless sniffer and monitor
-- wireshark Network Traffic Analyzer
-- audacity Audio Editor
-- pavu PulseAudio Control
-- mumble VoIP Server and Client
-- splat RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
-- gps GPS client and NTP sync
-- tempest Uses your computer monitor to send out AM radio signals *
+* kismet Wireless sniffer and monitor
+* wireshark Network Traffic Analyzer
+* audacity Audio Editor
+* pavu PulseAudio Control
+* mumble VoIP Server and Client
+* splat RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
+* gps GPS client and NTP sync
+* tempest Uses your computer monitor to send out AM radio signals *
 
-```
 
 ## Release Notes
 
