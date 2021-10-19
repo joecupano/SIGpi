@@ -16,7 +16,7 @@ echo -e "${SIG_BANNER_RESET}"
 # Copy Menu items into relevant directories
 # 
 	
-#sudo cp $SIGPI_DESKTOP/sigpi_example.desktop $DESKTOP_FILES
+# Copy Desktop files
 sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/gnuradio/grc/scripts/freedesktop/gnuradio-grc.desktop $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/SDRangel/sdrangel/build/sdrangel.desktop $DESKTOP_FILES
