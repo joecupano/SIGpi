@@ -248,20 +248,15 @@ source $SIGPI_SCRIPTS/install_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_decoders.sh
+source $SIGPI_SCRIPTS/install_rtl_433.sh
 
 # GNU Radio
-if grep gnuradio-3.7 "$SIG_CONFIG"
+if grep gnuradio-3-7 "$SIG_CONFIG"
 then
     sudo apt-get install -y gnuradio gnuradio-dev
 else
 	source $SIGPI_SCRIPTS/install_gnuradio38.sh
 if
-
-# rtl_433
-if grep rtl_433 "$SIG_CONFIG"
-then
-	source $SIGPI_SCRIPTS/install_rtl_433.sh
-fi
 
 # gqrx
 if grep gqrx "$SIG_CONFIG"
@@ -369,7 +364,7 @@ then
 fi
 
 # SIGpi Menu
-source $SIGPI_SCRIPTS/install_sigpimenu
+source $SIGPI_SCRIPTS/install_sigpimenu.sh
 
 echo -e "${SIG_BANNER_COLOR}"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
