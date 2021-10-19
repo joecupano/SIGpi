@@ -44,7 +44,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 
 # SigPi Install Support files
-SIG_INSTALL_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
+SIG_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
 SIG_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
 SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIG_BANNER_RESET="\e[0m"
@@ -92,7 +92,7 @@ select_sdrdevices() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 }
 
 select_gnuradio() {
@@ -105,7 +105,7 @@ select_gnuradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 }
 
 select_sdrapps() {
@@ -120,7 +120,7 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 }
 
 select_amateurradio() {
@@ -134,7 +134,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 
 	FUN=$(whiptail --title "Weak Signal Amateur Radio" --radiolist --separate-output \
         "Used for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR \
@@ -146,7 +146,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 
 	FUN=$(whiptail --title "SigPi Installer" --radiolist --separate-output \
         "Choose QSSTV version" 20 80 12 \
@@ -157,7 +157,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Choose Packet Radio Applications" 20 80 12 \
@@ -169,7 +169,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 }
 
 select_usefulapps() {
@@ -190,14 +190,14 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_INSTALL_CONFIG
+    echo $FUN >> $SIG_CONFIG
 }
 
 ###
 ###  MAIN
 ###
 
-touch $SIG_INSTALL_CONFIG
+touch $SIG_CONFIG
 calc_wt_size
 select_startscreen
 select_sdrdevices
@@ -250,7 +250,7 @@ source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_decoders.sh
 
 # GNU Radio
-if grep gnuradio-3.7 "$SIG_INSTALL_CONFIG"
+if grep gnuradio-3.7 "$SIG_CONFIG"
 then
     sudo apt-get install -y gnuradio gnuradio-dev
 else
@@ -258,25 +258,25 @@ else
 if
 
 # rtl_433
-if grep rtl_433 "$SIG_INSTALL_CONFIG"
+if grep rtl_433 "$SIG_CONFIG"
 then
 	source $SIGPI_SCRIPTS/install_rtl_433.sh
 fi
 
 # gqrx
-if grep gqrx "$SIG_INSTALL_CONFIG"
+if grep gqrx "$SIG_CONFIG"
 then
     sudo apt-get install -y gqrx-sdr
 fi
 
 # CubicSDR
-if grep cubicsdr "$SIG_INSTALL_CONFIG"
+if grep cubicsdr "$SIG_CONFIG"
 then
     sudo apt-get install -y cubicsdr
 fi
 
 # SDRangel
-if grep sdrangel "$SIG_INSTALL_CONFIG"
+if grep sdrangel "$SIG_CONFIG"
 then
     source $SIGPI_SCRIPTS/install_sdrangel.sh
 fi
@@ -285,7 +285,7 @@ fi
 source $SIGPI_SCRIPTS/install_aprs.sh
 
 # Fldigi
-if grep fldigi-4.1.01 "$SIG_INSTALL_CONFIG"
+if grep fldigi-4.1.01 "$SIG_CONFIG"
 then
     sudo apt-get install -y fldigi
 else
@@ -293,7 +293,7 @@ else
 fi
 
 # WSJT-X
-if grep wsjtx-2.0.0 "$SIG_INSTALL_CONFIG"
+if grep wsjtx-2.0.0 "$SIG_CONFIG"
 then
     sudo apt-get install -y wsjtx
 else
@@ -301,7 +301,7 @@ else
 fi
 
 # QSSTV
-if grep qsstv-9.2.6 "$SIG_INSTALL_CONFIG"
+if grep qsstv-9.2.6 "$SIG_CONFIG"
 then
 	sudo apt-get install -y qsstv
 else
@@ -309,7 +309,7 @@ else
 fi
 
 # Gpredict
-if grep gpredict "$SIG_INSTALL_CONFIG"
+if grep gpredict "$SIG_CONFIG"
 then
     sudo apt-get install -y gpredict
 fi
@@ -321,49 +321,49 @@ then
 fi
 
 # Wireshark
-if grep wireshark "$SIG_INSTALL_CONFIG"
+if grep wireshark "$SIG_CONFIG"
 then
 	source $SIGPI_SCRIPTS/install_wireshark.sh
 fi
 
 # Kismet
-if grep kismet "$SIG_INSTALL_CONFIG"
+if grep kismet "$SIG_CONFIG"
 then
     source $SIGPI_SCRIPTS/install_kismet.sh
 fi
 
 # Audcacity
-if grep audacity "$SIG_INSTALL_CONFIG"
+if grep audacity "$SIG_CONFIG"
 then
     sudo apt-get install -y audcacity
 fi
 
 # PAVU
-if grep pavu "$SIG_INSTALL_CONFIG"
+if grep pavu "$SIG_CONFIG"
 then
     sudo apt-get install -y pavucontrol
 fi
 
 # GPS
-if grep gps "$SIG_INSTALL_CONFIG"
+if grep gps "$SIG_CONFIG"
 then
     sudo apt-get install -y gpsd gpsd-clients python-gps chrony
 fi
 
 # splat
-if grep splat "$SIG_INSTALL_CONFIG"
+if grep splat "$SIG_CONFIG"
 then
     sudo apt-get install -y splat
 fi
 
 # mumble
-if grep mumble "$SIG_INSTALL_CONFIG"
+if grep mumble "$SIG_CONFIG"
 then
     source $SIGPI_SCRIPTS/install_mumble.sh
 fi
 
 # Tempest for Eliza
-if grep tempest "$SIG_INSTALL_CONFIG"
+if grep tempest "$SIG_CONFIG"
 then
     source $SIGPI_SCRIPTS/install_tempest-eliza.sh
 fi
