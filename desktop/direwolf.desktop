@@ -2,7 +2,7 @@
 Name=Dire Wolf
 Comment=APRS Soundcard TNC
 Exec=/usr/bin/lxterminal -e direwolf
-Icon=direwolf_icon.png
+Icon=/usr/share/icons/direwolf_icon.png
 StartupNotify=true
 Terminal=false
 Type=Application
