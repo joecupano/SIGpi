@@ -6,11 +6,11 @@
 ### installer_gnuradio38
 ###
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install GNUradio 3.8    (ETA: +60 Minutes)"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install GNUradio 3.8    (ETA: +60 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 git clone https://github.com/gnuradio/gnuradio.git
 cd gnuradio
@@ -31,8 +31,8 @@ echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
 # Add SigPi Category for each installed application
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"

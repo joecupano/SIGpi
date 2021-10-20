@@ -7,11 +7,11 @@
 ###
 
 #
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Decoders"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Decoders"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
 
@@ -94,7 +94,7 @@ sudo make install
 sudo ldconfig
 
 # Multimon-NG
-if grep multimon-ng "$SIG_CONFIG"
+if grep multimon-ng "$SIGPI_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/EliasOenal/multimon-ng.git
@@ -111,8 +111,8 @@ fi
 # Add SigPi Category for each installed application
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"

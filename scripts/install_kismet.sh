@@ -6,11 +6,11 @@
 ### installer_kismet
 ###
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Kismet"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Kismet"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 TERM=ansi whiptail --infobox "Installing Kismet" 10 100
 wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
@@ -27,8 +27,8 @@ sudo apt-get install -y kismet
 # Add SigPi Category for each installed application
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"

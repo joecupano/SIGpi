@@ -6,18 +6,18 @@
 ### install_devices
 ###
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Devices"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Devices"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 # AX.25 and utilities"
 sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
 echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 
 # RTL-SDR
-if grep rtl-sdr "$SIG_CONFIG"
+if grep rtl-sdr "$SIGPI_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/osmocom/rtl-sdr.git
@@ -31,14 +31,14 @@ then
 fi
 
 # HackRF
-if grep hackrf "$SIG_CONFIG"
+if grep hackrf "$SIGPI_CONFIG"
 then
    	sudo apt-get install -y hackrf libhackrf-dev
 	sudo hackrf_info
 fi
 
 # PlutoSDR
-if grep libiio "$SIG_CONFIG"
+if grep libiio "$SIGPI_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/analogdevicesinc/libiio.git
@@ -55,7 +55,7 @@ then
 fi
 
 # LimeSDR
-if grep limesuite "$SIG_CONFIG"
+if grep limesuite "$SIGPI_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/myriadrf/LimeSuite.git
@@ -70,7 +70,7 @@ fi
 
 # SoapySDR
 
-if grep soapysdr "$SIG_CONFIG"
+if grep soapysdr "$SIGPI_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapySDR.git
@@ -84,7 +84,7 @@ then
 fi
 
 # SoapyRTLSDR
-if grep soapyrtlsdr "$SIG_CONFIG"
+if grep soapyrtlsdr "$SIGPI_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRTLSDR.git
@@ -97,7 +97,7 @@ then
 fi
 
 # SoapyHackRF
-if grep soapyhackrf "$SIG_CONFIG"
+if grep soapyhackrf "$SIGPI_CONFIG"
 then
     cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyHackRF.git
@@ -110,7 +110,7 @@ then
 fi
 
 # SoapyPlutoSDR
-if grep soapyplutosdr "$SIG_CONFIG"
+if grep soapyplutosdr "$SIGPI_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyPlutoSDR
@@ -125,7 +125,7 @@ then
 fi
 
 # SoapyRemote
-if grep soapyremote "$SIG_CONFIG"
+if grep soapyremote "$SIGPI_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://github.com/pothosware/SoapyRemote.git
@@ -143,8 +143,8 @@ fi
 # Add SigPi Category for each installed application
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"

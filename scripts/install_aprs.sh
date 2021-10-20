@@ -7,7 +7,7 @@
 ###
 
 # DireWolf
-if grep direwolf "$SIG_CONFIG"
+if grep direwolf "$SIGPI_CONFIG"
 then
    	cd $SIGPI_SOURCE
 	git clone https://www.github.com/wb2osz/direwolf
@@ -20,13 +20,13 @@ then
 fi
 
 # Linpac
-if grep linpac "$SIG_CONFIG"
+if grep linpac "$SIGPI_CONFIG"
 then
    	sudo apt-get install -y linpac
 fi
 
 # Xastir
-if grep xastir "$SIG_CONFIG"
+if grep xastir "$SIGPI_CONFIG"
 then
    	sudo apt-get install -y xastir
 fi
@@ -37,8 +37,8 @@ sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
 # Add SigPi Category for each installed application
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"

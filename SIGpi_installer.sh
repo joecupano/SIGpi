@@ -44,10 +44,10 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 
 # SigPi Install Support files
-SIG_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
-SIG_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
-SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
-SIG_BANNER_RESET="\e[0m"
+SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
+SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
+SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
+SIGPI_BANNER_RESET="\e[0m"
 
 
 ###
@@ -72,7 +72,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIG_INSTALL_TXT1 24 120 16
+    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 24 120 16
 }
 
 select_sdrdevices() {
@@ -92,7 +92,7 @@ select_sdrdevices() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 }
 
 select_gnuradio() {
@@ -105,7 +105,7 @@ select_gnuradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 }
 
 select_sdrapps() {
@@ -120,7 +120,7 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 }
 
 select_amateurradio() {
@@ -136,7 +136,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Packet Radio Applications" 20 80 12 \
@@ -148,7 +148,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 }
 
 select_usefulapps() {
@@ -169,14 +169,14 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIG_CONFIG
+    echo $FUN >> $SIGPI_CONFIG
 }
 
 ###
 ###  MAIN
 ###
 
-touch $SIG_CONFIG
+touch $SIGPI_CONFIG
 calc_wt_size
 select_startscreen
 select_sdrdevices
@@ -187,20 +187,20 @@ select_amateurradio
 select_usefulapps
 TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   System Update & Upgrade"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   System Update & Upgrade"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Create Directories"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Create Directories"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 if [ ! -d "$SIGPI_SOURCE" ]; then
   	mkdir $SIGPI_SOURCE
@@ -212,11 +212,11 @@ fi
     
 cd $SIGPI_SOURCE
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Create Temporary Swap"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Create Temporary Swap"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
@@ -230,26 +230,26 @@ source $SIGPI_SCRIPTS/install_decoders.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
 
 # GNU Radio
-if grep gnuradio37 "$SIG_CONFIG"; then
+if grep gnuradio37 "$SIGPI_CONFIG"; then
     sudo apt-get install -y gnuradio gnuradio-dev
 fi
 
-if grep gnuradio38 "$SIG_CONFIG"; then
+if grep gnuradio38 "$SIGPI_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_gnuradio38.sh
 if
 
 # gqrx
-if grep gqrx "$SIG_CONFIG"; then
+if grep gqrx "$SIGPI_CONFIG"; then
     sudo apt-get install -y gqrx-sdr
 fi
 
 # CubicSDR
-if grep cubicsdr "$SIG_CONFIG"; then
+if grep cubicsdr "$SIGPI_CONFIG"; then
     sudo apt-get install -y cubicsdr
 fi
 
 # SDRangel
-if grep sdrangel "$SIG_CONFIG"; then
+if grep sdrangel "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_sdrangel.sh
 fi
 
@@ -257,30 +257,30 @@ fi
 source $SIGPI_SCRIPTS/install_aprs.sh
 
 # Fldigi
-if grep fldigi4101 "$SIG_CONFIG"; then
+if grep fldigi4101 "$SIGPI_CONFIG"; then
     sudo apt-get install -y fldigi
 fi
 
-if grep fldigi4120 "$SIG_CONFIG"; then
+if grep fldigi4120 "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_fldigi.sh
 fi
 
 # WSJT-X
-if grep wsjtx "$SIG_CONFIG"; then
+if grep wsjtx "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_wsjtx.sh
 fi
 
 # QSSTV
-if grep qsstv926 "$SIG_CONFIG"; then
+if grep qsstv926 "$SIGPI_CONFIG"; then
 	sudo apt-get install -y qsstv
 fi
 
-if grep qsstv958 "$SIG_CONFIG"; then
+if grep qsstv958 "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_qsstv.sh
 fi
 
 # Gpredict
-if grep gpredict "$SIG_CONFIG"; then
+if grep gpredict "$SIGPI_CONFIG"; then
     sudo apt-get install -y gpredict
 fi
 
@@ -290,42 +290,42 @@ if grep artemis "$SIGBOX_CONFIG"; then
 fi
 
 # Wireshark
-if grep wireshark "$SIG_CONFIG"; then
+if grep wireshark "$SIGPI_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_wireshark.sh
 fi
 
 # Kismet
-if grep kismet "$SIG_CONFIG"; then
+if grep kismet "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_kismet.sh
 fi
 
 # Audcacity
-if grep audacity "$SIG_CONFIG"; then
+if grep audacity "$SIGPI_CONFIG"; then
     sudo apt-get install -y audcacity
 fi
 
 # PAVU
-if grep pavu "$SIG_CONFIG"; then
+if grep pavu "$SIGPI_CONFIG"; then
     sudo apt-get install -y pavucontrol
 fi
 
 # GPS
-if grep gps "$SIG_CONFIG"; then
+if grep gps "$SIGPI_CONFIG"; then
     sudo apt-get install -y gpsd gpsd-clients python-gps chrony
 fi
 
 # splat
-if grep splat "$SIG_CONFIG"; then
+if grep splat "$SIGPI_CONFIG"; then
     sudo apt-get install -y splat
 fi
 
 # mumble
-if grep mumble "$SIG_CONFIG"; then
+if grep mumble "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_mumble.sh
 fi
 
 # Tempest for Eliza
-if grep tempest "$SIG_CONFIG"; then
+if grep tempest "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_tempest-eliza.sh
 fi
 
@@ -335,15 +335,15 @@ source $SIGPI_SCRIPTS/install_sigpimenu.sh
 # Turn of Swapfile
 sudo swapoff /swapfile
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   System needs to reboot for all changes to occur"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Reboot will begin in 15 seconsds unless CTRL-C hit"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   System needs to reboot for all changes to occur"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Reboot will begin in 15 seconsds unless CTRL-C hit"
+echo -e "${SIGPI_BANNER_RESET}"
 sleep 17
 sudo sync
 sudo reboot

@@ -44,10 +44,10 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 
 # SigPi Install Support files
-SIG_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
-SIG_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
-SIG_BANNER_COLOR="\e[0;104m\e[K"   # blue
-SIG_BANNER_RESET="\e[0m"
+SIGPI_CONFIG=$SIGPI_HOME/sigpi_installer_config.txt
+SIGPI_INSTALL_TXT1=$SIGPI_HOME/updates/SIGpi-installer-1.txt
+SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
+SIGPI_BANNER_RESET="\e[0m"
 
 
 #
@@ -56,11 +56,11 @@ SIG_BANNER_RESET="\e[0m"
 
 install_PACKAGE(){
 
-    echo -e "${SIG_BANNER_COLOR}"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install PACKAGE"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_RESET}"
+    echo -e "${SIGPI_BANNER_COLOR}"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install PACKAGE"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIGPI_BANNER_RESET}"
 
     #
     # CODE
@@ -68,11 +68,11 @@ install_PACKAGE(){
 }
 
 install_sigpimenu(){
-	echo -e "${SIG_BANNER_COLOR}"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install SIGpi Menu and Desktop Shortcuts"
-	echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-	echo -e "${SIG_BANNER_RESET}"
+	echo -e "${SIGPI_BANNER_COLOR}"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SIGpi Menu and Desktop Shortcuts"
+	echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+	echo -e "${SIGPI_BANNER_RESET}"
     
 	# Copy Menu items into relevant directories
 	sudo cp $SIGPI_SOURCE/themes/desktop/PACKAGE.desktop $DESKTOP_FILES
@@ -92,9 +92,9 @@ install_PACKAGE
 
 install_sigpimenu
 
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 exit 0
