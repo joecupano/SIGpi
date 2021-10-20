@@ -125,7 +125,7 @@ select_sdrapps() {
 
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Amater Radio Applications" 20 80 12 \
+        "Amateur Radio Applications" 20 80 12 \
         "fldigi4101" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " ON \
         "fldigi4120" "Fldigi 4.1.20 Compiled (~40 minutes compile time) " OFF \
         "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR" ON \

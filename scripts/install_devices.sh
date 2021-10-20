@@ -12,13 +12,6 @@ echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install Devices"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
 echo -e "${SIG_BANNER_RESET}"
 
-# AX.25
-echo -e "${SIG_BANNER_COLOR}"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#   Install AX.25"
-echo -e "${SIG_BANNER_COLOR} #SIGPI#"
-echo -e "${SIG_BANNER_RESET}"
-
 # AX.25 and utilities"
 sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
 echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports

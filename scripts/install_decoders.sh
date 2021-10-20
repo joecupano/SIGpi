@@ -27,6 +27,12 @@ sudo make install
 sudo ldconfig
 
 # CM265cc
+#
+#--   No package 'fftw3f' found
+#-- Could NOT find FFTW3F (missing: FFTW3F_LIBRARIES FFTW3F_INCLUDE_DIRS) 
+#CMake Error at CMakeLists.txt:47 (message):
+#  please install FFTW3
+
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/cm256cc.git
 cd cm256cc
