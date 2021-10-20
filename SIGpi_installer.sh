@@ -98,8 +98,8 @@ select_sdrdevices() {
 select_gnuradio() {
     FUN=$(whiptail --title "GNUradio" --radiolist --separate-output \
         "Choose GNUradio version" 20 80 12 \
-        "gnuradio-3.7" "Installed from Distro " OFF \
-		"gnuradio-3.8" "Compiled from Repo " ON \
+        "gnuradio37" "GNU Radio 3.7 " OFF \
+		"gnuradio38" "GNU Radio 3.8 " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -110,7 +110,7 @@ select_gnuradio() {
 
 select_sdrapps() {
     FUN=$(whiptail --title "SDR Applications" --checklist --separate-output \
-        "Choose SDR Applications" 20 80 12 \
+        "SDR Applications" 20 80 12 \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " ON \
@@ -124,34 +124,13 @@ select_sdrapps() {
 }
 
 select_amateurradio() {
-    FUN=$(whiptail --title "Fldigi Suite" --radiolist --separate-output \
-        "Used for MFSK, PSK31, CW, RTTY. WEFAX and many others \
-		Choose Fldigi version" 20 80 12 \
-        "fldigi-4.1.01" "Installed from distro " ON \
-        "fldigi-4.1.20" "Compiled from Repo (~40 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
-
-	FUN=$(whiptail --title "Weak Signal Amateur Radio" --radiolist --separate-output \
-        "Used for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR \
-		digital modes. Choose WSJT-X version" 20 80 12 \
-        "wsjtx-2.0" "Installed from distro " ON \
-        "wsjtx-2.4.0" "Compiled from Repo (~20 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIG_CONFIG
-
-	FUN=$(whiptail --title "SigPi Installer" --radiolist --separate-output \
-        "Choose QSSTV version" 20 80 12 \
-        "qsstv-9.2.6" "Installed from distro " ON \
-        "qsstv-9.5.8" "Compiled from Repo (~20 minutes compile time) " OFF \
+    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+        "Amater Radio Applications" 20 80 12 \
+        "fldigi4101" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " ON \
+        "fldigi4120" "Fldigi 4.1.20 Compiled (~40 minutes compile time) " OFF \
+        "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR" ON \
+        "qsstv926" "QSSTV 9.2.6 for SSTV modes " OFF \
+        "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -160,7 +139,7 @@ select_amateurradio() {
     echo $FUN >> $SIG_CONFIG
 
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Choose Packet Radio Applications" 20 80 12 \
+        "Packet Radio Applications" 20 80 12 \
         "direwolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
         "linpac" "Packet Radio Temrinal with mail client " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
@@ -174,7 +153,7 @@ select_amateurradio() {
 
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Choose other Useful Applications" 20 120 12 \
+        "Useful Applications" 20 120 12 \
 		"artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
         "gps" "GPS client and NTP sync " OFF \
         "gpredict" "Satellite Tracking " OFF \
@@ -251,28 +230,26 @@ source $SIGPI_SCRIPTS/install_decoders.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
 
 # GNU Radio
-if grep gnuradio-3-7 "$SIG_CONFIG"
-then
+if grep gnuradio37 "$SIG_CONFIG"; then
     sudo apt-get install -y gnuradio gnuradio-dev
-else
+fi
+
+if grep gnuradio38 "$SIG_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_gnuradio38.sh
 if
 
 # gqrx
-if grep gqrx "$SIG_CONFIG"
-then
+if grep gqrx "$SIG_CONFIG"; then
     sudo apt-get install -y gqrx-sdr
 fi
 
 # CubicSDR
-if grep cubicsdr "$SIG_CONFIG"
-then
+if grep cubicsdr "$SIG_CONFIG"; then
     sudo apt-get install -y cubicsdr
 fi
 
 # SDRangel
-if grep sdrangel "$SIG_CONFIG"
-then
+if grep sdrangel "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_sdrangel.sh
 fi
 
@@ -280,91 +257,83 @@ fi
 source $SIGPI_SCRIPTS/install_aprs.sh
 
 # Fldigi
-if grep fldigi-4.1.01 "$SIG_CONFIG"
-then
+if grep fldigi4101 "$SIG_CONFIG"; then
     sudo apt-get install -y fldigi
-else
+fi
+
+if grep fldigi4120 "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_fldigi.sh
 fi
 
 # WSJT-X
-if grep wsjtx-2.0.0 "$SIG_CONFIG"
-then
-    sudo apt-get install -y wsjtx
-else
+if grep wsjtx "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_wsjtx.sh
 fi
 
 # QSSTV
-if grep qsstv-9.2.6 "$SIG_CONFIG"
-then
+if grep qsstv926 "$SIG_CONFIG"; then
 	sudo apt-get install -y qsstv
-else
+fi
+
+if grep qsstv958 "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_qsstv.sh
 fi
 
 # Gpredict
-if grep gpredict "$SIG_CONFIG"
-then
+if grep gpredict "$SIG_CONFIG"; then
     sudo apt-get install -y gpredict
 fi
 
 # Artemis
-if grep artemis "$SIGBOX_CONFIG"
-then
+if grep artemis "$SIGBOX_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_artemis.sh
 fi
 
 # Wireshark
-if grep wireshark "$SIG_CONFIG"
-then
+if grep wireshark "$SIG_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_wireshark.sh
 fi
 
 # Kismet
-if grep kismet "$SIG_CONFIG"
-then
+if grep kismet "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_kismet.sh
 fi
 
 # Audcacity
-if grep audacity "$SIG_CONFIG"
-then
+if grep audacity "$SIG_CONFIG"; then
     sudo apt-get install -y audcacity
 fi
 
 # PAVU
-if grep pavu "$SIG_CONFIG"
-then
+if grep pavu "$SIG_CONFIG"; then
     sudo apt-get install -y pavucontrol
 fi
 
 # GPS
-if grep gps "$SIG_CONFIG"
-then
+if grep gps "$SIG_CONFIG"; then
     sudo apt-get install -y gpsd gpsd-clients python-gps chrony
 fi
 
 # splat
-if grep splat "$SIG_CONFIG"
-then
+if grep splat "$SIG_CONFIG"; then
     sudo apt-get install -y splat
 fi
 
 # mumble
-if grep mumble "$SIG_CONFIG"
-then
+if grep mumble "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_mumble.sh
 fi
 
 # Tempest for Eliza
-if grep tempest "$SIG_CONFIG"
-then
+if grep tempest "$SIG_CONFIG"; then
     source $SIGPI_SCRIPTS/install_tempest-eliza.sh
 fi
 
 # SIGpi Menu
 source $SIGPI_SCRIPTS/install_sigpimenu.sh
+
+# Turn of Swapfile
+sudo swapoff /swapfile
 
 echo -e "${SIG_BANNER_COLOR}"
 echo -e "${SIG_BANNER_COLOR} #SIGPI#"
