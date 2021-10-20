@@ -34,56 +34,55 @@ Device Drivers
 * SoapyPlutoSDR Soapy SDR Module for PlutoSD *
 
 Libraries
-* aptdec *        NOAA satellite imagery decoder
+* [aptdec](https://github.com/Xerbo/aptdec) *        NOAA satellite imagery decoder
 * cm256cc *
-* dab-cmdline *   DABD/DAB+
-* mbelib *        P25 Phase 1
-* serialDV *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
-* dsdcc *         Encode/Decode Digital Voice modes (DMR, YSF, D*Star, etc) 
-* sgp4 *          Used for satellite trakcing given TLE data 
-* libsigmf *      Used for Signal Metadata Format - sharing of signal data 
-* liquid-dsp *    Digital Signal Processing (DSP) library 
-* libbtbb *       Bkuetooth Baseband Library 
+* [dab-cmdline](https://github.com/JvanKatwijk/dab-cmdline) *   DABD/DAB+
+* [mbelib](https://github.com/szechyjs/mbelib) *        P25 Phase 1
+* [serialDV](https://github.com/f4exb/serialDV) *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
+* [dsdcc](https://github.com/f4exb/dsdcc) *         Encode/Decode Digital Voice modes (DMR, YSF, D*Star, etc) 
+* [sgp4](https://pypi.org/project/sgp4/) *          Used for satellite trakcing given TLE data 
+* [libsigmf](https://github.com/deepsig/libsigmf) *      Used for Signal Metadata Format - sharing of signal data 
+* [liquid-dsp](https://github.com/jgaeddert/liquid-dsp) *    Digital Signal Processing (DSP) library 
+* [libbtbb](https://github.com/greatscottgadgets/libbtbb) *       Bkuetooth Baseband Library 
 * [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
 * [GNURadio 3.8](https://github.com/gnuradio/gnuradio)
 * [GQRX](https://github.com/csete/gqrx)
 * [SDR Angel](https://github.com/f4exb/sdrangel) *
-* SDR++
-* CubicSDR        SDR Receiver
-* Artemis         Real-time SIGINT from your SDR
+* [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus)
+* [CubicSDR](https://cubicsdr.com/)        SDR Receiver
+* [Artemis](https://aresvalley.com/artemis/)         Real-time SIGINT from your SDR
 
 Packet Radio
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
 * ax25-apps       Command line AX.25 spps
 * ax25-tools      AX.25 for daemon interfaces
-* direwolf 1.7 *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
+* [direwolf 1.7](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-* Fldigi 4.1.0    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* Fldigi 4.1.20 * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* WSJT-X 2.4.0    GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-* WSJT-X 2.4.2 *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR, 
-* QSSTV           GUI app for SSTV
-* QSSTV 9.5.8 *   GUI app for SSTV
+* [Fldigi 4.1.0](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* [Fldigi 4.1.20](https://sourceforge.net/p/fldigi/wiki/Home/)] * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* [WSJT-X 2.5.0](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
+* [QSSTV 9.4.2](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
+* [QSSTV 9.5.8](http://users.telenet.be/on4qz/index.html)  *   GUI app for SSTV
 
 
 Satellite and Geo
 * [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
-* xastir          APRS Station Tracking and Reporting
-* linpac          Packet Radio Terminal with Mail Client
+* [xastir](http://xastir.org/index.php/Main_Page)          APRS Station Tracking and Reporting
+* [linpac](http://linpac.sourceforge.net/doc/manual.html)          Packet Radio Terminal with Mail Client
 
 
 Tools
-* kismet Wireless sniffer and monitor
-* wireshark Network Traffic Analyzer
-* audacity Audio Editor
-* pavu PulseAudio Control
-* mumble VoIP Server and Client
-* splat RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
-* gps GPS client and NTP sync
-* tempest Uses your computer monitor to send out AM radio signals *
+* Kismet        Wireless sniffer and monitor
+* [Wireshark](https://www.wireshark.org/)     Network Traffic Analyzer
+* [Audacity](https://www.audacityteam.org/)      Audio Editor
+* [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio Control
+* [Mumble](https://www.mumble.info/)        VoIP Server and Client
+* [SPLAT](https://www.qsl.net/kd2bd/splat.html)         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
+* GPS           GPS client and NTP sync
+* [TEMPEST](http://www.erikyyy.de/tempest/)       Uses your computer monitor to send out AM radio signals *
 
 
 ## Release Notes
