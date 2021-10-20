@@ -12,11 +12,11 @@ echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install WSJT-X"
 echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
 echo -e "${SIGBOX_BANNER_RESET}"
 
-wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.4.0_armhf.deb -P $HOME/Downloads
-sudo dpkg -i $HOME/Downloads/wsjtx_2.4.0_armhf.deb
+wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.0_armhf.deb -P $HOME/Downloads
+sudo dpkg -i $HOME/Downloads/wsjtx_2.5.0_armhf.deb
 # Will get error next command fixes error and downloads dependencies
 sudo apt-get --fix-broken install
-sudo dpkg -i $HOME/Downloads/wsjtx_2.4.0_armhf.deb
+sudo dpkg -i $HOME/Downloads/wsjtx_2.5.0_armhf.deb
 
 # Copy Menu items into relevant directories
 sudo cp $SIGPI_SOURCE/themes/desktop/sdrpp.desktop $DESKTOP_FILES
