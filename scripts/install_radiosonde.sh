@@ -6,10 +6,7 @@
 ### installer_radiosonde
 ###
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install RadioSonde"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR}           Install RadioSonde"
 echo -e "${SIGPI_BANNER_RESET}"
 
 echo " "
