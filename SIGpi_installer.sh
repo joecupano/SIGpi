@@ -299,9 +299,9 @@ if grep kismet "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_kismet.sh
 fi
 
-# Audcacity
+# Audacity
 if grep audacity "$SIGPI_CONFIG"; then
-    sudo apt-get install -y audcacity
+    sudo apt-get install -y audacity
 fi
 
 # PAVU

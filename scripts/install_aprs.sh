@@ -32,7 +32,7 @@ then
 fi
 
 # Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/desktop/xastir.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
