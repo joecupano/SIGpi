@@ -76,7 +76,7 @@ then
 	git clone https://github.com/pothosware/SoapySDR.git
 	cd SoapySDR
 	mkdir build && cd build
-	cmake ../ -DCMAKE_BUILD_TYPE=Release
+	cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
 	make -j4
 	sudo make install
 	sudo ldconfig
@@ -90,7 +90,7 @@ then
 	git clone https://github.com/pothosware/SoapyRTLSDR.git
 	cd SoapyRTLSDR
 	mkdir build && cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Release
+	cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
 	make
 	sudo make install
 	sudo ldconfig
@@ -103,7 +103,7 @@ then
 	git clone https://github.com/pothosware/SoapyHackRF.git
 	cd SoapyHackRF
 	mkdir build && cd build
-	cmake .. -DCMAKE_BUILD_TYPE=Release
+	cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
 	make
 	sudo make install
 	sudo ldconfig
@@ -118,7 +118,7 @@ then
 	mkdir build && cd build
 	# Cannot find Avahi client development files:Avahi is recommended for device
     # discovery over mDNS.Please install libavahi-client-dev or equivalent
-	cmake ..
+	cmake .. -Wno-dev
 	make
 	sudo make install
 	sudo ldconfig
@@ -131,7 +131,7 @@ then
 	git clone https://github.com/pothosware/SoapyRemote.git
 	cd SoapyRemote
 	mkdir build && cd build
-	cmake ..
+	cmake .. -Wno-dev
 	make
 	sudo make install
 	sudo ldconfig

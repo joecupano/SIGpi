@@ -18,8 +18,8 @@ sudo apt-get install -y mesa-common-dev octave octave-common octave-signal opens
 sudo apt-get install -y texlive-extra-utils texlive-latex-extra tix ttf-bitstream-vera ttf-staypuft zlib1g zlib1g-dev
 sudo apt-get install -y qt5-default sox swig tcl8.6 tk8.6 tk8.6-blt2.5 uhd-host valgrind
 
-sudo apt-get install -y libaio-dev libasound2-dev libavahi-client-dev libavahi-common-dev libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev libbluetooth-dev \
-libcairo2-dev libcanberra-gtk0 libcanberra-gtk-module ibcppunit-dev libcppunit-dev libcppunit-doc libfaad2 libfaad-dev libfftw3-bin libfftw3-dev \
+sudo apt-get install -y libaio libaio-dev libasound2-dev libavahi-client libavahi-client-dev libavahi-common libavahi-common-dev libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev libbluetooth-dev \
+libcairo2-dev libcanberra-gtk0 libcanberra-gtk-module libcppunit-dev libcppunit-doc libfaad2 libfaad-dev libfftw3-bin libfftw3-dev \
 libfftw3-doc libfltk1.3 libfltk1.3-dev libfltk1.3-dev libfreesrp0 libgl1-mesa-dev libgle3 python-pyqtgraph-doc libgles1 libglfw3 \
 libgmp10-doc libgmp-dev libgmpxx4ldbl libgsl-dev libhidapi-libusb0 libicu-dev libjs-jquery-ui libjs-jquery-ui-docs libliquid-dev liblog4cpp5-dev liblog4cpp5v5 \
 libmpfrc++-dev libmpfr-dev libnova-dev libntl-dev liboctave-dev libopencv-dev libopenjp2-7 libopenjp2-7-dev libopus-dev liborc-0.4 liborc-0.4-0 liborc-0.4-dev \
