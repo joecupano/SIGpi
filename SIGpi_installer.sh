@@ -236,7 +236,7 @@ fi
 
 if grep gnuradio38 "$SIGPI_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_gnuradio38.sh
-if
+fi
 
 # gqrx
 if grep gqrx "$SIGPI_CONFIG"; then
