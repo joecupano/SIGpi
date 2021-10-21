@@ -3,12 +3,12 @@
 ###
 ### SIGpi
 ###
-### installer_sdrplusplus
+### installer_sdrpp
 ###
 
 echo -e "${SIGBOX_BANNER_COLOR}"
 echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
-echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install SDRplusplus"
+echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install SDR++"
 echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
 echo -e "${SIGBOX_BANNER_RESET}"
 
