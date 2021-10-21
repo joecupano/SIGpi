@@ -33,8 +33,17 @@ fi
 # HackRF
 if grep hackrf "$SIGPI_CONFIG"
 then
-   	sudo apt-get install -y hackrf libhackrf-dev
-	sudo hackrf_info
+   	#sudo apt-get install -y hackrf libhackrf-dev
+	#sudo hackrf_info
+	cd $SIGPI_SOURCE
+	git clone https://github.com/mossmann/hackrf.git
+	cd hackrf/host
+	mkdir build
+	cd build
+	cmake ..
+	make -j4
+	sudo make install
+	sudo ldconfig
 fi
 
 # PlutoSDR
@@ -44,10 +53,6 @@ then
 	git clone https://github.com/analogdevicesinc/libiio.git
 	cd libiio
 	mkdir build; cd build
-	# libaio
-	#   If you want to disable async.  I/O support, set WITH_AIO=OFF.
-	# Unable to find libavahi-common / libavahi-client dependencies.
-	#   If you want to disable DNS-SD (ZeroConf) support, set HAVE_DNS_SD=OFF
 	cmake ..
 	make -j4
 	sudo make install
