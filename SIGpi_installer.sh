@@ -48,7 +48,7 @@ SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
 SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
-
+SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
 
 ###
 ### FUNCTIONS
@@ -114,7 +114,7 @@ select_sdrapps() {
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " ON \
-		"sdrplusplus" "SDR++ " OFF \
+		"sdrpp" "SDR++ " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -252,6 +252,11 @@ fi
 # SDRangel
 if grep sdrangel "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_sdrangel.sh
+fi
+
+# SDR++
+if grep sdrpp "$SIGPI_CONFIG"; then
+    source $SIGPI_SCRIPTS/install_sdrpp.sh
 fi
 
 # APRS
