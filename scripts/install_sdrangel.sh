@@ -12,7 +12,6 @@ echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SDRangel (ETA: +80 Minutes)"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_RESET}"
 
-SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
 cd $SIGPI_SOURCE
 
 sudo mkdir -p /opt/build
