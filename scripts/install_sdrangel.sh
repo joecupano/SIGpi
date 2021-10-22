@@ -6,14 +6,16 @@
 ### install_sdrangel
 ###
 
+# Application Specific Install variables
+SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
+
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SDRangel (ETA: +80 Minutes)"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
-
+mkdir $SIGPI_SDRANGEL
 sudo mkdir -p /opt/build
 sudo chown pi:users /opt/build
 sudo mkdir -p /opt/install

@@ -27,7 +27,7 @@ make -j4
 sudo make install
 
 # Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/themes/desktop/sdrpp.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/desktop/sdrpp.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop

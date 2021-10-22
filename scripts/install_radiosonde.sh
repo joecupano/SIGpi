@@ -59,7 +59,7 @@ sudo cp m10ptu m10gtop $SIGPI_EXE
 cd $SIGPI_SOURCE/RS/m10/pilotsonde
 gcc m12.c -lm -o m12
 sudo chown root:root m12
-sudo cp root:root m12 /usr/local/bin
+sudo cp m12 /usr/local/bin
 
 echo "  #"
 echo "  - dfm (06 and 09)"
@@ -81,7 +81,7 @@ gcc imet1rs_dft.c -lm -o imet1rs_dft
 gcc imet1rs_dft_1.c -lm -o imet1rs_dft_1
 gcc imet1rsb.c -lm -o imet1rsb
 sudo chown root:root imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1
-sudo cp root:root imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1 /usr/local/bin
+sudo cp imet1ab imet1rsb imet1ab_cpafsk imet1rs_dft imet1rs_dft_1 /usr/local/bin
 
 echo "  #"
 echo "  - c34"
@@ -91,8 +91,7 @@ cd $SIGPI_SOURCE/RS/c34
 gcc c34dft.c -lm -o c34dft
 gcc c50dft.c -lm -o c50dft
 sudo chown root:root c34dft c50dft
-sudo cp root:root c34dft c50dft /usr/local/bin
-
+sudo cp c34dft c50dft /usr/local/bin
 
 echo "  #"
 echo "  - lms6"
@@ -181,8 +180,8 @@ gcc -C reset_usb.c -lm -o reset_usb
 gcc -C rs_detect.c -lm -o rs_detect
 gcc -C scan_fft_pow.c -lm -o scan_fft_pow
 gcc -C scan_fft_simple.c -lm -o scan_fft_simple
-sudo chown root:root reset_usb rs_detect scan_fft_pow scan_fft_simpl
-sudo cp diff_detect reset_usb rs_detect scan_fft_pow scan_fft_simpl /usr/local/bin
+sudo chown root:root reset_usb rs_detect scan_fft_pow scan_fft_simple
+sudo cp reset_usb rs_detect scan_fft_pow scan_fft_simple /usr/local/bin
 
 echo "  #"
 echo "  - Decod RS Module"
@@ -209,7 +208,7 @@ echo " "
 cd $SIGPI_SOURCE/RS/tools
 #pa-stdout.c  compile issued with undfined references so skipping
 #chown root:root metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl
-sudo cp metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl postnmea.p1 /usr/local/bin
+sudo cp metno_netcdf_gpx.py pos2aprs.py pos2gpx.pl pos2kml.pl pos2nmea.p1 /usr/local/bin
 
 # Copy Menu items into relevant directories
 #sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
