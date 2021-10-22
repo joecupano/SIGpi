@@ -14,11 +14,12 @@ echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y g++ gcc git autoconf automake bison build-essential pkg-config cmake doxygen dvipng faad ffmpeg flex gettext
-sudo apt-get install -y mesa-common-dev octave octave-common octave-signal openssl openssl-dev portaudio19-dev pulseaudio gmp-doc gnuplot gnuplot-x11 graphviz
+sudo apt-get install -y mesa-common-dev octave octave-common octave-signal openssl portaudio19-dev pulseaudio gmp-doc gnuplot gnuplot-x11 graphviz
 
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev libsoapysdr-dev libairspyhf-dev libiio-dev libad9361-dev librtaudio-dev libhackrf-dev 
 
-sudo apt-get install -y libavahi-client-dev libavahi-common-dev libaio libaio-dev
+sudo apt-get install -y libavahi-client-dev libavahi-common-dev 
+sudo apt-get install -y libaio-dev
 sudo apt-get install -y liborc-0.4-0 liborc-0.4-dev liborc-0.4-doc liborc-0.4-0-dbg liborc-0.4-dev-bin liblog4cpp5-dev
 sudo apt-get install -y libasound2-dev libavcodec-dev libavdevice-dev libavformat-dev libavutil-dev libbluetooth-dev
 sudo apt-get install -y libfftw3-3 libfftw3-bin libfftw3-dev libfftw3-doc libfftw3-double3 libfftw3-mpi-dev libfftw3-mpi3 libfftw3-single3
