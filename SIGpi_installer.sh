@@ -180,7 +180,6 @@ calc_wt_size
 select_startscreen
 select_sdrdevices
 select_gnuradio
-select_decoders
 select_sdrapps
 select_amateurradio
 select_usefulapps
