@@ -32,6 +32,7 @@ Device Drivers
 * SoapyRTLSDR Soapy SDR Module for RTLSDR *
 * SoapyHackRF Soapy SDR Module for HackRF One *
 * SoapyPlutoSDR Soapy SDR Module for PlutoSD *
+* GPS client and NTP sync (gpsd gpsd-clients python-gps chrony)
 
 Decoders
 * [aptdec](https://github.com/Xerbo/aptdec) *        NOAA satellite imagery decoder
@@ -84,7 +85,6 @@ Tools
 * [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio Control
 * [Mumble](https://www.mumble.info/)        VoIP Server and Client
 * [SPLAT](https://www.qsl.net/kd2bd/splat.html)         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
-* GPS           GPS client and NTP sync
 * [TEMPEST](http://www.erikyyy.de/tempest/)       Uses your computer monitor to send out AM radio signals *
 
 
