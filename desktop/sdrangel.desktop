@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=SDRangel
+GenericName=SDR/Analyzer frontend
+Comment=SDR/Analyzer frontend for Airspy, Airspy HF+, BladeRF, HackRF, LimeSDR, PlutoSDR, RTL-SDR, SDRplay RSP1 and FunCube
+Exec=/usr/local/bin/sdrangel.sh
+Icon=/usr/share/icons/sdrangel_icon
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories=SigPi;
+X-KeepTerminal=true

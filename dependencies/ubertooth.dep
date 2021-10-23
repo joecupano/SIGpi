@@ -1,0 +1,12 @@
+git
+cmake
+libusb-1.0-0-dev
+make
+gcc
+g++
+libbluetooth-dev
+pkg-config
+libpcap-dev
+python-numpy
+python-pyside
+python-qt4

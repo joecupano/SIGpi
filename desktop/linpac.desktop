@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=LinPac
+GenericName=LinPac
+Comment=LinPac is a packet radio terminal for use with the AX.25 packet radio environment. It comes with a mail client.
+Exec=/usr/bin/linpac
+Icon=/usr/share/icons/direwolf_icon
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories=SigPi;
+X-KeepTerminal=true
