@@ -154,7 +154,6 @@ select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Useful Applications" 20 120 12 \
 		"artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
-        "gps" "GPS client and NTP sync " OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
@@ -311,11 +310,6 @@ fi
 # PAVU
 if grep pavu "$SIGPI_CONFIG"; then
     sudo apt-get install -y pavucontrol
-fi
-
-# GPS
-if grep gps "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gpsd gpsd-clients python-gps chrony
 fi
 
 # splat

@@ -208,7 +208,7 @@ echo " "
 cd $SIGPI_SOURCE/RS/tools
 #pa-stdout.c  compile issued with undfined references so skipping
 #chown root:root metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl
-sudo cp metno_netcdf_gpx.py pos2aprs.py pos2gpx.pl pos2kml.pl pos2nmea.p1 /usr/local/bin
+sudo cp metno_netcdf_gpx.py pos2aprs.pl pos2gpx.pl pos2kml.pl pos2nmea.pl /usr/local/bin
 
 # Copy Menu items into relevant directories
 #sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES

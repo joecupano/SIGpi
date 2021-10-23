@@ -73,6 +73,11 @@ then
 	sudo ldconfig
 fi
 
+# GPS
+if grep gps "$SIGPI_CONFIG"; then
+    sudo apt-get install -y gpsd gpsd-clients python-gps chrony
+fi
+
 # SoapySDR
 
 if grep soapysdr "$SIGPI_CONFIG"

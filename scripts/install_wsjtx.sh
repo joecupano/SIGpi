@@ -6,6 +6,8 @@
 ### installer_wsjtx
 ###
 
+cd $SIGPI_SOURCE
+
 echo -e "${SIGBOX_BANNER_COLOR}"
 echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#"
 echo -e "${SIGBOX_BANNER_COLOR} #SIGBOX#   Install WSJT-X"
@@ -19,7 +21,7 @@ sudo apt-get --fix-broken install
 sudo dpkg -i $HOME/Downloads/wsjtx_2.5.0_armhf.deb
 
 # Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/themes/desktop/wsjtx.desktop $DESKTOP_FILES
+#sudo cp $SIGPI_SOURCE/themes/desktop/wsjtx.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
