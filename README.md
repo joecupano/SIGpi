@@ -92,9 +92,7 @@ Tools
 
 ### Release 3.0.1: 2021-10-24
 - Set SDRangel build from a360ea0a9 due to SDRgui compile issue
-- Added SDR++ and Artemis
-- Standardize on GNU Radio 3.8
-- Add RadioSonde (decoder/encoder used in Balloon telemetry projects)
+- Remmoved Artemis due to build issues
 
 ### Release 3.0: 2021-10-22
 - New install script architecture
