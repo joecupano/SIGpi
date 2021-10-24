@@ -42,6 +42,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
+HAMRADIO_MENU_CATEGORY=HamRadio
 
 # SigPi Install Support files
 SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
