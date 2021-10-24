@@ -135,9 +135,10 @@ select_amateurradio() {
     fi
     echo $FUN >> $SIGPI_CONFIG
 
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
-        "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " ON \
+        "qsstv926" "QSSTV 9.2.6 for SSTV modes " ON \
+        "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -145,10 +146,9 @@ select_amateurradio() {
     fi
     echo $FUN >> $SIGPI_CONFIG
 
-    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
-        "qsstv926" "QSSTV 9.2.6 for SSTV modes " OFF \
-        "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
+        "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -174,7 +174,6 @@ select_packetaprs() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-		# "artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
