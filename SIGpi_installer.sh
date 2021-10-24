@@ -72,11 +72,11 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 32 100
+    TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
 }
 
 select_sdrdevices() {
-    FUN=$(whiptail --title "SDR Devices" --checklist --separate-output \
+    FUN=$(whiptail --title "SDR Devices" --clear --checklist --separate-output \
         "Choose SDR devices " 20 80 12\
         "rtl-sdr" "RTL2832U & R820T2-Based " ON \
         "hackrf" "Hack RF One " ON \
@@ -96,7 +96,7 @@ select_sdrdevices() {
 }
 
 select_gnuradio() {
-    FUN=$(whiptail --title "GNUradio" --radiolist --separate-output \
+    FUN=$(whiptail --title "GNUradio" --radiolist --clear --separate-output \
         "Choose GNUradio version" 20 80 12 \
         "gnuradio37" "GNU Radio 3.7 " OFF \
 		"gnuradio38" "GNU Radio 3.8 " ON \
@@ -109,7 +109,7 @@ select_gnuradio() {
 }
 
 select_sdrapps() {
-    FUN=$(whiptail --title "SDR Applications" --checklist --separate-output \
+    FUN=$(whiptail --title "SDR Applications" --clear --checklist --separate-output \
         "SDR Applications" 20 80 12 \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
@@ -124,11 +124,29 @@ select_sdrapps() {
 }
 
 select_amateurradio() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
         "fldigi4101" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " ON \
         "fldigi4120" "Fldigi 4.1.20 Compiled (~40 minutes compile time) " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIGPI_CONFIG
+
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+        "Amateur Radio Applications" 24 120 12 \
         "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " ON \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIGPI_CONFIG
+
+    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
+        "Amateur Radio Applications" 24 120 12 \
         "qsstv926" "QSSTV 9.2.6 for SSTV modes " OFF \
         "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
         3>&1 1>&2 2>&3)
@@ -140,7 +158,7 @@ select_amateurradio() {
 }
 
 select_packetaprs() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Packet Radio Applications" 20 80 12 \
         "direwolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
         "linpac" "Packet Radio Temrinal with mail client " OFF \
@@ -154,7 +172,7 @@ select_packetaprs() {
 }
 
 select_usefulapps() {
-    FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
 		# "artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
         "gpredict" "Satellite Tracking " OFF \
@@ -186,7 +204,7 @@ select_sdrapps
 select_amateurradio
 select_packetaprs
 select_usefulapps
-TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
+TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
