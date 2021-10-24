@@ -7,5 +7,5 @@ Icon=/usr/share/icons/direwolf_icon
 StartupNotify=true
 Terminal=true
 Type=Application
-Categories=SigPi;
+Categories=HamRadio;
 X-KeepTerminal=true

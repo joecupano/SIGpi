@@ -6,4 +6,4 @@ Icon=/usr/share/icons/direwolf_icon.png
 StartupNotify=true
 Terminal=false
 Type=Application
-Categories=SigPi;
+Categories=HamRadio;

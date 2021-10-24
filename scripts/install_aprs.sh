@@ -35,7 +35,7 @@ fi
 sudo cp $SIGPI_SOURCE/desktop/xastir.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
