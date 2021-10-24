@@ -29,7 +29,7 @@ fi
 sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
+#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
