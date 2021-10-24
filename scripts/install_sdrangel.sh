@@ -186,6 +186,7 @@ make -j4 install
 cd $SIGPI_SDRANGEL
 git clone https://github.com/f4exb/sdrangel.git
 cd sdrangel
+git reset --hard 3e6fe8afefb7e0040af68f906962a03a360ea0a9  ## Added due to SDRgui compile issue for Pi from later commit
 mkdir build; cd build
 cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON \
 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -220,10 +221,10 @@ cd $SIGPI_SOURCE
 git clone https://gitlab.wibisono.or.id/published/voxangel.git
 
 # Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/SDRangel/sdrangel/build/sdrangel.desktop $DESKTOP_FILES
+sudo cp $SIGPI_SOURCE/desktop/sdrangel.desktop $DESKTOP_FILES
 	
 # Add SigPi Category for each installed application
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
+#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
