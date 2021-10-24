@@ -154,7 +154,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-		"artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
+		# "artemis" "Real-time RF Signal Recognition to a large database of signals " OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
@@ -289,9 +289,9 @@ if grep gpredict "$SIGPI_CONFIG"; then
 fi
 
 # Artemis
-if grep artemis "$SIGBOX_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_artemis.sh
-fi
+#if grep artemis "$SIGBOX_CONFIG"; then
+#	source $SIGPI_SCRIPTS/install_artemis.sh
+#fi
 
 # Wireshark
 if grep wireshark "$SIGPI_CONFIG"; then
