@@ -332,6 +332,8 @@ source $SIGPI_SCRIPTS/install_sigpimenu.sh
 
 # Turn of Swapfile
 sudo swapoff /swapfile
+sleep 5
+sudo rm -rf /swapfile
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
