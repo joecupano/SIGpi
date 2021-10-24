@@ -93,6 +93,7 @@ Tools
 ### Release 3.0.1: 2021-10-24
 - Set SDRangel build from a360ea0a9 due to SDRgui compile issue
 - Remmoved Artemis due to build issues
+- Moved Amateur Radio apps from SigPI menu to Hamradio menu
 
 ### Release 3.0: 2021-10-22
 - New install script architecture
