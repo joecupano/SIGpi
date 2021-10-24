@@ -72,7 +72,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 24 120 16
+    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 24 120
 }
 
 select_sdrdevices() {
@@ -125,10 +125,10 @@ select_sdrapps() {
 
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
-        "Amateur Radio Applications" 20 80 12 \
+        "Amateur Radio Applications" 24 120 12 \
         "fldigi4101" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " ON \
         "fldigi4120" "Fldigi 4.1.20 Compiled (~40 minutes compile time) " OFF \
-        "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR" ON \
+        "wsjtx" "WSJT-X 2.5.0 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " ON \
         "qsstv926" "QSSTV 9.2.6 for SSTV modes " OFF \
         "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
         3>&1 1>&2 2>&3)
@@ -137,7 +137,9 @@ select_amateurradio() {
         $FUN = "NONE"
     fi
     echo $FUN >> $SIGPI_CONFIG
+}
 
+select_packetaprs() {
     FUN=$(whiptail --title "SigPi Installer" --checklist --separate-output \
         "Packet Radio Applications" 20 80 12 \
         "direwolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
@@ -182,6 +184,7 @@ select_sdrdevices
 select_gnuradio
 select_sdrapps
 select_amateurradio
+select_packetaprs
 select_usefulapps
 TERM=ansi whiptail --title "SigPi Installer" --msgbox "Ready to Install" 12 120
 
