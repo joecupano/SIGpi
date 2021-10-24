@@ -72,7 +72,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 24 120
+    TERM=ansi whiptail --title "SigPi Installer" --textbox $SIGPI_INSTALL_TXT1 32 100
 }
 
 select_sdrdevices() {
