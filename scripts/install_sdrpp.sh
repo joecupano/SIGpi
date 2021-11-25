@@ -19,6 +19,7 @@ sudo apt-get install -y libad9361-dev
 sudo apt-get install -y libairspyhf-dev 
 sudo apt-get install -y librtaudio-dev
 sudo apt-get install -y libcodec2-dev
+sudo apt-get install -y libvolk2-bin libvolk2-dev
 
 cd $SIGPI_SOURCE
 git clone https://github.com/AlexandreRouma/SDRPlusPlus
