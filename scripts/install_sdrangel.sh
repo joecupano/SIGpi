@@ -6,6 +6,18 @@
 ### install_sdrangel
 ###
 
+# Double-check dependencies since issue in 3.01 post Bullseye update
+sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tool
+sudo apt-get install -y libqt5websockets5-dev qtmultimedia5-dev qtpositioning5-dev
+sudo apt-get install -y libqt5charts5-dev
+sudo apt-get install -y libgl1-mesa-dev graphviz doxygen gettext \
+  qtscript5-dev libqt5svg5-dev qttools5-dev-tools qttools5-dev \
+  libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins \
+  libqt5serialport5 libqt5serialport5-dev qtpositioning5-dev libgps-dev \
+  libqt5positioning5 libqt5positioning5-plugins
+sudo apt-get install -y qtlocation5-dev libqt5texttospeech5-dev libboost-all-dev
+sudo apt-get install -y opus-tools libopus-dev
+
 # Application Specific Install variables
 SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
 
@@ -208,6 +220,12 @@ cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON \
 make -j4 install
 # Copy special startup script for this snowflake
 sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/sdrangel
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   FFTW-Wisdom file (ETA: +10 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
 
 cd $HOME/.config/
 mkdir f4exb
