@@ -7,9 +7,9 @@
 ### 
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   configure Direwolf"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Configure Direwolf"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 ###
@@ -28,7 +28,5 @@ sed -i 's/# ADEVICE  plughw:1,0/ADEVICE  plughw:2,0/' ${HOME}/direwolf.conf
 sed -i '/#PTT\ \/dev\/ttyUSB0\ RTS/a #Uncomment line below for PTT with sabrent sound card\n#PTT RIG 2 localhost:4532' ${HOME}/direwolf.conf
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Configuration Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   Direwolf Configuration Complete"
 echo -e "${SIGPI_BANNER_RESET}"
