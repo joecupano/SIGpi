@@ -18,13 +18,18 @@ cd $SIGPI_SOURCE
 #sudo apt-get install -y libasound2-dev
 #sudo apt-get install -y libudev-dev
 #sudo apt-get install -y libgps-dev
-cd $SIGPI_SOURCE
-git clone https://www.github.com/wb2osz/direwolf.git
-cd direwolf
-mkdir build && cd build
-cmake -DUNITTEST=1 .. 
-make -j4
-sudo make install
+
+if grep direwolf17 "$SIGPI_CONFIG"; then
+    cd $SIGPI_SOURCE
+    git clone https://www.github.com/wb2osz/direwolf.git
+    cd direwolf
+    mkdir build && cd build
+    cmake -DUNITTEST=1 .. 
+    make -j4
+    sudo make install
+else
+    sudo apt-get install -y direwolf
+fi
 
 sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf.sh
 sudo mkdir /usr/local/etc/direwolf
