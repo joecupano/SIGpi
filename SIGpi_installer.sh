@@ -5,7 +5,7 @@
 ###
 
 ###
-###   REVISION: 2021021-2300
+###   REVISION: 2021126-0500
 ###
 
 ###
@@ -75,31 +75,12 @@ select_startscreen(){
     TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
 }
 
-select_sdrdevices() {
-    FUN=$(whiptail --title "SDR Devices" --clear --checklist --separate-output \
-        "Choose SDR devices " 20 80 12\
-        "rtl-sdr" "RTL2832U & R820T2-Based " ON \
-        "hackrf" "Hack RF One " ON \
-        "libiio" "PlutoSDR " OFF \
-        "limesuite" "LimeSDR " OFF \
-        "soapysdr" "SoapySDR Library " ON \
-        "soapyremote" "Use any Soapy SDR Remotely " ON \
-        "soapyrtlsdr" "Soapy SDR Module for RTLSDR " ON \
-        "soapyhackrf" "Soapy SDR Module for HackRF One " ON \
-        "soapyplutosdr" "Soapy SDR Module for PlutoSD " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_CONFIG
-}
-
 select_gnuradio() {
-    FUN=$(whiptail --title "GNUradio" --radiolist --clear --separate-output \
-        "Choose GNUradio version" 20 80 12 \
+    FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
+        "GNUradio version" 20 80 12 \
         "gnuradio37" "GNU Radio 3.7 " OFF \
 		"gnuradio38" "GNU Radio 3.8 " ON \
+        "gnuradio37" "GNU Radio 3.9 " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -109,11 +90,11 @@ select_gnuradio() {
 }
 
 select_sdrapps() {
-    FUN=$(whiptail --title "SDR Applications" --clear --checklist --separate-output \
-        "SDR Applications" 20 80 12 \
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+        "General Purpose SDR Applications" 20 80 12 \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
-        "sdrangel" "SDRangel " ON \
+        "sdrangel" "SDRangel " OFF \
 		"sdrpp" "SDR++ " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -126,43 +107,9 @@ select_sdrapps() {
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
-        "fldigi4101" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " ON \
-        "fldigi4120" "Fldigi 4.1.20 Compiled (~40 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_CONFIG
-
-    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
-        "Amateur Radio Applications" 24 120 12 \
-        "qsstv926" "QSSTV 9.2.6 for SSTV modes " ON \
-        "qsstv958" "QSSTV 9.5.8 Compiled (~30 minutes compile time) " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_CONFIG
-
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "Amateur Radio Applications" 24 120 12 \
-        "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " ON \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_CONFIG
-}
-
-select_packetaprs() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "Packet Radio Applications" 20 80 12 \
-        "direwolf" "DireWolf 1.7 Soundcard TNC for APRS " OFF \
-        "linpac" "Packet Radio Temrinal with mail client " OFF \
-        "xastir" "APRS Station Tracking and Reporting " OFF \
+        "fldigi" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
+        "qsstv" "QSSTV 9.2.6 for SSTV modes " OFF \
+        "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -181,7 +128,7 @@ select_usefulapps() {
         "audacity" "Audio Editor " OFF \
         "pavu" "PulseAudio Control " OFF \
         "mumble" "VoIP Server and Client " OFF \
-        "tempest" "Uses your computer monitor to send out AM radio signals" OFF \
+        "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -197,27 +144,25 @@ select_usefulapps() {
 touch $SIGPI_CONFIG
 calc_wt_size
 select_startscreen
-select_sdrdevices
 select_gnuradio
 select_sdrapps
 select_amateurradio
-select_packetaprs
 select_usefulapps
 TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   System Update & Upgrade"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Create Directories"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 if [ ! -d "$SIGPI_SOURCE" ]; then
@@ -231,9 +176,9 @@ fi
 cd $SIGPI_SOURCE
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Create Temporary Swap"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Create Temporary Swap"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo fallocate -l 2G /swapfile
@@ -243,6 +188,7 @@ sudo swapon /swapfile
 
 source $SIGPI_SCRIPTS/install_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
+source $SIGPI_SCRIPTS/install_direwolf.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_decoders.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
@@ -255,6 +201,10 @@ fi
 
 if grep gnuradio38 "$SIGPI_CONFIG"; then
 	source $SIGPI_SCRIPTS/install_gnuradio38.sh
+fi
+
+if grep gnuradio39 "$SIGPI_CONFIG"; then
+	source $SIGPI_SCRIPTS/install_gnuradio39.sh
 fi
 
 # gqrx
@@ -277,17 +227,14 @@ if grep sdrpp "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_sdrpp.sh
 fi
 
-# APRS
-source $SIGPI_SCRIPTS/install_aprs.sh
-
 # Fldigi
-if grep fldigi4101 "$SIGPI_CONFIG"; then
+if grep fldigi "$SIGPI_CONFIG"; then
     sudo apt-get install -y fldigi
 fi
 
-if grep fldigi4120 "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_fldigi.sh
-fi
+#if grep fldigi4120 "$SIGPI_CONFIG"; then
+#    source $SIGPI_SCRIPTS/install_fldigi.sh
+#fi
 
 # WSJT-X
 if grep wsjtx "$SIGPI_CONFIG"; then
@@ -295,13 +242,13 @@ if grep wsjtx "$SIGPI_CONFIG"; then
 fi
 
 # QSSTV
-if grep qsstv926 "$SIGPI_CONFIG"; then
+if grep qsstv "$SIGPI_CONFIG"; then
 	sudo apt-get install -y qsstv
 fi
 
-if grep qsstv958 "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_qsstv.sh
-fi
+#if grep qsstv958 "$SIGPI_CONFIG"; then
+#    source $SIGPI_SCRIPTS/install_qsstv.sh
+#fi
 
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
@@ -309,7 +256,7 @@ if grep gpredict "$SIGPI_CONFIG"; then
 fi
 
 # Artemis
-#if grep artemis "$SIGBOX_CONFIG"; then
+#if grep artemis "$SIGPI_CONFIG"; then
 #	source $SIGPI_SCRIPTS/install_artemis.sh
 #fi
 
@@ -343,13 +290,8 @@ if grep mumble "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_mumble.sh
 fi
 
-# Tempest for Eliza
-if grep tempest "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_tempest-eliza.sh
-fi
-
 # SIGpi Menu
-source $SIGPI_SCRIPTS/install_sigpimenu.sh
+#source $SIGPI_SCRIPTS/install_sigpimenu.sh
 
 # Turn of Swapfile
 sudo swapoff /swapfile
@@ -357,13 +299,13 @@ sleep 5
 sudo rm -rf /swapfile
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Installation Complete !!"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   System needs to reboot for all changes to occur"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Reboot will begin in 15 seconsds unless CTRL-C hit"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
 echo -e "${SIGPI_BANNER_RESET}"
 sleep 17
 sudo sync
