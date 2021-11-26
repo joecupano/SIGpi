@@ -90,6 +90,9 @@ Tools
 
 ## Release Notes
 
+### Release 3.1: 2021-11-25
+- Fixes from Bullseye update
+
 ### Release 3.0.1: 2021-10-24
 - Set SDRangel build from a360ea0a9 due to SDRgui compile issue
 - Remmoved Artemis due to build issues
