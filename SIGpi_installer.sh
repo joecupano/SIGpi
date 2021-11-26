@@ -128,6 +128,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
+        'artemis" "Real-time SIGINT from your SDR " OFF\
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \

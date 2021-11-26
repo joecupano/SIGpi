@@ -31,6 +31,9 @@ sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/desktop/xastir.desktop $DESKTOP_FILES
 sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
+# Artemis
+sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
 
 
 ######## OLD    
