@@ -219,7 +219,7 @@ Though all the software is installed, many apps will require further configurati
 
 ## Example Hardware Setup
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/SIGpi_architecture_v2.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/develop_4-0/SIGpi_architecture_v2.png)
 
 ### Power
 
