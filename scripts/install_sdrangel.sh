@@ -22,9 +22,9 @@ sudo apt-get install -y opus-tools libopus-dev
 SIGPI_SDRANGEL=$SIGPI_SOURCE/SDRangel
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SDRangel (ETA: +80 Minutes)"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel (ETA: +80 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 mkdir $SIGPI_SDRANGEL
@@ -222,9 +222,9 @@ make -j4 install
 sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/sdrangel
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   FFTW-Wisdom file (ETA: +10 Minutes)"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   FFTW-Wisdom file (ETA: +10 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $HOME/.config/
@@ -238,14 +238,7 @@ fftwf-wisdom -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
 cd $SIGPI_SOURCE
 git clone https://gitlab.wibisono.or.id/published/voxangel.git
 
-# Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/desktop/sdrangel.desktop $DESKTOP_FILES
-	
-# Add SigPi Category for each installed application
-#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"
 echo -e "${SIGPI_BANNER_RESET}"

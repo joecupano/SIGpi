@@ -7,9 +7,9 @@
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SDR++"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install SDR++"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y libglew-dev
@@ -37,21 +37,7 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# SDRplusplus dependencies
-#sudo apt-get install -y libfftw3-dev libglfw3-dev libglew-dev libvolk2-dev libsoapysdr-dev libairspyhf-dev libiio-dev libad9361-dev librtaudio-dev libhackrf-dev
-#
-#wget https://github.com/AlexandreRouma/SDRPlusPlus/releases/download/1.0.3/sdrpp_ubuntu_focal_amd64.deb -D $HOME/Downloads
-#sudo dpkg -i $HOME/Downloads/sdrpp_ubuntu_focal_amd64.deb
-
-
-# Copy Menu items into relevant directories
-sudo cp $SIGPI_SOURCE/SDRPlusPlus/build/sdrpp.desktop $DESKTOP_FILES
-	
-# Add SigPi Category for each installed application
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   SDR+= Installed"
 echo -e "${SIGPI_BANNER_RESET}"

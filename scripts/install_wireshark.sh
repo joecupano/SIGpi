@@ -7,9 +7,9 @@
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Wireshark"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Wireshark"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y wireshark wireshark-dev libwireshark-dev
@@ -27,7 +27,5 @@ make -j4
 sudo make install
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Installed"
 echo -e "${SIGPI_BANNER_RESET}"

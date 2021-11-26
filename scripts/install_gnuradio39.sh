@@ -8,14 +8,14 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8    (ETA: +60 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.9    (ETA: +60 Minutes)"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
 git clone https://github.com/gnuradio/gnuradio.git
 cd gnuradio
-git checkout maint-3.8
+git checkout maint-3.9
 git submodule update --init --recursive
 mkdir build && cd build
 cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../

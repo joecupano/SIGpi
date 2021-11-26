@@ -11,7 +11,31 @@ echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install SIGpi Menu and Desktop Shortcuts"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_RESET}"
-    
+
+
+# GNUradio
+sudo cp $SIGPI_SOURCE/gnuradio/grc/scripts/gnuradio-grc.desktop $DESKTOP_FILES
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+
+# SDRangel
+sudo cp $SIGPI_SOURCE/desktop/sdrangel.desktop $DESKTOP_FILES
+#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
+
+# SDR++
+sudo cp $SIGPI_SOURCE/SDRPlusPlus/build/sdrpp.desktop $DESKTOP_FILES
+sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
+
+# WSJT-X
+#sudo cp $SIGPI_SOURCE/themes/desktop/wsjtx.desktop $DESKTOP_FILES
+sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
+
+# Xastir
+sudo cp $SIGPI_SOURCE/desktop/xastir.desktop $DESKTOP_FILES
+sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+
+
+
+######## OLD    
 #
 # Copy Menu items into relevant directories
 # 

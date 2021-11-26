@@ -1,34 +1,25 @@
 #!/bin/bash
 
 ###
-### SIGpi
+### SIGPI
 ###
 ### installer_dump1090
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Dump1090"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Dump1090"
+echo -e "${SIGPI_BANNER_COLOR} #"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
 git clone https://github.com/antirez/dump1090
-cd 1090
-mkdir build; cd build
-cmake ..
+git clone https://github.com/antirez/dump1090.git
+cd dump1090
 make -j4
-sudo make install
-sudo ldconfig
+sudo cp dump1090 /usr/local/bin/dump1090
 
-# Copy Menu items into relevant directories
-#sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
-	
-# Add SigPi Category for each installed application
-#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Installed"
 echo -e "${SIGPI_BANNER_RESET}"

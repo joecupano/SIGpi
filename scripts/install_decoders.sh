@@ -1,22 +1,23 @@
 #!/bin/bash
 
 ###
-### SIGpi
+### SIGPI
 ###
 ### installer_decoders
 ###
 
 #
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Decoders"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Decoders"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
 
 # APT
 # Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
+sudo apt-get install -y libsndfile-dev libpng-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/srcejon/aptdec.git
 cd aptdec
@@ -26,13 +27,18 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# CM265cc
-#
-#--   No package 'fftw3f' found
-#-- Could NOT find FFTW3F (missing: FFTW3F_LIBRARIES FFTW3F_INCLUDE_DIRS) 
-#CMake Error at CMakeLists.txt:47 (message):
-#  please install FFTW3
+# HD Radio
+sudo apt-get install -y libao-dev
+cd $SIGPI_SOURCE
+git clone https://github.com/theori-io/nrsc5.git
+cd nrsc5
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
+sudo ldconfig
 
+# CM256cc
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/cm256cc.git
 cd cm256cc
@@ -43,12 +49,21 @@ sudo make install
 sudo ldconfig
 
 # LibDAB
+sudo apt-get install -y libsndfile1-dev
+sudo apt-get install -y libfftw3-dev portaudio19-dev
+sudo apt-get install -y libfaad-dev zlib1g-dev
+#sudo apt-get install -y mesa-common-dev libgl1-mesa-dev
 cd $SIGPI_SOURCE
-git clone https://github.com/srcejon/dab-cmdline.git
+git clone https://github.com/JvanKatwijk/dab-cmdline.git
 cd dab-cmdline/library
-mkdir build; cd build
+mkdir build && cd build
 cmake ..
 make -j4
+sudo make install
+sudo ldconfig
+cd dab-cmdline/example-2
+mkdir build && cd build
+cmake .. -DRTLSDR=on
 sudo make install
 sudo ldconfig
 
@@ -67,10 +82,21 @@ cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/serialDV.git
 cd serialDV
 mkdir build; cd build
+cmake ..	
+make -j4 
+sudo make install
+sudo ldconfig
+
+# Codec2/FreeDV
+cd $SIGPI_SOURCE
+git clone https://github.com/drowe67/codec2.git
+cd codec2
+mkdir build && cd build
 cmake ..
 make -j4
 sudo make install
 sudo ldconfig
+
 
 # DSDcc
 cd $SIGPI_SOURCE
@@ -94,25 +120,29 @@ sudo make install
 sudo ldconfig
 
 # Multimon-NG
-if grep multimon-ng "$SIGPI_CONFIG"
-then
-    cd $SIGPI_SOURCE
-	git clone https://github.com/EliasOenal/multimon-ng.git
-	cd multimon-ng
-	mkdir build && cd build
-	qmake ../multimon-ng.pro
-	make
-	sudo make install
-fi
+cd $SIGPI_SOURCE
+git clone https://github.com/EliasOenal/multimon-ng.git
+cd multimon-ng
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
 
-# Copy Menu items into relevant directories
-#sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
-	
-# Add SigPi Category for each installed application
-#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+# OP25 ---- script crashes at next line and goes to and with EOF error
+#if grep op25 "$SIGPI_CONFIG"
+#then
+#    cd $SIGPI_SOURCE
+#	 git clone https://github.com/osmocom/op25.git
+#	 cd op25
+#	 if grep gnuradio-3.8 "$SIGPI_CONFIG"
+#	 then
+#	     cat gr3.8.patch | patch -p1
+#		 ./install_sh
+#	 else
+#		 ./install.sh
+#fi
+
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Installation Complete !!"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} ##   Decoders Installed"
 echo -e "${SIGPI_BANNER_RESET}"
