@@ -188,11 +188,10 @@ sudo swapon /swapfile
 
 source $SIGPI_SCRIPTS/install_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
-source $SIGPI_SCRIPTS/install_direwolf.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_decoders.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
 source $SIGPI_SCRIPTS/install_radiosonde.sh
+source $SIGPI_SCRIPTS/install_direwolf.sh
 
 # GNU Radio
 if grep gnuradio37 "$SIGPI_CONFIG"; then
