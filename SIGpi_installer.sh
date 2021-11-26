@@ -85,7 +85,6 @@ select_startscreen(){
 select_gnuradio() {
     FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
         "GNUradio version" 20 80 12 \
-        "gnuradio37" "GNU Radio 3.7 " OFF \
 		"gnuradio38" "GNU Radio 3.8 " ON \
         "gnuradio37" "GNU Radio 3.9 " OFF \
         3>&1 1>&2 2>&3)
@@ -112,7 +111,7 @@ select_sdrapps() {
 }
 
 select_amateurradio() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --radiolist --separate-output \
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
         "fldigi" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
         "qsstv" "QSSTV 9.2.6 for SSTV modes " OFF \
@@ -128,7 +127,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-        'artemis" "Real-time SIGINT from your SDR " OFF\
+        "artemis" "Real-time SIGINT from your SDR " OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
@@ -202,12 +201,8 @@ source $SIGPI_SCRIPTS/install_radiosonde.sh
 source $SIGPI_SCRIPTS/install_direwolf.sh
 
 # GNU Radio
-if grep gnuradio37 "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gnuradio gnuradio-dev
-fi
-
 if grep gnuradio38 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_gnuradio38.sh
+    sudo apt-get install -y gnuradio gnuradio-dev
 fi
 
 if grep gnuradio39 "$SIGPI_CONFIG"; then
