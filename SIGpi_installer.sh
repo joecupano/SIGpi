@@ -20,13 +20,24 @@
 ### INIT VARIABLES AND DIRECTORIES
 ###
 
-# Source Directory
-SIGPI_SOURCE=$HOME/source
+# SIGpi Root Directory
+SIGPI_SOURCE=$HOME/SIG
 
-# SIGpi Home directory
+# SIGpi directories
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
 SIGPI_DEP=$SIGPI_HOME/dependencies
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
+
+# SigPi Install Support files
+SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
+SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
+SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
+SIGPI_BANNER_RESET="\e[0m"
+
+# Detect architecture (x86, x86_64, amd64, armv7l etc)
+SIGPI_MACHINE_TYPE=`uname -m`
+#SIGPI_OSID='cat /etc/os-release|grep ID=ubuntu|sed "s/"ID="//"'
+#SIGPI_VERID='cat /etc/os-release|grep VERSION_ID|sed "s/"VERSION_ID="//"'
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
@@ -44,11 +55,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-# SigPi Install Support files
-SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
-SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
-SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
-SIGPI_BANNER_RESET="\e[0m"
+
 
 ###
 ### FUNCTIONS
