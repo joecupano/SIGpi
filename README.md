@@ -2,21 +2,16 @@
 
 Release: 20211126-0400
 
-## Background
+## Introduction
 
-This build script is part of a larger project called SIGbox. This script builds SIGbox on a
-Raspberry Pi4 runnning Raspberry Pi OS Full (32-bit.) 
+Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
 
-NOTE: There is also a build script for Ubuntu 21.04 running on ARM(Pi) amd AMD64 hardware
-at the [SIGbox repo](https://github.com/joecupano/SIGbox)
+This script builds SIGINT tools on a Raspberry Pi4 4GB RAM and 32GB microSD card. The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
 
-Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGbox is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
+### How about other architectures?
+There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/SIGbox_architecture.png)
-
-## SIGpi
-
-SIGpi is the compute component of SIGbox built on a Raspberry Pi4 4GB RAM and 32GB microSD card. The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
+## Build Details
 
 Total install time will take over three hours if you choose compile some software versus going with packages available
 from the Raspberry Pi OS 32-bit distro. Below is a list of software installed. Asterisk (*) indicate software packages
@@ -221,6 +216,22 @@ sudo dpkg-reconfigure mumble-server
 ## Post Installation
 
 Though all the software is installed, many apps will require further configuration. Some will require configuration per use if you are using different SDR devices for differenent use cases. This section covers the configurations that only need to be done one time.
+
+## Example Hardware Setup
+
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/SIGpi_architecture_v2.png)
+
+### Power
+
+In this setup a 12V@17A switching supply powers all the kit. Since RPi4 are picky about getting 5.1V a set-up converter is added to power it. A 12V Rpi4 are pickya bout getting 5.1V. USB peripherals can be hungry so a powered USB hub is included. While 7 ports are available no more than three devices requiring power should be enabled since hub produces a maximum of 36 Watts ( 3 x 5V x 2.4A = 36 Watts)
+
+### Raspberry Pi4
+
+Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth she be disabled. If Internet is needed and only available via WiFi then use the eonboard WiFi.
+
+### USB Peripherals
+
+Only three USB devices requiring power shoudl be enabled at a time. The range of devices depicted is only to demonstrate what you could potentiall connect to it.
 
 ## What Else
 Yes, I know there are more apps installed. There is no short-cut and must defer you to the  documentation on their respetive sites
