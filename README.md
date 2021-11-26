@@ -11,7 +11,8 @@ This script builds SIGINT tools on a **Raspberry Pi4 4GB RAM and 32GB microSD ca
 ### How about other architectures?
 There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
-## [Release Notes](RELEASE_NOTES.md)
+## Release Notes
+* [over here](RELEASE_NOTES.md)
 
 ## Install
 
