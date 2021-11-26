@@ -254,6 +254,11 @@ fi
 #    source $SIGPI_SCRIPTS/install_qsstv.sh
 #fi
 
+# JS8CALL
+if grep js8call "$SIGPI_CONFIG"; then
+	sudo apt-get install -y js8call
+fi
+
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
     sudo apt-get install -y gpredict

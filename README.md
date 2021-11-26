@@ -40,6 +40,7 @@ Device Drivers
 * [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
 * [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
 * [LimeSuite](https://github.com/myriadrf/LimeSuite) *
+* [EttusResearch UHD](https://github.com/EttusResearch/uhd) USRP Hardware Driver (UHD™) Software *
 * [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
 * [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
 * SoapyRTLSDR Soapy SDR Module for RTLSDR *
@@ -68,7 +69,8 @@ SDR Applications
 * [SDRangel](https://github.com/f4exb/sdrangel) *
 * [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus)
 * [CubicSDR](https://cubicsdr.com/)        SDR Receiver
-* [Artemis](https://aresvalley.com/artemis/)         Real-time SIGINT from your SDR
+* [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
+* [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
 
 Packet Radio
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
@@ -79,6 +81,7 @@ Packet Radio
 Amateur Radio
 * [Fldigi](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
 * [WSJT-X](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
+* [js8call](http://js8call.com/) JS8 mode
 * [QSSTV](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
 
 Satellite and Geo
@@ -87,12 +90,10 @@ Satellite and Geo
 * [linpac](http://linpac.sourceforge.net/doc/manual.html)          Packet Radio Terminal with Mail Client
 
 Tools
-* Kismet        Wireless sniffer and monitor
+* [Kismet](https://www.kismetwireless.net/)        Wireless sniffer and monitor
 * [Wireshark](https://www.wireshark.org/)     Network Traffic Analyzer
 * [Audacity](https://www.audacityteam.org/)      Audio Editor
-* [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio 
-Control
-* [Mumble](https://www.mumble.info/)        VoIP Server and Client
+* [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio Control
 * [SPLAT](https://www.qsl.net/kd2bd/splat.html)         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
 
 ## APRS and Packet using a VHF/UHF Transceiver
