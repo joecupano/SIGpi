@@ -74,17 +74,6 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# CM256cc
-## This may be a replacement sudo apt-get install -y libcm256cc-dev
-cd $SIGPI_SOURCE
-git clone https://github.com/f4exb/cm256cc.git
-cd cm256cc
-mkdir build; cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
-
 # LibDAB
 sudo apt-get install -y libsndfile1-dev
 sudo apt-get install -y libfftw3-dev portaudio19-dev
@@ -101,46 +90,6 @@ sudo ldconfig
 cd dab-cmdline/example-2
 mkdir build && cd build
 cmake .. -DRTLSDR=on
-sudo make install
-sudo ldconfig
-
-# MBElib
-cd $SIGPI_SOURCE
-git clone https://github.com/szechyjs/mbelib.git
-cd mbelib
-mkdir build; cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
-
-# SerialDV
-cd $SIGPI_SOURCE
-git clone https://github.com/f4exb/serialDV.git
-cd serialDV
-mkdir build; cd build
-cmake ..	
-make -j4 
-sudo make install
-sudo ldconfig
-
-# Codec2/FreeDV
-cd $SIGPI_SOURCE
-git clone https://github.com/drowe67/codec2.git
-cd codec2
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
-
-# DSDcc
-cd $SIGPI_SOURCE
-git clone https://github.com/f4exb/dsdcc.git
-cd dsdcc
-mkdir build; cd build
-cmake ..
-make -j4
 sudo make install
 sudo ldconfig
 

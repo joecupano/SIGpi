@@ -13,8 +13,10 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Artemis"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
+# DEPENDENCIES
 
+# INSTALL
+cd $SIGPI_SOURCE
 if grep artemis "$SIGPI_CONFIG"
 then
    	cd $HOME/Downloads

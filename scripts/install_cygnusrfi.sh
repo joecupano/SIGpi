@@ -3,21 +3,22 @@
 ###
 ### SIGpi
 ###
-### installer_cygnusrf
+### install_cygnusrf
 ###
 
-# Artemis
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install CygnusRF"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install CygnusRFI"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
+# DEPENDENCIES
 
-git clone https://github.com/0xCoto/CygnusRFI
+# INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/0xCoto/CygnusRFI.git
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   CygnusRF Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   CygnusRFI Installed"
 echo -e "${SIGPI_BANNER_RESET}"

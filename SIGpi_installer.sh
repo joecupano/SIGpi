@@ -113,8 +113,9 @@ select_sdrapps() {
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
-        "fldigi" "Fldigi 4.1.01 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
-        "qsstv" "QSSTV 9.2.6 for SSTV modes " OFF \
+        "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
+        "js8call" "js8call 2.20 for another digital mode" OFF \
+        "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
         "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -128,13 +129,13 @@ select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
         "artemis" "Real-time SIGINT from your SDR " OFF \
+        "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
 		"wireshark" "Network Traffic Analyzer " OFF \
         "kismet" "Wireless sniffer and monitor " OFF \
         "audacity" "Audio Editor " OFF \
         "pavu" "PulseAudio Control " OFF \
-        "mumble" "VoIP Server and Client " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -222,6 +223,7 @@ fi
 # SDRangel
 if grep sdrangel "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/install_sdrangel.sh
+    source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
 fi
 
 # SDR++
@@ -258,9 +260,14 @@ if grep gpredict "$SIGPI_CONFIG"; then
 fi
 
 # Artemis
-#if grep artemis "$SIGPI_CONFIG"; then
-#	source $SIGPI_SCRIPTS/install_artemis.sh
-#fi
+if grep artemis "$SIGPI_CONFIG"; then
+	source $SIGPI_SCRIPTS/install_artemis.sh
+fi
+
+# CygnusRFI
+if grep cygnusrfi "$SIGPI_CONFIG"; then
+	source $SIGPI_SCRIPTS/install_cygnusrfi.sh
+fi
 
 # Wireshark
 if grep wireshark "$SIGPI_CONFIG"; then
@@ -287,15 +294,10 @@ if grep splat "$SIGPI_CONFIG"; then
     sudo apt-get install -y splat
 fi
 
-# mumble
-if grep mumble "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_mumble.sh
-fi
-
 # SIGpi Menu
-#source $SIGPI_SCRIPTS/install_sigpimenu.sh
+source $SIGPI_SCRIPTS/install_desktopitems.sh
 
-# Turn of Swapfile
+# Turn off Swapfile
 sudo swapoff /swapfile
 sleep 5
 sudo rm -rf /swapfile

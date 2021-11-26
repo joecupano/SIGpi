@@ -12,7 +12,10 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_433"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-#sudo apt-get install -y libtool libssl-dev
+# DEPENDENCIES
+sudo apt-get install -y libtool libssl-dev
+
+# INSTALL
 cd $SIGPI_SOURCE
 git clone https://github.com/merbanan/rtl_433.git
 cd rtl_433

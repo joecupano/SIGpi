@@ -12,6 +12,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Dump1090"
 echo -e "${SIGPI_BANNER_COLOR} #"
 echo -e "${SIGPI_BANNER_RESET}"
 
+# DEPENDENCIES
+
+# INSTALL
 cd $SIGPI_SOURCE
 git clone https://github.com/antirez/dump1090
 git clone https://github.com/antirez/dump1090.git

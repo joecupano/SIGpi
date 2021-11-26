@@ -12,6 +12,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+# DEPENDENCIES
+
+# INSTALL
 sudo apt-get install -y libhamlib-dev libv4l-dev
 sudo apt-get install -y libopenjp2-7 libopenjp2-7-dev
 wget http://users.telenet.be/on4qz/qsstv/downloads/qsstv_9.5.8.tar.gz -P $HOME/Downloads

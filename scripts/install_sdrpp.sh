@@ -12,6 +12,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install SDR++"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+# DEPENDENCIES
 sudo apt-get install -y libglew-dev
 sudo apt-get install -y libglfw3-dev
 sudo apt-get install -y libsoapysdr-dev
@@ -21,6 +22,7 @@ sudo apt-get install -y librtaudio-dev
 sudo apt-get install -y libcodec2-dev
 sudo apt-get install -y libvolk2-bin libvolk2-dev
 
+# INSTALL
 cd $SIGPI_SOURCE
 git clone https://github.com/AlexandreRouma/SDRPlusPlus
 cd SDRPlusPlus
@@ -39,5 +41,5 @@ sudo ldconfig
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   SDR+= Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Installed"
 echo -e "${SIGPI_BANNER_RESET}"
