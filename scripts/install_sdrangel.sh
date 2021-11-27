@@ -29,6 +29,7 @@ sudo apt-get install -y qml-module-qtquick-dialogs
 sudo apt-get install -y qml-module-qtquick-controls
 sudo apt-get install -y qml-module-qtquick-layouts
 sudo apt-get install -y libqt5serialport5-dev
+sudo apt-get install -y libqt5texttospeech5-dev
 sudo apt-get install -y qtdeclarative5-dev
 sudo apt-get install -y qtpositioning5-dev
 sudo apt-get install -y qtlocation5-dev
@@ -44,6 +45,7 @@ sudo apt-get install -y libavcodec-dev
 sudo apt-get install -y libavformat-dev
 sudo apt-get install -y libopus-dev
 sudo apt-get install -y graphviz
+
 
 # INSTALL
 
@@ -75,7 +77,16 @@ mkdir build; cd build
 cmake -Wno-dev ..
 make -j4
 sudo make install
-sudo ldconfig
+sudo ldconfigsudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tool
+sudo apt-get install -y libqt5websockets5-dev qtmultimedia5-dev qtpositioning5-dev
+sudo apt-get install -y libqt5charts5-dev
+sudo apt-get install -y libgl1-mesa-dev graphviz doxygen gettext \
+  qtscript5-dev libqt5svg5-dev qttools5-dev-tools qttools5-dev \
+  libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins \
+  libqt5serialport5 libqt5serialport5-dev qtpositioning5-dev libgps-dev \
+  libqt5positioning5 libqt5positioning5-plugins
+sudo apt-get install -y qtlocation5-dev libqt5texttospeech5-dev libboost-all-dev
+sudo apt-get install -y opus-tools libopus-dev
 
 # SerialDV
 cd $SIGPI_SOURCE
@@ -122,9 +133,6 @@ cmake -Wno-dev ..
 make -j4
 sudo make install
 sudo ldconfig
-
-# Copy special startup script for this snowflake
-sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/sdrangel
 
 # Add VOX for Transimtting with SDRangel
 cd $SIGPI_SOURCE
