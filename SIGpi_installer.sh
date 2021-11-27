@@ -226,26 +226,8 @@ fi
     
 cd $SIGPI_SOURCE
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Create Temporary Swap"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
-if [ -f /swapfile ]; then
-    echo "Removing existing swapfile"
-    swapoff /swapfile
-    sleep 5
-    sudo rm -rf /swapfile
-    exit 1;
-fi
-
-sudo fallocate -l 2G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-sudo swapon /swapfile
-
-source $SIGPI_SCRIPTS/install_dependencies.sh
+#source $SIGPI_SCRIPTS/install_swapspace.sh
+source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
@@ -354,9 +336,14 @@ fi
 source $SIGPI_SCRIPTS/install_desktopitems.sh
 
 # Turn off Swapfile
-sudo swapoff /swapfile
-sleep 5
-sudo rm -rf /swapfile
+if [ -f /swapfile ]; then
+    echo "Removing swapfile"
+    swapoff /swapfile
+    sleep 5
+    sudo rm -rf /swapfile
+    exit 1;
+fi
+
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
