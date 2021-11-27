@@ -1,6 +1,6 @@
 # SIGpi Build Script
 
-Release: 20211127-0100
+Release: 20211127-0700
 
 ## Introduction
 
@@ -142,7 +142,7 @@ Some satellites have packet capability. Gpredict is a real-time satellite tracki
 
 ## Example Hardware Setup
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/develop_4-0/SIGpi_architecture_v2.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/dependencies/SIGpi_architecture_v2.png)
 
 ### Power
 
