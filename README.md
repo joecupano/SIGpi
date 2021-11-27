@@ -1,6 +1,6 @@
 # SIGpi Build Script
 
-Release: 20211126-2100
+Release: 20211127-0100
 
 ## Introduction
 
@@ -140,20 +140,6 @@ Xastir is an application that provides geospatial mappng of APRS signals. It nee
 
 ## Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
-
-## Mumble Server (VoIP)
-
-This server is only necessary if intent to remotely connect to SIGpi and require audio at that remote location. You have the option of running the server on startup or not. Run the following command. 
-
-```
-sudo dpkg-reconfigure mumble-server
-```
-
-- You will first be asked whether you want to autostart the server or not. Select **No** unless you intent on accessing the SigPI remotely all the time.
-
-- When asked to allow mumble-server to use higher priority select **No**.
-
-- When asked to create a SuperUser password do something strong.
 
 ## Example Hardware Setup
 
