@@ -61,7 +61,7 @@ Libraries and Decoders
 * [libsigmf](https://github.com/deepsig/libsigmf) *      Used for Signal Metadata Format - sharing of signal data 
 * [liquid-dsp](https://github.com/jgaeddert/liquid-dsp) *    Digital Signal Processing (DSP) library 
 * [libbtbb](https://github.com/greatscottgadgets/libbtbb) *       Bkuetooth Baseband Library 
-* [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
+* [hamlib 4.3.1](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
 * [GNURadio](https://github.com/gnuradio/gnuradio)

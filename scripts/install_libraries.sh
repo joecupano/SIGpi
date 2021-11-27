@@ -13,9 +13,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # Hamlib
-wget https://github.com/Hamlib/Hamlib/releases/download/4.3/hamlib-4.3.tar.gz -P $HOME/Downloads
-tar -zxvf $HOME/Downloads/hamlib-4.3.tar.gz -C $SIGPI_SOURCE
-cd $SIGPI_SOURCE/hamlib-4.3
+wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
+tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
+cd $SIGPI_SOURCE/hamlib-4.3.1
 ./configure --prefix=/usr/local --enable-static
 make
 sudo make install
