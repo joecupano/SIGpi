@@ -40,7 +40,6 @@ Device Drivers
 * [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
 * [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
 * [LimeSuite](https://github.com/myriadrf/LimeSuite) *
-* [EttusResearch UHD](https://github.com/EttusResearch/uhd) USRP Hardware Driver (UHD™) Software *
 * [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
 * [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
 * SoapyRTLSDR Soapy SDR Module for RTLSDR *
