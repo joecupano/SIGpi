@@ -12,6 +12,15 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Desktop Items"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+# Local Settings Extras
+#/.local
+#/.local/share
+#/.local/share/applications
+#/.local/share/desktop-directories
+
+# Background-Wallpaper
+sudo cp $SIGPI_SOURCE/backgrounds/SIGpi_background_dish.jpg /usr/share/rpd-wallpaper
+
 # Add Desktop links
 sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $DESKTOP_FILES
