@@ -1,5 +1,11 @@
 # Release Notes
 
+## Release 4.0: 2021-11-27
+- Re-architecture of software to SIGprojects model
+- Placate SDRangel build requirements while integrating into SIGprojects model
+- Added Ettus Research UHD device
+- Added Artemis, CygnusRFI, JS8CALL, GNuradio 3.9 option
+
 ## Release 3.1: 2021-11-25
 - Fixes from Bullseye update
 
