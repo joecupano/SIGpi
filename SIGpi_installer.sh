@@ -55,6 +55,43 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
+###
+### Environment tests
+### 
+
+# Are we the user Pi
+if [ $(whoami) != 'pi' ]; then
+    echo "ERROR:  007"
+    echo "ERROR:  Must be run as the user Pi with sudo privileges"
+    echo "ERROR:  Aborting"
+fi
+
+# Are we the right hardware
+if !'cat /proc/cpuinfo |grep "Pi 4"'; then
+    echo "ERROR:  010"
+    echo "ERROR:  Hardware must be Raspberry Pi 4 Model B or better"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+# Are we the right operating system
+if !'cat /etc/os-release | grep "VERSION" | grep "11 (bullseye)"'; then
+    echo "ERROR:  020"
+    echo "ERROR:  Operating System must be Raspbian GNU/Linux 11 (bullseye)"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+# Are we where we should be
+if [ -f /home/pi/SIG/SIGpi/SIGpi_installer.sh ]; then
+    echo
+else
+    echo "ERROR:  030"
+    echo "ERROR:  Repo must be cloned from within /home/pi/SIG directory"
+    echo "ERROR:  and SIGpi_installer.sh run from there."
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
 
 
 ###
@@ -173,7 +210,13 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-if [ ! -d "$SIGPI_SOURCE" ]; then
+if [ -d "$SIGPI_SOURCE" ]; then
+    echo "ERROR:  100"
+    echo "ERROR:  This appears to be an aborted installation."
+    echo "ERROR:  You must remove /home/SIG and restart from scratch."
+    echo "ERROR:  Aborting"
+    exit 1;
+else
   	mkdir $SIGPI_SOURCE
 fi
     
@@ -188,6 +231,14 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Create Temporary Swap"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
+
+if [ -f /swapfile ]; then
+    echo "Removing existing swapfile"
+    swapoff /swapfile
+    sleep 5
+    sudo rm -rf /swapfile
+    exit 1;
+fi
 
 sudo fallocate -l 2G /swapfile
 sudo chmod 600 /swapfile
