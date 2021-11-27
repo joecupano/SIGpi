@@ -21,23 +21,23 @@ echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 # UHD
 
 ## DEPENDENCIES
-sudo apt-get install -y libboost-all-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python3-mako
+#sudo apt-get install -y libboost-all-dev
+#sudo apt-get install -y libusb-1.0-0-dev
+#sudo apt-get install -y python3-mako
 
 # INSTALL
-cd $SIGPI_SOURCE
-git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
-cd uhd/host
-mkdir build	&& cd build
-cmake -DCMAKE_CXX_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15 -Wno-psabi" \
-      -DCMAKE_C_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15 -Wno-psabi" \
-      -DCMAKE_ASM_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15" \
-      -DCMAKE_BUILD_TYPE=Release ../
-sudo make install
-sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
-sudo ldconfig
-uhd_images_downloader
+#cd $SIGPI_SOURCE
+#git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
+#cd uhd/host
+#mkdir build	&& cd build
+#cmake -DCMAKE_CXX_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15 -Wno-psabi" \
+#      -DCMAKE_C_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15 -Wno-psabi" \
+#      -DCMAKE_ASM_FLAGS:STRING="-march=armv7-a -mfloat-abi=hard -mfpu=neon -mtune=cortex-a15" \
+#      -DCMAKE_BUILD_TYPE=Release ../
+#sudo make install
+#sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
+#sudo ldconfig
+#uhd_images_downloader
 
 
 # RTL-SDR
