@@ -122,7 +122,6 @@ make -j4
 sudo make install
 sudo ldconfig
 
-
 #SDRangel
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/sdrangel.git
@@ -133,6 +132,9 @@ cmake -Wno-dev ..
 make -j4
 sudo make install
 sudo ldconfig
+
+# Copy special startup script for this snowflake
+sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/run_sdrangel.sh
 
 # Add VOX for Transimtting with SDRangel
 cd $SIGPI_SOURCE

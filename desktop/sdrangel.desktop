@@ -2,7 +2,7 @@
 Name=SDRangel
 GenericName=SDR/Analyzer frontend
 Comment=SDR Angel
-Exec=sdrangel
+Exec=run_sdrangel.sh
 Icon=/usr/share/icons/sdrangel_icon
 StartupNotify=true
 Terminal=true
