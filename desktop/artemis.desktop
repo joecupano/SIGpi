@@ -2,7 +2,7 @@
 Name=Artemis
 Type=Application
 StartupWMClass=artemis3
-Exec=sxdg-open https://www.sigidwiki.com/wiki/Signal_Identification_Guide
+Exec=/home/pi/SIG/artemis/Artemis
 Terminal=false
 Icon=/usr/share/icons/artemis3.svg
 Categories=SigPi; 

@@ -20,7 +20,8 @@ cd $SIGPI_SOURCE
 if grep artemis "$SIGPI_CONFIG"
 then
    	cd $HOME/Downloads
-	wget https://aresvalley.com/download/193/ 
+	# Note; this link specific to this arch 1045 for armfh, 193 for amd64
+	wget https://aresvalley.com/download/1045/ 
 	mv index.html artemis.tar.gz
 	tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
 	cd $SIGPI_SOURCE/artemis
