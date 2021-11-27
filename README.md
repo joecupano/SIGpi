@@ -78,10 +78,10 @@ Packet Radio
 * [direwolf](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-* [Fldigi](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [WSJT-X](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
+* [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* [WSJT-X 2.5.1](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
 * [js8call](http://js8call.com/) JS8 mode
-* [QSSTV](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
+* [QSSTV 9.4.4](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
 
 Satellite and Geo
 * [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
