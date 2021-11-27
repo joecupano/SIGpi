@@ -58,7 +58,7 @@ if [ $(whoami) != 'pi' ]; then
     echo "ERROR:  Aborting"
 fi
 
-if grep -q $1 $SIGPI_DEP/sigpi_packages; then
+if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
     SIGSCRIPT = "install_"$1".sh"
     source $SIGPI_SCRIPTS/$1
 else

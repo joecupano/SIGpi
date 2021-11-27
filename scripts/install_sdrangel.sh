@@ -126,7 +126,8 @@ sudo ldconfig
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/sdrangel.git
 cd sdrangel
-git reset --hard 3e6fe8afefb7e0040af68f906962a03a360ea0a9  ## Added due to SDRgui compile issue for Pi from later commit
+#git reset --hard 3e6fe8afefb7e0040af68f906962a03a360ea0a9  ## Added due to SDRgui compile issue for Pi from later committ
+git reset --hard bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
 mkdir build; cd build
 cmake -Wno-dev ..
 make -j4
