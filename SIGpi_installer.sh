@@ -219,11 +219,7 @@ if [ -d "$SIGPI_SOURCE/rtl-sdr" ]; then
 else
   	mkdir $SIGPI_SOURCE
 fi
-    
-if [ ! -d "$SIGPI_HOME" ]; then
-  	mkdir $SIGPI_HOME
-fi
-    
+      
 cd $SIGPI_SOURCE
 
 #source $SIGPI_SCRIPTS/install_swapspace.sh
@@ -233,6 +229,7 @@ source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_rtl_433.sh
 source $SIGPI_SCRIPTS/install_radiosonde.sh
 source $SIGPI_SCRIPTS/install_direwolf.sh
+source $SIGPI_SCRIPTS/install_linpac.sh
 
 # GNU Radio
 if grep gnuradio38 "$SIGPI_CONFIG"; then
