@@ -59,8 +59,8 @@ if [ $(whoami) != 'pi' ]; then
 fi
 
 if grep -q $1 $SIGPI_DEP/sigpi_packages; then
-    SIGSCRIPT = "install_${1}.sh"
-    source $SIGPI_SCRIPTS/$SIGSCRIPT
+    SIGSCRIPT = "install_"$1".sh"
+    source $SIGPI_SCRIPTS/$1
 else
     echo "ERROR:  111"
     echo "ERROR:  No such SIGpi package "
