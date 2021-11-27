@@ -152,11 +152,11 @@ In this setup a 12V@17A switching supply powers all the kit. Since RPi4 are pick
 
 ### Raspberry Pi4
 
-Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth she be disabled. If Internet is needed and only available via WiFi then use the eonboard WiFi.
+Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth and WiFi should be disabled. If Internet is needed and only available via WiFi then so be it and use your onboard WiFi.
 
 ### USB Peripherals
 
-Only three USB devices requiring power shoudl be enabled at a time. The range of devices depicted is only to demonstrate what you could potentiall connect to it.
+Only three USB devices requiring power should be enabled at a time. The range of devices depicted is only to demonstrate what you could potentially connect to it.
 
 ## What Else
-Yes, I know there are more apps installed. There is no short-cut and must defer you to the  documentation on their respetive sites
+Yes, I know there are more apps installed. There is no short-cut and must defer you to the documentation on their respective sites
