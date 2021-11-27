@@ -123,7 +123,7 @@ select_gnuradio() {
     FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
         "GNUradio version" 20 80 12 \
 		"gnuradio38" "GNU Radio 3.8 " ON \
-        "gnuradio37" "GNU Radio 3.9 " OFF \
+        "gnuradio39" "GNU Radio 3.9 " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -210,7 +210,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-if [ -d "$SIGPI_SOURCE" ]; then
+if [ -d "$SIGPI_SOURCE/rtl-sdr" ]; then
     echo "ERROR:  100"
     echo "ERROR:  This appears to be an aborted installation."
     echo "ERROR:  You must remove /home/SIG and restart from scratch."
