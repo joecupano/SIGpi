@@ -263,7 +263,15 @@ fi
 
 # Fldigi
 if grep fldigi "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install Fldigi"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
     sudo apt-get install -y fldigi
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Fldigi Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 #if grep fldigi4120 "$SIGPI_CONFIG"; then
@@ -277,7 +285,15 @@ fi
 
 # QSSTV
 if grep qsstv "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
 	sudo apt-get install -y qsstv
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 #if grep qsstv958 "$SIGPI_CONFIG"; then
@@ -286,12 +302,28 @@ fi
 
 # JS8CALL
 if grep js8call "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install JS8CALL"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
 	sudo apt-get install -y js8call
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install Gpredict"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
     sudo apt-get install -y gpredict
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # Artemis
@@ -316,17 +348,41 @@ fi
 
 # Audacity
 if grep audacity "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install Audacity"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
     sudo apt-get install -y audacity
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # PAVU
 if grep pavu "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
     sudo apt-get install -y pavucontrol
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # splat
 if grep splat "$SIGPI_CONFIG"; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Install SPLAT"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
     sudo apt-get install -y splat
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"
+    echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # SIGpi Menu
