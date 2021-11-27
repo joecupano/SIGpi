@@ -1,26 +1,26 @@
-# SIGpi Build Script
+# SIGpi
 
 Release: 20211127-0700
 
 ## Introduction
 
-Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
+Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM**  with 32GB microSD card running **Raspberry Pi OS Full (32-bit)**. The script MUST be run as user **pi**.
 
-This script builds SIGINT tools on a **Raspberry Pi4 4GB RAM and 32GB microSD card.** The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
+## Requirements
+
+- [Raspberry Pi 4 4GB Model B ](https://www.amazon.com/CanaKit-Raspberry-4GB-Starter-Kit/dp/B07V5JTMV9) minimum
+- [32GB microSDHC card Class 10](https://www.amazon.com/gp/product/B06XWN9Q99)
+- [Raspberry Pi OS Full (32 bit)](https://www.raspberrypi.com/software/) Release 30 Oct 2021 (Bullseye) installed
 
 ### How about other architectures?
 There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
-## Release Notes
-* [over here](RELEASE_NOTES.md)
-
 ## Install
 
-- Start with a **RPi4 (4GB RAM minium)** with a **fresh install** of **[Raspberry Pi OS Desktop](https://www.raspberrypi.com/software/) on a [32GB microSD card](https://www.amazon.com/dp/B08GY9NYRM/?th=1)**
-- Login as Pi on your **fresh install of [Raspberry Pi OS Desktop](https://www.raspberrypi.com/software/) on a [32GB microSD card](https://www.amazon.com/dp/B08GY9NYRM/?th=1)**
-- Create a directory in your home called SIG and switch into it
+- Login as Pi on your **fresh install of Raspberry Pi OS Full (32 bit)**
+- Create a directory in your home directory called SIG and switch into it
 - Clone the SIGpi repo
-- Run SIGpi_installer.sh
+- Run **SIGpi_installer.sh**
 - Follow script instructions.
 
 ```
@@ -30,6 +30,9 @@ git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ./SIGpi_installer.sh
 ```
+
+## Release Notes
+* [over here](RELEASE_NOTES.md)
 
 ## Build Details
 
@@ -99,19 +102,19 @@ Tools
 
 SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at very low RF power levels with SDR devices supported. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
 
-In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with sofwtare and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
+In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
 
 If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
 
 ### AX.25
 
-You will need to edit a line in the /etc/ax25/axports file as follows:
+If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
 
 ```
 sudo nano /etc/ax25/axports
 ```
 
-- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N3RDY-3)
+- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
 
 ```
 # /etc/ax25/axports
@@ -129,10 +132,9 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 
 ### DireWolf
 
-DireWolf needs to be running for APRS and Packet applications to have use the AX0 interface defined in the previou section. You will need to configure your
-callsign, the soundcard device to use, and whether using PTT or VOX in the **$HOME/direwolf.conf** file. The conf file itslef is well documented in how to configure else consult the [DireWolf online docs](https://github.com/wb2osz/direwolf/tree/master/doc).
+DireWolf needs to be running for APRS and Packet applications to have use the AX0 interface defined in the previou section. You will need to configure your callsign, the soundcard device to use, and whether using PTT or VOX in the **/usr/local/etc/direwolf/direwolf.conf** file. The conf file itself is well documented in how to configure else consult the [DireWolf online docs](https://github.com/wb2osz/direwolf/tree/master/doc).
 
-Because a number of factors go into a successful DireWold setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
+Because a number of factors go into a successful DireWolf setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
 
 ### Xastir
 Xastir is an application that provides geospatial mappng of APRS signals. It needs to configured to use the RF interface provided by DireWolf. You must start Direwolf in a separately terminal window before you start Xastir. Be sure to consult [Xastir online documentation](https://xastir.org/index.php/Main_Page) for more info.
