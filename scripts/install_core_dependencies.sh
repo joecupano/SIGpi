@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### installer_dependencies
+### installer_core_dependencies
 ###
 
 

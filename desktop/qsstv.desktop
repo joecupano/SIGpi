@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=QSSTV
 GenericName=SSTV and HAMDRM software
-Exec=/usr/local/bin/qsstv
+Exec=/usr/bin/qsstv
 Terminal=false
 Categories=HamRadio;
 Icon=/usr/share/icons/qsstv.png

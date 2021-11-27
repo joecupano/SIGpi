@@ -1,9 +1,0 @@
-g++
-libfftw3-dev
-qt5-default
-libpulse-dev
-libhamlib-dev
-libasound2-dev
-libv4l-dev
-libopenjp2-7
-libopenjp2-7-dev

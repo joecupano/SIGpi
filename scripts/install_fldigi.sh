@@ -12,6 +12,23 @@ echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Fldigi Suite"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
 echo -e "${SIGPI_BANNER_RESET}"
 
+# DEPENDENCIES
+sudo apt-get install -y libfltk1.3-dev
+sudo apt-get install -y libjpeg9-dev
+sudo apt-get install -y libxft-dev
+sudo apt-get install -y libxinerama-dev
+sudo apt-get install -y libxcursor-dev
+sudo apt-get install -y libsndfile1-dev
+sudo apt-get install -y libsamplerate0-dev
+sudo apt-get install -y portaudio19-dev
+sudo apt-get install -y libjpeg62-turbo-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y libpulse-dev
+sudo apt-get install -y libudev-dev
+sudo apt-get install -y texinfo
+
+# INSTALL
+
 # Install FLxmlrpc
 wget http://www.w1hkj.com/files/flxmlrpc/flxmlrpc-0.1.4.tar.gz -P $HOME/Downloads
 tar -zxvf $HOME/Downloads/flxmlrpc-0.1.4.tar.gz -C $SIGPI_SOURCE
@@ -42,11 +59,6 @@ sudo ldconfig
 sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $SIGPI_DESKTOP
 sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $SIGPI_DESKTOP
 
-# Copy Menu items into relevant directories
-#sudo cp $SIGPI_SOURCE/themes/desktop/xastir.desktop $DESKTOP_FILES
-	
-# Add SigPi Category for each installed application
-#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"

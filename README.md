@@ -1,26 +1,39 @@
 # SIGpi Build Script
 
-Release: 20211125-1100
+Release: 20211127-0100
 
-## Background
+## Introduction
 
-This build script is part of a larger project called SIGbox. This script builds SIGbox on a
-Raspberry Pi4 runnning Raspberry Pi OS Full (32-bit.) 
+Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
 
-NOTE: There is also a build script for Ubuntu 21.04 running on ARM(Pi) amd AMD64 hardware
-at the [SIGbox repo](https://github.com/joecupano/SIGbox)
+This script builds SIGINT tools on a **Raspberry Pi4 4GB RAM and 32GB microSD card.** The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
 
-Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGbox is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install.
+### How about other architectures?
+There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/SIGbox_architecture.png)
+## Release Notes
+* [over here](RELEASE_NOTES.md)
 
-## SIGpi
+## Install
 
-SIGpi is the compute component of SIGbox built on a Raspberry Pi4 4GB RAM and 32GB microSD card. The SIGpi Build Script is run on your Raspberry Pi as user **pi** only **<u>AFTER</u>** you followed the [Raspberry Pi Documentation - Getting Started](https://www.raspberrypi.org/documentation/computers/getting-started.html) guide.
+- Start with a **RPi4 (4GB RAM minium)** with a **fresh install** of **[Raspberry Pi OS Desktop](https://www.raspberrypi.com/software/) on a [32GB microSD card](https://www.amazon.com/dp/B08GY9NYRM/?th=1)**
+- Login as Pi on your **fresh install of [Raspberry Pi OS Desktop](https://www.raspberrypi.com/software/) on a [32GB microSD card](https://www.amazon.com/dp/B08GY9NYRM/?th=1)**
+- Create a directory in your home called SIG and switch into it
+- Clone the SIGpi repo
+- Run SIGpi_installer.sh
+- Follow script instructions.
 
-Total install time will take over three hours if you choose compile some software versus going with packages available
-from the Raspberry Pi OS 32-bit distro. Below is a list of software installed. Asterisk (*) indicate software packages
-that are compiled
+```
+sudo apt-get install -y build-essential git
+mkdir ~/SIG && cd ~/SIG
+git clone https://github.com/joecupano/SIGpi.git
+cd SIGpi
+./SIGpi_installer.sh
+```
+
+## Build Details
+
+Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient. Below is a list of software installed.
 
 Device Drivers
 * [RTL-SDR](https://www.rtl-sdr.com/about-rtl-sdr/) RTL2832U & R820T2-Based *
@@ -34,7 +47,7 @@ Device Drivers
 * SoapyPlutoSDR Soapy SDR Module for PlutoSD *
 * GPS client and NTP sync (gpsd gpsd-clients python-gps chrony)
 
-Decoders
+Libraries and Decoders
 * [aptdec](https://github.com/Xerbo/aptdec) *        NOAA satellite imagery decoder
 * cm256cc *
 * [dab-cmdline](https://github.com/JvanKatwijk/dab-cmdline) *   DABD/DAB+
@@ -43,121 +56,44 @@ Decoders
 * [dsdcc](https://github.com/f4exb/dsdcc) *         Encode/Decode Digital Voice modes (DMR, YSF, D*Star, etc) 
 * [sgp4](https://pypi.org/project/sgp4/) *          Used for satellite trakcing given TLE data 
 * [rtl_433](https://github.com/merbanan/rtl_433)           Generic data receiver for UHF ISM Bands decoding popular sensors
-
-Libraries
+* [dump1090](https://github.com/antirez/dump1090)           Mode S decoder specifically designed for RTLSDR devices
 * [libsigmf](https://github.com/deepsig/libsigmf) *      Used for Signal Metadata Format - sharing of signal data 
 * [liquid-dsp](https://github.com/jgaeddert/liquid-dsp) *    Digital Signal Processing (DSP) library 
 * [libbtbb](https://github.com/greatscottgadgets/libbtbb) *       Bkuetooth Baseband Library 
-* [hamlib 4.3](https://hamlib.github.io/) *    API for controlling a myriad of radios 
+* [hamlib 4.3.1](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
-* [GNURadio 3.8](https://github.com/gnuradio/gnuradio)
+* [GNURadio](https://github.com/gnuradio/gnuradio)
 * [GQRX](https://github.com/csete/gqrx)
-* [SDR Angel](https://github.com/f4exb/sdrangel) *
+* [SDRangel](https://github.com/f4exb/sdrangel) *
 * [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus)
 * [CubicSDR](https://cubicsdr.com/)        SDR Receiver
-* [Artemis](https://aresvalley.com/artemis/)         Real-time SIGINT from your SDR
+* [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
+* [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
 
 Packet Radio
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
 * ax25-apps       Command line AX.25 spps
 * ax25-tools      AX.25 for daemon interfaces
-* [direwolf 1.7](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
+* [direwolf](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
-* [Fldigi 4.1.0](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [Fldigi 4.1.20](https://sourceforge.net/p/fldigi/wiki/Home/)] * GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [WSJT-X 2.5.0](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
-* [QSSTV 9.4.2](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
-* [QSSTV 9.5.8](http://users.telenet.be/on4qz/index.html)  *   GUI app for SSTV
-
+* [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
+* [WSJT-X 2.5.1](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
+* [js8call](http://js8call.com/) JS8 mode
+* [QSSTV 9.4.4](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
 
 Satellite and Geo
 * [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
 * [xastir](http://xastir.org/index.php/Main_Page)          APRS Station Tracking and Reporting
 * [linpac](http://linpac.sourceforge.net/doc/manual.html)          Packet Radio Terminal with Mail Client
 
-
 Tools
-* Kismet        Wireless sniffer and monitor
+* [Kismet](https://www.kismetwireless.net/)        Wireless sniffer and monitor
 * [Wireshark](https://www.wireshark.org/)     Network Traffic Analyzer
 * [Audacity](https://www.audacityteam.org/)      Audio Editor
 * [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio Control
-* [Mumble](https://www.mumble.info/)        VoIP Server and Client
 * [SPLAT](https://www.qsl.net/kd2bd/splat.html)         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
-* [TEMPEST](http://www.erikyyy.de/tempest/)       Uses your computer monitor to send out AM radio signals *
-
-
-## Release Notes
-
-### Release 3.1: 2021-11-25
-- Fixes from Bullseye update
-
-### Release 3.0.1: 2021-10-24
-- Set SDRangel build from a360ea0a9 due to SDRgui compile issue
-- Remmoved Artemis due to build issues
-- Moved Amateur Radio apps from SigPI menu to Hamradio menu
-
-### Release 3.0: 2021-10-22
-- New install script architecture
-- Added SDR++ and Artemis
-- Standardize on GNU Radio 3.8
-- Add RadioSonde (decoder/encoder used in Balloon telemetry projects)
-
-### Release 2.1: 2021-10-16
-- Various fixes as part of merging code with [SIGbox](https://github.com/joecupano/SIGbox)
-- SIGpi_update deprecated. This version required to be fresh install
-
-### Release 2.0: 2021-10-02
-- Update install script to be TUI-based using Whiptail-based
-- Update GNUradio from 3.7 to 3.8
-- Add the following digital decoder libraries/tools
--- aptdec, CM265cc, LibDAB, MBElib, SerialDV, DSDcc, SGP4, LibSigMF, Liquid-DSP, Multimon-ng, Bluetooth Baseband Library 
-- Option to install latest-compiled versions of Amateur Radio Applications
--- Fldigi 4.1.20 (and suite), WSJT-X 2.4.0, QSSTV 9.5.8
-- Install the following software 
--- Ubertooth Tools
--- RTL_433
-- Optional install the following software 
--- SPLAT
--- Wireshark
--- Kismet
--- TEMPEST for Eliza
-
-### Release 1.0: 2021-09-15
-- Initial Release
-
-
-## Fresh Install
-
-- Login as Pi
-- Create a directory in your home called source and switch into it
-- Clone the SIGpi repo
-- Run SIGpi_installer.sh
-- Follow script instructions.
-
-```
-sudo apt-get install -y build-essential git
-mkdir ~/source && cd ~/source
-git clone https://github.com/joecupano/SIGpi.git
-cd SIGpi
-./SIGpi_installer.sh
-```
-
-## Distro versus Compiled Software versions
-
-Go with the distro releases of software packages for classic and common use cases.
-If you are a more experience signals investigator you may find your needs may require
-the latest versions of software which require compile and alot of patience for the
-time they take to compile. The software packages that can take an hour each to
-compile include:
-
-- Hamlib 4.3
-- Fldigi 4.1.20
-- WSJT-X 2.4.2
-- QSSTV 9.5.8
-
-SDRangel can take up to 90 minutes to compile. 
 
 ## APRS and Packet using a VHF/UHF Transceiver
 
@@ -198,31 +134,27 @@ callsign, the soundcard device to use, and whether using PTT or VOX in the **$HO
 
 Because a number of factors go into a successful DireWold setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
 
-### XASTIR
+### Xastir
 Xastir is an application that provides geospatial mappng of APRS signals. It needs to configured to use the RF interface provided by DireWolf. You must start Direwolf in a separately terminal window before you start Xastir. Be sure to consult [Xastir online documentation](https://xastir.org/index.php/Main_Page) for more info.
 
 ## Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
 
-## Mumble Server (VoIP)
+## Example Hardware Setup
 
-This server is only necessary if intent to remotely connect to SIGpi and require audio at that remote location. You have the option of running the server on startup or not. Run the following command. 
+![alt-test](https://github.com/joecupano/SIGpi/blob/develop_4-0/SIGpi_architecture_v2.png)
 
-```
-sudo dpkg-reconfigure mumble-server
-```
+### Power
 
-- You will first be asked whether you want to autostart the server or not. Select **No** unless you intent on accessing the SigPI remotely all the time.
+In this setup a 12V@17A switching supply powers all the kit. Since RPi4 are picky about getting 5.1V a set-up converter is added to power it. A 12V Rpi4 are pickya bout getting 5.1V. USB peripherals can be hungry so a powered USB hub is included. While 7 ports are available no more than three devices requiring power should be enabled since hub produces a maximum of 36 Watts ( 3 x 5V x 2.4A = 36 Watts)
 
-- When asked to allow mumble-server to use higher priority select **No**.
+### Raspberry Pi4
 
-- When asked to create a SuperUser password do something strong.
+Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth she be disabled. If Internet is needed and only available via WiFi then use the eonboard WiFi.
 
-## Post Installation
+### USB Peripherals
 
-Though all the software is installed, many apps will require further configuration. Some will require configuration per use if you are using different SDR devices for differenent use cases. This section covers the configurations that only need to be done one time.
+Only three USB devices requiring power shoudl be enabled at a time. The range of devices depicted is only to demonstrate what you could potentiall connect to it.
 
 ## What Else
 Yes, I know there are more apps installed. There is no short-cut and must defer you to the  documentation on their respetive sites
-
-
