@@ -31,7 +31,7 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-## SIGpi Package Management
+## Package Management in SIGpi
 
 You realized afterall that install time you want to change your choices in SDR or Amateur Radio packages.
 
