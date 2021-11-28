@@ -1,6 +1,6 @@
 # SIGpi
 
-Release: 20211127-0700
+Release: 20211127-2200
 
 ## Introduction
 
@@ -101,11 +101,12 @@ SDR Applications
 * [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
 * [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
 
-Packet Radio
+AFS and FSK Communications
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
 * ax25-apps       Command line AX.25 spps
 * ax25-tools      AX.25 for daemon interfaces
 * [direwolf 1.7](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
+* [HASviolet (Delware Release)](https://github.com/hudsonvalleydigitalnetwork/hasviolet/wiki/HASviolet)   LoRa communications on 33cm band (902-928 MHz)
 
 Amateur Radio
 * [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
