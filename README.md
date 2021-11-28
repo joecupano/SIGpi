@@ -31,6 +31,33 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
+## SIGpi Package Management
+
+You realized afterall that install time you want to change your choices in SDR or Amateur Radio packages.
+
+### Adding a SIGpi package
+
+From within **/home/pi/SIG/SIGpi** run the following command
+
+```
+./SIGpi_pusher.sh <PACKAGE>
+
+where (PACKAGE> is the name of the SIGpi package as
+listed in /home/pi/SIG/SPIGpi/dependencies/SIGpi_packages
+```
+
+### Removing a SIGpi package
+
+From within **/home/pi/SIG/SIGpi** run the following command
+
+```
+./SIGpi_popper.sh <PACKAGE>
+
+where (PACKAGE> is the name of the SIGpi package as
+listed in /home/pi/SIG/SPIGpi/dependencies/SIGpi_packages
+```
+Menu entries will be required to be removed manually
+
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
 
