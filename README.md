@@ -68,8 +68,8 @@ Libraries and Decoders
 SDR Applications
 * [GNURadio](https://github.com/gnuradio/gnuradio)
 * [GQRX](https://github.com/csete/gqrx)
-* [SDRangel](https://github.com/f4exb/sdrangel) *
-* [SDR++](https://github.com/AlexandreRouma/SDRPlusPlus)
+* [SDRangel 6.17.4](https://github.com/f4exb/sdrangel) *
+* [SDR++ 1.0.5](https://github.com/AlexandreRouma/SDRPlusPlus) *
 * [CubicSDR](https://cubicsdr.com/)        SDR Receiver
 * [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
 * [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
@@ -78,7 +78,7 @@ Packet Radio
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
 * ax25-apps       Command line AX.25 spps
 * ax25-tools      AX.25 for daemon interfaces
-* [direwolf](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
+* [direwolf 1.7](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
 
 Amateur Radio
 * [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
