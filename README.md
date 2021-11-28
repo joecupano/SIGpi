@@ -24,7 +24,7 @@ There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGb
 - Follow script instructions.
 
 ```
-sudo apt-get install -y build-essential git
+sudo apt-get install -y build-essential cmake git
 mkdir ~/SIG && cd ~/SIG
 git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
