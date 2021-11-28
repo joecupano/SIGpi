@@ -101,7 +101,7 @@ SDR Applications
 * [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
 * [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
 
-AFS and FSK Communications
+AFSK, FSK, Packet, APRS Communications
 * libax25         AFSK baseband audio library for AX.25 packet as used by APRS
 * ax25-apps       Command line AX.25 spps
 * ax25-tools      AX.25 for daemon interfaces
