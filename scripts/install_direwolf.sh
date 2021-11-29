@@ -16,7 +16,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 sudo apt-get install -y libasound2-dev
 sudo apt-get install -y libudev-dev
 sudo apt-get install -y libgps-dev
-sudo apt-get install libhamlib-dev
+sudo apt-get install -y libhamlib-dev
 
 # INSTALL
 cd $SIGPI_SOURCE

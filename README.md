@@ -1,23 +1,23 @@
 # SIGpi
 
-Release: 20211127-2200
+Release: 20211128-1530
 
 ## Introduction
 
-Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM**  with 32GB microSD card running **Raspberry Pi OS Full (32-bit)**. The script MUST be run as user **pi**.
+Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM**  with 32GB microSD card running **Raspberry Pi OS Full (32 or 64-bit)**. The script MUST be run as user **pi**.
 
 ## Requirements
 
 - [Raspberry Pi 4 4GB Model B ](https://www.amazon.com/CanaKit-Raspberry-4GB-Starter-Kit/dp/B07V5JTMV9) minimum
 - [32GB microSDHC card Class 10](https://www.amazon.com/gp/product/B06XWN9Q99)
-- [Raspberry Pi OS Full (32 bit)](https://www.raspberrypi.com/software/) Release 30 Oct 2021 (Bullseye) installed
+- [Raspberry Pi OS Full "Bullseye" 32 bit](https://www.raspberrypi.com/software/) or [64 Bit](https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-11-08/)
 
 ### How about other architectures?
 There is also a build script for Ubuntu 21.04 running on AMD64 hardware at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
 ## Install
 
-- Login as Pi on your **fresh install of Raspberry Pi OS Full (32 bit)**
+- Login as Pi on your **fresh install of Raspberry Pi OS Full**
 - Create a directory in your home directory called SIG and switch into it
 - Clone the SIGpi repo
 - Run **SIGpi_installer.sh**
@@ -30,6 +30,10 @@ git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ./SIGpi_installer.sh
 ```
+
+## Known Issues
+- RadioSonde install script broken. (No doubt something simple)
+- Artemis does not run on 64-bit build. (Some Pythony issue)
 
 ## Package Management in SIGpi
 
