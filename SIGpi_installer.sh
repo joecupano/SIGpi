@@ -34,10 +34,10 @@ SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
-# Detect architecture (x86, x86_64, amd64, armv7l etc)
-SIGPI_MACHINE_TYPE=`uname -m`
-#SIGPI_OSID='cat /etc/os-release|grep ID=ubuntu|sed "s/"ID="//"'
-#SIGPI_VERID='cat /etc/os-release|grep VERSION_ID|sed "s/"VERSION_ID="//"'
+# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
+SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
+# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
+SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
