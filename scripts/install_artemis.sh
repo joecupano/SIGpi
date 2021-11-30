@@ -19,13 +19,24 @@ echo -e "${SIGPI_BANNER_RESET}"
 cd $SIGPI_SOURCE
 if grep artemis "$SIGPI_CONFIG"
 then
-   	cd $HOME/Downloads
-	# Note; this link specific to this arch 1045 for armfh, 193 for amd64
-	wget https://aresvalley.com/download/1045/ 
-	mv index.html artemis.tar.gz
-	tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
-	cd $SIGPI_SOURCE/artemis
-	sudo cp artemis3.svg /usr/share/icons/
+	if [$SIGPI_HWARCH = "x86" || "x86_64"]
+	then
+   		cd $HOME/Downloads
+		# Note; this link specific to Ubuntu OS
+		wget https://aresvalley.com/download/193/ 
+		mv index.html artemis.tar.gz
+		tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+		cd $SIGPI_SOURCE/artemis
+		sudo cp artemis3.svg /usr/share/icons/
+	else
+		cd $HOME/Downloads
+		# Note; this link specific to Raspberry Pi OS
+		wget https://aresvalley.com/download/1045/ 
+		mv index.html artemis.tar.gz
+		tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+		cd $SIGPI_SOURCE/artemis
+		sudo cp artemis3.svg /usr/share/icons/
+	fi
 fi
 
 
