@@ -59,6 +59,12 @@ if [ $(whoami) != 'pi' ]; then
 fi
 
 if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
+    if -f [$SIGPI_SOURCE/$1]; then
+        echo "ERROR:  121"
+        echo "ERROR:  You must remove the package first using SIGpi_popper <PACKAGE>"
+        echo "ERROR:  Aborting"
+        exit 1
+    fi
     SIGPI_INSTALLER="install_"$1".sh"
     source $SIGPI_SCRIPTS/$SIGPI_INSTALLER
 else
