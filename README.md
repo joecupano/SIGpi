@@ -41,7 +41,7 @@ You realized afterall that install time you want to change your choices in SDR o
 
 ### Adding a SIGpi package
 
-From within **/home/pi/SIG/SIGpi** run the following command
+From within **/home/pi/SIG/SIGpi/scripts** run the following command
 
 ```
 ./SIGpi_pusher.sh <PACKAGE>
@@ -52,7 +52,7 @@ listed in /home/pi/SIG/SPIGpi/dependencies/SIGpi_packages
 
 ### Removing a SIGpi package
 
-From within **/home/pi/SIG/SIGpi** run the following command
+From within **/home/pi/SIG/SIGpi/scripts** run the following command
 
 ```
 ./SIGpi_popper.sh <PACKAGE>
