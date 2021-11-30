@@ -18,11 +18,15 @@ echo -e "${SIGPI_BANNER_RESET}"
 #/.local/share/applications
 #/.local/share/desktop-directories
 
-# Add Background-Wallpaper
-sudo cp $SIGPI_SOURCE/backgrounds/* /usr/share/rpd-wallpaper
+# Copy SIGpi commands into /usr/local/bin
+#sudo cp $SIGPI_HOME/scripts/SIGpi_pusher.sh /usr/local/bin/SIGpi_pusher
+#sudo cp $SIGPI_HOME/scripts/SIGpi_popper.sh /usr/local/bin/SIGpi_popper
 
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SIGpi_background_dish.jpg
-pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SigPi_logo_splashbg.png
+
+# Copy Background images
+sudo cp $SIGPI_SOURCE/backgrounds/* /usr/share/rpd-wallpaper
+# Change Background image
+pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SigPi_wallpaper.png
 
 # Add Desktop links
 sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
