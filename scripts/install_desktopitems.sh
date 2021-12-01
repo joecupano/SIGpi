@@ -24,7 +24,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 
 # Copy Background images
-sudo cp $SIGPI_SOURCE/backgrounds/* /usr/share/rpd-wallpaper
+sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
 # Change Background image
 pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SigPi_wallpaper.png
 
