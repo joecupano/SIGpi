@@ -186,7 +186,6 @@ select_usefulapps() {
 ###  MAIN
 ###
 
-touch $SIGPI_CONFIG
 calc_wt_size
 select_startscreen
 select_gnuradio
@@ -210,16 +209,8 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-if [ -d "$SIGPI_SOURCE/rtl-sdr" ]; then
-    echo "ERROR:  100"
-    echo "ERROR:  This appears to be an aborted installation."
-    echo "ERROR:  You must remove /home/SIG and restart from scratch."
-    echo "ERROR:  Aborting"
-    exit 1;
-else
-  	mkdir $SIGPI_SOURCE
-fi
-      
+mkdir $SIGPI_SOURCE
+touch $SIGPI_CONFIG      
 cd $SIGPI_SOURCE
 
 #source $SIGPI_SCRIPTS/install_swapspace.sh
