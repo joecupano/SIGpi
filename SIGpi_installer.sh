@@ -59,23 +59,23 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### Environment tests
 ### 
 
-# Are we the user Pi
-if [ $(whoami) != 'pi' ]; then
+# Are we a sudoer
+if !'id | grep sudo'; then
     echo "ERROR:  007"
-    echo "ERROR:  Must be run as the user Pi with sudo privileges"
+    echo "ERROR:  Must be run as user with sudo privileges"
     echo "ERROR:  Aborting"
 fi
 
 # Are we the right hardware
-if !'cat /proc/cpuinfo |grep "Pi 4"'; then
+if ![ $SIGPI_HWARCH = "x86"] || ![$SIGPI_HWARCH = "x86_64"] || ![$SIGPI_HWARCH = "aarch64"]; then
     echo "ERROR:  010"
-    echo "ERROR:  Hardware must be Raspberry Pi 4 Model B or better"
+    echo "ERROR:  Hardware must be x86, x86_64 or aarch64 (Raspberry Pi 4)"
     echo "ERROR:  Aborting"
     exit 1;
 fi
 
 # Are we the right operating system
-if !'cat /etc/os-release | grep "VERSION" | grep "11 (bullseye)"'; then
+if ![$SIGPI_OSNAME = "Debian GNU/Linux 11 (bullseye)" || ![$SIGPI_OSNAME = "Ubuntu 20.04.3 LTS" ]; then
     echo "ERROR:  020"
     echo "ERROR:  Operating System must be Raspbian GNU/Linux 11 (bullseye)"
     echo "ERROR:  Aborting"
@@ -83,11 +83,11 @@ if !'cat /etc/os-release | grep "VERSION" | grep "11 (bullseye)"'; then
 fi
 
 # Are we where we should be
-if [ -f /home/pi/SIG/SIGpi/SIGpi_installer.sh ]; then
+if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
     echo
 else
     echo "ERROR:  030"
-    echo "ERROR:  Repo must be cloned from within /home/pi/SIG directory"
+    echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
     echo "ERROR:  and SIGpi_installer.sh run from there."
     echo "ERROR:  Aborting"
     exit 1;
@@ -132,6 +132,14 @@ select_gnuradio() {
     echo $FUN >> $SIGPI_CONFIG
 }
 
+zenity_gnuradio(){
+    zenity --list --radiolist --text "Choose GNUradio version:" --hide-header \
+    --column "selection" --column "version" \
+    FALSE "GNUradio 3.8" \
+    FALSE "GNUradio 3.9" \
+    FALSE "Skip GNUradio" 
+}
+
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "General Purpose SDR Applications" 20 80 12 \
@@ -147,6 +155,15 @@ select_sdrapps() {
     echo $FUN >> $SIGPI_CONFIG
 }
 
+zenity_sdrapps() {
+    zenity --list --checklist --text "Choose SDR Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "gqrx" FALSE \
+    "cubicsdr" FALSE \
+    "sdrangel" FALSE \
+    "sdrpp"
+}
+
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Amateur Radio Applications" 24 120 12 \
@@ -160,6 +177,15 @@ select_amateurradio() {
         $FUN = "NONE"
     fi
     echo $FUN >> $SIGPI_CONFIG
+}
+
+zenity_amateurradio(){
+    zenity --list --checklist --text "Choose Amateur Radio Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "fldigi" FALSE \
+    "js8call" FALSE \
+    "qsstv" FALSE \
+    "wsjtx"
 }
 
 select_usefulapps() {
@@ -182,11 +208,24 @@ select_usefulapps() {
     echo $FUN >> $SIGPI_CONFIG
 }
 
+zenity_usefulapps() {
+    zenity --list --checklist --text "Choose Other Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "artemis" FALSE \
+    "cygnusrfi" FALSE \
+    "gpredict" FALSE \
+    "splat" FALSE \
+    "wireshark" FALSE \
+    "kismet" FALSE \
+    "audacity" FALSE \
+    "pavu" FALSE \
+    "xastir"
+}
+
 ###
 ###  MAIN
 ###
 
-touch $SIGPI_CONFIG
 calc_wt_size
 select_startscreen
 select_gnuradio
@@ -210,16 +249,8 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-if [ -d "$SIGPI_SOURCE/rtl-sdr" ]; then
-    echo "ERROR:  100"
-    echo "ERROR:  This appears to be an aborted installation."
-    echo "ERROR:  You must remove /home/SIG and restart from scratch."
-    echo "ERROR:  Aborting"
-    exit 1;
-else
-  	mkdir $SIGPI_SOURCE
-fi
-      
+mkdir $SIGPI_SOURCE
+touch $SIGPI_CONFIG      
 cd $SIGPI_SOURCE
 
 #source $SIGPI_SCRIPTS/install_swapspace.sh
