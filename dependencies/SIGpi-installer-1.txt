@@ -14,7 +14,7 @@ Installation can take three hours or more between system update and compilation
 This script installs drivers for RTL-SDR, HackRF, PlutoSDR, LimeSDR, and associated SoapySDR drivers by default.
 Installation will continue with the following steps:
 
-- Choose GNUradio version to install (3.7, 3.8 or 3.9)
+- Choose GNUradio version to install (3.8 or 3.9)
 - Choose General Purpose SDR applications (SDRangel, SDR++, etc)
 - Choose Amateur Radio Applications
 - Choose Additional Useful Tools
