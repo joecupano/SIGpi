@@ -19,7 +19,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 cd $SIGPI_SOURCE
 if grep artemis "$SIGPI_CONFIG"
 then
-	if [$SIGPI_HWARCH = "x86" || "x86_64"]
+	if [ $SIGPI_HWARCH = "x86" ] || [ $SIGPI_HWARCH = "x86_64"]
 	then
    		cd $HOME/Downloads
 		# Note; this link specific to Ubuntu OS
