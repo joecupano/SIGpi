@@ -29,7 +29,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 if [${SIGPI_OSNAME} = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     # Change Background image
-    pcmanfm --set-wallpaper /usr/share/backgrounds/SigPi_wallpaper.png
+    gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/SigPi_wallpaper.png
 else
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image
