@@ -1,5 +1,8 @@
 # Release Notes
 
+## Release 4.1: 2021-12-20
+- 
+
 ## Release 4.0: 2021-11-27
 - Implemente SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
