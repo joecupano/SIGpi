@@ -382,7 +382,7 @@ source $SIGPI_SCRIPTS/install_desktopitems.sh
 # Turn off Swapfile
 if [ -f /swapfile ]; then
     echo "Removing swapfile"
-    swapoff /swapfile
+    sudo swapoff /swapfile
     sleep 5
     sudo rm -rf /swapfile
     exit 1;
