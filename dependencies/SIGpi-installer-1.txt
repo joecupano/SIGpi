@@ -8,8 +8,8 @@
 Welcome to SIGpi
 
 This script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use
-on Raspberry Pi OS "Bullseye" (32bit, 64bit) or Ubuntu 20.04 LTS (x86, x86_64)
-Installation can take three hours or more between system update and compilation
+on Raspberry Pi OS "Bullseye" (32bit, 64bit). Installation can take three hours or more between
+system update and compilation
 
 This script installs drivers for RTL-SDR, HackRF, PlutoSDR, LimeSDR, and associated SoapySDR drivers by default.
 Installation will continue with the following steps:
