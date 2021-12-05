@@ -249,7 +249,6 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-mkdir $SIGPI_SOURCE
 touch $SIGPI_CONFIG      
 cd $SIGPI_SOURCE
 
