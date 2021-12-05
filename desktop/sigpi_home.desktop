@@ -2,7 +2,7 @@
 Name=SIGpi Home
 Comment=Go to SIGpi Github Home
 Exec=xdg-open https://github.com/joecupano/SIGpi
-Icon=/usr/share/icons/sigpi_icon_32x32.png
+Icon=/usr/share/icons/SigPi_icon.png
 Terminal=false
 Type=Application
 Categories=SigPi;
