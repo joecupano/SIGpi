@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 4.0: 2021-11-27
+## Release 4.0: 2021-11-30
 - Implemente SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
 - Added Ettus Research UHD device install script
