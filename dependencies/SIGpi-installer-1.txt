@@ -7,8 +7,8 @@
 
 Welcome to SIGpi
 
-Given a Raspberry Pi4 w/4GB RAM, 32GB microSD, and Raspberry Pi OS Full (32-bit) installed, 
-this script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use.
+This script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use
+on Raspberry Pi OS "Bullseye" (32bit, 64bit) or Ubuntu 20.04 LTS (x86, x86_64)
 Installation can take three hours or more between system update and compilation
 
 This script installs drivers for RTL-SDR, HackRF, PlutoSDR, LimeSDR, and associated SoapySDR drivers by default.

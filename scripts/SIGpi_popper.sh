@@ -51,10 +51,10 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### Environment tests
 ### 
 
-# Are we the user Pi
-if [ $(whoami) != 'pi' ]; then
+# Are we a sudoer
+if !'id | grep sudo'; then
     echo "ERROR:  007"
-    echo "ERROR:  Must be run as the user Pi with sudo privileges"
+    echo "ERROR:  Must be run as user with sudo privileges"
     echo "ERROR:  Aborting"
 fi
 
