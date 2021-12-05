@@ -12,11 +12,16 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Libraries"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# Hamlib
-wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
-tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
-cd $SIGPI_SOURCE/hamlib-4.3.1
-./configure --prefix=/usr/local --enable-static
+# Hamlib 4.3.1 (09/13/21)
+#wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
+#tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
+#cd $SIGPI_SOURCE/hamlib-4.3.1
+
+# Hamlib 4.4 (12/02/21)
+wget https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz -P $HOME/Downloads
+tar -zxvf $HOME/Downloads/hamlib-4.4.tar.gz -C $SIGPI_SOURCE
+cd $SIGPI_SOURCE/hamlib-4.4
+./configure
 make
 sudo make install
 sudo ldconfig
