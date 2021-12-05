@@ -11,8 +11,13 @@
 ###
 ### This script is part of the SIGbox Project.
 ###
-### Given a Raspberry Pi 4 4GB RAM 32GB microSD with Raspberry Pi OS Full (32-bit) installed
-### This script installs drivers and applications for RF use cases that include hacking and 
+### Given the choice of a: 
+###
+### - Raspberry Pi 4 4GB RAM 32GB microSD with Raspberry Pi OS Full (32 or 64-bit) installed
+###    *** OR ***
+### - PC with 4GB RAM 32GB SSD running Ubuntu 20.04 LTS Desktop
+###
+### this script installs drivers and applications for RF use cases that include hacking and 
 ### Amateur Radio Digital Modes.
 ###
 
