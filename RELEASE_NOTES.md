@@ -3,7 +3,6 @@
 ## Release 4.0: 2021-11-30
 - Implemente SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
-- Added Ettus Research UHD device install script
 - Added Artemis, CygnusRFI, JS8CALL, GNuradio 3.8 (repo) and 3.9 (compiled) options
 - Added HASviolet (Delaware Release)
 - Added ability to **push** and **pop** SIGpi packages post-install
