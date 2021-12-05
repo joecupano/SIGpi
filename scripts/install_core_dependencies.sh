@@ -16,7 +16,9 @@ echo -e "${SIGPI_BANNER_RESET}"
 # Baseline
 sudo apt-get install -y build-essential pkg-config git cmake g++ gcc autoconf automake libtool libgl1-mesa-dev 
 sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libaio-dev
-sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
+sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev 
+# Need to occur earlier in build for Ubuntu 20.04 LTS Desktop
+sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac-dev faac faad pulseaudio
 
 # Qt5 Base Packages
 sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
