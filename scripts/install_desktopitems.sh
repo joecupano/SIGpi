@@ -25,7 +25,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 # Copy Background images
 
-# Are we the right operating system
+# What operating system are we?
 if [${SIGPI_OSNAME} = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     # Change Background image
@@ -36,7 +36,6 @@ else
     pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SigPi_wallpaper.png
     
 fi
-
 
 # Add Desktop links
 sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
@@ -95,6 +94,16 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.director
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigidwiki.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_example.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_home.desktop
+
+
+# What operating system are we?
+if [${SIGPI_OSNAME} = "Ubuntu 20.04.3 LTS" ]; then
+    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
+    gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'org.gnome.Terminal.desktop',\
+     'artemis.desktop', 'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
+     'fldigi.desktop', 'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
+fi
+
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
