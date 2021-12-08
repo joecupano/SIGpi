@@ -100,6 +100,8 @@ sudo apt-get install -y swig
 sudo apt-get install -y libsqlite3-dev
 sudo apt-get install -y libi2c-dev
 sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y liboctave-dev
+sudo apt-get install -y libfltk1.3-dev
 sudo apt-get install -y libwxgtk3.0-dev
 sudo apt-get install -y freeglut3-dev
 
