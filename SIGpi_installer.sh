@@ -261,52 +261,44 @@ cd $SIGPI_SOURCE
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_rtl_433.sh
+source $SIGPI_SCRIPTS/package_rtl_433.sh install
 source $SIGPI_SCRIPTS/install_radiosonde.sh
-source $SIGPI_SCRIPTS/install_direwolf.sh
-source $SIGPI_SCRIPTS/install_linpac.sh
+source $SIGPI_SCRIPTS/package_direwolf.sh install
+source $SIGPI_SCRIPTS/package_linpac.sh install
 
 # GNU Radio
 if grep gnuradio38 "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gnuradio gnuradio-dev
+    source $SIGPI_SCRIPTS/package_gnuradio38.sh install
 fi
 
 if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_gnuradio39.sh
+	source $SIGPI_SCRIPTS/package_gnuradio39.sh install
 fi
 
 # gqrx
 if grep gqrx "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gqrx-sdr
+    source $SIGPI_SCRIPTS/package_gqrx-sdr install
 fi
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_CONFIG"; then
-    sudo apt-get install -y cubicsdr
+    source $SIGPI_SCRIPTS/package_cubicsdr install
 fi
 
 # SDRangel
 if grep sdrangel "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_sdrangel.sh
+    source $SIGPI_SCRIPTS/package_sdrangel.sh install
     source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
 fi
 
 # SDR++
 if grep sdrpp "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_sdrpp.sh
+    source $SIGPI_SCRIPTS/package_sdrpp.sh install
 fi
 
 # Fldigi
 if grep fldigi "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Fldigi"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y fldigi
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Fldigi Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_fldigi.sh install
 fi
 
 #if grep fldigi4120 "$SIGPI_CONFIG"; then
@@ -315,24 +307,16 @@ fi
 
 # WSJT-X
 if grep wsjtx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_wsjtx.sh
+    source $SIGPI_SCRIPTS/package_wsjtx.sh install
 fi
 
 # QSSTV
 if grep qsstv "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-	sudo apt-get install -y qsstv
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_qsstv.sh install
 fi
 
-#if grep qsstv958 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/install_qsstv.sh
+#if grep qsstv95 "$SIGPI_CONFIG"; then
+#    source $SIGPI_SCRIPTS/install_qsstv95.sh
 #fi
 
 # JS8CALL
@@ -350,35 +334,27 @@ fi
 
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Gpredict"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y gpredict
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_gpredict.sh install
 fi
 
 # Artemis
 if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_artemis.sh
+	source $SIGPI_SCRIPTS/package_artemis.sh install
 fi
 
 # CygnusRFI
 if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_cygnusrfi.sh
+	source $SIGPI_SCRIPTS/package_cygnusrfi.sh install
 fi
 
 # Wireshark
 if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_wireshark.sh
+	source $SIGPI_SCRIPTS/package_wireshark.sh install
 fi
 
 # Kismet
 if grep kismet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_kismet.sh
+    source $SIGPI_SCRIPTS/package_kismet.sh install
 fi
 
 # Audacity

@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### package_fldigi
+### package_fldigi-latest
 ###
 
 ###
