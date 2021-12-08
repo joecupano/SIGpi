@@ -65,14 +65,14 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we a sudoer
-if !'id | grep sudo'; then
+if ![ 'id | grep sudo' ]; then
     echo "ERROR:  007"
     echo "ERROR:  Must be run as user with sudo privileges"
     echo "ERROR:  Aborting"
 fi
 
 # Are we the right hardware
-if ![ "$SIGPI_HWARCH" = "x86"] || ![ "$SIGPI_HWARCH" = "x86_64"] || ![ "$SIGPI_HWARCH" = "aarch64"]; then
+if [ "$SIGPI_HWARCH" != "x86"] || [ "$SIGPI_HWARCH" != "x86_64"] || [ "$SIGPI_HWARCH" != "aarch64" ]; then
     echo "ERROR:  010"
     echo "ERROR:  Hardware must be x86, x86_64 or aarch64 (Raspberry Pi 4)"
     echo "ERROR:  Aborting"
@@ -80,7 +80,7 @@ if ![ "$SIGPI_HWARCH" = "x86"] || ![ "$SIGPI_HWARCH" = "x86_64"] || ![ "$SIGPI_H
 fi
 
 # Are we the right operating system
-if ![ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" || ![ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
+if [ "$SIGPI_OSNAME" != "Debian GNU/Linux 11 (bullseye)" ] || [ "$SIGPI_OSNAME" != "Ubuntu 20.04.3 LTS" ]; then
     echo "ERROR:  020"
     echo "ERROR:  Operating System must be Raspbian GNU/Linux 11 (bullseye)"
     echo "ERROR:  Aborting"
