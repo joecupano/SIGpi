@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### package_linpac
+### package_fldigi
 ###
 
 ###

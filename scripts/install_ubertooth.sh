@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### pacakge_ubertooth
+### package_ubertooth
 ###
 
 ###

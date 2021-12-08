@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### package_rtl_433
+### package_js8call
 ###
 
 ###
@@ -14,18 +14,14 @@
 if ( $1 == "remove"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_433"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove JS8CALL"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    cd $SIGPI_SOURCE/rtl_433/build
-    sudo make uninstall
-    sudo ldconfig
-    cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl_433
+    sudo apt-get remove js8call
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
@@ -33,42 +29,34 @@ fi
 if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTL_433"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge JS8CALL"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    cd $SIGPI_SOURCE/rtl_433/build
-    sudo make uninstall
-    sudo ldconfig
-    cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl_433
-
+    sudo apt-get remove --purge js8call
+    
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install JS8CALL"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
 
 # DEPENDENCIES
-sudo apt-get install -y libtool libssl-dev
 
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_433"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install JS8CALL"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
-git clone https://github.com/merbanan/rtl_433.git
-cd rtl_433
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
+sudo apt-get install -y js8call
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Installed"
-echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
 echo -e "${SIGPI_BANNER_RESET}"
