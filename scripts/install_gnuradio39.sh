@@ -3,14 +3,53 @@
 ###
 ### SIGpi
 ###
-### installer_gnuradio38
+### package_gnuradio39
 ###
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.9    (ETA: +60 Minutes)"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
+###
+### 20211208-1200  Currently default to install to keep script backward compatible
+###
+
+# REMOVE
+if ( $1 == "remove"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    cd $SIGPI_SOURCE/gnuradio/build
+    sudo make uninstall
+    sudo ldconfig
+    cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/gnuradio
+    
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
+
+# PURGE
+if ( $1 == "purge"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    cd $SIGPI_SOURCE/gnuradio/build
+    sudo make uninstall
+    sudo ldconfig
+    cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/gnuradio
+    rm -rf $HOME/.gnuradio
+    sudo rm -rf $SIGPI_DESKTOP/gnuradio-grc.desktop
+    sudo rm -rf $DESKTOP_FILES/gnuradio-grc.desktop
+    
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
 
 # DEPENDENCIES
 sudo apt-get install -y libboost-all-dev
@@ -48,19 +87,25 @@ sudo apt-get install -y python3-pip
 sudo apt-get install -y python3-gi-cairo
 
 # INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8    (ETA: +60 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
-git clone --single-branch --branch maint-3.9 --depth 1 --recurse-submodules --shallow-submodules https://github.com/gnuradio/gnuradio.git
+git clone https://github.com/gnuradio/gnuradio.git
 cd gnuradio
+git checkout maint-3.9
 git submodule update --init --recursive
 mkdir build && cd build
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
 make -j4
 sudo make install
 sudo ldconfig
-#cd ~
-#echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.9/dist-packages:$PYTHONPATH" >> .profile
-#echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
-
+cd ~
+echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
+echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   GnuRadio INstalled"

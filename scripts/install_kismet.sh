@@ -2,9 +2,42 @@
 ###
 ### SIGPI
 ###
-### installer_kismet
+### package_kismet
 ###
 
+###
+### 20211208-1200  Currently default to install to keep script backward compatible
+###
+
+# REMOVE
+if ( $1 == "remove"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove Kismet"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get remove kismet
+    
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Removed"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
+
+# PURGE
+if ( $1 == "purge"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge Kismet"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get remove --purge kismet
+    
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Purged"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Install Kismet"

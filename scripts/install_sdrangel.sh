@@ -3,8 +3,105 @@
 ###
 ### SIGpi
 ###
-### install_sdrangel
+### package_sdrangel
 ###
+
+###
+### 20211208-1200  Currently default to install to keep script backward compatible
+###
+
+# REMOVE
+if ( $1 == "remove"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    cd $SIGPI_SOURCE/sdrangel/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/sdrangel
+
+    cd $SIGPI_SOURCE/codec2/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/codec2
+
+    cd $SIGPI_SOURCE/dsdcc/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/dsdcc
+
+    cd $SIGPI_SOURCE/serialDV/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/serialDV
+    
+    cd $SIGPI_SOURCE/mbelib/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/mbe
+
+    cd $SIGPI_SOURCE/cm256cc/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/cm256cc
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Removed"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
+
+# PURGE
+if ( $1 == "purge"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    cd $SIGPI_SOURCE/sdrangel/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/sdrangel
+
+    cd $SIGPI_SOURCE/codec2/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/codec2
+
+    cd $SIGPI_SOURCE/dsdcc/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/dsdcc
+
+    cd $SIGPI_SOURCE/serialDV/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/serialDV
+    
+    cd $SIGPI_SOURCE/mbelib/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/mbe
+
+    cd $SIGPI_SOURCE/cm256cc/build
+    sudo make uninstall
+    sudo ldconfig
+    rm -rf $SIGPI_SOURCE/cm256cc
+
+    # The reason we comment out the next executable line is because the fftw-wisdom file is
+    # stored in that same directory which takes 15 minutes to compile fresh of we wanted
+    # to re-install sdrangel. Best to leave it
+    #rm -rf $HOME/.config/f4exb
+    sudo rm -rf $SIGPI_DESKTOP/sdrangel.desktop
+    sudo rm -rf $DESKTOP_FILES/sdrangel.desktop
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Purged"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
 
 # DEPENDENCIES
 sudo apt-get install -y libfftw3-dev
@@ -46,11 +143,7 @@ sudo apt-get install -y libavformat-dev
 sudo apt-get install -y libopus-dev
 sudo apt-get install -y graphviz
 
-
 # INSTALL
-
-# Application Specific Install variables
-
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel (ETA: +80 Minutes)"

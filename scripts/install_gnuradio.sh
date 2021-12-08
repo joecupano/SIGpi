@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ###
-### SIGPI
+### SIGpi
 ###
-### package_linpac
+### package_gnuradio
 ###
 
 ###
@@ -14,14 +14,14 @@
 if ( $1 == "remove"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove Linpac"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    sudo apt-get remove linpac
+    sudo apt-get remove gnuradio gnuradio-dev
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
@@ -29,34 +29,31 @@ fi
 if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge linpac"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    sudo apt-get remove --purge linpac
+    sudo apt-get remove --purge gnuradio gnuradio-dev
+    rm -rf $HOME/.gnuradio
+    sudo rm -rf $SIGPI_DESKTOP/gnuradio-grc.desktop
+    sudo rm -rf $DESKTOP_FILES/gnuradio-grc.desktop
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Linpac"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
 
 # DEPENDENCIES
 
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Linpac"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
-sudo apt-get install -y linpac
+sudo apt-get install -y gnuradio gnuradio-dev
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   GnuRadio INstalled"
 echo -e "${SIGPI_BANNER_RESET}"

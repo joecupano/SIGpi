@@ -3,19 +3,52 @@
 ###
 ### SIGpi
 ###
-### installer_artemis
+### package_artemis
 ###
 
-# Artemis
+###
+### 20211208-1200  Currently default to install to keep script backward compatible
+###
+
+# REMOVE
+if ( $1 == "remove"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove Artemis"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+    cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/artemis
+	rm $HOME/Downloads/artemis.tar.gz
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Removed"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
+
+# PURGE
+if ( $1 == "purge"); then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge Artemis"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+    cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/artemis
+	rm $HOME/Downloads/artemis.tar.gz
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Purged"
+    echo -e "${SIGPI_BANNER_RESET}"
+fi
+
+# DEPENDENCIES
+
+# INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Install Artemis"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# DEPENDENCIES
-
-# INSTALL
 cd $SIGPI_SOURCE
 if grep artemis "$SIGPI_CONFIG"
 then
@@ -38,7 +71,6 @@ then
 		sudo cp artemis3.svg /usr/share/icons/
 	fi
 fi
-
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Installed"
