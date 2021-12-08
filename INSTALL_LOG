@@ -1,0 +1,510 @@
+Script started on 2021-12-07 22:21:12-05:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="135" LINES="29"]
+[?2004h]0;pi@sigpi: ~/SIG[01;32mpi@sigpi[00m:[01;34m~/SIG $[00m cd SIGpi
+[?2004l
+[?2004h]0;pi@sigpi: ~/SIG/SIGpi[01;32mpi@sigpi[00m:[01;34m~/SIG/SIGpi $[00m gi [Kt check[K[K[K[Kheckout_develop_4-1
+[?2004l
+git: 'checkout_develop_4-1' is not a git command. See 'git --help'.
+[?2004h]0;pi@sigpi: ~/SIG/SIGpi[01;32mpi@sigpi[00m:[01;34m~/SIG/SIGpi $[00m git checkout_develop_4-1[C[1Pdevelop_4-1 develop_4-1
+[?2004l
+Branch 'develop_4-1' set up to track remote branch 'develop_4-1' from 'origin'.
+Switched to a new branch 'develop_4-1'
+[?2004h]0;pi@sigpi: ~/SIG/SIGpi[01;32mpi@sigpi[00m:[01;34m~/SIG/SIGpi $[00m ./SIGpi_installer.sh
+[?2004l
+./SIGpi_installer.sh: line 68: !id | grep sudo: command not found
+./SIGpi_installer.sh: line 75: ![: command not found
+./SIGpi_installer.sh: line 75: ![: command not found
+./SIGpi_installer.sh: line 75: ![: command not found
+./SIGpi_installer.sh: line 83: ![: command not found
+./SIGpi_installer.sh: line 83: ![: command not found
+
+                                                                                                                                      
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   System Update & Upgrade
+[0;104m[K ##
+[0m
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Create Directories
+[0;104m[K ##
+[0m
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Core Dependencies
+[0;104m[K ##
+[0m
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Devices
+[0;104m[K ##
+[0m
+
+
+Package libwxgtk3.0-dev is not available, but is referred to by another package.
+This may mean that the package is missing, has been obsoleted, or
+is only available from another source
+
+E: Package 'libwxgtk3.0-dev' has no installation candidate
+
+
+-- Could NOT find FLTK (missing: FLTK_LIBRARIES) 
+-- Could NOT find SoapySDR (missing: SoapySDR_DIR)
+-- octave-config not found (need liboctave-dev), disabling LimeSuiteOctave
+-- 
+-- ######################################################
+-- ## LimeSuite enabled features
+-- ######################################################
+-- 
+ * LimeSuiteHeaders, The lime suite headers
+ * LimeSuiteLibrary, The lime suite library
+ * ConnectionFX3, FX3 Connection support
+ * ConnectionFTDI, FTDI Connection support
+ * ConnectionXillybus, PCIE Xillybus Connection support
+ * LimeSuiteGUI, GUI Application for LimeSuite
+ * LimeSuiteExamples, LimeSuite library API examples
+ * LimeRFE, LimeRFE support
+ * LimeUtilCommand, Command line device discovery utility
+ * LimeQuickTest, LimeSDR-QuickTest Utility
+ * LimeSuiteDesktop, LimeSuite freedesktop integration
+
+-- ######################################################
+-- ## LimeSuite disabled features
+-- ######################################################
+-- 
+ * ConnectionEVB7COM, EVB+COM Connection support
+ * ConnectionSTREAM_UNITE, STREAM+UNITE Connection support
+ * ConnectionRemote, Remote Connection support for testing
+ * ConnectionSPI, Rasp Pi 3 SPI Connection support
+ * SoapySDRLMS7, SoapySDR bindings for LMS7
+ * LimeSuiteDocAPI, LMS API Doxygen documentation
+ * LimeSuiteOctave, LimeSuite Octave integration
+
+
+-- 
+-- ######################################################
+-- ## SoapySDR enabled features
+-- ######################################################
+-- 
+ * Library, runtime library v0.8.1-g6f97389b
+ * Apps, command line applications
+ * Tests, library unit tests
+ * Docs, doxygen documentation
+ * Python, python bindings v2.7.18
+ * Python3, python3 bindings
+
+-- ######################################################
+-- ## SoapySDR disabled features
+-- ######################################################
+-- 
+
+-- Installing: /usr/local/lib/python3.9/dist-packages/SoapySDR.py
+######################################################
+##     Soapy SDR -- the SDR abstraction library     ##
+######################################################
+
+Lib Version: v0.8.1-g6f97389b
+API Version: v0.8.0
+ABI Version: v0.8
+Install root: /usr/local
+Search path:  /usr/local/lib/SoapySDR/modules0.8 (missing)
+No modules found!
+Available factories... No factories found!
+Available converters...
+ -  CF32 -> [CF32, CS16, CS8, CU16, CU8]
+ -  CS16 -> [CF32, CS16, CS8, CU16, CU8]
+ -  CS32 -> [CS32]
+ -   CS8 -> [CF32, CS16, CS8, CU16, CU8]
+ -  CU16 -> [CF32, CS16, CS8]
+ -   CU8 -> [CF32, CS16, CS8]
+ -   F32 -> [F32, S16, S8, U16, U8]
+ -   S16 -> [F32, S16, S8, U16, U8]
+ -   S32 -> [S32]
+ -    S8 -> [F32, S16, S8, U16, U8]
+ -   U16 -> [F32, S16, S8]
+ -    U8 -> [F32, S16, S8]
+
+-- 
+-- Found Git: /usr/bin/git (found version "2.30.2") 
+-- Module PlutoSDRSupport configured with version: 0.2.1-38a34f6
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/pi/SIG/SoapyPlutoSDR/build
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Libraries
+[0;104m[K ##
+[0m
+
+checking for libnova/libnova.h... no
+no
+configure: WARNING: libnova support not found, required by INDI.
+----------------------------------------------------------------------
+
+ Hamlib Version 4.4 configuration:
+
+ Prefix 	/usr/local
+ Preprocessor	gcc -E 
+ C Compiler	gcc -g -O2 
+ C++ Compiler	g++ -std=c++11 -g -O2
+
+ Package features:
+    With C++ binding		    yes
+    With Perl binding		    no
+    With Python binding 	    no
+    With TCL binding		    no
+    With Lua binding		    no
+    With rigmem XML support	    no
+    With Readline support	    no
+    With INDI support		    no
+
+    Enable HTML rig feature matrix  no
+    Enable WinRadio		    yes
+    Enable USRP 		    no
+    Enable USB backends 	    yes
+    Enable shared libs		    yes
+    Enable static libs		    yes
+
+-----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/local/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+---------------------------------------------------------
+  liquid-dsp was successfully installed.     
+
+  On some machines (e.g. Linux) you should rebind your
+  libraries by running 'ldconfig' to make the shared
+  object available.  You might also need to modify your
+  LD_LIBRARY_PATH environment variable to include the
+  directory /usr/local
+
+  Please report bugs to joseph@liquidsdr.org
+---------------------------------------------------------
+
+
+Note, selecting 'libsndfile1-dev' instead of 'libsndfile-dev'
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /home/pi/SIG/nrsc5/build/faad2-prefix/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+-- Installing: /usr/local/include/dab_lib/spiral-no-sse.h
+/home/pi/SIG/SIGpi/scripts/install_libraries.sh: line 95: cd: dab-cmdline/example-2: No such file or directory
+-- Build type not specified: defaulting to release.
+CMake Warning (dev) at /usr/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake:273 (message):
+  The package name passed to `find_package_handle_standard_args` (PkgConfig)
+  does not match the name of the calling package (FFTW3f).  This can lead to
+  problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  /usr/share/cmake-3.18/Modules/FindPkgConfig.cmake:59 (find_package_handle_standard_args)
+  cmake/Modules/FindFFTW3f.cmake:6 (INCLUDE)
+  CMakeLists.txt:45 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /usr/share/cmake-3.18/Modules/FindPackageHandleStandardArgs.cmake:273 (message):
+  The package name passed to `find_package_handle_standard_args` (FFTW3F)
+  does not match the name of the calling package (FFTW3f).  This can lead to
+  problems in calling code that expects `find_package` result variables
+  (e.g., `_FOUND`) to follow a certain pattern.
+Call Stack (most recent call first):
+  cmake/Modules/FindFFTW3f.cmake:40 (FIND_PACKAGE_HANDLE_STANDARD_ARGS)
+  CMakeLists.txt:45 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Found zlib: 
+-- Configuring done
+-- Generating done
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    RTLSDR
+
+
+-- Build files have been written to: /home/pi/SIG/dab-cmdline/library/build
+make: *** No rule to make target 'install'.  Stop.
+
+
+
+
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install RTL_433
+[0;104m[K ##
+[0m
+
+
+
+[0m
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install RadioSonde
+[0;104m[K ##
+[0m
+/home/pi/SIG/SIGpi/scripts/install_radiosonde.sh: line 198: syntax error: unexpected end of file
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install DireWolf
+[0;104m[K ##
+[0m
+
+
+
+[0m
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Linpac
+[0;104m[K ##
+[0m
+
+
+
+
+gnuradio38
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   FFTW-Wisdom file (ETA: +10 Minutes)
+[0;104m[K ##
+[0m
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install SDR++
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Fldigi
+[0;104m[K ##
+[0m
+
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install WSJT-X
+[0;104m[K ##
+[0m
+
+[35m[1mScanning dependencies of target hamlib-install[0m
+[  7%] [34m[1mCreating directories for 'hamlib'[0m
+[ 15%] [34m[1mPerforming download step (verify and extract) for 'hamlib'[0m
+-- verifying file...
+     file='/home/pi/SIG/wsjtx-2.5.2/src/hamlib-4.4.tar.gz'
+-- verifying file... done
+-- extracting...
+     src='/home/pi/SIG/wsjtx-2.5.2/src/hamlib-4.4.tar.gz'
+     dst='/home/pi/SIG/wsjtx-2.5.2/build/hamlib-prefix/src/hamlib'
+-- extracting... [tar xfz]
+-- extracting... [analysis]
+-- extracting... [rename]
+-- extracting... [clean up]
+-- extracting... done
+[ 23%] [34m[1mNo update step for 'hamlib'[0m
+[ 30%] [34m[1mPerforming patch step for 'hamlib'[0m
+[ 38%] [34m[1mPerforming configure step for 'hamlib'[0m
+----------------------------------------------------------------------
+
+ Hamlib Version 4.4~git configuration:
+
+ Prefix 	/home/pi/SIG/wsjtx-2.5.2/build/hamlib-prefix
+ Preprocessor	gcc -E 
+ C Compiler	gcc -g -O2 -fPIC -fdata-sections -ffunction-sections 
+ C++ Compiler	g++ -std=c++11 -g -O2
+
+ Package features:
+    With C++ binding		    no
+    With Perl binding		    no
+    With Python binding 	    no
+    With TCL binding		    no
+    With Lua binding		    no
+    With rigmem XML support	    no
+    With Readline support	    no
+    With INDI support		    no
+
+    Enable HTML rig feature matrix  no
+    Enable WinRadio		    yes
+    Enable USRP 		    no
+    Enable USB backends 	    yes
+    Enable shared libs		    no
+    Enable static libs		    yes
+
+-----------------------------------------------------------------------
+[ 46%] [34m[1mPerforming build step for 'hamlib'[0m
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /home/pi/SIG/wsjtx-2.5.2/build/hamlib-prefix/lib
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the '-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the 'LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the 'LD_RUN_PATH' environment variable
+     during linking
+   - use the '-Wl,-rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to '/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+-- ******************************************************
+-- Building for for: Linux-aarch64
+-- ******************************************************
+-- Building wsjtx v2.5.2.0
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install QSSTV
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install JS8CALL
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Gpredict
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Artemis
+[0;104m[K ##
+[0m
+artemis cygnusrfi gpredict splat wireshark kismet audacity pavu xastir
+/home/pi/SIG/SIGpi/scripts/install_artemis.sh: line 22: [: missing `]'
+
+[0;104m[K ##
+[0;104m[K ##   Install CygnusRFI
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Wireshark
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Kismet
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Audacity
+[0;104m[K ##
+[0m
+
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install PAVU
+[0;104m[K ##
+[0m
+
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install SPLAT
+[0;104m[K ##
+[0m
+
+
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Install Desktop Items
+[0;104m[K ##
+[0m
+/home/pi/SIG/SIGpi/scripts/install_desktopitems.sh: line 29: [Debian GNU/Linux 11 (bullseye): No such file or directory
+cp: cannot stat '/home/pi/SIG/desktop/artemis.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/flrig-1.4.2/data/flrig.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/fldigi-4.1.20/data/flarq.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/fldigi-4.1.20/data/fldigi.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/gnuradio/grc/scripts/freedesktop/gnuradio-grc.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/desktop/sdrangel.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/qsstv/qsstv.desktop': No such file or directory
+cp: cannot stat '/home/pi/SIG/desktop/xastir.desktop': No such file or directory
+sed: can't read /usr/share/applications/xastir.desktop: No such file or directory
+sed: can't read /usr/share/applications/sigpi_example.desktop: No such file or directory
+sed: can't read /usr/share/applications/flrig.desktop: No such file or directory
+sed: can't read /usr/share/applications/wsjtx.desktop: No such file or directory
+sed: can't read /usr/share/applications/message_aggregator.desktop: No such file or directory
+sed: can't read /usr/share/applications/wsjtx.desktop: No such file or directory
+sed: can't read /usr/share/applications/xastir.desktop: No such file or directory
+xdg-desktop-menu: file '/usr/share/applications/xastir.desktop' does not exist
+xdg-desktop-menu: file '/usr/share/applications/sigpi_example.desktop' does not exist
+/home/pi/SIG/SIGpi/scripts/install_desktopitems.sh: line 100: [Debian GNU/Linux 11 (bullseye): No such file or directory
+[0;104m[K
+[0;104m[K ##   Desktop Items Installed
+[0m
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   Installation Complete !!
+[0;104m[K ##
+[0;104m[K
+[0;104m[K ##
+[0;104m[K ##   System needs to reboot for all changes to occur
+[0;104m[K ##   Reboot will begin in 15 seconsds unless CTRL-C hit
+[0m
+^C^C
+[?2004h]0;pi@sigpi: ~/SIG/SIGpi[01;32mpi@sigpi[00m:[01;34m~/SIG/SIGpi $[00m exit
+[?2004l
+exit
+
+Script done on 2021-12-08 05:58:31-05:00 [COMMAND_EXIT_CODE="130"]
