@@ -72,9 +72,9 @@ if ![ 'id | grep sudo' ]; then
 fi
 
 # Are we the right hardware
-if [ "$SIGPI_HWARCH" != "x86"] || [ "$SIGPI_HWARCH" != "x86_64"] || [ "$SIGPI_HWARCH" != "aarch64" ]; then
+if [ "$SIGPI_HWARCH" != "x86"] || [ "$SIGPI_HWARCH" != "x86_64"] || [ "$SIGPI_HWARCH" != "aarch64" ] || [ "$SIGPI_HWARCH" != "armhf" ]; then
     echo "ERROR:  010"
-    echo "ERROR:  Hardware must be x86, x86_64 or aarch64 (Raspberry Pi 4)"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf (Raspberry Pi 3/4), or aarch64 (Raspberry Pi 4)"
     echo "ERROR:  Aborting"
     exit 1;
 fi
@@ -82,7 +82,7 @@ fi
 # Are we the right operating system
 if [ "$SIGPI_OSNAME" != "Debian GNU/Linux 11 (bullseye)" ] || [ "$SIGPI_OSNAME" != "Ubuntu 20.04.3 LTS" ]; then
     echo "ERROR:  020"
-    echo "ERROR:  Operating System must be Raspbian GNU/Linux 11 (bullseye)"
+    echo "ERROR:  Operating System must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS"
     echo "ERROR:  Aborting"
     exit 1;
 fi
