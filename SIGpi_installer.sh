@@ -67,7 +67,8 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we the right hardware
-if [ "$SIGPI_HWARCH" == "x86" ]; then
+if test "$SIGPI_HWARCH" = "x86"
+then
     $SIGPI_CERTIFIED=1
 else
     echo "ERROR:  100 - Incorrect Hardware"
@@ -78,7 +79,8 @@ else
     exit 1;
 fi
 
-if [ "$SIGPI_HWARCH" == "x86_64" ]; then
+if test "$SIGPI_HWARCH" = "x86_64"
+then
     $SIGPI_CERTIFIED=1
 else 
     echo "ERROR:  100 - Incorrect Hardware"
@@ -89,7 +91,8 @@ else
     exit 1;
 fi
 
-if [ "$SIGPI_HWARCH" == "armhf" ]; then
+if test "$SIGPI_HWARCH" = "armhf"
+then
     $SIGPI_CERTIFIED=1
 else
     echo "ERROR:  100 - Incorrect Hardware"
@@ -100,7 +103,8 @@ else
     exit 1;
 fi
 
-if [ "$SIGPI_HWARCH" == "aarch64" ]; then
+if test "$SIGPI_HWARCH" = "aarch64"
+then
     $SIGPI_CERTIFIED=1
 else
     echo "ERROR:  100 - Incorrect Hardware"
@@ -112,7 +116,8 @@ else
 fi
 
 # Are we the right operating system
-if [ "$SIGPI_OSNAME" == "Debian GNU/Linux 11 (bullseye)" ]; then
+if test "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)"
+then
     $SIGPI_CERTIFIED=1
 else
     echo "ERROR:  200 - Incorrect Operating System"
@@ -123,7 +128,8 @@ else
     exit 1;
 fi
 
-if [ "$SIGPI_OSNAME" == "Ubuntu 20.04.3 LTS" ]; then
+if test "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS"
+then
     $SIGPI_CERTIFIED=1
 else
     echo "ERROR:  200 - Incorrect Operating System"
