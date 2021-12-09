@@ -43,6 +43,8 @@ SIGPI_BANNER_RESET="\e[0m"
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
 # Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
+# Is Platform good for install- 1 = yes , any othe rnumber no
+SIGPI_CERTIFIED=999
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
@@ -65,28 +67,84 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we the right hardware
-if [ "$SIGPI_HWARCH" != "x86"] || [ "$SIGPI_HWARCH" != "x86_64"] || [ "$SIGPI_HWARCH" != "aarch64" ] || [ "$SIGPI_HWARCH" != "armhf" ]; then
-    echo "ERROR:  010"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf (Raspberry Pi 3/4), or aarch64 (Raspberry Pi 4)"
+if [ "$SIGPI_HWARCH" == "x86" ]; then
+    $SIGPI_CERTIFIED=1
+else
+    echo "ERROR:  100 - Incorrect Hardware"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
+    echo "ERROR:"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+if [ "$SIGPI_HWARCH" == "x86_64" ]; then
+    $SIGPI_CERTIFIED=1
+else 
+    echo "ERROR:  100 - Incorrect Hardware"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
+    echo "ERROR:"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+if [ "$SIGPI_HWARCH" == "armhf" ]; then
+    $SIGPI_CERTIFIED=1
+else
+    echo "ERROR:  100 - Incorrect Hardware"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
+    echo "ERROR:"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+if [ "$SIGPI_HWARCH" == "aarch64" ]; then
+    $SIGPI_CERTIFIED=1
+else
+    echo "ERROR:  100 - Incorrect Hardware"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
 
 # Are we the right operating system
-if [ "$SIGPI_OSNAME" != "Debian GNU/Linux 11 (bullseye)" ] || [ "$SIGPI_OSNAME" != "Ubuntu 20.04.3 LTS" ]; then
-    echo "ERROR:  020"
-    echo "ERROR:  Operating System must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS"
+if [ "$SIGPI_OSNAME" == "Debian GNU/Linux 11 (bullseye)" ]; then
+    $SIGPI_CERTIFIED=1
+else
+    echo "ERROR:  200 - Incorrect Operating System"
+    echo "ERROR:"
+    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
+
+if [ "$SIGPI_OSNAME" == "Ubuntu 20.04.3 LTS" ]; then
+    $SIGPI_CERTIFIED=1
+else
+    echo "ERROR:  200 - Incorrect Operating System"
+    echo "ERROR:"
+    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
+    echo "ERROR:"
+    echo "ERROR:  Aborting"
+    exit 1;
+fi
+
+# If we reached this point our hardware and operating system are certified for SIGpi
 
 # Are we where we should be
 if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
     echo
 else
-    echo "ERROR:  030"
+    echo "ERROR:  300 - Software install setup issue"
+    echo "ERROR:"
     echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
     echo "ERROR:  and SIGpi_installer.sh run from there."
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
