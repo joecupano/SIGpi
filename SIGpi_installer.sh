@@ -64,13 +64,6 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### Environment tests
 ### 
 
-# Are we a sudoer
-if ![ 'id | grep sudo' ]; then
-    echo "ERROR:  007"
-    echo "ERROR:  Must be run as user with sudo privileges"
-    echo "ERROR:  Aborting"
-fi
-
 # Are we the right hardware
 if [ "$SIGPI_HWARCH" != "x86"] || [ "$SIGPI_HWARCH" != "x86_64"] || [ "$SIGPI_HWARCH" != "aarch64" ] || [ "$SIGPI_HWARCH" != "armhf" ]; then
     echo "ERROR:  010"
@@ -207,6 +200,7 @@ zenity_amateurradio(){
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
+        "HASviolet" "LoRa and FSK transciever project " OFF \
         "artemis" "Real-time SIGINT from your SDR " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
@@ -277,8 +271,8 @@ cd $SIGPI_SOURCE
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/package_rtl_433.sh install
 source $SIGPI_SCRIPTS/install_radiosonde.sh
+source $SIGPI_SCRIPTS/package_rtl_433.sh install
 source $SIGPI_SCRIPTS/package_direwolf.sh install
 source $SIGPI_SCRIPTS/package_linpac.sh install
 
@@ -350,6 +344,11 @@ fi
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/package_gpredict.sh install
+fi
+
+# HASviolet
+if grep HASviolet "$SIGPI_CONFIG"; then
+    source $SIGPI_SCRIPTS/package_hasviolet.sh install
 fi
 
 # Artemis
