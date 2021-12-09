@@ -67,46 +67,23 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we the right hardware
-if test "$SIGPI_HWARCH" = "x86"
-then
+if test "$SIGPI_HWARCH" = "x86"; then
     $SIGPI_CERTIFIED=1
-else
-    echo "ERROR:  100 - Incorrect Hardware"
-    echo "ERROR:"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
 fi
 
-if test "$SIGPI_HWARCH" = "x86_64"
-then
+if test "$SIGPI_HWARCH" = "x86_64"; then
     $SIGPI_CERTIFIED=1
-else 
-    echo "ERROR:  100 - Incorrect Hardware"
-    echo "ERROR:"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
 fi
 
-if test "$SIGPI_HWARCH" = "armhf"
-then
+if test "$SIGPI_HWARCH" = "armhf"; then
     $SIGPI_CERTIFIED=1
-else
-    echo "ERROR:  100 - Incorrect Hardware"
-    echo "ERROR:"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
 fi
 
-if test "$SIGPI_HWARCH" = "aarch64"
-then
+if test "$SIGPI_HWARCH" = "aarch64"; then
     $SIGPI_CERTIFIED=1
-else
+fi
+
+if $SIGPI_CERTIFIED != 1; then
     echo "ERROR:  100 - Incorrect Hardware"
     echo "ERROR:"
     echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
@@ -116,22 +93,15 @@ else
 fi
 
 # Are we the right operating system
-if test "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)"
-then
+if test "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)"; then
     $SIGPI_CERTIFIED=1
-else
-    echo "ERROR:  200 - Incorrect Operating System"
-    echo "ERROR:"
-    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
 fi
 
-if test "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS"
-then
+if test "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS"; then
     $SIGPI_CERTIFIED=1
-else
+fi
+
+if $SIGPI_CERTIFIED != 1; then
     echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
     echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
