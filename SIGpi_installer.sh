@@ -157,7 +157,12 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
 }
 
 zenity_sdrapps() {
@@ -176,12 +181,18 @@ select_amateurradio() {
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
         "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
+        "xastir" "Xastir provides mapping, tracking, messaging, weather, weather alerts" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
 }
 
 zenity_amateurradio(){
@@ -210,7 +221,12 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
 }
 
 zenity_usefulapps() {
@@ -301,6 +317,7 @@ if grep fldigi "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/package_fldigi.sh install
 fi
 
+# Fldigi 4.1.20
 #if grep fldigi4120 "$SIGPI_CONFIG"; then
 #    source $SIGPI_SCRIPTS/install_fldigi.sh
 #fi
@@ -310,26 +327,24 @@ if grep wsjtx "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/package_wsjtx.sh install
 fi
 
+# Xastir
+if grep xastir "$SIGPI_CONFIG"; then
+	source $SIGPI_SCRIPTS/package_xastir.sh install
+fi
+
 # QSSTV
 if grep qsstv "$SIGPI_CONFIG"; then
     source $SIGPI_SCRIPTS/package_qsstv.sh install
 fi
 
+# QSSTV 9.5.X
 #if grep qsstv95 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/install_qsstv95.sh
+#    source $SIGPI_SCRIPTS/package_qsstv95.sh
 #fi
 
 # JS8CALL
 if grep js8call "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install JS8CALL"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-	sudo apt-get install -y js8call
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+	source $SIGPI_SCRIPTS/package_js8call.sh install
 fi
 
 # Gpredict
@@ -359,41 +374,17 @@ fi
 
 # Audacity
 if grep audacity "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Audacity"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y audacity
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_audacity.sh install 
 fi
 
 # PAVU
 if grep pavu "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y pavucontrol
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_pavucontrol.sh install
 fi
 
 # splat
 if grep splat "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install SPLAT"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y splat
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_splat.sh install
 fi
 
 # SIGpi Menu
@@ -405,7 +396,6 @@ if [ -f /swapfile ]; then
     sudo swapoff /swapfile
     sleep 5
     sudo rm -rf /swapfile
-    exit 1;
 fi
 
 
