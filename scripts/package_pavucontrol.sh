@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### package_splat
+### package_pavucontrol
 ###
 
 ###
@@ -14,14 +14,14 @@
 if ( $1 == "remove"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove SPLAT"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove PAVU"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    sudo apt-get remove splat
+    sudo apt-get remove pavucontrol
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
@@ -29,19 +29,19 @@ fi
 if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge SPLAT"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge PAVU"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    sudo apt-get remove --purge splat
+    sudo apt-get remove --purge pavucontrol
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install SPLAT"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -50,13 +50,13 @@ echo -e "${SIGPI_BANNER_RESET}"
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install SPLAT"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
-sudo apt-get install -y splat
+sudo apt-get install -y pavucontrol
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Installed"
 echo -e "${SIGPI_BANNER_RESET}"
