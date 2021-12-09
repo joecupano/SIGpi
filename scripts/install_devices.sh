@@ -117,6 +117,20 @@ sudo make install
 sudo ldconfig
 
 
+# Ubertooth
+
+## DEPENDENCIES
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/greatscottgadgets/ubertooth.git
+cd ubertooth/host
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
+
+
 # SoapySDR
 
 ## DEPENDENCIES
@@ -136,7 +150,6 @@ make -j4
 sudo make install
 sudo ldconfig
 SoapySDRUtil --info
-
 
 # SoapyRTLSDR
 cd $SIGPI_SOURCE
