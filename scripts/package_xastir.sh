@@ -48,7 +48,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
-sudo apt-get install xastir
+sudo apt-get install -y xastir
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Installed"

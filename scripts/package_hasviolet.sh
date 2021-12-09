@@ -39,11 +39,6 @@ if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install HASviolet"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
 
 # DEPENDENCIES
 sudo apt-get -y install python3-pip
@@ -64,6 +59,11 @@ sudo pip3 install sparkfun-qwiic-bme280
 sudo pip3 install sparkfun-qwiic-vl53l1x
 
 # INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install HASviolet"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
 
 # GitHub Repos
 HASVIOLET_REPO="https://github.com/hudsonvalleydigitalnetwork/hasviolet.git"
@@ -81,7 +81,6 @@ echo " "
 sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -subj "/C=US/ST=New York/L=Hudson Valley/O=Hudson Valley Digital Network/OU=HASviolet/CN=hvdn.org" -keyout $HASVIOLET_HOME/HASVIOLET_api.key -out $HASVIOLET_HOME/HASVIOLET_api.crt
 sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.key >/dev/null 2>&1
 sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.crt >/dev/null 2>&1
-
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   HASviolet Installed"

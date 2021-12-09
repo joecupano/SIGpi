@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 == "remove"); then
+if ( $1 = "remove"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Linpac"
@@ -26,7 +26,7 @@ if ( $1 == "remove"); then
 fi
 
 # PURGE
-if ( $1 == "purge"); then
+if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge linpac"
@@ -39,11 +39,6 @@ if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Linpac"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
 
 # DEPENDENCIES
 

@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 == "remove"); then
+if ( $1 = "remove"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove WSJT-X"
@@ -26,7 +26,7 @@ if ( $1 == "remove"); then
 fi
 
 # PURGE
-if ( $1 == "purge"); then
+if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge WSJT-X"
@@ -43,18 +43,17 @@ if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install WSJT-X"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
 # DEPENDENCIES
 sudo apt-get install -y gfortran fftw3-dev qtbase5-dev qttools5-dev libqt5serialport5-dev  qtmultimedia5-dev 
 sudo apt-get install -y libqt5multimedia5-plugins libqt5sql5-sqlite autoconf automake libtool texinfo
 sudo apt-get install -y libusb-1.0-0-dev libudev-dev libboost-all-dev asciidoctor
 
 # INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install WSJT-X"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
 cd $SIGPI_SOURCE
 if [ "$SIGPI_HWARCH" == "x86" ] 
 then
