@@ -68,19 +68,19 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 
 # Are we the right hardware
 if test "$SIGPI_HWARCH" = "x86"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
 if test "$SIGPI_HWARCH" = "x86_64"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
 if test "$SIGPI_HWARCH" = "armhf"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
 if test "$SIGPI_HWARCH" = "aarch64"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
 if $SIGPI_CERTIFIED != 1; then
@@ -94,14 +94,14 @@ fi
 
 # Are we the right operating system
 if test "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
 if test "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS"; then
-    $SIGPI_CERTIFIED=1
+    SIGPI_CERTIFIED=1
 fi
 
-if $SIGPI_CERTIFIED != 1; then
+if test "$SIGPI_CERTIFIED" != 1; then
     echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
     echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
@@ -321,12 +321,12 @@ fi
 
 # gqrx
 if grep gqrx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gqrx-sdr install
+    source $SIGPI_SCRIPTS/package_gqrx-sdr.sh install
 fi
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_cubicsdr install
+    source $SIGPI_SCRIPTS/package_cubicsdr.sh install
 fi
 
 # SDRangel
