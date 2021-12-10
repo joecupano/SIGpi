@@ -64,9 +64,8 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Install HASviolet"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
-
-# GitHub Repos
-HASVIOLET_REPO="https://github.com/hudsonvalleydigitalnetwork/hasviolet.git"
+cd $SIGPI_SOURCE
+git clone https://github.com/hudsonvalleydigitalnetwork/hasviolet.git
 # Local (GitHub clone)
 HASVIOLET_HOME=$SIGPI_SOURCE/hasviolet
 # HASviolet JSON file
