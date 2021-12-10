@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_TCP Service"
@@ -29,7 +29,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTL_TCP Service"
@@ -46,8 +46,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -55,12 +53,14 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_TCP Service"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# RTL-SDR Service
+## DEPENDENCIES
+
+## PACKAGE
 sudo cp $SIGPI_SOURCE/scripts/rtlsdr.service /etc/systemd/system/rtlsdr.service
 sudo systemctl enable rtlsdr.service
 sudo systemctl start rtlsdr.service
-#sudo systemctl disable rtlsdr.service
-#sudo systemctl status rtlsdr.service
+sleep 5
+sudo systemctl status rtlsdr.service
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Installed"

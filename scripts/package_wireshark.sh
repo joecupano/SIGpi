@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Wireshark"
@@ -34,7 +34,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge Wireshark"
@@ -57,9 +57,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -67,6 +64,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Wireshark"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+
+## PACKAGE
 sudo apt-get install -y wireshark wireshark-dev libwireshark-dev
 cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
 mkdir build && cd build

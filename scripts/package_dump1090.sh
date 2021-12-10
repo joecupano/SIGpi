@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove dump1090"
@@ -25,7 +25,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge dump1090"
@@ -38,8 +38,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -47,6 +45,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Dump1090"
 echo -e "${SIGPI_BANNER_COLOR} #"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+
+## PACKAGE
 cd $SIGPI_SOURCE
 git clone https://github.com/antirez/dump1090.git
 cd dump1090

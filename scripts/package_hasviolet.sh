@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 == "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove HASviolet"
@@ -26,7 +26,7 @@ if ( $1 == "remove"); then
 fi
 
 # PURGE
-if ( $1 == "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
@@ -40,7 +40,14 @@ if ( $1 == "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
+# INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install HASviolet"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
 sudo apt-get -y install python3-pip
 sudo apt-get -y install python3-pil
 sudo apt-get -y install libatlas-base-dev        # Numpy Dependency
@@ -58,12 +65,7 @@ sudo pip3 install sparkfun-qwiic
 sudo pip3 install sparkfun-qwiic-bme280
 sudo pip3 install sparkfun-qwiic-vl53l1x
 
-# INSTALL
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install HASviolet"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
+## PACKAGE
 cd $SIGPI_SOURCE
 git clone https://github.com/hudsonvalleydigitalnetwork/hasviolet.git
 # Local (GitHub clone)

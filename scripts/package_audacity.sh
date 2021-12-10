@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Audacity"
@@ -26,7 +26,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge Audacity"
@@ -40,8 +40,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -49,6 +47,9 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Audacity"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+
+## PACKAGE
 cd $SIGPI_SOURCE
 sudo apt-get install -y audacity
 

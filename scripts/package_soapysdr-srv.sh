@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove SoapySDR Service"
@@ -29,7 +29,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge SoapySDR Service"
@@ -46,8 +46,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -55,12 +53,14 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install SoapySDR Service"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# SoapySDRServer Service
+## DEPENDENCIES
+
+## PACKAGE
 sudo cp $SIGPI_SOURCE/scripts/soapysdr.service /etc/systemd/system/soapysdr.service
 sudo systemctl enable soapysdr.service
 sudo systemctl start soapysdr.service
-#sudo systemctl disable soapysdr.service
-#sudo systemctl status soapysdr.service
+sleep 5
+sudo systemctl status soapysdr.service
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDR Service Installed"

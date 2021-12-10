@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Gpredict"
@@ -26,7 +26,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge Gpredict"
@@ -43,11 +43,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-sudo apt-get install -y intltool
-sudo apt-get install -y libcurl4-openssl-dev
-sudo apt-get install -y libgoocanvas-2.0-dev
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -55,6 +50,12 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Gpredict"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+sudo apt-get install -y intltool
+sudo apt-get install -y libcurl4-openssl-dev
+sudo apt-get install -y libgoocanvas-2.0-dev
+
+## PACKAGE
 cd $SIGPI_SOURCE
 sudo apt-get install -y gpredict
 

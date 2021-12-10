@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Fldigi"
@@ -45,7 +45,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge Fldigi"
@@ -84,7 +84,14 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
+# INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Fldigi Suite"
+echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
 sudo apt-get install -y libfltk1.3-dev
 sudo apt-get install -y libjpeg9-dev
 sudo apt-get install -y libxft-dev
@@ -99,14 +106,9 @@ sudo apt-get install -y libpulse-dev
 sudo apt-get install -y libudev-dev
 sudo apt-get install -y texinfo
 
-# INSTALL
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#   Install Fldigi Suite"
-echo -e "${SIGPI_BANNER_COLOR} #SIGPI#"
-echo -e "${SIGPI_BANNER_RESET}"
+## PACKAGE
 
-# Install FLxmlrpc
+### Flxmlrpc
 wget http://www.w1hkj.com/files/flxmlrpc/flxmlrpc-0.1.4.tar.gz -P $HOME/Downloads
 tar -zxvf $HOME/Downloads/flxmlrpc-0.1.4.tar.gz -C $SIGPI_SOURCE
 cd $SIGPI_SOURCE/flxmlrpc-0.1.4
@@ -115,7 +117,7 @@ make
 sudo make install
 sudo ldconfig
 	
-# Install FLrig
+### Flrig
 wget http://www.w1hkj.com/files/flrig/flrig-1.4.2.tar.gz -P $HOME/Downloads
 tar -zxvf $HOME/Downloads/flrig-1.4.2.tar.gz -C $SIGPI_SOURCE
 cd $SIGPI_SOURCE/flrig-1.4.2
@@ -125,7 +127,7 @@ sudo make install
 sudo ldconfig
 sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $SIGPI_DESKTOP
 
-#Install Fldigi
+### Fldigi
 wget http://www.w1hkj.com/files/fldigi/fldigi-4.1.20.tar.gz -P $HOME/Downloads
 tar -zxvf $HOME/Downloads/fldigi-4.1.20.tar.gz -C $SIGPI_SOURCE
 cd $SIGPI_SOURCE/fldigi-4.1.20

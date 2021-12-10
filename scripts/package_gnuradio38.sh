@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### package_gnuradio
+### package_gnuradio38
 ###
 
 ###
@@ -11,25 +11,25 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio 3.8"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
     sudo apt-get remove gnuradio gnuradio-dev
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio 3.8"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -39,11 +39,9 @@ if ( $1 = "purge"); then
     sudo rm -rf $DESKTOP_FILES/gnuradio-grc.desktop
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
-
-# DEPENDENCIES
 
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
@@ -52,8 +50,11 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+
+## PACKAGE
 sudo apt-get install -y gnuradio gnuradio-dev
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   GnuRadio INstalled"
+echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Installed"
 echo -e "${SIGPI_BANNER_RESET}"

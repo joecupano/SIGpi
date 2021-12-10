@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
@@ -54,7 +54,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
@@ -103,7 +103,14 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
+# INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel (ETA: +80 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
 sudo apt-get install -y libfftw3-dev
 sudo apt-get install -y libusb-1.0-0-dev
 sudo apt-get install -y libusb-dev
@@ -153,14 +160,9 @@ sudo apt-get install -y libqt5serialport5-dev
 sudo apt-get install -y libqt5positioning5
 sudo apt-get install -y libqt5positioning5-plugins
 
-# INSTALL
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel (ETA: +80 Minutes)"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
+## PACKAGE
 
-# CM256cc
+### CM256cc
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/cm256cc.git
 cd cm256cc
@@ -171,7 +173,7 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# MBElib
+### MBElib
 cd $SIGPI_SOURCE
 git clone https://github.com/szechyjs/mbelib.git
 cd mbelib
@@ -182,7 +184,7 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# SerialDV
+### SerialDV
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/serialDV.git
 cd serialDV
@@ -193,7 +195,7 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# DSDcc
+### DSDcc
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/dsdcc.git
 cd dsdcc
@@ -204,8 +206,8 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# Codec2/FreeDV
-# Codec2 is already installed from the packager, but this version is required for SDRangel.
+### Codec2/FreeDV
+### Codec2 is already installed from the packager, but this version is required for SDRangel.
 cd $SIGPI_SOURCE
 git clone https://github.com/drowe67/codec2.git
 cd codec2
@@ -216,7 +218,7 @@ make -j4
 sudo make install
 sudo ldconfig
 
-#SDRangel
+###SDRangel
 cd $SIGPI_SOURCE
 git clone https://github.com/f4exb/sdrangel.git
 cd sdrangel
@@ -228,13 +230,12 @@ make -j4
 sudo make install
 sudo ldconfig
 
-# Copy special startup script for this snowflake
+### Copy special startup script for this snowflake
 sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/run_sdrangel.sh
 
-# Add VOX for Transimtting with SDRangel
+### Add VOX for Transimtting with SDRangel
 cd $SIGPI_SOURCE
-git clone https://gitlab.wibisono.or.id/published/voxangel.git
-
+git clone https://github.com/texasyojimbo/voxangel
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"

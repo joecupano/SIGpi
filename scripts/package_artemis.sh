@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove Artemis"
@@ -26,7 +26,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge Artemis"
@@ -40,8 +40,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -49,9 +47,12 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Artemis"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+
+## PACKAGE
 cd $SIGPI_SOURCE 
 if grep artemis "$SIGPI_CONFIG"; then
-	if test "$SIGPI_HWARCH" = "x86"; then
+	if [ "$SIGPI_HWARCH" = "x86" ]; then
    		cd $HOME/Downloads
 		# Note; this link specific to Ubuntu OS
 		wget https://aresvalley.com/download/193/ 
@@ -61,7 +62,7 @@ if grep artemis "$SIGPI_CONFIG"; then
 		sudo cp artemis3.svg /usr/share/icons/
 	fi
 	
-	if test "$SIGPI_HWARCH" = "x86_64"; then
+	if [ "$SIGPI_HWARCH" = "x86_64" ]; then
    		cd $HOME/Downloads
 		# Note; this link specific to Ubuntu OS
 		wget https://aresvalley.com/download/193/ 
@@ -71,7 +72,7 @@ if grep artemis "$SIGPI_CONFIG"; then
 		sudo cp artemis3.svg /usr/share/icons/
 	fi
 	
-	if test "$SIGPI_HWARCH" = "armhf"; then
+	if [ "$SIGPI_HWARCH" = "armhf" ]; then
 		cd $HOME/Downloads
 		# Note; this link specific to Raspberry Pi OS
 		wget https://aresvalley.com/download/1045/ 
@@ -81,7 +82,7 @@ if grep artemis "$SIGPI_CONFIG"; then
 		sudo cp artemis3.svg /usr/share/icons/
 	fi
 
-	if test "$SIGPI_HWARCH" = "aarch64"; then
+	if [ "$SIGPI_HWARCH" = "aarch64" ]; then
 		cd $HOME/Downloads
 		# Note; this link specific to Raspberry Pi OS
 		wget https://aresvalley.com/download/1045/ 

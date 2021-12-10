@@ -11,10 +11,10 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio 3.9"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -25,15 +25,15 @@ if ( $1 = "remove"); then
 	rm -rf $SIGPI_SOURCE/gnuradio
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio 3.9"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -47,11 +47,18 @@ if ( $1 = "purge"); then
     sudo rm -rf $DESKTOP_FILES/gnuradio-grc.desktop
     
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
+# INSTALL
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.9  (ETA: +60 Minutes)"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
 sudo apt-get install -y libboost-all-dev
 sudo apt-get install -y swig
 sudo apt-get install -y libzmq3-dev
@@ -86,13 +93,7 @@ sudo apt-get install -y python3-scipy
 sudo apt-get install -y python3-pip
 sudo apt-get install -y python3-gi-cairo
 
-# INSTALL
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8    (ETA: +60 Minutes)"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
+## PACKAGE
 cd $SIGPI_SOURCE
 git clone https://github.com/gnuradio/gnuradio.git
 cd gnuradio
@@ -108,5 +109,5 @@ echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/pyth
 echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   GnuRadio INstalled"
+echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Installed"
 echo -e "${SIGPI_BANNER_RESET}"

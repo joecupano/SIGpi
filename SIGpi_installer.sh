@@ -43,8 +43,8 @@ SIGPI_BANNER_RESET="\e[0m"
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
 # Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
-# Is Platform good for install- 1 = yes , any othe rnumber no
-SIGPI_CERTIFIED=999
+# Is Platform good for install- true or false - we start with false
+SIGPI_CERTIFIED="false"
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
@@ -67,23 +67,23 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we the right hardware
-if test "$SIGPI_HWARCH" = "x86"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_HWARCH" = "x86" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if test "$SIGPI_HWARCH" = "x86_64"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_HWARCH" = "x86_64" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if test "$SIGPI_HWARCH" = "armhf"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_HWARCH" = "armhf" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if test "$SIGPI_HWARCH" = "aarch64"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_HWARCH" = "aarch64" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if $SIGPI_CERTIFIED != 1; then
+if [ "$SIGPI_CERTIFIED" ="false" ]; then
     echo "ERROR:  100 - Incorrect Hardware"
     echo "ERROR:"
     echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
@@ -93,15 +93,15 @@ if $SIGPI_CERTIFIED != 1; then
 fi
 
 # Are we the right operating system
-if test "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if test "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS"; then
-    SIGPI_CERTIFIED=1
+if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-if test "$SIGPI_CERTIFIED" != 1; then
+if [ "$SIGPI_CERTIFIED" ="false" ]; then
     echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
     echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
@@ -307,6 +307,7 @@ source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_SCRIPTS/install_radiosonde.sh
 source $SIGPI_SCRIPTS/package_rtl_433.sh install
+source $SIGPI_SCRIPTS/package_ubertooth.sh install
 source $SIGPI_SCRIPTS/package_direwolf.sh install
 source $SIGPI_SCRIPTS/package_linpac.sh install
 
@@ -347,7 +348,7 @@ fi
 
 # Fldigi 4.1.20
 #if grep fldigi4120 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/install_fldigi.sh
+#    source $SIGPI_SCRIPTS/package_fldigi-latest.sh install
 #fi
 
 # WSJT-X
@@ -367,7 +368,7 @@ fi
 
 # QSSTV 9.5.X
 #if grep qsstv95 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/package_qsstv95.sh
+#    source $SIGPI_SCRIPTS/package_qsstv95.sh install
 #fi
 
 # JS8CALL

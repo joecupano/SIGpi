@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### package_rtl_433
+### package_ubertooth
 ###
 
 ###
@@ -11,21 +11,20 @@
 ###
 
 # REMOVE
-if [ $1 = "remove" ] then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_433"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Remove Ubertooth Tools"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    cd $SIGPI_SOURCE/rtl_433/build
+    cd $SIGPI_SOURCE/ubertooth/host/build
     sudo make uninstall
-    sudo ldconfig
     cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl_433
-    
+    rm -rf $SIGPI_SOURCE/ubertooth
+
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Removed"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Removed"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
@@ -33,43 +32,43 @@ fi
 if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTL_433"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Purge Ubertooth Tools"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    cd $SIGPI_SOURCE/rtl_433/build
+    cd $SIGPI_SOURCE/ubertooth/host/build
     sudo make uninstall
-    sudo ldconfig
     cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl_433
-
+    rm -rf $SIGPI_SOURCE/ubertooth
+    
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Purged"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Purged"
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_433"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Ubertooth Tools"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y libtool libssl-dev
+sudo apt-get install -y libusb-1.0-0-dev 
+sudo apt-get install -y libbluetooth-dev 
+sudo apt-get install -y python3-qtpy 
+sudo apt-get install -y python3-distutils 
+sudo apt-get install -y python3-setuptools
 
 ## PACKAGE
 cd $SIGPI_SOURCE
-git clone https://github.com/merbanan/rtl_433.git
-cd rtl_433
+git clone https://github.com/greatscottgadgets/ubertooth.git
+cd ubertooth/host
 mkdir build && cd build
 cmake ..
 make -j4
 sudo make install
-sudo ldconfig
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Installed"
-echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Installed"
 echo -e "${SIGPI_BANNER_RESET}"

@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if ( $1 = "remove"); then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove DireWolf"
@@ -27,7 +27,7 @@ if ( $1 = "remove"); then
 fi
 
 # PURGE
-if ( $1 = "purge"); then
+if [ $1 = "purge" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Purge DireWolf"
@@ -46,12 +46,6 @@ if ( $1 = "purge"); then
     echo -e "${SIGPI_BANNER_RESET}"
 fi
 
-# DEPENDENCIES
-sudo apt-get install -y libasound2-dev
-sudo apt-get install -y libudev-dev
-sudo apt-get install -y libgps-dev
-sudo apt-get install -y libhamlib-dev
-
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -59,6 +53,13 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install DireWolf"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
+## DEPENDENCIES
+sudo apt-get install -y libasound2-dev
+sudo apt-get install -y libudev-dev
+sudo apt-get install -y libgps-dev
+sudo apt-get install -y libhamlib-dev
+
+## PACKAGE
 cd $SIGPI_SOURCE
 git clone https://www.github.com/wb2osz/direwolf.git
 cd direwolf
