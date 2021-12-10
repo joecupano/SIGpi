@@ -55,24 +55,26 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install WSJT-X"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 cd $SIGPI_SOURCE
-if [ "$SIGPI_HWARCH" == "x86" ] 
-then
-
+if [ "$SIGPI_HWARCH" == "x86" ]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Not available on x86"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
 fi
 
-if [ "$SIGPI_HWARCH" == "x86_64"]
+if [ "$SIGPI_HWARCH" == "x86_64"]; then
 	cd $HOME/Downloads
 	wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_amd64.deb -P $HOME/Downloads
 	sudo dpkg -i wsjtx_2.5.2_amd64.deb
 fi
 
-if [ "$SIGPI_HWARCH" == "armhf"]
+if [ "$SIGPI_HWARCH" == "armhf"]; then
 	cd $HOME/Downloads
 	wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_armhf.deb -P $HOME/Downloads
 	sudo dpkg -i wsjtx_2.5.2_armhf.deb
 fi
 
-if [ "$SIGPI_HWARCH" == "aarch64"]
+if [ "$SIGPI_HWARCH" == "aarch64"]; then
 	cd $HOME/Downloads
 	wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_amd64.deb -P $HOME/Downloads
 	sudo dpkg -i wsjtx_2.5.2_amd64.deb
