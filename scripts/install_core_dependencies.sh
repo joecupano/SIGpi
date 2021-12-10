@@ -24,7 +24,7 @@ sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-de
 # Following need to occur earlier in build
 sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac-dev faac faad pulseaudio pcmanfm
 # libwxgtk3.0-dev has no candidate in Ubuntu 20.04, libwxgtk3.0-gtk3-dev is its replacement
-sudo apt-get install -y libwxgtk3.0-gtk3-dev
+sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev
 
 # Qt5 Base Packages
 sudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tools
