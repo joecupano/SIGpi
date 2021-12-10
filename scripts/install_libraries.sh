@@ -86,13 +86,13 @@ sudo apt-get install -y libfaad-dev zlib1g-dev
 #sudo apt-get install -y mesa-common-dev libgl1-mesa-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/JvanKatwijk/dab-cmdline.git
-cd dab-cmdline/library
+cd $SIGPI_SOURCE/dab-cmdline/library
 mkdir build && cd build
 cmake ..
 make -j4
 sudo make install
 sudo ldconfig
-cd dab-cmdline/example-2
+cd $SIGPI_SOURCE/dab-cmdline/example-2
 mkdir build && cd build
 cmake .. -DRTLSDR=on
 sudo make install
