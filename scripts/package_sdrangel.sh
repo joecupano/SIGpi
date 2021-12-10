@@ -107,31 +107,10 @@ fi
 sudo apt-get install -y libfftw3-dev
 sudo apt-get install -y libusb-1.0-0-dev
 sudo apt-get install -y libusb-dev
-sudo apt-get install -y qt5-default
-sudo apt-get install -y qtbase5-dev
-sudo apt-get install -y qtchooser
-sudo apt-get install -y libqt5multimedia5-plugins
-sudo apt-get install -y qtmultimedia5-dev
-sudo apt-get install -y libqt5websockets5-dev
-sudo apt-get install -y qttools5-dev
-sudo apt-get install -y qttools5-dev-tools
-sudo apt-get install -y libqt5opengl5-dev
-sudo apt-get install -y qtbase5-dev
-sudo apt-get install -y libqt5quick5
-sudo apt-get install -y libqt5charts5-dev
-sudo apt-get install -y qml-module-qtlocation
-sudo apt-get install -y qml-module-qtpositioning
-sudo apt-get install -y qml-module-qtquick-window2
-sudo apt-get install -y qml-module-qtquick-dialogs
-sudo apt-get install -y qml-module-qtquick-controls
-sudo apt-get install -y qml-module-qtquick-layouts
-sudo apt-get install -y libqt5serialport5-dev
-sudo apt-get install -y libqt5texttospeech5-dev
-sudo apt-get install -y qtdeclarative5-dev
-sudo apt-get install -y qtpositioning5-dev
-sudo apt-get install -y qtlocation5-dev
 sudo apt-get install -y libboost-all-dev
 sudo apt-get install -y libasound2-dev
+sudo apt-get install -y libgl1-mesa-dev 
+sudo apt-get install -y gettext
 sudo apt-get install -y pulseaudio
 sudo apt-get install -y libopencv-dev
 sudo apt-get install -y libxml2-dev
@@ -140,8 +119,39 @@ sudo apt-get install -y flex
 sudo apt-get install -y ffmpeg
 sudo apt-get install -y libavcodec-dev
 sudo apt-get install -y libavformat-dev
+sudo apt-get install -y opus-tools
 sudo apt-get install -y libopus-dev
 sudo apt-get install -y graphviz
+sudo apt-get install -y qt5-default
+sudo apt-get install -y qt5-qmake
+sudo apt-get install -y qtscript5-dev
+sudo apt-get install -y qtbase5-dev
+sudo apt-get install -y qtbase5-dev-tool
+sudo apt-get install -y qtchooser
+sudo apt-get install -y qtmultimedia5-dev
+sudo apt-get install -y qml-module-qtlocation
+sudo apt-get install -y qml-module-qtpositioning
+sudo apt-get install -y qml-module-qtquick-window2
+sudo apt-get install -y qml-module-qtquick-dialogs
+sudo apt-get install -y qml-module-qtquick-controls
+sudo apt-get install -y qml-module-qtquick-layouts
+sudo apt-get install -y qttools5-dev
+sudo apt-get install -y qttools5-dev-tools
+sudo apt-get install -y qtdeclarative5-dev
+sudo apt-get install -y qtpositioning5-dev
+sudo apt-get install -y qtlocation5-dev
+sudo apt-get install -y qtbase5-dev
+sudo apt-get install -y libqt5opengl5-dev
+sudo apt-get install -y libqt5quick5
+sudo apt-get install -y libqt5charts5-dev
+sudo apt-get install -y libqt5websockets5-dev
+sudo apt-get install -y libqt5multimedia5-plugins
+sudo apt-get install -y libqt5serialport5-dev
+sudo apt-get install -y libqt5texttospeech5-dev
+sudo apt-get install -y libqt5svg5-dev 
+sudo apt-get install -y libqt5serialport5-dev
+sudo apt-get install -y libqt5positioning5
+sudo apt-get install -y libqt5positioning5-plugins
 
 # INSTALL
 echo -e "${SIGPI_BANNER_COLOR}"
@@ -156,7 +166,7 @@ git clone https://github.com/f4exb/cm256cc.git
 cd cm256cc
 git reset --hard c0e92b92aca3d1d36c990b642b937c64d363c559
 mkdir build; cd build
-cmake -Wno-dev ''
+cmake -Wno-dev ..
 make -j4
 sudo make install
 sudo ldconfig
@@ -170,16 +180,7 @@ mkdir build; cd build
 cmake -Wno-dev ..
 make -j4
 sudo make install
-sudo ldconfigsudo apt-get install -y qtbase5-dev qtchooser qt5-qmake qtbase5-dev-tool
-sudo apt-get install -y libqt5websockets5-dev qtmultimedia5-dev qtpositioning5-dev
-sudo apt-get install -y libqt5charts5-dev
-sudo apt-get install -y libgl1-mesa-dev graphviz doxygen gettext \
-  qtscript5-dev libqt5svg5-dev qttools5-dev-tools qttools5-dev \
-  libqt5opengl5-dev qtmultimedia5-dev libqt5multimedia5-plugins \
-  libqt5serialport5 libqt5serialport5-dev qtpositioning5-dev libgps-dev \
-  libqt5positioning5 libqt5positioning5-plugins
-sudo apt-get install -y qtlocation5-dev libqt5texttospeech5-dev libboost-all-dev
-sudo apt-get install -y opus-tools libopus-dev
+sudo ldconfig
 
 # SerialDV
 cd $SIGPI_SOURCE
