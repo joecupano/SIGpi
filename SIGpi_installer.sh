@@ -83,7 +83,7 @@ if [ "$SIGPI_HWARCH" = "aarch64" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-if [ "$SIGPI_CERTIFIED" ="false" ]; then
+if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  100 - Incorrect Hardware"
     echo "ERROR:"
     echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
@@ -101,7 +101,7 @@ if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-if [ "$SIGPI_CERTIFIED" ="false" ]; then
+if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
     echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."

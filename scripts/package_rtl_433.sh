@@ -11,7 +11,7 @@
 ###
 
 # REMOVE
-if [ $1 = "remove" ] then
+if [ $1 = "remove" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_433"
