@@ -119,25 +119,6 @@ sudo make install
 sudo ldconfig
 
 
-# Ubertooth
-
-## DEPENDENCIES
-sudo apt-get install -y libusb-1.0-0-dev 
-sudo apt-get install -y libbluetooth-dev 
-sudo apt-get install -y python3-qtpy 
-sudo apt-get install -y python3-distutils 
-sudo apt-get install -y python3-setuptools
-
-## INSTALL
-cd $SIGPI_SOURCE
-git clone https://github.com/greatscottgadgets/ubertooth.git
-cd ubertooth/host
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-
-
 # SoapySDR
 
 ## DEPENDENCIES
