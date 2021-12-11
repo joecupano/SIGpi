@@ -108,19 +108,6 @@ fi
 
 # If we reached this point our hardware and operating system are certified for SIGpi
 
-# Are we where we should be
-if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
-    echo
-else
-    echo "ERROR:  300 - Software install setup issue"
-    echo "ERROR:"
-    echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
-    echo "ERROR:  and SIGpi_installer.sh run from there."
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
-fi
-
 
 ###
 ### FUNCTIONS
