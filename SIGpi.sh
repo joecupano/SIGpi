@@ -120,8 +120,8 @@ fi
 
 ACTION=$1
 SIG_PACKAGE=$2
-SIG_PKGSCRIPT="package_$2"
+SIG_PKGSCRIPT="pkg_$2"
 
-source $SIGPI_SCRIPTS/$2 $1
+source $SIGPI_SCRIPTS/$SIG_PKGSCRIPT $1
 
 exit 0
