@@ -16,18 +16,15 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # SIGserver RS Home Directory
-SIGPI_RSONDE=$SIGPI_SOURCE/RadioSonde
+SIGPI_RSONDE=$SIGPI_SOURCE/RS
 
-if [ ! -d "$SIGPI_RSONDE" ]; then
-  	mkdir $SIGPI_RSONDE
-if
+cd $SIGPI_SOURCE
 
-cd $SIGPI_RSONDE
 git clone https://github.com/rs1729/RS.git
 
 echo "  "
 echo "  ##   -- RS92"
-cd $SIGPI_RSONDE/RS/rs92
+cd $SIGPI_RSONDE/rs92
 gcc rs92gps.c -lm -o rs92gps
 sudo chown root:root rs92gps
 sudo cp rs92gps /usr/local/bin
@@ -188,7 +185,7 @@ echo "  ##   -- Tools"
 cd $SIGPI_RSONDE/tools
 #pa-stdout.c  compile issued with undfined references so skipping
 #chown root:root metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl
-sudo cp metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl postnmea.p1 /usr/local/bin
+sudo cp metno_netcdf_gpx.py pos2aprs.py pos2gpx.pl pos2kml.pl pos2nmea.pl /usr/local/bin
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
