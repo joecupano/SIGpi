@@ -176,7 +176,7 @@ Some satellites have packet capability. Gpredict is a real-time satellite tracki
 
 ## Example Hardware Setup
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgournds/SIGpi_architecture.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
 
 ### Power
 
