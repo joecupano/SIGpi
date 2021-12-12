@@ -2,8 +2,8 @@
 
 ## Release 4.1: 2021-12-12
 - Fixed RadioSonde install
-- Fixed Artemis install (hopefully)
-- Start SIGpi Package Manager framework
+- Artemis install broken for RPi for now
+- Post install can pop (remove) and push (install) SIGpi Packages using SIGpi_popper and SIGPi_pusher scripts
 
 ## Release 4.0: 2021-11-27
 - Implemented SIGprojects software architecture model

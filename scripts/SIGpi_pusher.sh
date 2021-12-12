@@ -49,7 +49,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
+if grep -q $1 $SIGPI_ETC/INSTALL_CONFIG; then
     if -f [$SIGPI_SOURCE/$1]; then
         echo "ERROR:  121"
         echo "ERROR:  You must remove the package first using SIGpi_popper <PACKAGE>"
@@ -58,6 +58,7 @@ if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
     fi
     SIGPI_INSTALLER="package_"$1".sh"
     source $SIGPI_SCRIPTS/$SIGPI_INSTALLER
+    echo $1 >> $SIGPI_ETC/INSTALL_CONFIG
 else
     echo "ERROR:  111"
     echo "ERROR:  No such SIGpi package "
