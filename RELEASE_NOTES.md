@@ -1,7 +1,12 @@
 # Release Notes
 
+## Release 4.1: 2021-12-12
+- Fixed RadioSonde install
+- Artemis install broken for RPi for now
+- Post install can pop (remove) and push (install) SIGpi Packages using SIGpi_popper and SIGPi_pusher scripts
+
 ## Release 4.0: 2021-11-30
-- Implemente SIGprojects software architecture model
+- Implemented SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
 - Added Artemis, CygnusRFI, JS8CALL, GNuradio 3.8 (repo) and 3.9 (compiled) options
 - Added HASviolet (Delaware Release)

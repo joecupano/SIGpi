@@ -1,6 +1,6 @@
 # SIGpi
 
-Release: 20211130-1700
+Release: 20211130-0500
 
 ## Introduction
 
@@ -13,7 +13,7 @@ Much how you see Amateur Radio operators build "go-kits" for remote or emergency
 - [Raspberry Pi OS Full "Bullseye" 32 bit](https://www.raspberrypi.com/software/) or [64 Bit](https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-11-08/)
 
 ### How about other architectures?
-There is also a build script for Ubuntu 20.04 LTS at [SIGbox repo](https://github.com/joecupano/SIGbox)
+There is also a build script for Ubuntu 20.04 LTS Desktop at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
 ## Install
 
