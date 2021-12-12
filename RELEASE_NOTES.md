@@ -5,7 +5,7 @@
 - Artemis install broken for RPi for now
 - Post install can pop (remove) and push (install) SIGpi Packages using SIGpi_popper and SIGPi_pusher scripts
 
-## Release 4.0: 2021-11-27
+## Release 4.0: 2021-11-30
 - Implemented SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
 - Added Ettus Research UHD device install script
