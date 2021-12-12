@@ -114,7 +114,7 @@ AFSK, FSK, Packet, APRS Communications
 
 Amateur Radio
 * [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [WSJT-X 2.5.1](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
+* [WSJT-X 2.5.2](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
 * [js8call](http://js8call.com/) JS8 mode
 * [QSSTV 9.4.4](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
 
@@ -176,7 +176,7 @@ Some satellites have packet capability. Gpredict is a real-time satellite tracki
 
 ## Example Hardware Setup
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/dependencies/SIGpi_architecture_v2.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgournds/SIGpi_architecture.png)
 
 ### Power
 

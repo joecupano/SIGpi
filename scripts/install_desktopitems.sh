@@ -38,16 +38,9 @@ else
 fi
 
 # Add Desktop links
-sudo cp $SIGPI_SOURCE/desktop/artemis.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/gnuradio/grc/scripts/freedesktop/gnuradio-grc.desktop $DESKTOP_FILES
+sudo cp $SIGPI_HOME/desktop/artemis.desktop $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/desktop/sdrangel.desktop $DESKTOP_FILES
 sudo cp $SIGPI_SOURCE/SDRPlusPlus/build/sdrpp.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/qsstv/qsstv.desktop $DESKTOP_FILES
-sudo cp $SIGPI_SOURCE/desktop/xastir.desktop $DESKTOP_FILES
 sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
 sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
@@ -92,6 +85,16 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.director
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/xastir.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigidwiki.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_home.desktop
+
+
+# What operating system are we?
+if [ $SIGPI_OSNAME = "Ubuntu 20.04.3 LTS" ]; then
+    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
+    gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'sigidwiki.desktop','org.gnome.Terminal.desktop',\
+     'artemis.desktop', 'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
+     'fldigi.desktop', 'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
+fi
+
 
 
 echo -e "${SIGPI_BANNER_COLOR}"

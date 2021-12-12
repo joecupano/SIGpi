@@ -12,11 +12,16 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Libraries"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# Hamlib
-wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
-tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
-cd $SIGPI_SOURCE/hamlib-4.3.1
-./configure --prefix=/usr/local --enable-static
+# Hamlib 4.3.1 (09/13/21)
+#wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
+#tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
+#cd $SIGPI_SOURCE/hamlib-4.3.1
+
+# Hamlib 4.4 (12/02/21)
+wget https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz -P $HOME/Downloads
+tar -zxvf $HOME/Downloads/hamlib-4.4.tar.gz -C $SIGPI_SOURCE
+cd $SIGPI_SOURCE/hamlib-4.4
+./configure
 make
 sudo make install
 sudo ldconfig
@@ -81,13 +86,13 @@ sudo apt-get install -y libfaad-dev zlib1g-dev
 #sudo apt-get install -y mesa-common-dev libgl1-mesa-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/JvanKatwijk/dab-cmdline.git
-cd dab-cmdline/library
+cd $SIGPI_SOURCE/dab-cmdline/library
 mkdir build && cd build
 cmake ..
 make -j4
 sudo make install
 sudo ldconfig
-cd dab-cmdline/example-2
+cd $SIGPI_SOURCE/dab-cmdline/example-2
 mkdir build && cd build
 cmake .. -DRTLSDR=on
 sudo make install

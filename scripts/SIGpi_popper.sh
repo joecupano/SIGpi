@@ -17,19 +17,21 @@ SIGPI_SOURCE=$HOME/SIG
 
 # SIGpi directories
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
-SIGPI_DEP=$SIGPI_HOME/dependencies
+SIGPI_ETC=$SIGPI_HOME/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 
 # SigPi Install Support files
-SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
-SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
+SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
+SIGPI_INSTALL_TXT1=$SIGPI_ETC/SIGpi-installer-1.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
-# Detect architecture (x86, x86_64, amd64, armv7l etc)
-SIGPI_MACHINE_TYPE=`uname -m`
-#SIGPI_OSID='cat /etc/os-release|grep ID=ubuntu|sed "s/"ID="//"'
-#SIGPI_VERID='cat /etc/os-release|grep VERSION_ID|sed "s/"VERSION_ID="//"'
+# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
+SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
+# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
+SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
+# Is Platform good for install- true or false - we start with false
+SIGPI_CERTIFIED="false"
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
@@ -47,21 +49,16 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-###
-### Environment tests
-### 
-
-# Are we the user Pi
-if [ $(whoami) != 'pi' ]; then
-    echo "ERROR:  007"
-    echo "ERROR:  Must be run as the user Pi with sudo privileges"
-    echo "ERROR:  Aborting"
-fi
-
-if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
-    cd $SIGPI_SOURCE/$1/build
-    sudo make uninstall
-    sudo rm -rf $SIGPI_SOURCE/$1
+if grep -q $1 $SIGPI_ETC/INSTALL_CONFIG; then
+    if [ -f $SIGPI_SOURCE/$1/build ]; then
+        cd $SIGPI_SOURCE/$1/build
+        sudo make uninstall
+        sudo rm -rf $SIGPI_SOURCE/$1
+        sed -i /$string/d  $SIGPI_ETC/INSTALL_CONFIG
+    else
+        sudo rm -rf $SIGPI_SOURCE/$1
+        sed -i /$string/d  $SIGPI_ETC/INSTALL_CONFIG
+    fi
 else
     echo "ERROR:  111"
     echo "ERROR:  No such SIGpi package "

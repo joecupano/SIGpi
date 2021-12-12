@@ -9,11 +9,16 @@
 ###
 
 ###
-### This script is part of the SIGbox Project.
+###  Usage:    SIGpi_installer
 ###
-### Given a Raspberry Pi 4 4GB RAM 32GB microSD with Raspberry Pi OS Full (32-bit) installed
-### This script installs drivers and applications for RF use cases that include hacking and 
-### Amateur Radio Digital Modes.
+###            Fresh install of SIGpi on a fresh OS install
+###
+###
+###
+###
+###
+###
+###
 ###
 
 ###
@@ -25,19 +30,21 @@ SIGPI_SOURCE=$HOME/SIG
 
 # SIGpi directories
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
-SIGPI_DEP=$SIGPI_HOME/dependencies
+SIGPI_ETC=$SIGPI_HOME/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 
 # SigPi Install Support files
-SIGPI_CONFIG=$SIGPI_HOME/INSTALL_CONFIG
-SIGPI_INSTALL_TXT1=$SIGPI_DEP/SIGpi-installer-1.txt
+SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
+SIGPI_INSTALL_TXT1=$SIGPI_ETC/SIGpi-installer-1.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
-# Detect architecture (x86, x86_64, amd64, armv7l etc)
-SIGPI_MACHINE_TYPE=`uname -m`
-#SIGPI_OSID='cat /etc/os-release|grep ID=ubuntu|sed "s/"ID="//"'
-#SIGPI_VERID='cat /etc/os-release|grep VERSION_ID|sed "s/"VERSION_ID="//"'
+# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
+SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
+# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
+SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
+# Is Platform good for install- true or false - we start with false
+SIGPI_CERTIFIED="false"
 
 # Desktop directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
@@ -59,36 +66,61 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### Environment tests
 ### 
 
-# Are we the user Pi
-if [ $(whoami) != 'pi' ]; then
-    echo "ERROR:  007"
-    echo "ERROR:  Must be run as the user Pi with sudo privileges"
-    echo "ERROR:  Aborting"
+# Are we the right hardware
+if [ "$SIGPI_HWARCH" = "x86" ]; then
+    SIGPI_CERTIFIED="true"
 fi
 
-# Are we the right hardware
-if !'cat /proc/cpuinfo |grep "Pi 4"'; then
-    echo "ERROR:  010"
-    echo "ERROR:  Hardware must be Raspberry Pi 4 Model B or better"
+if [ "$SIGPI_HWARCH" = "x86_64" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+if [ "$SIGPI_HWARCH" = "armhf" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+if [ "$SIGPI_HWARCH" = "aarch64" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+if [ "$SIGPI_CERTIFIED" = "false" ]; then
+    echo "ERROR:  100 - Incorrect Hardware"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
 
 # Are we the right operating system
-if !'cat /etc/os-release | grep "VERSION" | grep "11 (bullseye)"'; then
-    echo "ERROR:  020"
-    echo "ERROR:  Operating System must be Raspbian GNU/Linux 11 (bullseye)"
+if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+if [ "$SIGPI_CERTIFIED" = "false" ]; then
+    echo "ERROR:  200 - Incorrect Operating System"
+    echo "ERROR:"
+    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
 
+# If we reached this point our hardware and operating system are certified for SIGpi
+
 # Are we where we should be
-if [ -f /home/pi/SIG/SIGpi/SIGpi_installer.sh ]; then
+if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
     echo
 else
-    echo "ERROR:  030"
-    echo "ERROR:  Repo must be cloned from within /home/pi/SIG directory"
+    echo "ERROR:  300 - Software install setup issue"
+    echo "ERROR:"
+    echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
     echo "ERROR:  and SIGpi_installer.sh run from there."
+    echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
 fi
@@ -132,6 +164,14 @@ select_gnuradio() {
     echo $FUN >> $SIGPI_CONFIG
 }
 
+zenity_gnuradio(){
+    zenity --list --radiolist --text "Choose GNUradio version:" --hide-header \
+    --column "selection" --column "version" \
+    FALSE "GNUradio 3.8" \
+    FALSE "GNUradio 3.9" \
+    FALSE "Skip GNUradio" 
+}
+
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "General Purpose SDR Applications" 20 80 12 \
@@ -144,7 +184,21 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
+}
+
+zenity_sdrapps() {
+    zenity --list --checklist --text "Choose SDR Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "gqrx" FALSE \
+    "cubicsdr" FALSE \
+    "sdrangel" FALSE \
+    "sdrpp"
 }
 
 select_amateurradio() {
@@ -154,17 +208,33 @@ select_amateurradio() {
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
         "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
+        "xastir" "Xastir provides mapping, tracking, messaging, weather, weather alerts" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
+}
+
+zenity_amateurradio(){
+    zenity --list --checklist --text "Choose Amateur Radio Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "fldigi" FALSE \
+    "js8call" FALSE \
+    "qsstv" FALSE \
+    "wsjtx"
 }
 
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
+        "HASviolet" "LoRa and FSK transciever project " OFF \
         "artemis" "Real-time SIGINT from your SDR " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
@@ -179,7 +249,26 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
+}
+
+zenity_usefulapps() {
+    zenity --list --checklist --text "Choose Other Apps" --hide-header \
+    --column "sdrapps" --column "chosen" FALSE \
+    "artemis" FALSE \
+    "cygnusrfi" FALSE \
+    "gpredict" FALSE \
+    "splat" FALSE \
+    "wireshark" FALSE \
+    "kismet" FALSE \
+    "audacity" FALSE \
+    "pavu" FALSE \
+    "xastir"
 }
 
 ###
@@ -216,163 +305,120 @@ cd $SIGPI_SOURCE
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_devices.sh
 source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_rtl_433.sh
 source $SIGPI_SCRIPTS/install_radiosonde.sh
-source $SIGPI_SCRIPTS/install_direwolf.sh
-source $SIGPI_SCRIPTS/install_linpac.sh
+source $SIGPI_SCRIPTS/package_rtl_433.sh install
+source $SIGPI_SCRIPTS/package_ubertooth.sh install
+source $SIGPI_SCRIPTS/package_direwolf.sh install
+source $SIGPI_SCRIPTS/package_linpac.sh install
 
 # GNU Radio
 if grep gnuradio38 "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gnuradio gnuradio-dev
+    source $SIGPI_SCRIPTS/package_gnuradio38.sh install
 fi
 
 if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_gnuradio39.sh
+	source $SIGPI_SCRIPTS/package_gnuradio39.sh install
 fi
 
 # gqrx
 if grep gqrx "$SIGPI_CONFIG"; then
-    sudo apt-get install -y gqrx-sdr
+    source $SIGPI_SCRIPTS/package_gqrx-sdr.sh install
 fi
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_CONFIG"; then
-    sudo apt-get install -y cubicsdr
+    source $SIGPI_SCRIPTS/package_cubicsdr.sh install
 fi
 
 # SDRangel
 if grep sdrangel "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_sdrangel.sh
+    source $SIGPI_SCRIPTS/package_sdrangel.sh install
     source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
 fi
 
 # SDR++
 if grep sdrpp "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_sdrpp.sh
+    source $SIGPI_SCRIPTS/package_sdrpp.sh install
 fi
 
 # Fldigi
 if grep fldigi "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Fldigi"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y fldigi
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Fldigi Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_fldigi.sh install
 fi
 
+# Fldigi 4.1.20
 #if grep fldigi4120 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/install_fldigi.sh
+#    source $SIGPI_SCRIPTS/package_fldigi-latest.sh install
 #fi
 
 # WSJT-X
 if grep wsjtx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_wsjtx.sh
+    source $SIGPI_SCRIPTS/package_wsjtx.sh install
+fi
+
+# Xastir
+if grep xastir "$SIGPI_CONFIG"; then
+	source $SIGPI_SCRIPTS/package_xastir.sh install
 fi
 
 # QSSTV
 if grep qsstv "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-	sudo apt-get install -y qsstv
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_qsstv.sh install
 fi
 
-#if grep qsstv958 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/install_qsstv.sh
+# QSSTV 9.5.X
+#if grep qsstv95 "$SIGPI_CONFIG"; then
+#    source $SIGPI_SCRIPTS/package_qsstv95.sh install
 #fi
 
 # JS8CALL
 if grep js8call "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install JS8CALL"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-	sudo apt-get install -y js8call
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+	source $SIGPI_SCRIPTS/package_js8call.sh install
 fi
 
 # Gpredict
 if grep gpredict "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Gpredict"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y gpredict
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_gpredict.sh install
+fi
+
+# HASviolet
+if grep HASviolet "$SIGPI_CONFIG"; then
+    source $SIGPI_SCRIPTS/package_hasviolet.sh install
 fi
 
 # Artemis
 if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_artemis.sh
+	source $SIGPI_SCRIPTS/package_artemis.sh install
 fi
 
 # CygnusRFI
 if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_cygnusrfi.sh
+	source $SIGPI_SCRIPTS/package_cygnusrfi.sh install
 fi
 
 # Wireshark
 if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/install_wireshark.sh
+	source $SIGPI_SCRIPTS/package_wireshark.sh install
 fi
 
 # Kismet
 if grep kismet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/install_kismet.sh
+    source $SIGPI_SCRIPTS/package_kismet.sh install
 fi
 
 # Audacity
 if grep audacity "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install Audacity"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y audacity
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_audacity.sh install 
 fi
 
 # PAVU
 if grep pavu "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y pavucontrol
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_pavucontrol.sh install
 fi
 
 # splat
 if grep splat "$SIGPI_CONFIG"; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Install SPLAT"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sudo apt-get install -y splat
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"
-    echo -e "${SIGPI_BANNER_RESET}"
+    source $SIGPI_SCRIPTS/package_splat.sh install
 fi
 
 # SIGpi Menu
@@ -384,7 +430,6 @@ if [ -f /swapfile ]; then
     sudo swapoff /swapfile
     sleep 5
     sudo rm -rf /swapfile
-    exit 1;
 fi
 
 

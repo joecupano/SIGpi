@@ -100,7 +100,11 @@ sudo apt-get install -y swig
 sudo apt-get install -y libsqlite3-dev
 sudo apt-get install -y libi2c-dev
 sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y libwxgtk3.0-dev
+sudo apt-get install -y liboctave-dev
+sudo apt-get install -y libfltk1.3-dev
+# sudo apt-get install -y libwxgtk3.0-dev
+# Following is rpelacement fot libwxgtk3.0-dev
+sudo apt-get install -y libwxbase3.0-0v5
 sudo apt-get install -y freeglut3-dev
 
 ## INSTALL
@@ -134,7 +138,6 @@ make -j4
 sudo make install
 sudo ldconfig
 SoapySDRUtil --info
-
 
 # SoapyRTLSDR
 cd $SIGPI_SOURCE

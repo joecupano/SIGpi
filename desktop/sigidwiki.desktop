@@ -2,7 +2,7 @@
 Name=SIGID Wiki
 Comment=Go to SIGID Website
 Exec=xdg-open https://www.sigidwiki.com/wiki/Signal_Identification_Guide
-Icon=/usr/share/icons/sigidwiki_logo.png
+Icon=/usr/share/icons/sigidwiki-i_logo.png
 Terminal=false
 Type=Application
 Categories=SigPi;
