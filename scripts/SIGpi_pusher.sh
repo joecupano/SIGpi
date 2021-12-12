@@ -47,17 +47,6 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-###
-### Environment tests
-### 
-
-# Are we the user Pi
-if [ $(whoami) != 'pi' ]; then
-    echo "ERROR:  007"
-    echo "ERROR:  Must be run as the user Pi with sudo privileges"
-    echo "ERROR:  Aborting"
-fi
-
 if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
     if -f [$SIGPI_SOURCE/$1]; then
         echo "ERROR:  121"
@@ -65,7 +54,7 @@ if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
         echo "ERROR:  Aborting"
         exit 1
     fi
-    SIGPI_INSTALLER="install_"$1".sh"
+    SIGPI_INSTALLER="package_"$1".sh"
     source $SIGPI_SCRIPTS/$SIGPI_INSTALLER
 else
     echo "ERROR:  111"
