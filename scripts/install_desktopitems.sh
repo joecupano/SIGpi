@@ -22,6 +22,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 #sudo cp $SIGPI_HOME/scripts/SIGpi_pusher.sh /usr/local/bin/SIGpi_pusher
 #sudo cp $SIGPI_HOME/scripts/SIGpi_popper.sh /usr/local/bin/SIGpi_popper
 
+
 # Copy Background images
 
 # What operating system are we?
