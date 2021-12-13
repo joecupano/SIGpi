@@ -32,7 +32,6 @@ cd SIGpi
 ```
 
 ## Known Issues
-- RadioSonde install script broken. (No doubt something simple)
 - Artemis does not run on 64-bit build. (Some Pythony issue)
 
 ## Package Management in SIGpi
