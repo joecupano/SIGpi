@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### package_rtl_433
+### package_rtl433
 ###
 
 ###
