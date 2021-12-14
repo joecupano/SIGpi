@@ -75,6 +75,11 @@ if [ "$SIGPI_HWARCH" = "x86_64" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
+# Raspberry Pi 3B+ 
+if [ "$SIGPI_HWARCH" = "armv7l" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
 if [ "$SIGPI_HWARCH" = "armhf" ]; then
     SIGPI_CERTIFIED="true"
 fi
