@@ -1,7 +1,14 @@
 # Release Notes
 
-## Release 4.1: 2021-12-20
-- 
+## Release 4.2: 2021-12-19
+- Add server option for RPi3
+- Add Dump10190
+- Implement SIGpi packager script
+
+## Release 4.1: 2021-12-12
+- Fixed RadioSonde install
+- Artemis install broken for RPi for now
+- Post install can pop (remove) and push (install) SIGpi Packages using SIGpi_popper and SIGPi_pusher scripts
 
 ## Release 4.0: 2021-11-27
 - Implemente SIGprojects software architecture model

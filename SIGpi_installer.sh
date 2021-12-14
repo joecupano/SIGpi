@@ -281,6 +281,19 @@ zenity_usefulapps() {
 }
 
 server_install(){
+    
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
+        "SDR Server Startup" 20 80 12 \
+        "rtltcp_on" "RTL_TCP on start " OFF \
+        "soapy_on" "SoapySDR on start " OFF \
+        "none" "No server on startup " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN
+
     TERM=ansi whiptail --title "SigPi Server Installer" --clear --msgbox "Ready to Install" 12 120
     
     echo -e "${SIGPI_BANNER_COLOR}"
