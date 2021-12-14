@@ -180,6 +180,8 @@ zenity_gnuradio(){
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "General Purpose SDR Applications" 20 80 12 \
+        "rtl433" "RTL_433 " OFF \
+        "dump1090" "Dump 1090 " OFF \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " OFF \
@@ -200,6 +202,8 @@ select_sdrapps() {
 zenity_sdrapps() {
     zenity --list --checklist --text "Choose SDR Apps" --hide-header \
     --column "sdrapps" --column "chosen" FALSE \
+    "rtl433" FALSE \
+    "dump1090" FALSE \
     "gqrx" FALSE \
     "cubicsdr" FALSE \
     "sdrangel" FALSE \
@@ -277,7 +281,7 @@ zenity_usefulapps() {
 }
 
 server_install(){
-    TERM=ansi whiptail --title "SigPi Installer (Server) --msgbox "Ready to Install" 12 120
+    TERM=ansi whiptail --title "SigPi Server Installer" --clear --msgbox "Ready to Install" 12 120
     
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -294,7 +298,8 @@ server_install(){
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    touch $SIGPI_CONFIG      
+    touch $SIGPI_CONFIG
+    echo "sigpi_server" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
@@ -302,9 +307,10 @@ server_install(){
     source $SIGPI_SCRIPTS/install_server_devices.sh
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
-    source $SIGPI_SCRIPTS/package_rtl_433.sh install
-    source $SIGPI_SCRIPTS/package_ubertooth.sh install
-    source $SIGPI_SCRIPTS/package_direwolf.sh install
+    source $SIGPI_SCRIPTS/package_rtl_433 install
+    source $SIGPI_SCRIPTS/package_dump1090 install
+    source $SIGPI_SCRIPTS/package_ubertooth install
+    source $SIGPI_SCRIPTS/package_direwolf install
     
 }
 
@@ -332,7 +338,8 @@ full_install(){
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    touch $SIGPI_CONFIG      
+    touch $SIGPI_CONFIG
+    echo "sigpi_desktop" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
@@ -340,119 +347,130 @@ full_install(){
     source $SIGPI_SCRIPTS/install_devices.sh
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
-    source $SIGPI_SCRIPTS/package_rtl_433.sh install
-    source $SIGPI_SCRIPTS/package_ubertooth.sh install
-    source $SIGPI_SCRIPTS/package_direwolf.sh install
-    source $SIGPI_SCRIPTS/package_linpac.sh install
+    source $SIGPI_SCRIPTS/package_rtl_433 install
+    source $SIGPI_SCRIPTS/package_dump1090 install
+    source $SIGPI_SCRIPTS/package_ubertooth install
+    source $SIGPI_SCRIPTS/package_direwolf install
+    source $SIGPI_SCRIPTS/package_linpac install
+
+    # RTL_433
+    if grep rtl433 "$SIGPI_CONFIG"; then
+        source $SIGPI_SCRIPTS/package_rtl433 install
+    fi
+
+    # Dump1090
+    if grep gnuradio38 "$SIGPI_CONFIG"; then
+        source $SIGPI_SCRIPTS/package_dump1090 install
+    fi
 
     # GNU Radio
     if grep gnuradio38 "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_gnuradio38.sh install
+        source $SIGPI_SCRIPTS/package_gnuradio38 install
     fi
 
     if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_gnuradio39.sh install
+	source $SIGPI_SCRIPTS/package_gnuradio39 install
     fi
 
     # gqrx
     if grep gqrx "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_gqrx-sdr.sh install
+        source $SIGPI_SCRIPTS/package_gqrx-sdr install
     fi
 
     # CubicSDR
     if grep cubicsdr "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_cubicsdr.sh install
+        source $SIGPI_SCRIPTS/package_cubicsdr install
     fi
 
     # SDRangel
     if grep sdrangel "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_sdrangel.sh install
+        source $SIGPI_SCRIPTS/package_sdrangel install
         source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
     fi
 
     # SDR++
     if grep sdrpp "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_sdrpp.sh install
+        source $SIGPI_SCRIPTS/package_sdrpp install
     fi
 
     # Fldigi
     if grep fldigi "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_fldigi.sh install
+        source $SIGPI_SCRIPTS/package_fldigi install
     fi
 
     # Fldigi 4.1.20
     #if grep fldigi4120 "$SIGPI_CONFIG"; then
-    #    source $SIGPI_SCRIPTS/package_fldigi-latest.sh install
+    #    source $SIGPI_SCRIPTS/package_fldigi-latest install
     #fi
 
     # WSJT-X
     if grep wsjtx "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_wsjtx.sh install
+        source $SIGPI_SCRIPTS/package_wsjtx install
     fi
 
     # Xastir
     if grep xastir "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_xastir.sh install
+	source $SIGPI_SCRIPTS/package_xastir install
     fi
 
     # QSSTV
     if grep qsstv "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_qsstv.sh install
+        source $SIGPI_SCRIPTS/package_qsstv install
     fi
 
     # QSSTV 9.5.X
     #if grep qsstv95 "$SIGPI_CONFIG"; then
-    #    source $SIGPI_SCRIPTS/package_qsstv95.sh install
+    #    source $SIGPI_SCRIPTS/package_qsstv95 install
     #fi
 
     # JS8CALL
     if grep js8call "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_js8call.sh install
+	source $SIGPI_SCRIPTS/package_js8call install
     fi
 
     # Gpredict
     if grep gpredict "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_gpredict.sh install
+        source $SIGPI_SCRIPTS/package_gpredict install
     fi
 
     # HASviolet
     if grep HASviolet "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_hasviolet.sh install
+        source $SIGPI_SCRIPTS/package_hasviolet install
     fi
 
     # Artemis
     if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_artemis.sh install
+	source $SIGPI_SCRIPTS/package_artemis install
     fi
 
     # CygnusRFI
     if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_cygnusrfi.sh install
+	source $SIGPI_SCRIPTS/package_cygnusrfi install
     fi
 
     # Wireshark
     if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_wireshark.sh install
+	source $SIGPI_SCRIPTS/package_wireshark install
     fi
 
     # Kismet
     if grep kismet "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_kismet.sh install
+        source $SIGPI_SCRIPTS/package_kismet install
     fi
 
     # Audacity
     if grep audacity "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_audacity.sh install 
+        source $SIGPI_SCRIPTS/package_audacity install 
     fi
 
     # PAVU
     if grep pavu "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_pavucontrol.sh install
+        source $SIGPI_SCRIPTS/package_pavucontrol install
     fi
 
     # splat
     if grep splat "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/package_splat.sh install
+        source $SIGPI_SCRIPTS/package_splat install
     fi
 
     # SIGpi Menu
