@@ -290,7 +290,7 @@ server_install(){
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Create $SIGPI_CONFIG "
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -306,13 +306,6 @@ server_install(){
     source $SIGPI_SCRIPTS/package_ubertooth.sh install
     source $SIGPI_SCRIPTS/package_direwolf.sh install
     
-    # Turn off Swapfile
-    if [ -f /swapfile ]; then
-        echo "Removing swapfile"
-        sudo swapoff /swapfile
-        sleep 5
-        sudo rm -rf /swapfile
-    fi
 }
 
 full_install(){
@@ -335,7 +328,7 @@ full_install(){
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Create $SIGPI_CONFIG "
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -465,13 +458,6 @@ full_install(){
     # SIGpi Menu
     source $SIGPI_SCRIPTS/install_desktopitems.sh
 
-    # Turn off Swapfile
-    if [ -f /swapfile ]; then
-        echo "Removing swapfile"
-        sudo swapoff /swapfile
-        sleep 5
-        sudo rm -rf /swapfile
-    fi
 }
 
 
@@ -479,154 +465,11 @@ full_install(){
 ###  MAIN
 ###
 
-calc_wt_size
-select_startscreen
-select_gnuradio
-select_sdrapps
-select_amateurradio
-select_usefulapps
-TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
-sudo apt-get -y update
-sudo apt-get -y upgrade
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
-touch $SIGPI_CONFIG      
-cd $SIGPI_SOURCE
-
-#source $SIGPI_SCRIPTS/install_swapspace.sh
-source $SIGPI_SCRIPTS/install_core_dependencies.sh
-source $SIGPI_SCRIPTS/install_devices.sh
-source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_radiosonde.sh
-source $SIGPI_SCRIPTS/package_rtl_433.sh install
-source $SIGPI_SCRIPTS/package_ubertooth.sh install
-source $SIGPI_SCRIPTS/package_direwolf.sh install
-source $SIGPI_SCRIPTS/package_linpac.sh install
-
-# GNU Radio
-if grep gnuradio38 "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gnuradio38.sh install
+if [ $1 = "server" ];then 
+    server_install
+else
+    full_install
 fi
-
-if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_gnuradio39.sh install
-fi
-
-# gqrx
-if grep gqrx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gqrx-sdr.sh install
-fi
-
-# CubicSDR
-if grep cubicsdr "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_cubicsdr.sh install
-fi
-
-# SDRangel
-if grep sdrangel "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_sdrangel.sh install
-    source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
-fi
-
-# SDR++
-if grep sdrpp "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_sdrpp.sh install
-fi
-
-# Fldigi
-if grep fldigi "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_fldigi.sh install
-fi
-
-# Fldigi 4.1.20
-#if grep fldigi4120 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/package_fldigi-latest.sh install
-#fi
-
-# WSJT-X
-if grep wsjtx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_wsjtx.sh install
-fi
-
-# Xastir
-if grep xastir "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_xastir.sh install
-fi
-
-# QSSTV
-if grep qsstv "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_qsstv.sh install
-fi
-
-# QSSTV 9.5.X
-#if grep qsstv95 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/package_qsstv95.sh install
-#fi
-
-# JS8CALL
-if grep js8call "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_js8call.sh install
-fi
-
-# Gpredict
-if grep gpredict "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gpredict.sh install
-fi
-
-# HASviolet
-if grep HASviolet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_hasviolet.sh install
-fi
-
-# Artemis
-if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_artemis.sh install
-fi
-
-# CygnusRFI
-if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_cygnusrfi.sh install
-fi
-
-# Wireshark
-if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_wireshark.sh install
-fi
-
-# Kismet
-if grep kismet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_kismet.sh install
-fi
-
-# Audacity
-if grep audacity "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_audacity.sh install 
-fi
-
-# PAVU
-if grep pavu "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_pavucontrol.sh install
-fi
-
-# splat
-if grep splat "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_splat.sh install
-fi
-
-# SIGpi Menu
-source $SIGPI_SCRIPTS/install_desktopitems.sh
 
 # Turn off Swapfile
 if [ -f /swapfile ]; then
