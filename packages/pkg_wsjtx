@@ -14,8 +14,10 @@ case "$1" in
         
 	# Remove Menu icon
         sudo rm $DESKTOP_ICONS/wsjtx.png
+	sudo rm $DESKTOP_ICONS/message_aggregator.png
         # Remove Desktop links
         sudo rm $DESKTOP_FILES/wsjtx.desktop
+	sudo rm $DESKTOP_FILES/message_aggregator.desktop
 	
         sudo dpkg -P wsjtx
 
@@ -30,8 +32,10 @@ case "$1" in
 
         # Remove Menu icon
         sudo rm $DESKTOP_ICONS/wsjtx.png
+	sudo rm $DESKTOP_ICONS/message_aggregator.png
         # Remove Desktop links
         sudo rm $DESKTOP_FILES/wsjtx.desktop
+	sudo rm $DESKTOP_FILES/message_aggregator.desktop
 	
 	sudo dpkg -P wsjtx
         rm -rf $HOME/.config/WSJT-X.INI
@@ -83,10 +87,13 @@ case "$1" in
 
 	### Add Menu icon
         sudo cp $SIGPI_ICONS/wsjtx.png $DESKTOP_ICONS
+	sudo cp $SIGPI_ICONS/message_aggregator.png $DESKTOP_ICONS
         ### Add Desktop links
         sudo cp $SIGPI_HOME/desktop/wsjtx.desktop $DESKTOP_FILES
+	sudo cp $SIGPI_HOME/desktop/message_aggregator.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Installed"
