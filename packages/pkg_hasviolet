@@ -14,6 +14,11 @@ case "$1" in
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
 
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/hasviolet.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/hasviolet.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -25,6 +30,11 @@ case "$1" in
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
 
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/hasviolet.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/hasviolet.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -71,6 +81,13 @@ case "$1" in
         sudo openssl req -x509 -nodes -days 1095 -newkey rsa:2048 -subj "/C=US/ST=New York/L=Hudson Valley/O=Hudson Valley Digital Network/OU=HASviolet/CN=hvdn.org" -keyout $HASVIOLET_HOME/HASVIOLET_api.key -out $HASVIOLET_HOME/HASVIOLET_api.crt
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.key >/dev/null 2>&1
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.crt >/dev/null 2>&1
+
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/hasviolet.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/hasviolet.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/hasviolet.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   HASviolet Installed"
