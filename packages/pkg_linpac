@@ -13,6 +13,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove linpac
+        sudo rm /usr/share/applications/linpac.desktop
+	    #sudo rm /usr/share/icons
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Removed"
@@ -24,6 +26,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge linpac
+        sudo rm /usr/share/applications/linpac.desktop
+	    #sudo rm /usr/share/icons
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Purged"
@@ -41,6 +45,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y linpac
+        
+        # Add Menu icon
+        # sudo cp $SIGPI_ICONS/SigPi_icon_menu.png /usr/share/icons
+        # Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/linpac.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Installed"
