@@ -28,6 +28,7 @@ SIGPI_SOURCE=$HOME/SIG
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
 SIGPI_ETC=$SIGPI_HOME/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
+SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
 SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
@@ -58,58 +59,6 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-###
-### Environment tests
-### 
-
-# Are we the right hardware
-if [ "$SIGPI_HWARCH" = "x86" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "x86_64" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "armhf" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "armv7l" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "aarch64" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_CERTIFIED" ="false" ]; then
-    echo "ERROR:  100 - Incorrect Hardware"
-    echo "ERROR:"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
-fi
-
-# Are we the right operating system
-if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_CERTIFIED" ="false" ]; then
-    echo "ERROR:  200 - Incorrect Operating System"
-    echo "ERROR:"
-    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
-    echo "ERROR:"
-    echo "ERROR:  Aborting"
-    exit 1;
-fi
-
 # If we reached this point our hardware and operating system are certified for SIGpi
 
 
@@ -125,6 +74,36 @@ fi
 ACTION=$1
 SIG_PACKAGE=$2
 SIG_PKGSCRIPT="pkg_$2"
+
+
+## POPPER
+if grep -q $2 $SIGPI_ETC/SIGpi_packages; then
+    cd $SIGPI_SOURCE/$1/build
+    sudo make uninstall
+    sudo rm -rf $SIGPI_SOURCE/$1
+else
+    echo "ERROR:  111"
+    echo "ERROR:  No such SIGpi package "
+    echo "ERROR:  Aborting"
+fi
+
+
+## PUSHER 
+if grep -q $1 $SIGPI_ETC/SIGpi_packages; then
+    if -f [$SIGPI_SOURCE/$1]; then
+        echo "ERROR:  121"
+        echo "ERROR:  You must remove the package first using SIGpi_popper <PACKAGE>"
+        echo "ERROR:  Aborting"
+        exit 1
+    else
+        SIGPI_INSTALLER="pkg_"$1
+        source $SIGPI_SCRIPTS/$SIGPI_INSTALLER
+    fi
+else
+    echo "ERROR:  111"
+    echo "ERROR:  No such SIGpi package "
+    echo "ERROR:  Aborting"
+fi
 
 source $SIGPI_SCRIPTS/$SIG_PKGSCRIPT $1
 

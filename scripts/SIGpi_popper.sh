@@ -19,6 +19,7 @@ SIGPI_SOURCE=$HOME/SIG
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
 SIGPI_ETC=$SIGPI_HOME/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
+SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
 SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
@@ -49,7 +50,7 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-if grep -q $1 $SIGPI_DEP/SIGpi_packages; then
+if grep -q $1 $SIGPI_ETC/SIGpi_packages; then
     cd $SIGPI_SOURCE/$1/build
     sudo make uninstall
     sudo rm -rf $SIGPI_SOURCE/$1
