@@ -13,11 +13,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         cd $SIGPI_SOURCE
 	
-	sudo rm /usr/share/applications/artemis.desktop
-	sudo rm /usr/share/icons/artemis3.svg
 	rm -rf $SIGPI_SOURCE/artemis
 	rm $HOME/Downloads/artemis.tar.gz
-        
+	
+	### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/artemis3.svg
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/artemis.desktop
+	
 	echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -29,11 +32,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         cd $SIGPI_SOURCE
 	
-	sudo rm /usr/share/applications/artemis.desktop
-	sudo rm /usr/share/icons/artemis3.svg
 	rm -rf $SIGPI_SOURCE/artemis
 	rm $HOME/Downloads/artemis.tar.gz
-        
+
+	# Remove Menu icon
+        sudo rm $DESKTOP_ICONS/artemis3.svg
+        # Remove Desktop links
+        sudo rm $DESKTOP_FILES/artemis.desktop
+
 	echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -83,14 +89,14 @@ case "$1" in
 		        tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
 	        fi
         fi
-	
-	# Add Menu icon
-        sudo cp $SIGPI_SOURCE/artemis/artemis3.svg /usr/share/icons/
-	# Add Desktop links
-	sudo cp $SIGPI_HOME/desktop/artemis.desktop $DESKTOP_FILES
+
+	### Add Menu icon
+        sudo cp $SIGPI_ICONS/artemis3.svg $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/artemis.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
-        
+	
 	echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Installed"
         echo -e "${SIGPI_BANNER_RESET}"
