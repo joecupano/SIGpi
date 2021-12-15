@@ -14,6 +14,11 @@ case "$1" in
 
         sudo apt-get remove cubicsdr
         
+      	# Remove Menu icon
+        sudo rm $DESKTOP_ICONS/cubicsdr.png
+        # Remove Desktop links
+        sudo rm $DESKTOP_FILES/cubicsdr.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -24,6 +29,18 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge cubicsdr
+        
+        # Remove Menu icon
+        sudo rm $DESKTOP_ICONS/cubicsdr.png
+        # Remove Desktop links
+        sudo rm $DESKTOP_FILES/cubicsdr.desktop
+        
+        # Add Menu icon
+        sudo cp $SIGPI_ICONS/cubicsdr.png $DESKTOP_ICONS
+        # Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/cubicsdr.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/cubicsdr.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Purged"
