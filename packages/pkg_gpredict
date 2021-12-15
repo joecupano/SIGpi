@@ -13,6 +13,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gpredict
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/gpredict.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/gpredict.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Removed"
@@ -27,7 +32,12 @@ case "$1" in
         rm -rf $HOME/.config/Gpredict
         sudo rm -rf $SIGPI_DESKTOP/gpredict.desktop
         sudo rm -rf $DESKTOP_FILES/gpredict.desktop
-
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/gpredict.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/gpredict.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -47,6 +57,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y gpredict
+
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/gpredict.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/gpredict.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Installed"
