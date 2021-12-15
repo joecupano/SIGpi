@@ -14,6 +14,11 @@ case "$1" in
 
         sudo apt-get remove js8call
 
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/js8call.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/js8call.desktop
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -24,6 +29,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge js8call
+
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/js8call.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/js8call.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Purged"
@@ -41,7 +51,14 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y js8call
-
+        
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/js8call.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
         echo -e "${SIGPI_BANNER_RESET}"
