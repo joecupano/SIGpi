@@ -11,8 +11,15 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove Xastir"
         echo -e "${SIGPI_BANNER_RESET}"
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/xastir.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/xastir.desktop
+        
         cd $SIGPI_SOURCE
         sudo apt-get remove xastir
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -21,6 +28,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge Xastir"
         echo -e "${SIGPI_BANNER_RESET}"
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/xastir.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/xastir.desktop
+        
         cd $SIGPI_SOURCE
         sudo apt-get remove --purge xastir
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -38,6 +51,14 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y xastir
+        
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/xastir.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/xastir.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Installed"
         echo -e "${SIGPI_BANNER_RESET}"
