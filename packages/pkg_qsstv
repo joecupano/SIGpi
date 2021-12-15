@@ -11,7 +11,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove QSSTV"
         echo -e "${SIGPI_BANNER_RESET}"
-
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/qsstv.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/qsstv.desktop
+        
         sudo apt-get remove qsstv
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -23,6 +28,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge QSSTV"
         echo -e "${SIGPI_BANNER_RESET}"
 
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/qsstv.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/qsstv.desktop
+        
         sudo apt-get remove --purge qsstv
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -41,6 +51,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y qsstv
+        
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/qsstv.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/qsstv.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
