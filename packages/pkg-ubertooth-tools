@@ -3,72 +3,83 @@
 ###
 ### SIGPI
 ###
-### pkg_ubertooth
+### pkg_ubertook-tools
 ###
 
-###
-### 20211208-1200  Currently default to install to keep script backward compatible
-###
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Ubertooth Tools"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-# REMOVE
-if [ $1 = "remove" ]; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Remove Ubertooth Tools"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_SOURCE/ubertooth/host/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/ubertooth
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/ubertooth-tools.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/ubertooth-tools.desktop
 
-    cd $SIGPI_SOURCE/ubertooth/host/build
-    sudo make uninstall
-    cd $SIGPI_SOURCE
-    rm -rf $SIGPI_SOURCE/ubertooth
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Removed"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Ubertooth Tools"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Removed"
-    echo -e "${SIGPI_BANNER_RESET}"
-fi
+        cd $SIGPI_SOURCE/ubertooth/host/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/ubertooth
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/ubertooth-tools.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/ubertooth-tools.desktop
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Ubertooth Tools"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-# PURGE
-if [ $1 = "purge" ]; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Purge Ubertooth Tools"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
+        ## DEPENDENCIES
+        sudo apt-get install -y libusb-1.0-0-dev 
+        sudo apt-get install -y libbluetooth-dev 
+        sudo apt-get install -y python3-qtpy 
+        sudo apt-get install -y python3-distutils 
+        sudo apt-get install -y python3-setuptools
 
-    cd $SIGPI_SOURCE/ubertooth/host/build
-    sudo make uninstall
-    cd $SIGPI_SOURCE
-    rm -rf $SIGPI_SOURCE/ubertooth
-    
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Purged"
-    echo -e "${SIGPI_BANNER_RESET}"
-fi
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/greatscottgadgets/ubertooth.git
+        cd ubertooth/host
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
 
-# INSTALL
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Ubertooth Tools"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/ubertooth-tool.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/ubertooth-tool.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/ubertooth-tool.desktop
 
-## DEPENDENCIES
-sudo apt-get install -y libusb-1.0-0-dev 
-sudo apt-get install -y libbluetooth-dev 
-sudo apt-get install -y python3-qtpy 
-sudo apt-get install -y python3-distutils 
-sudo apt-get install -y python3-setuptools
-
-## PACKAGE
-cd $SIGPI_SOURCE
-git clone https://github.com/greatscottgadgets/ubertooth.git
-cd ubertooth/host
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Installed"
-echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
