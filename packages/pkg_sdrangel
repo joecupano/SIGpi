@@ -12,6 +12,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
 
+        ### Remove Menu icon
+        sudo rm /usr/share/icons/sdrangel.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/sdrangel.desktop
+	    
         cd $SIGPI_SOURCE/sdrangel/build
         sudo make uninstall
         sudo ldconfig
@@ -50,7 +55,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
-
+        
+        ### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/sdrangel.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/sdrangel.desktop
+        
         cd $SIGPI_SOURCE/sdrangel/build
         sudo make uninstall
         sudo ldconfig
@@ -219,12 +229,19 @@ case "$1" in
         sudo make install
         sudo ldconfig
         
+        ### Add VOX for Transmitting with SDRangel
+        cd $SIGPI_SOURCE
+        git clone https://github.com/texasyojimbo/voxangel
+        
         ### Copy special startup script for this snowflake
         sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/run_sdrangel.sh
         
-        ### Add VOX for Transimtting with SDRangel
-        cd $SIGPI_SOURCE
-        git clone https://github.com/texasyojimbo/voxangel
+        ### Add Menu icon
+        sudo cp $SIGPI_ICONS/sdrangel.png $DESKTOP_ICONS
+        ### Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/sdrangel.desktop $DESKTOP_FILES
+	    # Add SigPi Category installed application
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"
