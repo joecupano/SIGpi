@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=SigPi Example
+Comment=From SiGpi
+Exec=/usr/bin/lxterminal -e /usr/local/bin/sigpi
+Icon=/usr/share/icons/sigpi_icon_menu.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=SigPi;
