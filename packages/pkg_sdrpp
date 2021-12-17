@@ -11,11 +11,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDR++"
         echo -e "${SIGPI_BANNER_RESET}"
-	
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/sdrpp.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/sdrpp.desktop
         
 	cd $SIGPI_SOURCE/SDRPlusPlus/build
         sudo make uninstall
@@ -31,12 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDR++"
         echo -e "${SIGPI_BANNER_RESET}"
-        
-	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/sdrpp.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/sdrpp.desktop
-        
+               
 	cd $SIGPI_SOURCE/SDRPlusPlus/build
         sudo make uninstall
         sudo ldconfig
@@ -85,11 +75,10 @@ case "$1" in
         sudo make install
         sudo ldconfig
 	
-	### Add Menu icon
-        sudo cp $SIGPI_ICONS/sdrpp.png $DESKTOP_ICONS
-        ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/sdrpp.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application
+	## DESKTOP
+	# Add Menu icon
+        # Add Desktop links
+        # Change Category to SigPi
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
