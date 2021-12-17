@@ -1,6 +1,6 @@
 # SIGpi
 
-Release: 20211130-0500
+Release: 20211218-0500
 
 ## Introduction
 
@@ -102,7 +102,6 @@ SDR Applications
 * [SDRangel 6.17.4](https://github.com/f4exb/sdrangel) *
 * [SDR++ 1.0.5](https://github.com/AlexandreRouma/SDRPlusPlus) *
 * [CubicSDR](https://cubicsdr.com/)        SDR Receiver
-* [Artemis](https://aresvalley.com/artemis/)         Radio Signals Recognition Manual
 * [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
 
 AFSK, FSK, Packet, APRS Communications
