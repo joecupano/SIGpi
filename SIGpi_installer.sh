@@ -440,7 +440,7 @@ full_install(){
     fi
 
     # SIGpi Menu
-    source $SIGPI_SCRIPTS/install_desktopitems.sh
+    source $SIGPI_SCRIPTS/install_desktop-items.sh
 
 }
 
