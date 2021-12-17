@@ -30,12 +30,11 @@ sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
 if [ $SIGPI_OSNAME = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     # Change Background image
-    gsettings set org.gnome.desktop.background picture-uri file:////usr/share/backgrounds/SIGpi_wallpaper.png
+    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
 else
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image
     pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SIGpi_wallpaper.png
-    
 fi
 
 # Add Desktop links
