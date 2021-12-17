@@ -14,12 +14,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gqrx-sdr
-        
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gqrx-sdr.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gqrx-sdr.desktop
-        
+           
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -30,12 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge gqrx-sdr
-
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gqrx-sdr.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gqrx-sdr.desktop
-        
+    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -53,12 +43,11 @@ case "$1" in
         cd $SIGPI_SOURCE
         sudo apt-get install -y gqrx-sdr
 
-        ### Add Menu icon
-        sudo cp $SIGPI_ICONS/gqrx-sdr.png $DESKTOP_ICONS
-        ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/gqrx-sdr.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx-sdr.desktop
+        ## DESKTOP
+	# Add Menu icon
+        # Add Desktop links
+        # Change Category to SigPi
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx-sdr.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Installed"
