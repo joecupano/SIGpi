@@ -14,11 +14,6 @@ case "$1" in
 
         sudo apt-get remove gnuradio gnuradio-dev
         
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -31,11 +26,6 @@ case "$1" in
         sudo apt-get remove --purge gnuradio gnuradio-dev
         rm -rf $HOME/.gnuradio
         
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -52,12 +42,11 @@ case "$1" in
         ## PACKAGE
         sudo apt-get install -y gnuradio gnuradio-dev
 
-        # Add Menu icon
-        sudo cp $SIGPI_ICONS/gnuradio-grc.png $DESKTOP_ICONS
+        ## DESKTOP
+	# Add Menu icon
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/gnuradio-grc.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+        # Change Category to SigPi
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Installed"
