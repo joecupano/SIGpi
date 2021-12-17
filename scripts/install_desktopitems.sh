@@ -21,6 +21,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 # Copy SIGpi commands into /usr/local/bin
 sudo cp $SIGPI_HOME/scripts/SIGpi_pusher.sh /usr/local/bin/SIGpi_pusher
 sudo cp $SIGPI_HOME/scripts/SIGpi_popper.sh /usr/local/bin/SIGpi_popper
+sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
 
 
 # Copy Background images
