@@ -18,15 +18,6 @@ case "$1" in
 
         sudo apt-get remove fldigi
         
-        # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/fldigi.png
-        sudo rm $DESKTOP_ICONS/flarq.png
-        sudo rm $DESKTOP_ICONS/flrig.png
-        # Remove Desktop links
-        sudo rm $DESKTOP_FILES/fldigi.desktop
-        sudo rm $DESKTOP_FILES/flarq.desktop
-        sudo rm $DESKTOP_FILES/flrig.desktop
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -38,15 +29,6 @@ case "$1" in
 
         sudo apt-get remove --purge fldigi
         
-        # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/fldigi.png
-        sudo rm $DESKTOP_ICONS/flarq.png
-        sudo rm $DESKTOP_ICONS/flrig.png
-        # Remove Desktop links
-        sudo rm $DESKTOP_FILES/fldigi.desktop
-        sudo rm $DESKTOP_FILES/flarq.desktop
-        sudo rm $DESKTOP_FILES/flrig.desktop
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -64,15 +46,13 @@ case "$1" in
         cd $SIGPI_SOURCE
         sudo apt-get install -y fldigi
 
-	    # Add Menu icon
-        sudo cp $SIGPI_ICONS/fldigi.png $DESKTOP_ICONS
-	    sudo cp $SIGPI_ICONS/flarq.png $DESKTOP_ICONS
+	## DESKTOP
+	# Add Menu icon
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/fldigi.desktop $DESKTOP_FILES
-	    sudo cp $SIGPI_HOME/desktop/flarq.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
+        # Change Category to SigPi
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Installed"
