@@ -217,7 +217,6 @@ select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
         "HASviolet" "LoRa and FSK transciever project " OFF \
-        "artemis" "Real-time SIGINT from your SDR " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
@@ -408,11 +407,6 @@ full_install(){
     # HASviolet
     if grep HASviolet "$SIGPI_CONFIG"; then
         source $SIGPI_PACKAGES/pkg_hasviolet install
-    fi
-
-    # Artemis
-    if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_artemis install
     fi
 
     # CygnusRFI
