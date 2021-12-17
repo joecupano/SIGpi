@@ -21,11 +21,6 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/libbtb
-        
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/wireshark.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/wireshark.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Removed"
@@ -46,11 +41,6 @@ case "$1" in
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/libbtb
         rm -rf $HOME/.config/wireshark
-        
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/wireshark.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/wireshark.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Purged"
@@ -80,12 +70,11 @@ case "$1" in
         make -j4
         sudo make install
         
-        ### Add Menu icon
-        sudo cp $SIGPI_ICONS/wireshark.png $DESKTOP_ICONS
-        ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/wireshark.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
+        ## DESKTOP
+	# Add Menu icon
+        # Add Desktop links
+        # Change Category to SigPi
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Installed"
