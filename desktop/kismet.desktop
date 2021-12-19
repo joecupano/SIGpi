@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Kismet
+Encoding=UTF-8
+Comment=Wireless network and device detector, sniffer, wardriving tool, and WIDS (wireless intrusion detection) framework
+Exec=/usr/bin/lxterminal
+Icon=/usr/share/icons/kismet.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi;
