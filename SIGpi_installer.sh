@@ -54,10 +54,10 @@ SIGPI_LOGO=$SIGPI_HOME/logo
 SIGPI_DESKTOP=$SIGPI_HOME/desktop
 
 # Desktop Destination Directories
-DESKTOP_DIRECTORY=/usr/share/desktop-directories
-DESKTOP_FILES=/usr/share/applications
-DESKTOP_ICONS=/usr/share/icons
-DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
+DESKTOP_DIRECTORY=/usr/share/SIGpi/desktop-directories
+DESKTOP_FILES=/usr/share/SIGpi/applications
+DESKTOP_ICONS=/usr/share/SIGpi/icons
+#DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
@@ -305,12 +305,16 @@ full_install(){
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create $SIGPI_CONFIG "
+    echo -e "${SIGPI_BANNER_COLOR} ##   Create SIGPI Directories and config"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
     touch $SIGPI_CONFIG
-    echo "sigpi_desktop" >> $SIGPI_CONFIG
+    echo "sigpi_desktop" >> $SIGPI_CONFIG    
+    sudo mkdir /usr/share/SIGpi
+    sudo mkdir $DESKTOP_DIRECTORY
+    sudo mkdir $DESKTOP_FILES
+    sudo mkdir $DESKTOP_ICONS
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
@@ -449,7 +453,8 @@ full_install(){
 ###  MAIN
 ###
 
-if [ $1 = "server" ];then 
+# Server option invoked ?
+if [ "$1" = "server" ]; then 
     server_install
 else
     full_install
