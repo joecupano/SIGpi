@@ -66,12 +66,13 @@ case "$1" in
         sudo make install
         sudo ldconfig
 
-	### Add Menu icon
+	## DESKTOP
+	# Add Menu icon
         sudo cp $SIGPI_ICONS/rtl_433.png $DESKTOP_ICONS
-        ### Add Desktop links
+        # Add Desktop links
         sudo cp $SIGPI_HOME/desktop/rtl_433.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/rtl_433.desktop
+	# Add SigPi Category installed application (commented out since SIGpi created desktop file)
+	#sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/rtl_433.desktop
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
