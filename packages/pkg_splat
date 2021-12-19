@@ -15,9 +15,9 @@ case "$1" in
         sudo apt-get remove splat
 
         ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/splat.png
+        sudo rm $SIGPI_DESKTOP_ICONS/splat.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/splat.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/splat.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Removed"
@@ -31,9 +31,9 @@ case "$1" in
         sudo apt-get remove --purge splat
         
         ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/splat.png
+        sudo rm $SIGPI_DESKTOP_ICONS/splat.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/splat.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/splat.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Purged"
@@ -52,13 +52,13 @@ case "$1" in
         cd $SIGPI_SOURCE
         sudo apt-get install -y splat
 
-	    ### Add Menu icon
-        sudo cp $SIGPI_ICONS/splat.png $DESKTOP_ICONS
-        ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/splat.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/splat.desktop
-
+        ## DESKTOP
+	    # Add Menu icon
+        sudo cp $SIGPI_ICONS/splat.png $SIGPI_DESKTOP_ICONS
+        # Add Desktop links
+        sudo cp $SIGPI_HOME/desktop/splat.desktop $SIGPI_DESKTOP_FILES
+	    # Add SigPi Category installed application ( already done )
+	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"
         echo -e "${SIGPI_BANNER_RESET}"

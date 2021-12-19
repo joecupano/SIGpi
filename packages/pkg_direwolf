@@ -74,10 +74,9 @@ case "$1" in
         sudo mkdir /usr/local/etc/direwolf
         sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
 	
+        ## DESKTOP
 	# Add Menu icon
-        sudo cp $SIGPI_ICONS/direwolf.png $DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/direwolf.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
         

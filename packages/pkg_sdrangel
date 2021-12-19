@@ -226,11 +226,11 @@ case "$1" in
         ### Copy special startup script for this snowflake
         sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/run_sdrangel.sh
         
-	## DESKTOP
+	    ## DESKTOP
         # Add Menu icon
         # Add Desktop links
         # Change Category to SigPi
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"

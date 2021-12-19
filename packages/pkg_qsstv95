@@ -79,11 +79,10 @@ case "$1" in
         make
         sudo make install
 	
-        ### Add Menu icon
-        sudo cp $SIGPI_ICONS/qsstv.png $DESKTOP_ICONS
-        ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/qsstv95.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application
+        ## DESKTOP
+        # Add Menu icon
+        # Add Desktop links
+        # Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv95.desktop
         
 	echo -e "${SIGPI_BANNER_COLOR}"

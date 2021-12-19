@@ -18,9 +18,9 @@ case "$1" in
         sudo rm -rf /etc/systemd/system/soapysdr.service
         
         # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/soapysdr-server.png
+        sudo rm $SIGPI_DESKTOP_ICONS/soapysdr-server.png
         # Remove Desktop links
-        sudo rm $DESKTOP_FILES/soapysdr-server.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/soapysdr-server.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDR Service Removed"
@@ -37,9 +37,9 @@ case "$1" in
         sudo rm -rf /etc/systemd/system/soapysdr.service
 
         # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/soapysdr-server.png
+        sudo rm $SIGPI_DESKTOP_ICONS/soapysdr-server.png
         # Remove Desktop links
-        sudo rm $DESKTOP_FILES/soapysdr-server.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/soapysdr-server.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDR Service Purged"
@@ -61,12 +61,12 @@ case "$1" in
         sleep 5
         sudo systemctl status soapysdr.service
 
+        ## DESKTOP
 	    # Add Menu icon
-        sudo cp $SIGPI_ICONS/soapysdr-server.png $DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/soapysdr-server.png $SIGPI_DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/soapysdr-server.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/soapysdr-server.desktop
+        sudo cp $SIGPI_HOME/desktop/soapysdr-server.desktop $SIGPI_DESKTOP_FILES
+	    # Add SigPi Category installed application ( already done )
     
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDR Service Installed"

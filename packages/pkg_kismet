@@ -14,9 +14,9 @@ case "$1" in
         sudo apt-get remove kismet
 
         ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/kismet.png
+        sudo rm $SIGPI_DESKTOP_ICONS/kismet.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/kismet.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/kismet.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Removed"
@@ -30,9 +30,9 @@ case "$1" in
         sudo apt-get remove --purge kismet
 
         ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/kismet.png
+        sudo rm $SIGPI_DESKTOP_ICONS/kismet.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/kismet.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/kismet.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Purged"
@@ -59,14 +59,14 @@ case "$1" in
         #
         # Say yes when asked about suid helpers
         #
-
+        
+        ## DESKTOP
         # Add Menu icon
-        sudo cp $SIGPI_ICONS/kismet.png $DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/kismet.png $SIGPI_DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/kismet.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/kismet.desktop
-
+        sudo cp $SIGPI_HOME/desktop/kismet.desktop $SIGPI_DESKTOP_FILES
+	    # Add SigPi Category installed application ( already done )
+	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Installed"
         echo -e "${SIGPI_BANNER_RESET}"

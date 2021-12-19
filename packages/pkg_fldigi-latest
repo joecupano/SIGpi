@@ -134,14 +134,9 @@ case "$1" in
         sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $SIGPI_DESKTOP
         sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/flarq.desktop $SIGPI_DESKTOP
 	
+        ## DESKTOP
 	# Add Menu icon
-        sudo cp $SIGPI_ICONS/fldigi.png $DESKTOP_ICONS
-	sudo cp $SIGPI_ICONS/flarq.png $DESKTOP_ICONS
-	sudo cp $SIGPI_ICONS/flrig.png $DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/fldigi-latest.desktop $DESKTOP_FILES
-	sudo cp $SIGPI_HOME/desktop/flarq-latest.desktop $DESKTOP_FILES
-	sudo cp $SIGPI_HOME/desktop/flrig-latest.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi-latest.desktop
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq-latest.desktop

@@ -15,9 +15,9 @@ case "$1" in
         sudo apt-get remove linpac
         
 	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/linpac.png
+        sudo rm $SIGPI_DESKTOP_ICONS/linpac.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/linpac.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/linpac.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Removed"
@@ -31,9 +31,9 @@ case "$1" in
         sudo apt-get remove --purge linpac
 
 	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/linpac.png
+        sudo rm $SIGPI_DESKTOP_ICONS/linpac.png
         ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/linpac.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/linpac.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Purged"
@@ -52,12 +52,12 @@ case "$1" in
         cd $SIGPI_SOURCE
         sudo apt-get install -y linpac
         
+        ## DESKTOP
 	### Add Menu icon
-        sudo cp $SIGPI_ICONS/linpac.png $DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/linpac.png $SIGPI_DESKTOP_ICONS
         ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/linpac.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
+        sudo cp $SIGPI_HOME/desktop/linpac.desktop $SIGPI_DESKTOP_FILES
+	# Add SigPi Category installed application (already done )
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Installed"

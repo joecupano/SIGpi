@@ -108,10 +108,9 @@ case "$1" in
         echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
         echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
         
-	# Add Menu icon
-        sudo cp $SIGPI_ICONS/gnuradio-grc.png $DESKTOP_ICONS
+	## DESKTOP
+        # Add Menu icon
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/gnuradio-grc-39.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc-39.desktop
 	

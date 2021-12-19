@@ -44,10 +44,10 @@ case "$1" in
         sudo apt-get install -y gqrx-sdr
 
         ## DESKTOP
-	# Add Menu icon
+	    # Add Menu icon
         # Add Desktop links
         # Change Category to SigPi
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx-sdr.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx-sdr.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Installed"

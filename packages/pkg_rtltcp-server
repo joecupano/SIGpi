@@ -18,9 +18,9 @@ case "$1" in
         sudo rm -rf /etc/systemd/system/rtlsdr.service
 
         # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/rtltcp-server.png
+        sudo rm $SIGPI_DESKTOP_ICONS/rtltcp-server.png
         # Remove Desktop links
-        sudo rm $DESKTOP_FILES/rtltcp-server.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/rtltcp-server.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Removed"
@@ -37,9 +37,9 @@ case "$1" in
         sudo rm -rf /etc/systemd/system/rtlsdr.service
 
         # Remove Menu icon
-        sudo rm $DESKTOP_ICONS/rtltcp-server.png
+        sudo rm $SIGPI_DESKTOP_ICONS/rtltcp-server.png
         # Remove Desktop links
-        sudo rm $DESKTOP_FILES/rtltcp-server.desktop
+        sudo rm $SIGPI_DESKTOP_FILES/rtltcp-server.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Purged"
@@ -62,11 +62,10 @@ case "$1" in
         sudo systemctl status rtlsdr.service
 	
         # Add Menu icon
-        sudo cp $SIGPI_ICONS/rtltcp-server.png $DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/rtltcp-server.png $SIGPI_DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/rtltcp-server.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/rtltcp-server.desktop
+        sudo cp $SIGPI_HOME/desktop/rtltcp-server.desktop $SIGPI_DESKTOP_FILES
+	    # Add SigPi Category installed application (already done )
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Installed"
