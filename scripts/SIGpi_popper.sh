@@ -41,10 +41,10 @@ SIGPI_LOGO=$SIGPI_HOME/logo
 SIGPI_DESKTOP=$SIGPI_HOME/desktop
 
 # Desktop Destination Directories
-DESKTOP_DIRECTORY=/usr/share/desktop-directories
-DESKTOP_FILES=/usr/share/applications
-DESKTOP_ICONS=/usr/share/icons
-DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
+DESKTOP_DIRECTORY=/usr/share/SIGpi/desktop-directories
+DESKTOP_FILES=/usr/share/SIGpi/applications
+DESKTOP_ICONS=/usr/share/SIGpi/icons
+#DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
 # SigPi Menu category
 SIGPI_MENU_CATEGORY=SigPi
