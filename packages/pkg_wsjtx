@@ -47,7 +47,7 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        if [ "$SIGPI_HWARCH" == "x86" ]; then
+        if [ "$SIGPI_HWARCH" = "x86" ]; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##   Not available on x86"
             echo -e "${SIGPI_BANNER_RESET}"
