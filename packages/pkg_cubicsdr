@@ -46,7 +46,7 @@ case "$1" in
 	# Add Menu icon
         # Add Desktop links
         # Change Category to SigPi
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/cubicsdr.desktop
+	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Installed"
