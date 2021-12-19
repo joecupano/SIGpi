@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=RTL_433
+Encoding=UTF-8
+Comment= Generic data receiver for UHF ISM Bands (433.9, 868, 315 MHz 345 MHz, and 915 MHz)
+Exec=/usr/bin/lxterminal -e /usr/local/bin/rtl_433 -V
+Icon=/usr/share/SIGpi/icons/sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi;
