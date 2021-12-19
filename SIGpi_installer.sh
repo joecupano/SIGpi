@@ -54,9 +54,12 @@ SIGPI_LOGO=$SIGPI_HOME/logo
 SIGPI_DESKTOP=$SIGPI_HOME/desktop
 
 # Desktop Destination Directories
-DESKTOP_DIRECTORY=/usr/share/SIGpi/desktop-directories
-DESKTOP_FILES=/usr/share/SIGpi/applications
-DESKTOP_ICONS=/usr/share/SIGpi/icons
+SIGPI_DESKTOP_DIRECTORY=/usr/share/SIGpi/desktop-directories
+SIGPI_DESKTOP_FILES=/usr/share/SIGpi/applications
+SIGPI_DESKTOP_ICONS=/usr/share/SIGpi/icons
+DESKTOP_DIRECTORY=/usr/share/desktop-directories
+DESKTOP_FILES=/usr/share/applications
+DESKTOP_ICONS=/usr/share/icons
 #DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
 # SigPi Menu category
@@ -322,9 +325,7 @@ full_install(){
     source $SIGPI_SCRIPTS/install_devices.sh
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-    source $SIGPI_PACKAGES/pkg_ubertooth install
+    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
     source $SIGPI_PACKAGES/pkg_direwolf install
     source $SIGPI_PACKAGES/pkg_linpac install
 
@@ -349,7 +350,7 @@ full_install(){
 
     # gqrx
     if grep gqrx "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_gqrx-sdr install
+        source $SIGPI_PACKAGES/pkg_gqrx install
     fi
 
     # CubicSDR

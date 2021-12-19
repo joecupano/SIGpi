@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### installer_desktopitems
+### installer_desktop-items
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
@@ -27,7 +27,7 @@ sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
 # Copy Background images
 
 # What operating system are we?
-if [ $SIGPI_OSNAME = "Ubuntu 20.04.3 LTS" ]; then
+if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     # Change Background image
     gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
@@ -77,7 +77,7 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.director
 
 
 # What operating system are we?
-if [ $SIGPI_OSNAME = "Ubuntu 20.04.3 LTS" ]; then
+if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'sigidwiki.desktop','org.gnome.Terminal.desktop',\
      'artemis.desktop', 'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
