@@ -64,38 +64,17 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ###
 
 sigpi_update(){
-
-    ## POPPER
-    if grep -q $2 $SIGPI_ETC/SIGpi_packages; then
-        cd $SIGPI_SOURCE/$1/build
-        sudo make uninstall
-        sudo rm -rf $SIGPI_SOURCE/$1
-    else
-        echo "ERROR:  111"
-        echo "ERROR:  No such SIGpi package "
-        echo "ERROR:  Aborting"
-    fi
-
-    ## PUSHER 
-    if grep -q $1 $SIGPI_ETC/SIGpi_packages; then
-        if -f [$SIGPI_SOURCE/$1]; then
-            echo "ERROR:  121"
-            echo "ERROR:  You must remove the package first using SIGpi_popper <PACKAGE>"
-            echo "ERROR:  Aborting"
-            exit 1
-        else
-            SIGPI_INSTALLER="pkg_"$1
-            source $SIGPI_SCRIPTS/$SIGPI_INSTALLER
-        fi
-    else
-        echo "ERROR:  111"
-        echo "ERROR:  No such SIGpi package "
-        echo "ERROR:  Aborting"
-    fi
+    # Update local clone
+    cd $SIGPI_HOME
+    git pull
 }
 
 sigpi_upgrade(){
-    
+    # Update local clone
+    cd $SIGPI_HOME
+    git pull
+    source $SIGPI_PACKAGES/$SPKGSCRIPT remove
+    source $SIGPI_PACKAGES/$SPKGSCRIPT install
 }
 
 ###
@@ -103,19 +82,31 @@ sigpi_upgrade(){
 ###
 
 ACTION=$1
-SIG_PACKAGE=$2
-SIG_PKGSCRIPT="pkg_$2"
+SPACKAGE=$2
+SPKGSCRIPT="pkg_$2"
 
-### Need to dtermin is this is an upgrade
+case "$1" in 
+    remove )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT remove
+        ;;
+    purge )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT purge
+        ;;
+    install )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT install
+        ;;
+    update )
+        sigpi_update
+        ;;
+    upgrade)
+        sigpi_upgrade
+        ;;
 
-if $1 = "update"
-    sigpi_update
-fi
-
-if $1 = "upgrade"
-    sigpi_upgrade
-fi 
-
-source $SIGPI_SCRIPTS/$SIG_PKGSCRIPT $1
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
 
 exit 0
