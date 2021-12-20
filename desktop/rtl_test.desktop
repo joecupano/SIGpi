@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=RTL_TEST
+Encoding=UTF-8
+Comment=Benchmark tool for RTL2832 based DVB-T receivers
+Exec=/usr/bin/lxterminal -e /usr/local/bin/rtl_test -h
+Icon=/usr/share/SIGpi/icons/sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi;
