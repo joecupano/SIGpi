@@ -3,12 +3,12 @@
 ###
 ### SIGPI
 ###
-### install_server_devices
+### install_devices
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Server Devices"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Base Devices"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -16,6 +16,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
 echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
+
 
 # RTL-SDR
 
@@ -49,6 +50,7 @@ cmake ..
 make -j4
 sudo make install
 sudo ldconfig
+
 
 # SoapySDR
 
@@ -104,5 +106,5 @@ sudo ldconfig
 sudo apt-get install -y gpsd chrony
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Devices Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   Base Devices Installed"
 echo -e "${SIGPI_BANNER_RESET}"

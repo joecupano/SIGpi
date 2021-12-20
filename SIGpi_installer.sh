@@ -118,8 +118,10 @@ if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  Aborting"
     exit 1;
 fi
-
-# If we reached this point our hardware and operating system are certified for SIGpi
+# LimeSDR
+    if grep limesdr "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_limesdr
+    fi
 
 # Are we where we should be
 if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
@@ -158,6 +160,26 @@ calc_wt_size() {
 
 select_startscreen(){
     TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
+}
+
+select_devices()) {
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+        "Devices" 20 80 12 \
+        "plutosdr" "PlutoSDR " OFF \
+        "limesdr" "LimeSDR " OFF \
+        "ettus" "Ettus Research USRP UHD" OFF \
+        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
+    done
 }
 
 select_gnuradio() {
@@ -219,7 +241,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-        "HASviolet" "LoRa and FSK transciever project " OFF \
+        "HASviolet" "LoRa and FSK transceiver project " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
@@ -232,12 +254,11 @@ select_usefulapps() {
     RET=$?
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
+    fi# LimeSDR
+    if grep limesdr "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_limesdr
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
-    IFS=' '     # space is set as delimiter
-    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
-    for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+
     done
 }
 
@@ -278,7 +299,7 @@ server_install(){
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_server_devices.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
     source $SIGPI_PACKAGES/pkg_rtl_433 install
@@ -291,6 +312,7 @@ server_install(){
 full_install(){
     calc_wt_size
     select_startscreen
+    select_devices
     select_gnuradio
     select_sdrapps
     select_amateurradio
@@ -322,7 +344,28 @@ full_install(){
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
-    source $SIGPI_SCRIPTS/install_devices.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+
+    # PlutoSDR
+    if grep plutosdr "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_plutosdr
+    fi
+
+    # LimeSDR
+    if grep limesdr "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_limesdr
+    fi
+
+    # UHD - Ettus
+    if grep ettus "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_uhd
+    fi
+
+    # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
+    if grep rfm95w "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/install_devices_rfm95w
+    fi
+
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
     source $SIGPI_PACKAGES/pkg_ubertooth-tools install
