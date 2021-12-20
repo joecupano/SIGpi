@@ -1,6 +1,6 @@
 # SIGpi
 
-Release: 20211218-0500
+Release: 20211220-0500
 
 ## Introduction
 
@@ -32,35 +32,46 @@ cd SIGpi
 ```
 
 ## Known Issues
-- RadioSonde install script broken. (No doubt something simple)
 - Artemis does not run on 64-bit build. (Some Pythony issue)
 
-## Package Management in SIGpi
+## SIGpi Package Management
 
 You realized afterall that install time you want to change your choices in SDR or Amateur Radio packages.
+Do I need to re-image and re-install ?  No.
 
-### Adding a SIGpi package
-
-From within **/home/pi/SIG/SIGpi/scripts** run the following command
+For changes in your current install you **SIGpi_popper** and **SIGpi_pusher** for removing and adding 
+packages respectively
 
 ```
-./SIGpi_pusher.sh <PACKAGE>
+SIGpi_popper.sh <PACKAGE>
 
 where (PACKAGE> is the name of the SIGpi package as
-listed in /home/pi/SIG/SPIGpi/etc/SIGpi_packages
+listed in /home/pi/SIG/SIGpi/etc/SIGpi_packages
 ```
 
-### Removing a SIGpi package
-
-From within **/home/pi/SIG/SIGpi/scripts** run the following command
 
 ```
-./SIGpi_popper.sh <PACKAGE>
+SIGpi_pusher.sh <PACKAGE>
 
 where (PACKAGE> is the name of the SIGpi package as
-listed in /home/pi/SIG/SPIGpi/etc/SIGpi_packages
+listed in /home/pi/SIG/SIGpi/etc/SIGpi_packages
 ```
-Menu entries will be required to be removed manually
+An additional tool has been added simply called **SIGpi**. Besides providing the same functions as pusher and popper for the current release, **SIGpi** also handles any release and package updates.
+
+```
+SIGpi <ACTION> <PACKAGE>
+
+        ACTION  
+                install   install PACKAGE
+                remove    remove PACKAGE
+                purge     remove PACKAGE and purge configs
+                update    check for and dowlaod (clone) release update
+                upgrade   upgrade curent PACKAGE to latest PACKAGE given update
+
+        PACKAGE
+                A SIGpi package 
+```
+
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
