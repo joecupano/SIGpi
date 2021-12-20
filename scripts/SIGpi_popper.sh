@@ -47,13 +47,18 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SigPi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-if grep -q $1 $SIGPI_ETC/SIGpi_packages; then
-    cd $SIGPI_SOURCE/$1/build
-    sudo make uninstall
-    sudo rm -rf $SIGPI_SOURCE/$1
+if grep -q $1 $SIGPI_CONFIG; then
+    if [ -d $SIGPI_SOURCE/$1 ]; then
+        cd $SIGPI_SOURCE/$1/build
+        sudo make uninstall
+        sudo rm -rf $SIGPI_SOURCE/$1
+    else
+        sudo apt-get remove $1
+    fi
 else
-    echo "ERROR:  111"
-    echo "ERROR:  No such SIGpi package "
-    echo "ERROR:  Aborting"
+    echo "+++++++++"
+    echo "ERROR 200: SIGpi Package not installed"
+    echo "+++++++++"
+    exit 1
 fi
 exit 0
