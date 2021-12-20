@@ -361,7 +361,6 @@ full_install(){
     # SDRangel
     if grep sdrangel "$SIGPI_CONFIG"; then
         source $SIGPI_PACKAGES/pkg_sdrangel install
-        source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
     fi
 
     # SDR++
