@@ -15,11 +15,6 @@
 ###
 ###
 ###
-###
-###
-###
-###
-###
 
 ###
 ### INIT VARIABLES AND DIRECTORIES
@@ -346,6 +341,8 @@ full_install(){
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
+    source $SIGPI_SCRIPTS/install_desktop-prep.sh
+
     # PlutoSDR
     if grep plutosdr "$SIGPI_CONFIG"; then
         source $SIGPI_PACKAGES/install_devices_plutosdr
@@ -486,8 +483,8 @@ full_install(){
         source $SIGPI_PACKAGES/pkg_splat install
     fi
 
-    # SIGpi Menu
-    source $SIGPI_SCRIPTS/install_desktop-items.sh
+    # SIGpi Menus
+    source $SIGPI_SCRIPTS/install_desktop-post.sh
 
 }
 
