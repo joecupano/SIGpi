@@ -333,9 +333,9 @@ full_install(){
     touch $SIGPI_CONFIG
     echo "sigpi_desktop" >> $SIGPI_CONFIG    
     sudo mkdir /usr/share/SIGpi
-    sudo mkdir $DESKTOP_DIRECTORY
-    sudo mkdir $DESKTOP_FILES
-    sudo mkdir $DESKTOP_ICONS
+    sudo mkdir $SIGPI_DESKTOP_DIRECTORY
+    sudo mkdir $SIGPI_DESKTOP_FILES
+    sudo mkdir $SIGPI_DESKTOP_ICONS
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
