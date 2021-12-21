@@ -249,11 +249,12 @@ select_usefulapps() {
     RET=$?
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
-    fi# LimeSDR
-    if grep limesdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_limesdr
     fi
-
+    ##echo $FUN >> $SIGPI_CONFIG
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_CONFIG
     done
 }
 
