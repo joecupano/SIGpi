@@ -363,7 +363,7 @@ full_install(){
 
     # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
     if grep rfm95w "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_rfm95w
+        source $SIGPI_PACKAGES/install_devices_rfm95w.sh
     fi
 
     source $SIGPI_SCRIPTS/install_libraries.sh
