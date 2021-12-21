@@ -70,7 +70,7 @@ case "$1" in
         make -j4
         sudo make install
 
-        sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf.sh
+        sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
         sudo mkdir /usr/local/etc/direwolf
         sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
 	
