@@ -157,7 +157,7 @@ select_startscreen(){
     TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
 }
 
-select_devices()) {
+select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Devices" 20 80 12 \
         "plutosdr" "PlutoSDR " OFF \
