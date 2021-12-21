@@ -215,7 +215,6 @@ select_amateurradio() {
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
         "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
-        "xastir" "Xastir provides mapping, tracking, messaging, weather, weather alerts" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
