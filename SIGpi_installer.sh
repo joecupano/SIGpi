@@ -346,17 +346,19 @@ full_install(){
 
     # PlutoSDR
     if grep plutosdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_plutosdr
+        source $SIGPI_PACKAGES/pkg_plutosdr install
+        echo "plutosdr" >> $SIGPI_CONFIG  
     fi
 
     # LimeSDR
     if grep limesdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_limesdr
+        source $SIGPI_PACKAGES/pkg_limesdr install
+        echo "limesdr" >> $SIGPI_CONFIG  
     fi
 
     # UHD - Ettus
     if grep ettus "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_uhd
+        source $SIGPI_PACKAGES/pkg_ettus install
     fi
 
     # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
@@ -366,9 +368,13 @@ full_install(){
 
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
+    echo "radiosonde" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+    echo "ubertooth" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_direwolf install
+    echo "direwolf" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_linpac install
+    echo "linpac" >> $SIGPI_CONFIG  
 
     # RTL_433
     if grep rtl433 "$SIGPI_CONFIG"; then
