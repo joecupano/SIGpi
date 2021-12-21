@@ -113,10 +113,6 @@ if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  Aborting"
     exit 1;
 fi
-# LimeSDR
-    if grep limesdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_limesdr
-    fi
 
 # Are we where we should be
 if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then

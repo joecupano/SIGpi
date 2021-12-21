@@ -1,90 +1,110 @@
 #!/bin/bash
 
 ###
-### SIGpi
+### SIGPI
 ###
-### installer_desktop-items
+### install_core_devices
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Desktop Items"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Devices"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# Local Settings Extras
-#/.local
-#/.local/share
-#/.local/share/applications
-#/.local/share/desktop-directories
+# AX.25 and utilities"
 
-# Copy SIGpi commands into /usr/local/bin
-sudo cp $SIGPI_HOME/scripts/SIGpi_pusher.sh /usr/local/bin/SIGpi_pusher
-sudo cp $SIGPI_HOME/scripts/SIGpi_popper.sh /usr/local/bin/SIGpi_popper
-sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
+sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
+echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 
 
-# Copy Background images
+# RTL-SDR
 
-# What operating system are we?
-if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    # Change Background image
-    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
-else
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
-    # Change Background image
-    pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SIGpi_wallpaper.png
-fi
+## DEPENDENCIES
+sudo apt-get install -y libusb-1.0-0-dev
+sudo pip3 install pyrtlsdr
 
-# Add Desktop links
-sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
-sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
-sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
-sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
-sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
-
-# Add SigPi Category for each installed application
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/cubicsdr.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gqrx-sdr.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wireshark.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigidwiki.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigpi_example.desktop
-sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sigpi_home.desktop
+# INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/osmocom/rtl-sdr.git
+cd rtl-sdr
+mkdir build	&& cd build
+cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+make
+sudo make install
+sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+sudo ldconfig
 
 
-# Add installed applications into SigPi menu
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/artemis.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/cubicsDR.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gpredict.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gqrx.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrangel.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrpp.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/wireshark.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/xastir.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigidwiki.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_example.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_home.desktop
+# HackRF
+
+## DEPENDENCIES
+sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/mossmann/hackrf.git
+cd hackrf/host
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
+sudo ldconfig
 
 
-# What operating system are we?
-if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'sigidwiki.desktop','org.gnome.Terminal.desktop',\
-     'artemis.desktop', 'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
-     'fldigi.desktop', 'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
-fi
+# SoapySDR
 
+## DEPENDENCIES
+sudo apt-get install -y swig
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y libavahi-client-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y python-dev python3-dev
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapySDR.git
+cd SoapySDR
+mkdir build && cd build
+cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make -j4
+sudo make install
+sudo ldconfig
+SoapySDRUtil --info
+
+# SoapyRTLSDR
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyRTLSDR.git
+cd SoapyRTLSDR
+mkdir build && cd build
+cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make
+sudo make install
+sudo ldconfig
+
+# SoapyHackRF
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyHackRF.git
+cd SoapyHackRF
+mkdir build && cd build
+cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make
+sudo make install
+sudo ldconfig
+
+# SoapyRemote
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyRemote.git
+cd SoapyRemote
+mkdir build && cd build
+cmake .. -Wno-dev
+make
+sudo make install
+sudo ldconfig
+
+# GPS
+sudo apt-get install -y gpsd chrony
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Items Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   Core Devices Installed"
 echo -e "${SIGPI_BANNER_RESET}"
