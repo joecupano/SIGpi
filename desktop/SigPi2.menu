@@ -3,9 +3,9 @@
 <!-- Do not edit manually - generated and managed by xdg-desktop-menu -->
 <Menu>
     <Name>Applications</Name>
-<Menu>
-    <Name>SigPi</Name>
-    <Directory>SigPi.directory</Directory>
+    <Menu>
+        <Name>SigPi</Name>
+        <Directory>SigPi.directory</Directory>
         <Include>
             <Filename>artemis.desktop</Filename>
             <Filename>CubicSDR.desktop</Filename>
@@ -20,7 +20,7 @@
             <Filename>sigidwiki.desktop</Filename>
             <Filename>sigpi_home.desktop</Filename>
         </Include>
-    <Directory>SigPiCMD.directory</Directory>
+        <Directory>SigPiCMD.directory</Directory>
         <Include>
             <Filename>dump1090.desktop</Filename>
             <Filename>rtl_433.desktop</Filename>
@@ -28,5 +28,5 @@
             <Filename>rtl_fm.desktop</Filename>
             <Filename>rtl_test.desktop</Filename>
         </Include>
-</Menu>
+    </Menu>
 </Menu>
