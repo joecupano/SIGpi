@@ -153,8 +153,8 @@ select_startscreen(){
 
 select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "Devices" 20 80 12 \
-        "plutosdr" "PlutoSDR " OFF \
+        "Select additional devices to install " 20 80 12 \
+        "plutosdr" "PlutoSDR with SoapyPlutoSDR" OFF \
         "limesdr" "LimeSDR " OFF \
         "ettus" "Ettus Research USRP UHD" OFF \
         "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
@@ -173,7 +173,7 @@ select_devices() {
 
 select_gnuradio() {
     FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
-        "GNUradio version" 20 80 12 \
+        "Select a GNUradio version" 20 80 12 \
 		"gnuradio38" "GNU Radio 3.8 " ON \
         "gnuradio39" "GNU Radio 3.9 " OFF \
         3>&1 1>&2 2>&3)
@@ -186,7 +186,7 @@ select_gnuradio() {
 
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "General Purpose SDR Applications" 20 80 12 \
+        "Select SDR Applications" 20 80 12 \
         "rtl433" "RTL_433 " OFF \
         "dump1090" "Dump 1090 " OFF \
         "gqrx" "SDR Receiver " OFF \
@@ -208,11 +208,11 @@ select_sdrapps() {
 
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "Amateur Radio Applications" 24 120 12 \
+        "Select Amateur Radio Applications" 24 120 12 \
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
-        "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
+        "wsjtx" "WSJT-X 2.5.3 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
