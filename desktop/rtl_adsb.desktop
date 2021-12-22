@@ -2,7 +2,7 @@
 Name=RTL_ADSB
 Encoding=UTF-8
 Comment=A simple ADS-decoder
-Exec=/usr/bin/lxterminal -e /usr/local/bin/rtl_adsb -h
+Exec=SIGpi_exec-in-shell "rtl_adsb -h"
 Icon=/usr/share/SIGpi/icons/sigpi_icon_menu.png
 StartupNotify=false
 Terminal=true
