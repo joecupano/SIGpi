@@ -69,6 +69,10 @@ case "$1" in
         sudo make install
         sudo ldconfig
 
+        ## DESKTOP
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   LimeSDR Installed"
         echo -e "${SIGPI_BANNER_RESET}"

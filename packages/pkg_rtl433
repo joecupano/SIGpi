@@ -72,7 +72,11 @@ case "$1" in
         # Add Desktop links
         sudo cp $SIGPI_HOME/desktop/rtl_433.desktop $SIGPI_DESKTOP_FILES
 	# Add SigPi Category installed application (already done)
-	
+        # Add into menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_433.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_adsb.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_fm.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_test.desktop
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"

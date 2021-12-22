@@ -63,6 +63,8 @@ case "$1" in
         # Add Desktop links
         sudo cp $SIGPI_HOME/desktop/dump1090.desktop $SIGPI_DESKTOP_FILES
 	# Add SigPi Category installed application ( already done )
+        # Add to menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/dump1090.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Installed"
