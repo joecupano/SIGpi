@@ -32,6 +32,7 @@ SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
 SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
+SIGPI_PKGLIST=$SIGPI_ETC/SIGpi_packages
 SIGPI_INSTALL_TXT1=$SIGPI_ETC/SIGpi-installer-1.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
@@ -44,9 +45,6 @@ SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 SIGPI_CERTIFIED="false"
 
 # Desktop Destination Directories
-SIGPI_DESKTOP_DIRECTORY=/usr/share/SIGpi/desktop-directories
-SIGPI_DESKTOP_FILES=/usr/share/SIGpi/applications
-SIGPI_DESKTOP_ICONS=/usr/share/SIGpi/icons
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
 DESKTOP_FILES=/usr/share/applications
 DESKTOP_ICONS=/usr/share/icons
