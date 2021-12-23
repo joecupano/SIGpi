@@ -51,6 +51,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y splat
+        echo "splat" >> $SIGPI_CONFIG 
 
         ## DESKTOP
 	    # Add Menu icon

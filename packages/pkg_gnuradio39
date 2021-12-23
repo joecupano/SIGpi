@@ -107,6 +107,7 @@ case "$1" in
         cd ~
         echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
         echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+        echo "gnuradio39" >> $SIGPI_CONFIG 
         
 	## DESKTOP
         # Add Menu icon

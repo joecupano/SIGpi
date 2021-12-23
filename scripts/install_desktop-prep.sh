@@ -36,6 +36,10 @@ else
     pcmanfm --set-wallpaper=/usr/share/rpd-wallpaper/SIGpi_wallpaper.png
 fi
 
+# Copy SIGpi Desktop Setup files to XDG Dirs
+sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
+sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
+
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Prep Complete"
 echo -e "${SIGPI_BANNER_RESET}"

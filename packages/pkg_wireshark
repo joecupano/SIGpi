@@ -62,6 +62,7 @@ case "$1" in
         cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
         make -j4
         sudo make install
+        echo "wireshark" >> $SIGPI_CONFIG 
 
         # BTBR Plugin
         cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr

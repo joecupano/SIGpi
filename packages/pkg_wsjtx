@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         sudo dpkg -P wsjtx
+        rm -rf $HOME/Download/wsjtx*deb
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Removed"
@@ -23,9 +24,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge WSJT-X"
         echo -e "${SIGPI_BANNER_RESET}"
 
-	sudo dpkg -P wsjtx
+	    sudo dpkg -P wsjtx
+        rm -rf $HOME/Download/wsjtx*deb
 
-	rm -rf $HOME/.config/WSJT-X.INI
+	    rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop
         sudo rm -rf $DESKTOP_FILES/wsjtx.desktop
 
@@ -56,20 +58,23 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $HOME/Downloads
-	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.3_amd64.deb -P $HOME/Downloads
-	        sudo dpkg -i wsjtx_2.5.2_amd64.deb
+            wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.3_amd64.deb -P $HOME/Downloads
+	        sudo dpkg -i wsjtx_2.5.3_amd64.deb
+            echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "armv7l" ]]; then
 	        cd $HOME/Downloads
-	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.3_armhf.deb -P $HOME/Downloads
+	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_armhf.deb -P $HOME/Downloads
 	        sudo dpkg -i wsjtx_2.5.2_armhf.deb
+            echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $HOME/Downloads
-	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.3_arm64.deb -P $HOME/Downloads
+	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_arm64.deb -P $HOME/Downloads
 	        sudo dpkg -i wsjtx_2.5.2_arm64.deb
+            echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
 	    ## DESKTOP
@@ -78,6 +83,8 @@ case "$1" in
         # Change Category to SigPi
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Installed"

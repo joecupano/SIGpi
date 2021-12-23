@@ -68,6 +68,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
+        echo "limesdr" >> $SIGPI_CONFIG 
 
         ## DESKTOP
         sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop

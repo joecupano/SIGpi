@@ -32,6 +32,7 @@ sudo make install
 sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
 sudo ldconfig
 uhd_images_downloader
+echo "ettus" >> $SIGPI_CONFIG 
 
 
 echo -e "${SIGPI_BANNER_COLOR}"

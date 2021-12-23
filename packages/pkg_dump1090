@@ -56,12 +56,13 @@ case "$1" in
         cd dump1090
         make -j4
         sudo cp dump1090 /usr/local/bin/dump1090
+        echo "dump1090" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
 	# Add Menu icon
-        sudo cp $SIGPI_ICONS/dump1090.png $SIGPI_DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/dump1090.png $DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/dump1090.desktop $SIGPI_DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/dump1090.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application ( already done )
         # Add to menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/dump1090.desktop

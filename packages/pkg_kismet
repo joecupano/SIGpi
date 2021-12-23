@@ -59,6 +59,7 @@ case "$1" in
         #
         # Say yes when asked about suid helpers
         #
+        echo "kismet" >> $SIGPI_CONFIG 
         
         ## DESKTOP
         # Add Menu icon

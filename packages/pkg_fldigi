@@ -6,10 +6,6 @@
 ### pkg_fldigi
 ###
 
-###
-### 20211208-1200  Currently default to install to keep script backward compatible
-###
-
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -45,15 +41,17 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y fldigi
+        echo "fldigi" >> $SIGPI_CONFIG 
 
 	    ## DESKTOP
 	    # Add Menu icon
         # Add Desktop links
         # Change Category to SigPi
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-        
+        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
+        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/fldigi.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flarq.desktop
+	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Installed"
         echo -e "${SIGPI_BANNER_RESET}"

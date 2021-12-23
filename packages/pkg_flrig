@@ -1,57 +1,57 @@
 #!/bin/bash
 
 ###
-### SIGpi
+### SIGPI
 ###
-### pkg_gnuradio38
+### pkg_flrig
 ###
 
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio 3.8"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove FLrig"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove gnuradio gnuradio-dev
+        sudo apt-get remove flrig
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio 3.8"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge FLrig"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove --purge gnuradio gnuradio-dev
-        rm -rf $HOME/.gnuradio
+        sudo apt-get remove --purge flrig
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.8"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install FLrig"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
-        
-        ## PACKAGE
-        sudo apt-get install -y gnuradio gnuradio-dev
-        echo "gnuradio38" >> $SIGPI_CONFIG 
 
-        ## DESKTOP
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        sudo apt-get install -y flrig
+        echo "flrig" >> $SIGPI_CONFIG 
+
+	    ## DESKTOP
 	    # Add Menu icon
         # Add Desktop links
-        # Change Category to SigPi
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
+        # Change Category to HamRadio Only
+	    sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

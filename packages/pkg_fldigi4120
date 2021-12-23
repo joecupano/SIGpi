@@ -3,11 +3,7 @@
 ###
 ### SIGpi
 ###
-### pkg_fldigi-latest
-###
-
-###
-### 20211208-1200  Currently default to install to keep script backward compatible
+### pkg_fldigi4120
 ###
 
 case "$1" in 

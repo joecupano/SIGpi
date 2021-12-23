@@ -326,9 +326,6 @@ full_install(){
     touch $SIGPI_CONFIG
     echo "sigpi_desktop" >> $SIGPI_CONFIG    
     sudo mkdir /usr/share/SIGpi
-    sudo mkdir $SIGPI_DESKTOP_DIRECTORY
-    sudo mkdir $SIGPI_DESKTOP_FILES
-    sudo mkdir $SIGPI_DESKTOP_ICONS
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
@@ -339,14 +336,12 @@ full_install(){
 
     # PlutoSDR
     if grep plutosdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_plutosdr install
-        echo "plutosdr" >> $SIGPI_CONFIG  
+        source $SIGPI_PACKAGES/pkg_plutosdr install 
     fi
 
     # LimeSDR
     if grep limesdr "$SIGPI_CONFIG"; then
         source $SIGPI_PACKAGES/pkg_limesdr install
-        echo "limesdr" >> $SIGPI_CONFIG  
     fi
 
     # UHD - Ettus
@@ -356,18 +351,14 @@ full_install(){
 
     # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
     if grep rfm95w "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/install_devices_rfm95w.sh
+        source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
     fi
 
     source $SIGPI_SCRIPTS/install_libraries.sh
     source $SIGPI_SCRIPTS/install_radiosonde.sh
-    echo "radiosonde" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_ubertooth-tools install
-    echo "ubertooth" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_direwolf install
-    echo "direwolf" >> $SIGPI_CONFIG  
     source $SIGPI_PACKAGES/pkg_linpac install
-    echo "linpac" >> $SIGPI_CONFIG  
 
     # RTL_433
     if grep rtl433 "$SIGPI_CONFIG"; then
@@ -385,7 +376,7 @@ full_install(){
     fi
 
     if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_gnuradio39 install
+	    source $SIGPI_PACKAGES/pkg_gnuradio39 install
     fi
 
     # gqrx
@@ -412,11 +403,6 @@ full_install(){
     if grep fldigi "$SIGPI_CONFIG"; then
         source $SIGPI_PACKAGES/pkg_fldigi install
     fi
-
-    # Fldigi 4.1.20
-    #if grep fldigi4120 "$SIGPI_CONFIG"; then
-    #    source $SIGPI_PACKAGES/pkg_fldigi-latest install
-    #fi
 
     # WSJT-X
     if grep wsjtx "$SIGPI_CONFIG"; then

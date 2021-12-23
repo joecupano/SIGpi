@@ -23,6 +23,7 @@ sudo pip3 install adafruit-circuitpython-rfm9x
 
 # INSTALL
 sudo pip3 install pyLoraRFM9x
+echo "rfm95w" >> $SIGPI_CONFIG 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   RFM95W Installed"

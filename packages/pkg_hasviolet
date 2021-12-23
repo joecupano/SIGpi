@@ -82,11 +82,13 @@ case "$1" in
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.key >/dev/null 2>&1
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.crt >/dev/null 2>&1
 
+        echo "hasviolet" >> $SIGPI_CONFIG 
+
         ## DESKTOP
         # Add Menu icon
-        sudo cp $SIGPI_ICONS/hasviolet.png $SIGPI_DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/hasviolet.png $DESKTOP_ICONS
         # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/hasviolet.desktop $SIGPI_DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/hasviolet.desktop $DESKTOP_FILES
 	    # Add SigPi Category installed application (already done)
 
         echo -e "${SIGPI_BANNER_COLOR}"

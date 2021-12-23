@@ -78,6 +78,7 @@ case "$1" in
         qmake
         make
         sudo make install
+        echo "qsstv95" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
         # Add Menu icon

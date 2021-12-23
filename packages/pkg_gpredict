@@ -47,6 +47,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y gpredict
+        echo "gpredict" >> $SIGPI_CONFIG 
 
         ## DESKTOP
 	    # Add Menu icon

@@ -51,12 +51,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y linpac
+        echo "linpac" >> $SIGPI_CONFIG 
         
         ## DESKTOP
 	### Add Menu icon
-        sudo cp $SIGPI_ICONS/linpac.png $SIGPI_DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/linpac.png $DESKTOP_ICONS
         ### Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/linpac.desktop $SIGPI_DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/linpac.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application (already done )
 
         echo -e "${SIGPI_BANNER_COLOR}"

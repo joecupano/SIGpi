@@ -53,6 +53,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/0xCoto/CygnusRFI.git
+        echo "cygnusrfi" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
 	# Add Menu icon

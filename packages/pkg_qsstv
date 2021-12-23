@@ -41,6 +41,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y qsstv
+        echo "qsstv" >> $SIGPI_CONFIG 
         
         ## DESKTOP
 	    # Add Menu icon

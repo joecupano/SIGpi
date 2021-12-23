@@ -218,6 +218,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
+        echo "sdrangel" >> $SIGPI_CONFIG 
 
         ## FFTWF-Wisdom   
         cd $HOME/.config/
