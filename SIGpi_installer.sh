@@ -154,7 +154,6 @@ select_startscreen(){
 select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
-        "plutosdr" "PlutoSDR with SoapyPlutoSDR" OFF \
         "limesdr" "LimeSDR " OFF \
         "ettus" "Ettus Research USRP UHD" OFF \
         "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
@@ -333,11 +332,6 @@ full_install(){
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
     source $SIGPI_SCRIPTS/install_desktop-prep.sh
-
-    # PlutoSDR
-    if grep plutosdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_plutosdr install 
-    fi
 
     # LimeSDR
     if grep limesdr "$SIGPI_CONFIG"; then

@@ -73,14 +73,7 @@ case "$1" in
         make -j4
         sudo make install
         echo "ubertooth" >> $SIGPI_CONFIG 
-
-        ## DESKTOP
-        # Add Menu icon
-        sudo cp $SIGPI_ICONS/ubertooth-tool.png $DESKTOP_ICONS
-        # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/ubertooth-tool.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application ( already installed )
-        
+       
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Installed"
         echo -e "${SIGPI_BANNER_RESET}"

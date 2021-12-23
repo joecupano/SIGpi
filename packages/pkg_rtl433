@@ -74,6 +74,9 @@ case "$1" in
         sudo cp $SIGPI_ICONS/rtl_433.png $DESKTOP_ICONS
         # Add Desktop links
         sudo cp $SIGPI_HOME/desktop/rtl_433.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/rtl_adsb.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/rtl_fm.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/rtl_test.desktop $DESKTOP_FILES
 	# Add SigPi Category installed application (already done)
         # Add into menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_433.desktop
