@@ -60,8 +60,8 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $HOME/Downloads
-            wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.3_amd64.deb -P $HOME/Downloads
-	        sudo dpkg -i wsjtx_2.5.3_amd64.deb
+            wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_amd64.deb -P $HOME/Downloads
+	        sudo dpkg -i wsjtx_2.5.2_amd64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
