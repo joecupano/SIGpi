@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         sudo apt-get remove qsstv
+        sed -i /qsstv/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Removed"
@@ -24,6 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
        
         sudo apt-get remove --purge qsstv
+        sed -i /qsstv/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Purged"

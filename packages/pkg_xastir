@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
        
         sudo apt-get remove xastir
+        sed -i /xastir/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Removed"
@@ -24,6 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         sudo apt-get remove --purge xastir
+        sed -i /xastir/d $SIGPI_CONFIG
 
 	echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Purged"

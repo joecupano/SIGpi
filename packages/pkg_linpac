@@ -18,6 +18,7 @@ case "$1" in
         sudo rm $SIGPI_DESKTOP_ICONS/linpac.png
         ### Remove Desktop links
         sudo rm $SIGPI_DESKTOP_FILES/linpac.desktop
+        sed -i /linpac/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Removed"
@@ -29,6 +30,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge linpac
+        sed -i /linpac/d $SIGPI_CONFIG
 
 	### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/linpac.png

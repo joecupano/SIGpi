@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gnuradio gnuradio-dev
+        sed -i /gnuradio38/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.8 Removed"
@@ -24,6 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge gnuradio gnuradio-dev
+        sed -i /gnuradio38/d $SIGPI_CONFIG
         rm -rf $HOME/.gnuradio
         
         echo -e "${SIGPI_BANNER_COLOR}"

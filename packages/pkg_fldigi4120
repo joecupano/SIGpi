@@ -17,14 +17,15 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/fldigi
+	rm -rf $SIGPI_SOURCE/fldigi
+        sed -i /fldigi4120/d $SIGPI_CONFIG
 
         # Flrig
         cd $SIGPI_SOURCE/flrig-latest/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/flrig-latest
+	rm -rf $SIGPI_SOURCE/flrig-latest
 
         # FLxmlrpc    
         cd $SIGPI_SOURCE/flxmlrpc-latest/build
@@ -47,21 +48,22 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/fldigi-latest
+	rm -rf $SIGPI_SOURCE/fldigi-latest
+        sed -i /fldigi4120/d $SIGPI_CONFIG
 
         # Flrig
         cd $SIGPI_SOURCE/flrig-latest/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/flrig-latest
+	rm -rf $SIGPI_SOURCE/flrig-latest
 
         # FLxmlrpc    
         cd $SIGPI_SOURCE/flxmlrpc-latest/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/flxmlrpc-latest
+	rm -rf $SIGPI_SOURCE/flxmlrpc-latest
 
         rm -rf $HOME/.fldigi
         sudo rm -rf $SIGPI_DESKTOP/fldigi.desktop

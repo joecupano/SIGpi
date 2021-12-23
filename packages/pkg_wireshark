@@ -21,6 +21,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/libbtb
+        sed -i /wireshark/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Removed"
@@ -41,6 +42,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/libbtb
         rm -rf $HOME/.config/wireshark
+        sed -i /wireshark/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Wireshark Purged"

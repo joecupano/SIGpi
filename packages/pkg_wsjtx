@@ -14,6 +14,7 @@ case "$1" in
         
         sudo dpkg -P wsjtx
         rm -rf $HOME/Download/wsjtx*deb
+        sed -i /wsjtx/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Removed"
@@ -26,6 +27,7 @@ case "$1" in
 
 	    sudo dpkg -P wsjtx
         rm -rf $HOME/Download/wsjtx*deb
+        sed -i /wsjtx/d $SIGPI_CONFIG
 
 	    rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop

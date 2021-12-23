@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
+        sed -i /hasviolet/d $SIGPI_CONFIG
 
         ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/hasviolet.png
@@ -29,6 +30,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
+        sed -i /hasviolet/d $SIGPI_CONFIG
 
         ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/hasviolet.png

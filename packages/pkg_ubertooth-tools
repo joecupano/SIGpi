@@ -18,6 +18,7 @@ case "$1" in
         sudo make uninstall
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/ubertooth
+        sed -i /ubertooth/d $SIGPI_CONFIG
         
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/ubertooth-tools.png
@@ -38,6 +39,7 @@ case "$1" in
         sudo make uninstall
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/ubertooth
+        sed -i /ubertooth/d $SIGPI_CONFIG
         
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/ubertooth-tools.png

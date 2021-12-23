@@ -14,6 +14,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gqrx-sdr
+        sed -i /gqrx/d $SIGPI_CONFIG
            
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Removed"
@@ -25,6 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge gqrx-sdr
+        sed -i /gqrx/d $SIGPI_CONFIG
     
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Purged"

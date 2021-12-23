@@ -12,6 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove kismet
+        sed -i /kismet/d $SIGPI_CONFIG
 
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/kismet.png
@@ -28,6 +29,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge kismet
+        sed -i /kismet/d $SIGPI_CONFIG
 
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/kismet.png

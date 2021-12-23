@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove splat
+        sed -i /splat/d $SIGPI_CONFIG
 
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/splat.png
@@ -29,6 +30,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge splat
+        sed -i /splat/d $SIGPI_CONFIG
         
         ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/splat.png

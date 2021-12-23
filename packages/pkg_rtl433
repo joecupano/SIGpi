@@ -17,6 +17,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/rtl_433
+        sed -i /rtl_433/d $SIGPI_CONFIG
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
@@ -37,6 +38,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/rtl_433
+        sed -i /rtl_433/d $SIGPI_CONFIG
 
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png

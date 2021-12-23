@@ -14,6 +14,7 @@ case "$1" in
         
 	cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/CygnusRFI
+        sed -i /cygnusrfi/d $SIGPI_CONFIG
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/cygnusrfi.png
@@ -31,6 +32,7 @@ case "$1" in
         
 	cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/CygnusRFI
+        sed -i /cygnusrfi/d $SIGPI_CONFIG
 	
 	# Remove Menu icon
         sudo rm $SIGPI_$DESKTOP_ICONS/cygnusrfi.png

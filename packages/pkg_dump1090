@@ -14,6 +14,7 @@ case "$1" in
 	
 	rm -rf $SIGPI_SOURCE/dump1090
         sudo rm /usr/local/bin/dump1090
+        sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/dump1090.png
@@ -30,6 +31,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 	
 	rm -rf $SIGPI_SOURCE/dump1090
+        sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/dump1090.png

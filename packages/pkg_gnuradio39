@@ -17,6 +17,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/gnuradio-39
+        sed -i /gnuradio39/d $SIGPI_CONFIG
 	
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
@@ -40,6 +41,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/gnuradio-39
         rm -rf $HOME/.gnuradio
+        sed -i /gnuradio39/d $SIGPI_CONFIG
 
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png

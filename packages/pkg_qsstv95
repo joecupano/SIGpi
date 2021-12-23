@@ -17,6 +17,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/qsstv95
+        sed -i /qsstv95/d $SIGPI_CONFIG
 	
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/qsstv.png
@@ -39,6 +40,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/qsstv95
         rm -rf $HOME/qsstv
+        sed -i /qsstv95/d $SIGPI_CONFIG
         
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/qsstv.png

@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gpredict
+        sed -i /gpredict/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Removed"
@@ -24,6 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge gpredict
+        sed -i /gpredict/d $SIGPI_CONFIG
         rm -rf $HOME/.config/Gpredict
         sudo rm -rf $SIGPI_DESKTOP/gpredict.desktop
         sudo rm -rf $DESKTOP_FILES/gpredict.desktop

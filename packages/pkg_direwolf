@@ -15,6 +15,7 @@ case "$1" in
         sudo make uninstall
         cd $SIGPI_SOURCE
     	rm -rf $SIGPI_SOURCE/DireWolf
+        sed -i /direwolf/d $SIGPI_CONFIG
 	
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/direwolf.png
@@ -32,8 +33,8 @@ case "$1" in
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
-	
 	rm -rf $SIGPI_SOURCE/DireWolf
+        sed -i /direwolf/d $SIGPI_CONFIG
         sudo rm /usr/local/share/doc/direwolf/scripts/dw-start.sh 
         sudo rm /usr/local/bin/run_direwolf.sh
         sudo rm -rf /usr/local/share/doc/direwolf/conf/* 
