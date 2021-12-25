@@ -56,11 +56,14 @@ case "$1" in
         echo "splat" >> $SIGPI_CONFIG 
 
         ## DESKTOP
-	    # Add Menu icon
-        sudo cp $SIGPI_ICONS/splat.png $SIGPI_DESKTOP_ICONS
-        # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/splat.desktop $SIGPI_DESKTOP_FILES
-	    # Add SigPi Category installed application ( already done )
+	    # Add Icon
+        sudo cp $SIGPI_ICONS/splat.png $DESKTOP_ICONS
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/splat.desktop $DESKTOP_FILES
+	    # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/splat.desktop
+
 	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SPLAT Installed"

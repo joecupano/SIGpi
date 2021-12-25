@@ -58,11 +58,15 @@ case "$1" in
         echo "cygnusrfi" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
-	# Add Menu icon
-        sudo cp $SIGPI_ICONS/cygnusrfi.png $SIGPI_DESKTOP_ICONS
-        # Add Desktop links
-        sudo cp $SIGPI_HOME/desktop/cygnusrfi.desktop $SIGPI_DESKTOP_FILES
-	# Add SigPi Category installed application ( already done )
+	# Add Icon
+        sudo cp $SIGPI_ICONS/cygnusrfi.png $DESKTOP_ICONS
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/cygnusrfi.desktop $DESKTOP_FILES
+	# Add Category
+        # sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/cygnusrfi.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/cygnusrfi.desktop
+        
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CygnusRFI Installed"

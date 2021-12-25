@@ -25,14 +25,14 @@ SIGPI_SOURCE=$HOME/SIG
 
 # SIGpi directories
 SIGPI_HOME=$SIGPI_SOURCE/SIGpi
-SIGPI_ETC=$SIGPI_HOME/etc
+SIGPI_ETC=$SIGPI_SOURCE/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
 SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
-SIGPI_PKGLIST=$SIGPI_ETC/SIGpi_packages
-SIGPI_INSTALL_TXT1=$SIGPI_ETC/SIGpi-installer-1.txt
+SIGPI_PKGLIST=$SIGPI_PACKAGES/SIGpi_packages
+SIGPI_INSTALL_TXT1=$SIGPI_SCRIPTS/scr_install_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -42,12 +42,6 @@ SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
-
-# Desktop directories
-SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
-SIGPI_ICONS=$SIGPI_HOME/icons
-SIGPI_LOGO=$SIGPI_HOME/logo
-SIGPI_DESKTOP=$SIGPI_HOME/desktop
 
 # Desktop Destination Directories
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
@@ -281,6 +275,7 @@ server_install(){
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
+    mkdir $SIGPI_ETC
     touch $SIGPI_CONFIG
     echo "sigpi_server" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
@@ -294,8 +289,8 @@ server_install(){
     source $SIGPI_PACKAGES/pkg_dump1090 install
     source $SIGPI_PACKAGES/pkg_ubertooth install
     source $SIGPI_PACKAGES/pkg_direwolf install
-    
 }
+
 
 full_install(){
     calc_wt_size
@@ -318,13 +313,13 @@ full_install(){
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create SIGPI Directories and config"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Create SIG/etc Directory and config"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
+    mkdir $SIGPI_ETC
     touch $SIGPI_CONFIG
     echo "sigpi_desktop" >> $SIGPI_CONFIG    
-    sudo mkdir /usr/share/SIGpi
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh

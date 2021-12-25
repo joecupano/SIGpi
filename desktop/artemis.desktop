@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Artemis
+Type=Application
+StartupWMClass=artemis3
+Comment=RF Signal Database
+Exec=/home/$USER/SIG/artemis/Artemis
+Terminal=false
+Icon=/usr/share/icons/artemis3.svg
+Categories=SigPi;

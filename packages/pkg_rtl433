@@ -70,15 +70,15 @@ case "$1" in
         echo "rtl_433" >> $SIGPI_CONFIG 
 
 	## DESKTOP
-	# Add Menu icon
+	# Add Icon
         sudo cp $SIGPI_ICONS/rtl_433.png $DESKTOP_ICONS
-        # Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/rtl_433.desktop $DESKTOP_FILES
         sudo cp $SIGPI_HOME/desktop/rtl_adsb.desktop $DESKTOP_FILES
         sudo cp $SIGPI_HOME/desktop/rtl_fm.desktop $DESKTOP_FILES
         sudo cp $SIGPI_HOME/desktop/rtl_test.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application (already done)
-        # Add into menu
+	# Change Category
+        # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_433.desktop
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_adsb.desktop
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtl_fm.desktop

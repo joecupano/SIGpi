@@ -16,10 +16,11 @@ case "$1" in
         sudo rm /usr/local/bin/dump1090
         sed -i /dump1090/d $SIGPI_CONFIG
 	
-	# Remove Menu icon
-        sudo rm $SIGPI_DESKTOP_ICONS/dump1090.png
-        # Remove Desktop links
-        sudo rm $SIGPI_DESKTOP_FILES/dump1090.desktop
+	# Remove Desktop and Icon, force menu update
+        sudo rm $DESKTOP_FILES/dump1090.desktop
+        rm -rf ~/.local/share/applications/dump1090.desktop
+        sudo rm $DESKTOP_ICONS/dump1090.png
+        sudo xdg-desktop-menu forceupdate --mode system
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Removed"
@@ -31,12 +32,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 	
 	rm -rf $SIGPI_SOURCE/dump1090
+        sudo rm /usr/local/bin/dump1090
         sed -i /dump1090/d $SIGPI_CONFIG
 	
-	# Remove Menu icon
-        sudo rm $SIGPI_DESKTOP_ICONS/dump1090.png
-        # Remove Desktop links
-        sudo rm $SIGPI_DESKTOP_FILES/dump1090.desktop
+	# Remove Desktop and Icon, force menu update
+        sudo rm $DESKTOP_FILES/dump1090.desktop
+        rm -rf ~/.local/share/applications/dump1090.desktop
+        sudo rm $DESKTOP_ICONS/dump1090.png
+        sudo xdg-desktop-menu forceupdate --mode system
 		
         sudo rm /usr/local/bin/dump1090
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -61,13 +64,14 @@ case "$1" in
         echo "dump1090" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
-	# Add Menu icon
+	# Add Icon
         sudo cp $SIGPI_ICONS/dump1090.png $DESKTOP_ICONS
-        # Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/dump1090.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application ( already done )
-        # Add to menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/dump1090.desktop
+        # Add Category
+        # sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/dump1090.desktop
+        # Add to Menu
+	xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/dump1090.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Installed"

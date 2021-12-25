@@ -43,7 +43,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y audacity
-        echo "audacity" >> $SIGPI_CONFIG 
+        echo "audacity" >> $SIGPI_CONFIG
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Add Category
+        # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Installed"

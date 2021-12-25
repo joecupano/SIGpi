@@ -68,6 +68,13 @@ case "$1" in
         uhd_images_downloader
         echo "ettus" >> $SIGPI_CONFIG 
 
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Directory
+        # Add to Menu
+        
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   UHD Installed"
         echo -e "${SIGPI_BANNER_RESET}"

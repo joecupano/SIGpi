@@ -80,9 +80,8 @@ case "$1" in
 	# Add Menu icon
         # Add Desktop links
         sudo cp $SIGPI_SOURCE/direwolf/build/direwolf.desktop $DESKTOP_FILES/direwolf.desktop
-	# HamRadio Category only
-	sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/direwolf.desktop
+        # Add Category
+        # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"

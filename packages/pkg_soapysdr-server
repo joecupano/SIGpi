@@ -62,11 +62,13 @@ case "$1" in
         sudo systemctl status soapysdr.service
 
         ## DESKTOP
-	    # Add Menu icon
+	    # Add Icon
         sudo cp $SIGPI_ICONS/soapysdr-server.png $SIGPI_DESKTOP_ICONS
-        # Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/soapysdr-server.desktop $SIGPI_DESKTOP_FILES
-	    # Add SigPi Category installed application ( already done )
+	    # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/soapysdr-server.desktop
     
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDR Service Installed"

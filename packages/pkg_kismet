@@ -64,11 +64,14 @@ case "$1" in
         echo "kismet" >> $SIGPI_CONFIG 
         
         ## DESKTOP
-        # Add Menu icon
+        # Add Icon
         sudo cp $SIGPI_ICONS/kismet.png $SIGPI_DESKTOP_ICONS
-        # Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/kismet.desktop $SIGPI_DESKTOP_FILES
-	    # Add SigPi Category installed application ( already done )
+        # Add Category
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/kismet.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/kismet.desktop
 	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Installed"

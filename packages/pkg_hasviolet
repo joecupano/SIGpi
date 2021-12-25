@@ -87,11 +87,16 @@ case "$1" in
         echo "hasviolet" >> $SIGPI_CONFIG 
 
         ## DESKTOP
-        # Add Menu icon
+        # Add Icon
         sudo cp $SIGPI_ICONS/hasviolet.png $DESKTOP_ICONS
-        # Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/hasviolet.desktop $DESKTOP_FILES
-	    # Add SigPi Category installed application (already done)
+	    # Add Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/hasviolet.desktop
+        
+
+
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   HASviolet Installed"

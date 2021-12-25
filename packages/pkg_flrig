@@ -46,11 +46,12 @@ case "$1" in
         echo "flrig" >> $SIGPI_CONFIG 
 
 	    ## DESKTOP
-	    # Add Menu icon
-        # Add Desktop links
-        # Change Category to HamRadio Only
-	    sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    #sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
+        # Add to Menu
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Installed"

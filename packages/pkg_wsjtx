@@ -80,11 +80,12 @@ case "$1" in
         fi
 
 	    ## DESKTOP
-	    # Add Menu icon
-        # Add Desktop links
-        # Change Category to SigPi
+	    # Add Icon
+        # Add Desktop
+        # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+        # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
 	

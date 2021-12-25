@@ -56,11 +56,14 @@ case "$1" in
         echo "linpac" >> $SIGPI_CONFIG 
         
         ## DESKTOP
-	### Add Menu icon
+	# Add Icon
         sudo cp $SIGPI_ICONS/linpac.png $DESKTOP_ICONS
-        ### Add Desktop links
+        # Add Desktop
         sudo cp $SIGPI_HOME/desktop/linpac.desktop $DESKTOP_FILES
-	# Add SigPi Category installed application (already done )
+	# Change Category
+        #sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
+        # Add to menu
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/linpac.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Installed"

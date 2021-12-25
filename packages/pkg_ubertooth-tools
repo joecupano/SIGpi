@@ -73,6 +73,12 @@ case "$1" in
         make -j4
         sudo make install
         echo "ubertooth" >> $SIGPI_CONFIG 
+
+        ## Desktop
+        # Add icon
+        # Add Desktop
+        # Change Directory
+        # Add to Menu
        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Ubertooth Tools Installed"

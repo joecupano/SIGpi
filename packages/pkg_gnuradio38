@@ -46,10 +46,11 @@ case "$1" in
         echo "gnuradio38" >> $SIGPI_CONFIG 
 
         ## DESKTOP
-	    # Add Menu icon
-        # Add Desktop links
-        # Change Category to SigPi
+	    # Add Icon
+        # Add Desktop
+        # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+        # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
