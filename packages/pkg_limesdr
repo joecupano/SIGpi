@@ -73,6 +73,9 @@ case "$1" in
         echo "limesdr" >> $SIGPI_CONFIG 
 
         ## DESKTOP
+        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/*png $DESKTOP_ICONS
+        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite-32.png $DESKTOP_ICONS/lime-suite.png
         sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
 
