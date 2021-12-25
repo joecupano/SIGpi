@@ -12,12 +12,12 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install Libraries"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# Hamlib 4.3.1 (09/13/21)
-#wget https://github.com/Hamlib/Hamlib/releases/download/4.3.1/hamlib-4.3.1.tar.gz -P $HOME/Downloads
-#tar -zxvf $HOME/Downloads/hamlib-4.3.1.tar.gz -C $SIGPI_SOURCE
-#cd $SIGPI_SOURCE/hamlib-4.3.1
 
 # Hamlib 4.4 (12/02/21)
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib 4.4"
+echo -e "${SIGPI_BANNER_RESET}"
+
 wget https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz -P $HOME/Downloads
 tar -zxvf $HOME/Downloads/hamlib-4.4.tar.gz -C $SIGPI_SOURCE
 cd $SIGPI_SOURCE/hamlib-4.4
@@ -26,7 +26,12 @@ make
 sudo make install
 sudo ldconfig
 
+
 # LibSigMF
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
 git clone https://github.com/deepsig/libsigmf.git
 cd libsigmf
@@ -35,8 +40,13 @@ cmake ..
 make -j4
 sudo make install
 sudo ldconfig
-	
+
+
 # Liquid-DSP
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   LiquidDSP"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
 git clone https://github.com/jgaeddert/liquid-dsp.git
 cd liquid-dsp
@@ -46,7 +56,12 @@ make -j4
 sudo make install
 sudo ldconfig
 
+
 # Bluetooth Baseband Library
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
 git clone https://github.com/greatscottgadgets/libbtbb.git
 cd libbtbb
@@ -56,8 +71,13 @@ make -j4
 sudo make install
 sudo ldconfig
 
+
 # APT
 # Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   APT-DEC"
+echo -e "${SIGPI_BANNER_RESET}"
+
 sudo apt-get install -y libsndfile-dev libpng-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/srcejon/aptdec.git
@@ -68,7 +88,12 @@ make -j4
 sudo make install
 sudo ldconfig
 
+
 # HD Radio
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   HD Radio"
+echo -e "${SIGPI_BANNER_RESET}"
+
 sudo apt-get install -y libao-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/theori-io/nrsc5.git
@@ -79,7 +104,12 @@ make -j4
 sudo make install
 sudo ldconfig
 
+
 # LibDAB
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB"
+echo -e "${SIGPI_BANNER_RESET}"
+
 sudo apt-get install -y libsndfile1-dev
 sudo apt-get install -y libfftw3-dev portaudio19-dev
 sudo apt-get install -y libfaad-dev zlib1g-dev
@@ -98,7 +128,12 @@ cmake .. -DRTLSDR=on
 sudo make install
 sudo ldconfig
 
+
 # SGP4
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   SGP4"
+echo -e "${SIGPI_BANNER_RESET}"
+
 # python-sgp4 1.4-1 is available in the packager, installing this version just to be sure.
 cd $SIGPI_SOURCE
 git clone https://github.com/dnwrnr/sgp4.git
@@ -109,7 +144,12 @@ make -j4
 sudo make install
 sudo ldconfig
 
+
 # Multimon-NG
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
 git clone https://github.com/EliasOenal/multimon-ng.git
 cd multimon-ng
