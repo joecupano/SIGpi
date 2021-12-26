@@ -249,237 +249,177 @@ select_usefulapps() {
     done
 }
 
-server_install(){
-    
-    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
-        "SDR Server Startup" 20 80 12 \
-        "rtltcp_on" "RTL_TCP on start " OFF \
-        "soapy_on" "SoapySDR on start " OFF \
-        "none" "No server on startup " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN
-
-    TERM=ansi whiptail --title "SigPi Server Installer" --clear --msgbox "Ready to Install" 12 120
-    
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create $SIGPI_CONFIG "
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    mkdir $SIGPI_ETC
-    touch $SIGPI_CONFIG
-    echo "sigpi_server" >> $SIGPI_CONFIG
-    cd $SIGPI_SOURCE
-
-    #source $SIGPI_SCRIPTS/install_swapspace.sh
-    source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
-    source $SIGPI_SCRIPTS/install_libraries.sh
-    source $SIGPI_SCRIPTS/install_radiosonde.sh
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-    source $SIGPI_PACKAGES/pkg_ubertooth install
-    source $SIGPI_PACKAGES/pkg_direwolf install
-}
-
-
-full_install(){
-    calc_wt_size
-    select_startscreen
-    select_devices
-    select_gnuradio
-    select_sdrapps
-    select_amateurradio
-    select_usefulapps
-    TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Create SIG/etc Directory and config"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    mkdir $SIGPI_ETC
-    touch $SIGPI_CONFIG
-    echo "sigpi_desktop" >> $SIGPI_CONFIG    
-    mkdir $SIGPI_SOURCE
-    cd $SIGPI_SOURCE
-
-    #source $SIGPI_SCRIPTS/install_swapspace.sh
-    source $SIGPI_SCRIPTS/install_core_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
-
-    source $SIGPI_SCRIPTS/install_desktop-prep.sh
-
-    # LimeSDR
-    if grep limesdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_limesdr install
-    fi
-
-    # UHD - Ettus
-    if grep ettus "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_ettus install
-    fi
-
-    # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
-    if grep rfm95w "$SIGPI_CONFIG"; then
-        source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
-    fi
-
-    source $SIGPI_SCRIPTS/install_libraries.sh
-    source $SIGPI_SCRIPTS/install_radiosonde.sh
-    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
-    source $SIGPI_PACKAGES/pkg_direwolf install
-    source $SIGPI_PACKAGES/pkg_linpac install
-
-    # RTL_433
-    if grep rtl433 "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_rtl433 install
-    fi
-
-    # Dump1090
-    if grep gnuradio38 "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_dump1090 install
-    fi
-
-    # GNU Radio
-    if grep gnuradio38 "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_gnuradio38 install
-    fi
-
-    if grep gnuradio39 "$SIGPI_CONFIG"; then
-	    source $SIGPI_PACKAGES/pkg_gnuradio39 install
-    fi
-
-    # gqrx
-    if grep gqrx "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_gqrx install
-    fi
-
-    # CubicSDR
-    if grep cubicsdr "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_cubicsdr install
-    fi
-
-    # SDRangel
-    if grep sdrangel "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_sdrangel install
-    fi
-
-    # SDR++
-    if grep sdrpp "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_sdrpp install
-    fi
-
-    # Fldigi
-    if grep fldigi "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_fldigi install
-    fi
-
-    # WSJT-X
-    if grep wsjtx "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_wsjtx install
-    fi
-
-    # Xastir
-    if grep xastir "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_xastir install
-    fi
-
-    # QSSTV
-    if grep qsstv "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_qsstv install
-    fi
-
-    # QSSTV 9.5.X
-    #if grep qsstv95 "$SIGPI_CONFIG"; then
-    #    source $SIGPI_PACKAGES/pkg_qsstv95 install
-    #fi
-
-    # JS8CALL
-    if grep js8call "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_js8call install
-    fi
-
-    # Gpredict
-    if grep gpredict "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_gpredict install
-    fi
-
-    # HASviolet
-    if grep HASviolet "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_hasviolet install
-    fi
-
-    # CygnusRFI
-    if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_cygnusrfi install
-    fi
-
-    # Wireshark
-    if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_PACKAGES/pkg_wireshark install
-    fi
-
-    # Kismet
-    if grep kismet "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_kismet install
-    fi
-
-    # Audacity
-    if grep audacity "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_audacity install 
-    fi
-
-    # PAVU
-    if grep pavu "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_pavucontrol install
-    fi
-
-    # splat
-    if grep splat "$SIGPI_CONFIG"; then
-        source $SIGPI_PACKAGES/pkg_splat install
-    fi
-
-    # SIGpi Menus
-    source $SIGPI_SCRIPTS/install_desktop-post.sh
-
-}
-
 
 ###
 ###  MAIN
 ###
 
-# Server option invoked ?
-if [ "$1" = "server" ]; then 
-    server_install
-else
-    full_install
+# Setup directories
+mkdir $SIGPI_ETC
+touch $SIGPI_CONFIG
+mkdir $SIGPI_SOURCE
+cd $SIGPI_SOURCE
+
+calc_wt_size
+select_startscreen
+select_devices
+select_gnuradio
+select_sdrapps
+select_amateurradio
+select_usefulapps
+TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+
+touch $SIGPI_CONFIG
+echo "sigpi_desktop" >> $SIGPI_CONFIG    
+cd $SIGPI_SOURCE
+
+#source $SIGPI_SCRIPTS/install_swapspace.sh
+source $SIGPI_SCRIPTS/install_core_dependencies.sh
+source $SIGPI_SCRIPTS/install_core_devices.sh
+
+source $SIGPI_SCRIPTS/install_desktop-prep.sh
+
+# LimeSDR
+if grep limesdr "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_limesdr install
 fi
+
+# UHD - Ettus
+if grep ettus "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_ettus install
+fi
+
+# RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
+if grep rfm95w "$SIGPI_CONFIG"; then
+    source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
+fi
+
+source $SIGPI_SCRIPTS/install_libraries.sh
+source $SIGPI_SCRIPTS/install_radiosonde.sh
+source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+source $SIGPI_PACKAGES/pkg_direwolf install
+source $SIGPI_PACKAGES/pkg_linpac install
+
+# RTL_433
+if grep rtl433 "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_rtl433 install
+fi
+
+# Dump1090
+if grep gnuradio38 "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+fi
+
+# GNU Radio
+if grep gnuradio38 "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio38 install
+fi
+
+if grep gnuradio39 "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio39 install
+fi
+
+# gqrx
+if grep gqrx "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_gqrx install
+fi
+
+# CubicSDR
+if grep cubicsdr "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_cubicsdr install
+fi
+
+# SDRangel
+if grep sdrangel "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_sdrangel install
+fi
+
+# SDR++
+if grep sdrpp "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_sdrpp install
+fi
+
+# Fldigi
+if grep fldigi "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_fldigi install
+fi
+
+# WSJT-X
+if grep wsjtx "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_wsjtx install
+fi
+
+# Xastir
+if grep xastir "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_xastir install
+fi
+
+# QSSTV
+if grep qsstv "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_qsstv install
+fi
+
+# QSSTV 9.5.X
+#if grep qsstv95 "$SIGPI_CONFIG"; then
+#    source $SIGPI_PACKAGES/pkg_qsstv95 install
+#fi
+
+# JS8CALL
+if grep js8call "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_js8call install
+fi
+
+# Gpredict
+if grep gpredict "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_gpredict install
+fi
+
+# HASviolet
+if grep HASviolet "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_hasviolet install
+fi
+
+# CygnusRFI
+if grep cygnusrfi "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_cygnusrfi install
+fi
+
+# Wireshark
+if grep wireshark "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_wireshark install
+fi
+
+# Kismet
+if grep kismet "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_kismet install
+fi
+
+# Audacity
+if grep audacity "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_audacity install 
+fi
+
+# PAVU
+if grep pavu "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_pavucontrol install
+fi
+
+# splat
+if grep splat "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_splat install
+fi
+
+# SIGpi Menus
+source $SIGPI_SCRIPTS/install_desktop-post.sh
 
 # Turn off Swapfile
 if [ -f /swapfile ]; then
