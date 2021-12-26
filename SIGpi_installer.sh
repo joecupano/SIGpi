@@ -325,6 +325,7 @@ full_install(){
     mkdir $SIGPI_ETC
     touch $SIGPI_CONFIG
     echo "sigpi_desktop" >> $SIGPI_CONFIG    
+    mkdir $SIGPI_SOURCE
     cd $SIGPI_SOURCE
 
     #source $SIGPI_SCRIPTS/install_swapspace.sh
