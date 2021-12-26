@@ -19,7 +19,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 #/.local/share/desktop-directories
 
 # Copy SIGpi Desktop files to XDG Dirs
-sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+#sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 #sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
 #sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
