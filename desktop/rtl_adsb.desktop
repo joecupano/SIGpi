@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=RTL_ADSB
+Name=rtl_adsb
 Encoding=UTF-8
 Comment=A simple ADS-decoder
 Exec=SIGpi_exec-in-shell "rtl_adsb -h"

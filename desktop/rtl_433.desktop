@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=RTL_433
+Name=rtl_433
 Encoding=UTF-8
 Comment=Generic data receiver for UHF ISM Bands (433.9, 868, 315 MHz 345 MHz, and 915 MHz)
 Exec=SIGpi_exec-in-shell "rtl_433 -V"

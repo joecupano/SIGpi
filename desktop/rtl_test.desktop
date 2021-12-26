@@ -1,5 +1,5 @@
 [Desktop Entry]
-Name=RTL_TEST
+Name=rtl_test
 Encoding=UTF-8
 Comment=Benchmark tool for RTL2832 based DVB-T receivers
 Exec=SIGpi_exec-in-shell "rtl_test -h"
