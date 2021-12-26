@@ -15,11 +15,6 @@
             <Filename>lime-suite.desktop</Filename>
             <Filename>sdrangel.desktop</Filename>
             <Filename>sdrpp.desktop</Filename>
-            <Filename>dump1090.desktop</Filename>
-            <Filename>rtl_433.desktop</Filename>
-            <Filename>rtl_adsb.desktop</Filename>
-            <Filename>rtl_fm.desktop</Filename>
-            <Filename>rtl_test.desktop</Filename>
             <Filename>wireshark.desktop</Filename>
             <Filename>xastir.desktop</Filename>
             <Filename>sigidwiki.desktop</Filename>
