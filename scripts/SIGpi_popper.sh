@@ -35,6 +35,12 @@ SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
 
+# Desktop Source directories
+SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
+SIGPI_ICONS=$SIGPI_HOME/icons
+SIGPI_LOGO=$SIGPI_HOME/logo
+SIGPI_DESKTOP=$SIGPI_HOME/desktop
+
 # Desktop Destination Directories
 DESKTOP_DIRECTORY=/usr/share/desktop-directories
 DESKTOP_FILES=/usr/share/applications
