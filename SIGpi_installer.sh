@@ -32,6 +32,7 @@ SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_PKGLIST=$SIGPI_PACKAGES/SIGpi_packages
 SIGPI_INSTALL_TXT1=$SIGPI_SCRIPTS/scr_install_welcome.txt
+SIGPI_INSTALLSRC_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -259,6 +260,71 @@ mkdir $SIGPI_ETC
 touch $SIGPI_CONFIG
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
+
+# Server option invoked ?
+if [ "$1" = "server" ]; then 
+    TERM=ansi whiptail --title "SigPi Server Installer" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
+        "SDR Server Packages" 20 80 12 \
+        "RTLTCPsrv" "RTL_TCP Server " OFF \
+        "SoapySDRsrv" "SoapySDR Server " OFF \
+        "SDRangelsrv" "SDRangel server " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN
+
+    TERM=ansi whiptail --title "SigPi Server Installer" --clear --msgbox "Ready to Install" 12 120
+    # server_install
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    echo "sigpi_server" >> $SIGPI_CONFIG
+    cd $SIGPI_SOURCE
+
+    source $SIGPI_SCRIPTS/install_server_dependencies.sh
+    source $SIGPI_SCRIPTS/install_server_devices.sh
+
+    # RTLTCPsrv
+    if grep RTLTCPsrv "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/pkg_rtltcp-server install
+    fi
+
+    # SoapySDRsrv
+    if grep SoapySDRsrv "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/pkg_soapysdr-server install
+    fi
+
+    # SDRangelsrv
+    if grep RTLTCPsrv "$SIGPI_CONFIG"; then
+        source $SIGPI_PACKAGES/pkg_sdrangel-server install
+    fi
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Server Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 17
+    sudo sync
+    sudo reboot
+    exit 0
+fi
+
+# Otherwise we are Desktop install
 
 calc_wt_size
 select_startscreen
