@@ -5,7 +5,7 @@
 ###
 
 ###
-###   REVISION: 202112170500
+###   REVISION: 20211227-0300
 ###
 
 ###
@@ -186,7 +186,7 @@ select_gnuradio() {
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select SDR Applications" 20 80 12 \
-        "rtl433" "RTL_433 " OFF \
+        "rtl_433" "RTL_433 " OFF \
         "dump1090" "Dump 1090 " OFF \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
@@ -211,7 +211,6 @@ select_amateurradio() {
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
-        "wsjtx" "WSJT-X 2.5.3 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -376,8 +375,8 @@ source $SIGPI_PACKAGES/pkg_direwolf install
 source $SIGPI_PACKAGES/pkg_linpac install
 
 # RTL_433
-if grep rtl433 "$SIGPI_CONFIG"; then
-    source $SIGPI_PACKAGES/pkg_rtl433 install
+if grep rtl_433 "$SIGPI_CONFIG"; then
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
 fi
 
 # Dump1090
@@ -420,9 +419,9 @@ if grep fldigi "$SIGPI_CONFIG"; then
 fi
 
 # WSJT-X
-if grep wsjtx "$SIGPI_CONFIG"; then
-    source $SIGPI_PACKAGES/pkg_wsjtx install
-fi
+#if grep wsjtx "$SIGPI_CONFIG"; then
+#    source $SIGPI_PACKAGES/pkg_wsjtx install
+#fi
 
 # Xastir
 if grep xastir "$SIGPI_CONFIG"; then
