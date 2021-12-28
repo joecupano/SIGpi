@@ -137,7 +137,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 # python-sgp4 1.4-1 is available in the packager, installing this version just to be sure.
 cd $SIGPI_SOURCE
 git clone https://github.com/dnwrnr/sgp4.git
-cd sgp4
+cd $SIGPI_SOURCE/sgp4
 mkdir build; cd build
 cmake ..
 make -j4
