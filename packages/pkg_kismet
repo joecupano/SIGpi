@@ -65,9 +65,9 @@ case "$1" in
         
         ## DESKTOP
         # Add Icon
-        sudo cp $SIGPI_ICONS/kismet.png $SIGPI_DESKTOP_ICONS
+        sudo cp $SIGPI_ICONS/kismet.svg $DESKTOP_ICONS
         # Add Desktop
-        sudo cp $SIGPI_HOME/desktop/kismet.desktop $SIGPI_DESKTOP_FILES
+        sudo cp $SIGPI_HOME/desktop/kismet.desktop $DESKTOP_FILES
         # Add Category
         sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/kismet.desktop
         # Add to Menu
