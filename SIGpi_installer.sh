@@ -5,7 +5,7 @@
 ###
 
 ###
-###   REVISION: 20211227-0300
+###  REVISION: 20211228-0700
 ###
 
 ###
@@ -227,6 +227,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
+        "artemis" "SIGINT library with sight and sound " OFF \
         "HASviolet" "LoRa and FSK transceiver project " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
@@ -262,7 +263,7 @@ cd $SIGPI_SOURCE
 
 # Server option invoked ?
 if [ "$1" = "server" ]; then 
-    TERM=ansi whiptail --title "SigPi Server Installer" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
+    TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
     FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
         "SDR Server Packages" 20 80 12 \
         "RTLTCPsrv" "RTL_TCP Server " OFF \
@@ -275,8 +276,8 @@ if [ "$1" = "server" ]; then
     fi
     echo $FUN
 
-    TERM=ansi whiptail --title "SigPi Server Installer" --clear --msgbox "Ready to Install" 12 120
-    # server_install
+    TERM=ansi whiptail --title "SigPi Server Install" --clear --msgbox "Ready to Install" 12 120
+
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
@@ -290,8 +291,8 @@ if [ "$1" = "server" ]; then
     echo "sigpi_server" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_server_devices.sh
+    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
 
     # RTLTCPsrv
     if grep RTLTCPsrv "$SIGPI_CONFIG"; then
@@ -323,7 +324,60 @@ if [ "$1" = "server" ]; then
     exit 0
 fi
 
-# Otherwise we are Desktop install
+# Base option invoked ?
+if [ "$1" = "base" ]; then 
+    TERM=ansi whiptail --title "SigPi Base Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
+        "SDR Server Packages" 20 80 12 \
+        "RTLTCPsrv" "RTL_TCP Server " OFF \
+        "SoapySDRsrv" "SoapySDR Server " OFF \
+        "SDRangelsrv" "SDRangel server " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN
+
+    TERM=ansi whiptail --title "SigPi Base Install" --clear --msgbox "Ready to Install" 12 120
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    echo "sigpi_desktop" >> $SIGPI_CONFIG    
+    cd $SIGPI_SOURCE
+
+    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+    source $SIGPI_SCRIPTS/install_desktop-prep.sh
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    source $SIGPI_PACKAGES/pkg_gqrx install
+    source $SIGPI_SCRIPTS/install_desktop-post.sh
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Base Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 17
+    sudo sync
+    sudo reboot
+    exit 0
+fi
+
+# Otherwise we are Full install
 
 calc_wt_size
 select_startscreen
@@ -481,6 +535,11 @@ fi
 # splat
 if grep splat "$SIGPI_CONFIG"; then
     source $SIGPI_PACKAGES/pkg_splat install
+fi
+
+# Artemis
+if grep artemis "$SIGPI_CONFIG"; then
+	source $SIGPI_PACKAGES/pkg_artemis install
 fi
 
 # SIGpi Menus
