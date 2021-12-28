@@ -326,18 +326,6 @@ fi
 
 # Base option invoked ?
 if [ "$1" = "base" ]; then 
-    TERM=ansi whiptail --title "SigPi Base Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
-    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
-        "SDR Server Packages" 20 80 12 \
-        "RTLTCPsrv" "RTL_TCP Server " OFF \
-        "SoapySDRsrv" "SoapySDR Server " OFF \
-        "SDRangelsrv" "SDRangel server " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN
 
     TERM=ansi whiptail --title "SigPi Base Install" --clear --msgbox "Ready to Install" 12 120
 
