@@ -275,6 +275,44 @@ zenity_usefulapps() {
 ###  MAIN
 ###
 
+# Base option invoked ?
+if [ "$1" = "base" ]; then 
+
+    TERM=ansi whiptail --title "SigPi Base Install" --clear --msgbox "Ready to Install" 12 120
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    cd $SIGPI_SOURCE
+
+    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/install_devices.sh
+    source $SIGPI_SCRIPTS/install_desktop-prep.sh
+    source $SIGPI_SCRIPTS/package_rtl_433.sh install
+    source $SIGPI_SCRIPTS/install_desktopitems.sh
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Base Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 17
+    sudo sync
+    sudo reboot
+    exit 0
+fi
+
 calc_wt_size
 select_startscreen
 select_gnuradio
