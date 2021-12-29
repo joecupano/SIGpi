@@ -24,8 +24,8 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - RTLSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y libusb-1.0-0-dev
-sudo pip3 install pyrtlsdr
+#sudo apt-get install -y libusb-1.0-0-dev
+#sudo pip3 install pyrtlsdr
 
 # INSTALL
 cd $SIGPI_SOURCE
@@ -44,7 +44,7 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - HackRF "
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+#sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
 
 ## INSTALL
 cd $SIGPI_SOURCE
@@ -62,9 +62,9 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - PlutoSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
-sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
+#sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
+#sudo apt-get install -y libserialport-dev libavahi-client-dev 
+#sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
 #sudo apt-get install -y python3 python3-pip python3-setuptools
 
 # INSTALL
@@ -83,11 +83,11 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y swig
-sudo apt-get install -y avahi-daemon
-sudo apt-get install -y libavahi-client-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python-dev python3-dev
+#sudo apt-get install -y swig
+#sudo apt-get install -y avahi-daemon
+#sudo apt-get install -y libavahi-client-dev
+#sudo apt-get install -y libusb-1.0-0-dev
+#sudo apt-get install -y python-dev python3-dev
 
 ## INSTALL
 cd $SIGPI_SOURCE
@@ -130,7 +130,7 @@ sudo ldconfig
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyPlutoSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
+#sudo apt-get install -y libserialport-dev libavahi-client-dev 
 cd $SIGPI_SOURCE
 git clone https://github.com/pothosware/SoapyPlutoSDR.git
 cd SoapyPlutoSDR
