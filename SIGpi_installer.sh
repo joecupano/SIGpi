@@ -154,7 +154,6 @@ select_startscreen(){
 select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
-        "limesdr" "LimeSDR " OFF \
         "ettus" "Ettus Research USRP UHD" OFF \
         "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
@@ -394,11 +393,6 @@ source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_core_devices.sh
 
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
-
-# LimeSDR
-if grep limesdr "$SIGPI_CONFIG"; then
-    source $SIGPI_PACKAGES/pkg_limesdr install
-fi
 
 # UHD - Ettus
 if grep ettus "$SIGPI_CONFIG"; then
