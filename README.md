@@ -32,7 +32,7 @@ cd SIGpi
 ```
 
 ## Known Issues
-- Artemis does not run on 64-bit build. (Some Pythony issue)
+- None at this time. Please report any encountered via Issues.
 
 ## SIGpi Package Management
 
@@ -124,7 +124,6 @@ AFSK, FSK, Packet, APRS Communications
 
 Amateur Radio
 * [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [WSJT-X 2.5.2](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) *  GUI app for FST4, FST4W, FT4, FT8, JT4, JT9, JT65, MSK144, and WSPR
 * [js8call](http://js8call.com/) JS8 mode
 * [QSSTV 9.4.4](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
 
@@ -142,7 +141,7 @@ Tools
 
 ## APRS and Packet using a VHF/UHF Transceiver
 
-SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at very low RF power levels with SDR devices supported. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
+SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
 
 In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
 
