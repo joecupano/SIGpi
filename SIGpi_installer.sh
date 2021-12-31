@@ -162,11 +162,11 @@ select_devices() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
 }
 
@@ -180,7 +180,7 @@ select_gnuradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
+    echo $FUN >> $SIGPI_INSTALLER
 }
 
 select_sdrapps() {
@@ -197,11 +197,11 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
 }
 
@@ -216,11 +216,11 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
 }
 
@@ -242,11 +242,11 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
 }
 
@@ -295,17 +295,17 @@ if [ "$1" = "server" ]; then
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
     # RTLTCPsrv
-    if grep RTLTCPsrv "$SIGPI_CONFIG"; then
+    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_rtltcp-server install
     fi
 
     # SoapySDRsrv
-    if grep SoapySDRsrv "$SIGPI_CONFIG"; then
+    if grep SoapySDRsrv "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_soapysdr-server install
     fi
 
     # SDRangelsrv
-    if grep RTLTCPsrv "$SIGPI_CONFIG"; then
+    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_sdrangel-server install
     fi
 
@@ -395,12 +395,12 @@ source $SIGPI_SCRIPTS/install_desktop-prep.sh
 source $SIGPI_SCRIPTS/install_core_devices.sh
 
 # UHD - Ettus
-if grep ettus "$SIGPI_CONFIG"; then
+if grep ettus "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ettus install
 fi
 
 # RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
-if grep rfm95w "$SIGPI_CONFIG"; then
+if grep rfm95w "$SIGPI_INSTALLER"; then
     source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
 fi
 
@@ -411,116 +411,116 @@ source $SIGPI_PACKAGES/pkg_direwolf install
 source $SIGPI_PACKAGES/pkg_linpac install
 
 # RTL_433
-if grep rtl_433 "$SIGPI_CONFIG"; then
+if grep rtl_433 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_rtl_433 install
 fi
 
 # Dump1090
-if grep gnuradio38 "$SIGPI_CONFIG"; then
+if grep gnuradio38 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
 fi
 
 # GNU Radio
-if grep gnuradio38 "$SIGPI_CONFIG"; then
+if grep gnuradio38 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gnuradio38 install
 fi
 
-if grep gnuradio39 "$SIGPI_CONFIG"; then
+if grep gnuradio39 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gnuradio39 install
 fi
 
 # gqrx
-if grep gqrx "$SIGPI_CONFIG"; then
+if grep gqrx "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gqrx install
 fi
 
 # CubicSDR
-if grep cubicsdr "$SIGPI_CONFIG"; then
+if grep cubicsdr "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_cubicsdr install
 fi
 
 # SDRangel
-if grep sdrangel "$SIGPI_CONFIG"; then
+if grep sdrangel "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrangel install
 fi
 
 # SDR++
-if grep sdrpp "$SIGPI_CONFIG"; then
+if grep sdrpp "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrpp install
 fi
 
 # Fldigi
-if grep fldigi "$SIGPI_CONFIG"; then
+if grep fldigi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_fldigi install
 fi
 
 # WSJT-X
-#if grep wsjtx "$SIGPI_CONFIG"; then
+#if grep wsjtx "$SIGPI_INSTALLER"; then
 #    source $SIGPI_PACKAGES/pkg_wsjtx install
 #fi
 
 # Xastir
-if grep xastir "$SIGPI_CONFIG"; then
+if grep xastir "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_xastir install
 fi
 
 # QSSTV
-if grep qsstv "$SIGPI_CONFIG"; then
+if grep qsstv "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_qsstv install
 fi
 
 # QSSTV 9.5.X
-#if grep qsstv95 "$SIGPI_CONFIG"; then
+#if grep qsstv95 "$SIGPI_INSTALLER"; then
 #    source $SIGPI_PACKAGES/pkg_qsstv95 install
 #fi
 
 # JS8CALL
-if grep js8call "$SIGPI_CONFIG"; then
+if grep js8call "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_js8call install
 fi
 
 # Gpredict
-if grep gpredict "$SIGPI_CONFIG"; then
+if grep gpredict "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gpredict install
 fi
 
 # HASviolet
-if grep HASviolet "$SIGPI_CONFIG"; then
+if grep HASviolet "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_hasviolet install
 fi
 
 # CygnusRFI
-if grep cygnusrfi "$SIGPI_CONFIG"; then
+if grep cygnusrfi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_cygnusrfi install
 fi
 
 # Wireshark
-if grep wireshark "$SIGPI_CONFIG"; then
+if grep wireshark "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_wireshark install
 fi
 
 # Kismet
-if grep kismet "$SIGPI_CONFIG"; then
+if grep kismet "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_kismet install
 fi
 
 # Audacity
-if grep audacity "$SIGPI_CONFIG"; then
+if grep audacity "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_audacity install 
 fi
 
 # PAVU
-if grep pavu "$SIGPI_CONFIG"; then
+if grep pavu "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_pavucontrol install
 fi
 
 # splat
-if grep splat "$SIGPI_CONFIG"; then
+if grep splat "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_splat install
 fi
 
 # Artemis
-if grep artemis "$SIGPI_CONFIG"; then
+if grep artemis "$SIGPI_INSTALLER"; then
 	source $SIGPI_PACKAGES/pkg_artemis install
 fi
 
