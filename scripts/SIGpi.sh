@@ -30,9 +30,11 @@ SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
-SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
-SIGPI_PKGLIST=$SIGPI_PACKAGES/SIGpi_packages
+SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
+SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
+SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
 SIGPI_INSTALL_TXT1=$SIGPI_SCRIPTS/scr_install_welcome.txt
+SIGPI_INSTALLSRC_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -69,9 +71,9 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 sigpi_update(){
     # Check for updates
     wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi-packages -P $HOME/Downloads
-    if grep $3 "$HOME/Downloads/SIGpi_packages"; then
-        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/SIGpi_packages"| cut -d,-f2'
-        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/SIGpi_packages"| cut -d,-f2'
+    if grep $3 "$HOME/Downloads/PACKAGES"; then
+        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
+        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
         if $SIG_PKGNEW > $SIG_PKGSTAMP; then
             echo "Update is available"
         else
