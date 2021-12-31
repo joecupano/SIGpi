@@ -1,10 +1,10 @@
 # SIGpi
 
-Release: 20211220-0500
+Release: 20211231-1500
 
 ## Introduction
 
-Much how you see Amateur Radio operators build "go-kits" for remote or emergency operations, SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM**  with 32GB microSD card running **Raspberry Pi OS Full (32 or 64-bit)**. The script MUST be run as user **pi**.
+SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit).** The script MUST be run as user **pi**.
 
 ## Requirements
 
@@ -15,7 +15,9 @@ Much how you see Amateur Radio operators build "go-kits" for remote or emergency
 ### How about other architectures?
 There is also a build script for Ubuntu 20.04 LTS Desktop at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
-## Install
+## Installation
+
+### For the impatient
 
 - Login as Pi on your **fresh install of Raspberry Pi OS Full**
 - Create a directory in your home directory called SIG and switch into it
@@ -31,50 +33,48 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-## Known Issues
-- None at this time. Please report any encountered via Issues.
+### For the pragmatic
 
-## SIGpi Package Management
-
-You realized afterall that install time you want to change your choices in SDR or Amateur Radio packages.
-Do I need to re-image and re-install ?  No.
-
-For changes in your current install you **SIGpi_popper** and **SIGpi_pusher** for removing and adding 
-packages respectively
+Follow the same instructions as for the impatient but add **base* as an option
 
 ```
-SIGpi_popper.sh <PACKAGE>
-
-where (PACKAGE> is the name of the SIGpi package as
-listed in /home/pi/SIG/SIGpi/etc/SIGpi_packages
+./SIGpi_installer.sh base
 ```
+This will installbare minimum software to enjoy receiving signals
 
-
-```
-SIGpi_pusher.sh <PACKAGE>
-
-where (PACKAGE> is the name of the SIGpi package as
-listed in /home/pi/SIG/SIGpi/etc/SIGpi_packages
-```
-An additional tool has been added simply called **SIGpi**. Besides providing the same functions as pusher and popper for the current release, **SIGpi** also handles any release and package updates.
-
-```
-SIGpi <ACTION> <PACKAGE>
-
-        ACTION  
-                install   install PACKAGE
-                remove    remove PACKAGE
-                purge     remove PACKAGE and purge configs
-                update    check for and dowlaod (clone) release update
-                upgrade   upgrade curent PACKAGE to latest PACKAGE given update
-
-        PACKAGE
-                A SIGpi package 
-```
-
+- RTLSDR
+- HackRF
+- LimeSDR
+- rtl_433
+- dump1090
+- GQRX
+- CubicSDR
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
+
+## Features
+
+### Current or -1 Releases
+We make best effort to include the most recent releases of popular packages and include tools to update your install
+
+### Installs and Updates
+Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
+
+Example
+```
+SIGpi install gqrx
+```
+
+### Multi-Architecture
+Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on the following:
+
+- Raspberry Pi4 4GB RAM running Raspberry Pi OS Full (32-bit)
+- Ubuntu 20.04 LTS (x86, x86_64, aarch64)
+
+### Amateur Radio is nice but we are SIGINT FOCUSED
+
+While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
 
 ## Build Details
 
