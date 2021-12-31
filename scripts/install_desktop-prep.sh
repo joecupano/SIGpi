@@ -19,7 +19,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 #/.local/share/desktop-directories
 
 # Copy SIGpi commands into /usr/local/bin
-sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
+sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
 sudo cp $SIGPI_HOME/scripts/SIGpi_pusher.sh /usr/local/bin/SIGpi_pusher
 sudo cp $SIGPI_HOME/scripts/SIGpi_popper.sh /usr/local/bin/SIGpi_popper
 sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
