@@ -1,9 +1,10 @@
 # Release Notes
 
-## Release 4.2: 2021-12-19
-- Add server option for RPi3
-- Add Dump10190
-- Implement SIGpi packager script
+## Release 4.2: 2021-12-31
+- Build installs on RPi Full OS Bullseye 32 and 64 bit)
+- Build installs on Ubuntu 20.04 LTS (x86, x86_64, aarch64)
+- Add **base** install option which install devices and minimal apps (rtl_433, dump1090, GQRX, CubicSDR)
+- Implement SIGpi package management system for install, remove, purge, update, upgrade packages post first time install
 
 ## Release 4.1: 2021-12-12
 - Fixed RadioSonde install
