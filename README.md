@@ -105,12 +105,12 @@ Libraries and Decoders
 * [libsigmf](https://github.com/deepsig/libsigmf) *      Used for Signal Metadata Format - sharing of signal data 
 * [liquid-dsp](https://github.com/jgaeddert/liquid-dsp) *    Digital Signal Processing (DSP) library 
 * [libbtbb](https://github.com/greatscottgadgets/libbtbb) *       Bkuetooth Baseband Library 
-* [hamlib 4.3.1](https://hamlib.github.io/) *    API for controlling a myriad of radios 
+* [hamlib 4.4](https://hamlib.github.io/) *    API for controlling a myriad of radios 
 
 SDR Applications
 * [GNURadio](https://github.com/gnuradio/gnuradio)
 * [GQRX](https://github.com/csete/gqrx)
-* [SDRangel 6.17.4](https://github.com/f4exb/sdrangel) *
+* [SDRangel 6.17.6](https://github.com/f4exb/sdrangel) *
 * [SDR++ 1.0.5](https://github.com/AlexandreRouma/SDRPlusPlus) *
 * [CubicSDR](https://cubicsdr.com/)        SDR Receiver
 * [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
@@ -172,7 +172,6 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 - Save and exit
 
 ### DireWolf
-
 DireWolf needs to be running for APRS and Packet applications to have use the AX0 interface defined in the previou section. You will need to configure your callsign, the soundcard device to use, and whether using PTT or VOX in the **/usr/local/etc/direwolf/direwolf.conf** file. The conf file itself is well documented in how to configure else consult the [DireWolf online docs](https://github.com/wb2osz/direwolf/tree/master/doc).
 
 Because a number of factors go into a successful DireWolf setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
@@ -182,6 +181,13 @@ Xastir is an application that provides geospatial mappng of APRS signals. It nee
 
 ## Gpredict
 Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
+
+## WSJT-X ... not
+As quoted from the [WSJT-site](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) 
+
+"Note: these packages are unlikely to install properly on Linux distributions with required dependencies at lower versions than those on the named distributions. In such cases building from source is the correct way to install WSJT-X."
+
+So we go ahead an build from source and notice it wants to be a snowflake and compile and install its own Hamlib build because of two patches not accepted by Hamlib maintainers. Nevermind how long WSJT-X takes to compile. Since we are SIGINT first we decided to drop WSJT-X this release and let JS8CALL perform said duties. BTW, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
 
 ## Example Hardware Setup
 
