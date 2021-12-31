@@ -179,9 +179,6 @@ Because a number of factors go into a successful DireWolf setup with your transc
 ### Xastir
 Xastir is an application that provides geospatial mappng of APRS signals. It needs to configured to use the RF interface provided by DireWolf. You must start Direwolf in a separately terminal window before you start Xastir. Be sure to consult [Xastir online documentation](https://xastir.org/index.php/Main_Page) for more info.
 
-## Gpredict
-Some satellites have packet capability. Gpredict is a real-time satellite tracking and orbit prediction application. It needs to be configured with your lcoations latitiude, longitude, altitude, plus online data feeds for accurate tracking. Be sure to consult [Gpredict documentation]( http://gpredict.oz9aec.net/documents.php} for more info
-
 ## WSJT-X ... not
 As quoted from the [WSJT-site](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) 
 
