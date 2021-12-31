@@ -5,6 +5,7 @@
 - Build installs on Ubuntu 20.04 LTS (x86, x86_64, aarch64)
 - Add **base** install option which install devices and minimal apps (rtl_433, dump1090, GQRX, CubicSDR)
 - Remove **SIG_popper** and **SIG_pusher** and replace with **SIGpi (action) (package)**
+- Remove **Artemis** given repeated issues
 - Implement SIGpi package management system for install, remove, purge, update, upgrade packages post first time install
 
 ## Release 4.1: 2021-12-12
