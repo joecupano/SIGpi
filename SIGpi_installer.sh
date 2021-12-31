@@ -390,9 +390,8 @@ cd $SIGPI_SOURCE
 
 #source $SIGPI_SCRIPTS/install_swapspace.sh
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
-source $SIGPI_SCRIPTS/install_core_devices.sh
-
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
+source $SIGPI_SCRIPTS/install_core_devices.sh
 
 # UHD - Ettus
 if grep ettus "$SIGPI_CONFIG"; then

@@ -59,7 +59,7 @@ if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'sigidwiki.desktop','org.gnome.Terminal.desktop',\
      'artemis.desktop', 'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
-     'fldigi.desktop', 'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
+     'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
 else
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image

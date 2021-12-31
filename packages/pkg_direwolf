@@ -80,9 +80,11 @@ case "$1" in
 	# Add Menu icon
         # Add Desktop links
         sudo cp $SIGPI_SOURCE/direwolf/build/direwolf.desktop $DESKTOP_FILES/direwolf.desktop
-        # Add Category
+        # Change Category
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
         # Add to Menu
-        
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/direwolf.desktop
+                
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"
         echo -e "${SIGPI_BANNER_RESET}"

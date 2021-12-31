@@ -238,8 +238,9 @@ case "$1" in
         sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin/run_sdrangel.sh
         
 	    ## DESKTOP
-        # Add Icon
+        # Add Icon      
         # Add Desktop
+        sudo cp $SIGPI_SOURCE/sdrangel/build/sdrangel.desktop $DESKTOP_FILES
         # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrangel.desktop
         # Add to Menu
