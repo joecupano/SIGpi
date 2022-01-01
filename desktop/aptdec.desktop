@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=APTdec
+Encoding=UTF-8
+Comment=A lightweight FOSS NOAA APT satellite imagery decoder
+Exec=SIGpi_exec-in-shell "aptdec -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;

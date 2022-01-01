@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=nrsc5
+Encoding=UTF-8
+Comment=NRSC-5 decode using an RTL-SDR dongle.
+Exec=SIGpi_exec-in-shell "nrsc5 -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=DSDccx
+Encoding=UTF-8
+Comment=Digital Speech Decoder (P25, D-STAR, DMR, YSF, NXDN)
+Exec=SIGpi_exec-in-shell "dsdccx -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;

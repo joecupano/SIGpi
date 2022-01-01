@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Multimon-ng
+Encoding=UTF-8
+Comment=POCSAG512, POCSAG1200, POCSAG2400 decoder 
+Exec=SIGpi_exec-in-shell "multimon-ng -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;
