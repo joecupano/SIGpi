@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=dump1090
+Encoding=UTF-8
+Comment=Dump1090 is a Mode S decoder specifically designed for RTL-SDR and HackRF One devices
+Exec=SIGpi_exec-in-shell "dump1090 -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;

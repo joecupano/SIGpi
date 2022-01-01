@@ -185,7 +185,8 @@ echo "  ##   -- Tools"
 cd $SIGPI_RSONDE/tools
 #pa-stdout.c  compile issued with undfined references so skipping
 #chown root:root metno_netcdf_gpx.py pos2pars.py pos2gpx.pl pos2kml.pl
-sudo cp metno_netcdf_gpx.py pos2aprs.py pos2gpx.pl pos2kml.pl pos2nmea.pl /usr/local/bin
+sudo cp metno_netcdf_gpx.py pos2aprs.pl pos2gpx.pl pos2kml.pl pos2nmea.pl /usr/local/bin
+echo "radiosonde" >> $SIGPI_CONFIG 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"

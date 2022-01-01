@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Name=SIGpi Example
-Comment=SIGpi Example
-Exec=lxterminal
-Icon=/usr/share/icons/sigpi_icon_32x32.png
+Name=CygnusRFI
+Comment=CygnusRFI
+Exec=SIGpi_exec-in-shell "cd ~/SIG/source/CygnusRFI"
+Icon=/usr/share/icons/cygnusrfi.png
 Terminal=true
 X-MultipleArgs=false
 Type=Application

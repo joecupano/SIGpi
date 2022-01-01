@@ -1,0 +1,116 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_artemis
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Artemis"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/artemis
+	    rm $HOME/Downloads/artemis.tar.gz
+        sed -i /artemis/d $SIGPI_CONFIG
+        sudo rm -rf $DESKTOP_FILES/artemis.desktop
+        rm -rf ~/.local/share/applications/artemis.desktop
+        sudo xdg-desktop-menu forceupdate --mode system
+        sudo rm $SIGPI_DESKTOP_ICONS/artemis3.svg
+        
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Artemis"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/artemis
+	    rm $HOME/Downloads/artemis.tar.gz
+        sed -i /artemis/d $SIGPI_CONFIG
+        sudo rm -rf $DESKTOP_FILES/artemis.desktop
+        rm -rf ~/.local/share/applications/artemis.desktop
+        sudo xdg-desktop-menu forceupdate --mode system
+        sudo rm $SIGPI_DESKTOP_ICONS/artemis3.svg       
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Artemis"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE 
+
+        if [ "$SIGPI_HWARCH" = "x86" ]; then
+	        cd $HOME/Downloads
+      		# Note; this link specific to Ubuntu OS
+           	wget https://aresvalley.com/download/193/ 
+	        mv index.html artemis.tar.gz
+    	    tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+        	cd $SIGPI_SOURCE/artemis
+	   	    sudo cp artemis3.svg /usr/share/icons/
+        fi
+	
+       	if [ "$SIGPI_HWARCH" = "x86_64" ]; then
+   	       	cd $HOME/Downloads
+	        # Note; this link specific to Ubuntu OS
+    	    wget https://aresvalley.com/download/193/ 
+        	mv index.html artemis.tar.gz
+	   	    tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+        	cd $SIGPI_SOURCE/artemis
+            sudo cp artemis3.svg /usr/share/icons/
+        fi
+	
+	    if [ "$SIGPI_HWARCH" = "armhf" ]; then
+    	    cd $HOME/Downloads
+       		# Note; this link specific to Raspberry Pi OS
+	       	wget https://aresvalley.com/download/1045/ 
+	        mv index.html artemis.tar.gz
+       		tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+	       	cd $SIGPI_SOURCE/artemis
+            sudo cp artemis3.svg /usr/share/icons/
+	    fi
+
+  	    if [ "$SIGPI_HWARCH" = "aarch64" ]; then
+    	    cd $HOME/Downloads
+   	    	# Note; this link specific to Raspberry Pi OS
+    	    wget https://aresvalley.com/download/1045/ 
+   		    mv index.html artemis.tar.gz
+       		tar -zxvf artemis.tar.gz -C $SIGPI_SOURCE
+        	cd $SIGPI_SOURCE/artemis
+            sudo cp artemis3.svg /usr/share/icons/
+        fi
+
+        ## DESKTOP
+	    # Add Icon
+        sudo cp $SIGPI_SOURCE/artemis/artemis3.svg $DESKTOP_ICONS
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/artemis.desktop $DESKTOP_FILES
+	    # Add Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/artemis.desktop
+	    
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Artemis Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
+
+

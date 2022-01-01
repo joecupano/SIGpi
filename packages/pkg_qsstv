@@ -1,0 +1,72 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_qsstv
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove QSSTV"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        sudo apt-get remove qsstv
+        sudo rm -rf $DESKTOP_FILES/qsstv.desktop
+        rm -rf ~/.local/share/applications/qsstv.desktop
+        sudo xdg-desktop-menu forceupdate --mode system
+        sed -i /qsstv/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge QSSTV"
+        echo -e "${SIGPI_BANNER_RESET}"
+       
+        sudo apt-get remove --purge qsstv
+        sudo rm -rf $DESKTOP_FILES/qsstv.desktop
+        rm -rf ~/.local/share/applications/qsstv.desktop
+        sudo xdg-desktop-menu forceupdate --mode system
+        sed -i /qsstv/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        sudo apt-get install -y qsstv
+        echo "qsstv" >> $SIGPI_CONFIG 
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/qsstv.desktop
+        
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

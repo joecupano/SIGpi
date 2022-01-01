@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=rtl_fm
+Encoding=UTF-8
+Comment=simple narrow band FM demodulator for RTL2832 based DVB-T receivers
+Exec=SIGpi_exec-in-shell "rtl_fm -h"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi-shell;

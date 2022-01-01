@@ -1,13 +1,22 @@
 # Release Notes
 
+## Release 4.2: 2022-01-01  (Pre 5.0)
+- Build installs on RPi Full OS Bullseye 32 and 64 bit)
+- Build installs on Ubuntu 20.04 LTS (x86, x86_64, aarch64)
+- Add **base** install option which install devices and minimal apps (rtl_433, dump1090, GQRX, CubicSDR)
+- Remove **SIG_popper** and **SIG_pusher** and replace with **SIGpi (action) (package)**
+- Remove **Artemis** given repeated issues
+- Implement SIGpi package management system for install, remove, purge, update, upgrade packages post first time install
+
 ## Release 4.1: 2021-12-12
 - Fixed RadioSonde install
 - Artemis install broken for RPi for now
 - Post install can pop (remove) and push (install) SIGpi Packages using SIGpi_popper and SIGPi_pusher scripts
 
-## Release 4.0: 2021-11-30
-- Implemented SIGprojects software architecture model
+## Release 4.0: 2021-11-27
+- Implemente SIGprojects software architecture model
 - Updated to SDRangel 6.17.4 and SDR++ 1.0.5
+- Added Ettus Research UHD device install script
 - Added Artemis, CygnusRFI, JS8CALL, GNuradio 3.8 (repo) and 3.9 (compiled) options
 - Added HASviolet (Delaware Release)
 - Added ability to **push** and **pop** SIGpi packages post-install
@@ -48,3 +57,5 @@
 
 ## Release 1.0: 2021-09-15
 - Initial Release
+
+

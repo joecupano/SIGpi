@@ -5,7 +5,7 @@
 ###
 
 ###
-###   REVISION: 2021126-0500
+###  REVISION: 20211228-0700
 ###
 
 ###
@@ -15,27 +15,25 @@
 ###
 ###
 ###
-###
-###
-###
-###
-###
 
 ###
 ### INIT VARIABLES AND DIRECTORIES
 ###
 
-# SIGpi Root Directory
-SIGPI_SOURCE=$HOME/SIG
-
-# SIGpi directories
-SIGPI_HOME=$SIGPI_SOURCE/SIGpi
-SIGPI_ETC=$SIGPI_HOME/etc
+# SIGpi Directory tree
+SIGPI_ROOT=$HOME/SIG
+SIGPI_SOURCE=$SIGPI_ROOT/source
+SIGPI_HOME=$SIGPI_ROOT/SIGpi
+SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
+SIGPI_PACKAGES=$SIGPI_HOME/packages
 
 # SigPi Install Support files
-SIGPI_CONFIG=$SIGPI_ETC/INSTALL_CONFIG
-SIGPI_INSTALL_TXT1=$SIGPI_ETC/SIGpi-installer-1.txt
+SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
+SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
+SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
+SIGPI_INSTALL_TXT1=$SIGPI_SCRIPTS/scr_install_welcome.txt
+SIGPI_INSTALLSRC_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -46,7 +44,7 @@ SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
 
-# Desktop directories
+# Desktop Source directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
 SIGPI_ICONS=$SIGPI_HOME/icons
 SIGPI_LOGO=$SIGPI_HOME/logo
@@ -72,6 +70,11 @@ if [ "$SIGPI_HWARCH" = "x86" ]; then
 fi
 
 if [ "$SIGPI_HWARCH" = "x86_64" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
+# Raspberry Pi 3B+ 
+if [ "$SIGPI_HWARCH" = "armv7l" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
@@ -109,8 +112,6 @@ if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  Aborting"
     exit 1;
 fi
-
-# If we reached this point our hardware and operating system are certified for SIGpi
 
 # Are we where we should be
 if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
@@ -151,9 +152,27 @@ select_startscreen(){
     TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
 }
 
+select_devices() {
+    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+        "Select additional devices to install " 20 80 12 \
+        "ettus" "Ettus Research USRP UHD" OFF \
+        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    ##echo $FUN >> $SIGPI_INSTALLER
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_INSTALLER
+    done
+}
+
 select_gnuradio() {
     FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
-        "GNUradio version" 20 80 12 \
+        "Select a GNUradio version" 20 80 12 \
 		"gnuradio38" "GNU Radio 3.8 " ON \
         "gnuradio39" "GNU Radio 3.9 " OFF \
         3>&1 1>&2 2>&3)
@@ -161,20 +180,14 @@ select_gnuradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    echo $FUN >> $SIGPI_CONFIG
-}
-
-zenity_gnuradio(){
-    zenity --list --radiolist --text "Choose GNUradio version:" --hide-header \
-    --column "selection" --column "version" \
-    FALSE "GNUradio 3.8" \
-    FALSE "GNUradio 3.9" \
-    FALSE "Skip GNUradio" 
+    echo $FUN >> $SIGPI_INSTALLER
 }
 
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "General Purpose SDR Applications" 20 80 12 \
+        "Select SDR Applications" 20 80 12 \
+        "rtl_433" "RTL_433 " OFF \
+        "dump1090" "Dump 1090 " OFF \
         "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " OFF \
@@ -184,58 +197,37 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
-}
-
-zenity_sdrapps() {
-    zenity --list --checklist --text "Choose SDR Apps" --hide-header \
-    --column "sdrapps" --column "chosen" FALSE \
-    "gqrx" FALSE \
-    "cubicsdr" FALSE \
-    "sdrangel" FALSE \
-    "sdrpp"
 }
 
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
-        "Amateur Radio Applications" 24 120 12 \
+        "Select Amateur Radio Applications" 24 120 12 \
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
-        "wsjtx" "WSJT-X 2.5.1 for FT8, JT4, JT9, JT65, QRA64, ISCAT, MSK144, and WSPR " OFF \
-        "xastir" "Xastir provides mapping, tracking, messaging, weather, weather alerts" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
-}
-
-zenity_amateurradio(){
-    zenity --list --checklist --text "Choose Amateur Radio Apps" --hide-header \
-    --column "sdrapps" --column "chosen" FALSE \
-    "fldigi" FALSE \
-    "js8call" FALSE \
-    "qsstv" FALSE \
-    "wsjtx"
 }
 
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-        "HASviolet" "LoRa and FSK transciever project " OFF \
-        "artemis" "Real-time SIGINT from your SDR " OFF \
+        "HASviolet" "LoRa and FSK transceiver project " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
@@ -249,31 +241,87 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_CONFIG
+    ##echo $FUN >> $SIGPI_INSTALLER
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_CONFIG
+        echo $FUN >> $SIGPI_INSTALLER
     done
 }
 
-zenity_usefulapps() {
-    zenity --list --checklist --text "Choose Other Apps" --hide-header \
-    --column "sdrapps" --column "chosen" FALSE \
-    "artemis" FALSE \
-    "cygnusrfi" FALSE \
-    "gpredict" FALSE \
-    "splat" FALSE \
-    "wireshark" FALSE \
-    "kismet" FALSE \
-    "audacity" FALSE \
-    "pavu" FALSE \
-    "xastir"
-}
 
 ###
 ###  MAIN
 ###
+
+# Setup directories
+mkdir $SIGPI_ETC
+touch $SIGPI_CONFIG
+mkdir $SIGPI_SOURCE
+cd $SIGPI_SOURCE
+
+# Server option invoked ?
+if [ "$1" = "server" ]; then 
+    TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
+        "SDR Server Packages" 20 80 12 \
+        "RTLTCPsrv" "RTL_TCP Server " OFF \
+        "SoapySDRsrv" "SoapySDR Server " OFF \
+        "SDRangelsrv" "SDRangel server " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN
+
+    TERM=ansi whiptail --title "SigPi Server Install" --clear --msgbox "Ready to Install" 12 120
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    echo "sigpi_server" >> $SIGPI_CONFIG
+    cd $SIGPI_SOURCE
+
+    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+
+    # RTLTCPsrv
+    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_rtltcp-server install
+    fi
+
+    # SoapySDRsrv
+    if grep SoapySDRsrv "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_soapysdr-server install
+    fi
+
+    # SDRangelsrv
+    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_sdrangel-server install
+    fi
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Server Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 17
+    sudo sync
+    sudo reboot
+    exit 0
+fi
 
 # Base option invoked ?
 if [ "$1" = "base" ]; then 
@@ -290,13 +338,16 @@ if [ "$1" = "base" ]; then
     sudo apt-get -y upgrade
 
     touch $SIGPI_CONFIG
+    echo "sigpi_desktop" >> $SIGPI_CONFIG    
     cd $SIGPI_SOURCE
 
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
-    source $SIGPI_SCRIPTS/install_devices.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
     source $SIGPI_SCRIPTS/install_desktop-prep.sh
-    source $SIGPI_SCRIPTS/package_rtl_433.sh install
-    source $SIGPI_SCRIPTS/install_desktopitems.sh
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    source $SIGPI_PACKAGES/pkg_gqrx install
+    source $SIGPI_SCRIPTS/install_desktop-post.sh
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -313,8 +364,11 @@ if [ "$1" = "base" ]; then
     exit 0
 fi
 
+# Otherwise we are Full install
+
 calc_wt_size
 select_startscreen
+select_devices
 select_gnuradio
 select_sdrapps
 select_amateurradio
@@ -330,137 +384,147 @@ echo -e "${SIGPI_BANNER_RESET}"
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Create Directories"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
-
-touch $SIGPI_CONFIG      
+touch $SIGPI_CONFIG
+echo "sigpi_desktop" >> $SIGPI_CONFIG    
 cd $SIGPI_SOURCE
 
 #source $SIGPI_SCRIPTS/install_swapspace.sh
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
-source $SIGPI_SCRIPTS/install_devices.sh
-source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_radiosonde.sh
-source $SIGPI_SCRIPTS/package_rtl_433.sh install
-source $SIGPI_SCRIPTS/package_ubertooth.sh install
-source $SIGPI_SCRIPTS/package_direwolf.sh install
-source $SIGPI_SCRIPTS/package_linpac.sh install
+source $SIGPI_SCRIPTS/install_desktop-prep.sh
+source $SIGPI_SCRIPTS/install_core_devices.sh
 
-# GNU Radio
-if grep gnuradio38 "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gnuradio38.sh install
+# UHD - Ettus
+if grep ettus "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_ettus install
 fi
 
-if grep gnuradio39 "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_gnuradio39.sh install
+# RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
+if grep rfm95w "$SIGPI_INSTALLER"; then
+    source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
+fi
+
+source $SIGPI_SCRIPTS/install_libraries.sh
+source $SIGPI_SCRIPTS/install_radiosonde.sh
+source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+source $SIGPI_PACKAGES/pkg_direwolf install
+source $SIGPI_PACKAGES/pkg_linpac install
+
+# RTL_433
+if grep rtl_433 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+fi
+
+# Dump1090
+if grep gnuradio38 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+fi
+
+# GNU Radio
+if grep gnuradio38 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio38 install
+fi
+
+if grep gnuradio39 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio39 install
 fi
 
 # gqrx
-if grep gqrx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gqrx-sdr.sh install
+if grep gqrx "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gqrx install
 fi
 
 # CubicSDR
-if grep cubicsdr "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_cubicsdr.sh install
+if grep cubicsdr "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_cubicsdr install
 fi
 
 # SDRangel
-if grep sdrangel "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_sdrangel.sh install
-    source $SIGPI_SCRIPTS/install_fftw-wisdom.sh
+if grep sdrangel "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_sdrangel install
 fi
 
 # SDR++
-if grep sdrpp "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_sdrpp.sh install
+if grep sdrpp "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_sdrpp install
 fi
 
 # Fldigi
-if grep fldigi "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_fldigi.sh install
+if grep fldigi "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_fldigi install
 fi
-
-# Fldigi 4.1.20
-#if grep fldigi4120 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/package_fldigi-latest.sh install
-#fi
 
 # WSJT-X
-if grep wsjtx "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_wsjtx.sh install
-fi
+#if grep wsjtx "$SIGPI_INSTALLER"; then
+#    source $SIGPI_PACKAGES/pkg_wsjtx install
+#fi
 
 # Xastir
-if grep xastir "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_xastir.sh install
+if grep xastir "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_xastir install
 fi
 
 # QSSTV
-if grep qsstv "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_qsstv.sh install
+if grep qsstv "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_qsstv install
 fi
 
 # QSSTV 9.5.X
-#if grep qsstv95 "$SIGPI_CONFIG"; then
-#    source $SIGPI_SCRIPTS/package_qsstv95.sh install
+#if grep qsstv95 "$SIGPI_INSTALLER"; then
+#    source $SIGPI_PACKAGES/pkg_qsstv95 install
 #fi
 
 # JS8CALL
-if grep js8call "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_js8call.sh install
+if grep js8call "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_js8call install
 fi
 
 # Gpredict
-if grep gpredict "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_gpredict.sh install
+if grep gpredict "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gpredict install
 fi
 
 # HASviolet
-if grep HASviolet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_hasviolet.sh install
-fi
-
-# Artemis
-if grep artemis "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_artemis.sh install
+if grep HASviolet "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_hasviolet install
 fi
 
 # CygnusRFI
-if grep cygnusrfi "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_cygnusrfi.sh install
+if grep cygnusrfi "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_cygnusrfi install
 fi
 
 # Wireshark
-if grep wireshark "$SIGPI_CONFIG"; then
-	source $SIGPI_SCRIPTS/package_wireshark.sh install
+if grep wireshark "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_wireshark install
 fi
 
 # Kismet
-if grep kismet "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_kismet.sh install
+if grep kismet "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_kismet install
 fi
 
 # Audacity
-if grep audacity "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_audacity.sh install 
+if grep audacity "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_audacity install 
 fi
 
 # PAVU
-if grep pavu "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_pavucontrol.sh install
+if grep pavu "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_pavucontrol install
 fi
 
 # splat
-if grep splat "$SIGPI_CONFIG"; then
-    source $SIGPI_SCRIPTS/package_splat.sh install
+if grep splat "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_splat install
 fi
 
-# SIGpi Menu
-source $SIGPI_SCRIPTS/install_desktopitems.sh
+# Artemis
+if grep artemis "$SIGPI_INSTALLER"; then
+	source $SIGPI_PACKAGES/pkg_artemis install
+fi
+
+# SIGpi Menus
+source $SIGPI_SCRIPTS/install_desktop-post.sh
 
 # Turn off Swapfile
 if [ -f /swapfile ]; then

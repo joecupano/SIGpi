@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=HASviolet
+Encoding=UTF-8
+Comment=LoRa SDR software. Use with LoRa HAT on RPi
+Exec=/usr/bin/lxterminal -e
+Icon=/usr/share/SIGpi/icons/sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi;

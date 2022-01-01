@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=SPLAT
+Encoding=UTF-8
+Comment=RF Signal Propagation, Loss, And Terrain analysis tool between 20 MHz and 20 GHz
+Exec=SIGpi_exec-in-shell "splat"
+Icon=splat.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SigPi;

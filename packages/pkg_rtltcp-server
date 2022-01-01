@@ -1,0 +1,81 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_rtltcp-server
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_TCP Service"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo systemctl stop rtlsdr.service
+        sleep 5
+        sudo systemctl disable rtlsdr.service
+        sudo rm -rf /etc/systemd/system/rtlsdr.service
+
+        # Remove Menu icon
+        sudo rm $SIGPI_DESKTOP_ICONS/rtltcp-server.png
+        # Remove Desktop links
+        sudo rm $SIGPI_DESKTOP_FILES/rtltcp-server.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTL_TCP Service"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo systemctl stop rtlsdr.service
+        sleep 5
+        sudo systemctl disable rtlsdr.service
+        sudo rm -rf /etc/systemd/system/rtlsdr.service
+
+        # Remove Menu icon
+        sudo rm $SIGPI_DESKTOP_ICONS/rtltcp-server.png
+        # Remove Desktop links
+        sudo rm $SIGPI_DESKTOP_FILES/rtltcp-server.desktop
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_TCP Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        sudo cp $SIGPI_SOURCE/scripts/rtlsdr.service /etc/systemd/system/rtlsdr.service
+        sudo systemctl enable rtlsdr.service
+        sudo systemctl start rtlsdr.service
+        sleep 5
+        sudo systemctl status rtlsdr.service
+	
+        # Add Icon
+        sudo cp $SIGPI_ICONS/rtltcp-server.png $SIGPI_DESKTOP_ICONS
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/rtltcp-server.desktop $SIGPI_DESKTOP_FILES
+	    # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/rtltcp-server.desktop
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTL_TCP Service Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

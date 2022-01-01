@@ -6,7 +6,7 @@
 ### run_direwolf
 ###
 
-/usr/local/bin/direwolf -p -c /usr/local/etc/direwolf/direwolf.conf
+/usr/local/bin/direwolf -p -c $HOME/SIG/SIGpi/etc/direwolf.conf
 
 
 

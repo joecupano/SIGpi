@@ -6,7 +6,6 @@
 ### installer_swapspace
 ###
 
-# Artemis
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Swapspace"
