@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 4.2: 2021-12-31
+## Release 4.2: 2022-01-01  (Pre 5.0)
 - Build installs on RPi Full OS Bullseye 32 and 64 bit)
 - Build installs on Ubuntu 20.04 LTS (x86, x86_64, aarch64)
 - Add **base** install option which install devices and minimal apps (rtl_433, dump1090, GQRX, CubicSDR)
