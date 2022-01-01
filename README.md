@@ -1,6 +1,6 @@
 # SIGpi
 
-Pre-release 5.0
+RELEASE 5.0
 
 ## Introduction
 
