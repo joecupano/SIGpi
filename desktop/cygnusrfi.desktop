@@ -2,7 +2,7 @@
 Version=1.0
 Name=CygnusRFI
 Comment=CygnusRFI
-Exec=SIGpi_exec-in-shell 
+Exec=SIGpi_exec-in-shell "cd ~/SIG/source/CygnusRFI"
 Icon=/usr/share/icons/cygnusrfi.png
 Terminal=true
 X-MultipleArgs=false

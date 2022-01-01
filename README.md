@@ -1,10 +1,12 @@
 # SIGpi
 
-Release: 20211231-1500
+Pre-release 5.0
 
 ## Introduction
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit).** The script MUST be run as user **pi**.
+
+Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
 ## Requirements
 
@@ -78,66 +80,7 @@ While tools are included for Amateur Radio, it is not this builds focus. We are 
 
 ## Build Details
 
-Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient. Below is a list of software installed.
-
-Device Drivers
-* [RTL-SDR](https://www.rtl-sdr.com/about-rtl-sdr/) RTL2832U & R820T2-Based *
-* [HackRF One](https://greatscottgadgets.com/hackrf/one/) Hack RF One *
-* [PlutoSDR](https://wiki.analog.com/university/tools/pluto) *
-* [LimeSuite](https://github.com/myriadrf/LimeSuite) *
-* [SoapySDR](https://github.com/pothosware/SoapySDR) SoapySDR Library *
-* [SoapyRemote](https://github.com/pothosware/SoapyRemote) Use any Soapy SDR Remotely *
-* SoapyRTLSDR Soapy SDR Module for RTLSDR *
-* SoapyHackRF Soapy SDR Module for HackRF One *
-* SoapyPlutoSDR Soapy SDR Module for PlutoSD *
-* GPS client and NTP sync (gpsd gpsd-clients python-gps chrony)
-
-Libraries and Decoders
-* [aptdec](https://github.com/Xerbo/aptdec) *        NOAA satellite imagery decoder
-* cm256cc *
-* [dab-cmdline](https://github.com/JvanKatwijk/dab-cmdline) *   DABD/DAB+
-* [mbelib](https://github.com/szechyjs/mbelib) *        P25 Phase 1
-* [serialDV](https://github.com/f4exb/serialDV) *      Encode/Decode audio with AMBE3000 based devices (DMR, YSF, D-Star, etc)
-* [dsdcc](https://github.com/f4exb/dsdcc) *         Encode/Decode Digital Voice modes (DMR, YSF, D*Star, etc) 
-* [sgp4](https://pypi.org/project/sgp4/) *          Used for satellite trakcing given TLE data 
-* [rtl_433](https://github.com/merbanan/rtl_433)           Generic data receiver for UHF ISM Bands decoding popular sensors
-* [dump1090](https://github.com/antirez/dump1090)           Mode S decoder specifically designed for RTLSDR devices
-* [libsigmf](https://github.com/deepsig/libsigmf) *      Used for Signal Metadata Format - sharing of signal data 
-* [liquid-dsp](https://github.com/jgaeddert/liquid-dsp) *    Digital Signal Processing (DSP) library 
-* [libbtbb](https://github.com/greatscottgadgets/libbtbb) *       Bkuetooth Baseband Library 
-* [hamlib 4.4](https://hamlib.github.io/) *    API for controlling a myriad of radios 
-
-SDR Applications
-* [GNURadio](https://github.com/gnuradio/gnuradio)
-* [GQRX](https://github.com/csete/gqrx)
-* [SDRangel 6.17.6](https://github.com/f4exb/sdrangel) *
-* [SDR++ 1.0.5](https://github.com/AlexandreRouma/SDRPlusPlus) *
-* [CubicSDR](https://cubicsdr.com/)        SDR Receiver
-* [CygnusRFI](https://github.com/0xCoto/CygnusRFI)        Radio Frequency Interference (RFI) analysis tool
-
-AFSK, FSK, Packet, APRS Communications
-* libax25         AFSK baseband audio library for AX.25 packet as used by APRS
-* ax25-apps       Command line AX.25 spps
-* ax25-tools      AX.25 for daemon interfaces
-* [direwolf 1.7](https://github.com/wb2osz/direwolf) *  Software “soundcard” AX.25 packet modem/TNC and APRS encoder/decoder
-* [HASviolet (Delware Release)](https://github.com/hudsonvalleydigitalnetwork/hasviolet/wiki/HASviolet)   LoRa communications on 33cm band (902-928 MHz)
-
-Amateur Radio
-* [Fldigi 4.1.18](https://sourceforge.net/p/fldigi/wiki/Home/)    GUI app for CW, PSK, MFSK, RTTY, Hell, DominoEX, Olivia, etc 
-* [js8call](http://js8call.com/) JS8 mode
-* [QSSTV 9.4.4](http://users.telenet.be/on4qz/index.html)     GUI app for SSTV
-
-Satellite and Geo
-* [gpredict](https://github.com/csete/gpredict)        Satellite Tracking with Radio and Antenna Rotor Control
-* [xastir](http://xastir.org/index.php/Main_Page)          APRS Station Tracking and Reporting
-* [linpac](http://linpac.sourceforge.net/doc/manual.html)          Packet Radio Terminal with Mail Client
-
-Tools
-* [Kismet](https://www.kismetwireless.net/)        Wireless sniffer and monitor
-* [Wireshark](https://www.wireshark.org/)     Network Traffic Analyzer
-* [Audacity](https://www.audacityteam.org/)      Audio Editor
-* [PAVU](https://freedesktop.org/software/pulseaudio/pavucontrol/)          PulseAudio Control
-* [SPLAT](https://www.qsl.net/kd2bd/splat.html)         RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz
+Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient.
 
 ## APRS and Packet using a VHF/UHF Transceiver
 
@@ -170,14 +113,6 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 ```
 
 - Save and exit
-
-### DireWolf
-DireWolf needs to be running for APRS and Packet applications to have use the AX0 interface defined in the previou section. You will need to configure your callsign, the soundcard device to use, and whether using PTT or VOX in the **/usr/local/etc/direwolf/direwolf.conf** file. The conf file itself is well documented in how to configure else consult the [DireWolf online docs](https://github.com/wb2osz/direwolf/tree/master/doc).
-
-Because a number of factors go into a successful DireWolf setup with your transceiver, configuration discussion is deferred to the [official DireWolf documentation](https://github.com/wb2osz/direwolf/tree/master/doc).
-
-### Xastir
-Xastir is an application that provides geospatial mappng of APRS signals. It needs to configured to use the RF interface provided by DireWolf. You must start Direwolf in a separately terminal window before you start Xastir. Be sure to consult [Xastir online documentation](https://xastir.org/index.php/Main_Page) for more info.
 
 ## WSJT-X ... not
 As quoted from the [WSJT-site](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) 
