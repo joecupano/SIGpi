@@ -72,39 +72,6 @@ sudo make install
 sudo ldconfig
 
 
-# APT
-# Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   APT-DEC"
-echo -e "${SIGPI_BANNER_RESET}"
-
-sudo apt-get install -y libsndfile-dev libpng-dev
-cd $SIGPI_SOURCE
-git clone https://github.com/srcejon/aptdec.git
-cd aptdec
-mkdir build; cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
-
-
-# HD Radio
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   HD Radio"
-echo -e "${SIGPI_BANNER_RESET}"
-
-sudo apt-get install -y libao-dev
-cd $SIGPI_SOURCE
-git clone https://github.com/theori-io/nrsc5.git
-cd nrsc5
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-sudo ldconfig
-
-
 # LibDAB
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB"
@@ -144,33 +111,6 @@ make -j4
 sudo make install
 sudo ldconfig
 
-
-# Multimon-NG
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG"
-echo -e "${SIGPI_BANNER_RESET}"
-
-cd $SIGPI_SOURCE
-git clone https://github.com/EliasOenal/multimon-ng.git
-cd multimon-ng
-mkdir build && cd build
-cmake ..
-make -j4
-sudo make install
-
-# OP25 ---- script crashes at next line and goes to and with EOF error
-#if grep op25 "$SIGPI_CONFIG"
-#then
-#    cd $SIGPI_SOURCE
-#	 git clone https://github.com/osmocom/op25.git
-#	 cd op25
-#	 if grep gnuradio-3.8 "$SIGPI_CONFIG"
-#	 then
-#	     cat gr3.8.patch | patch -p1
-#		 ./install_sh
-#	 else
-#		 ./install.sh
-#fi
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Libraries Installed"

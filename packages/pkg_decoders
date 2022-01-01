@@ -1,0 +1,83 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_decoders
+###
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Decoders"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+
+# APT
+# Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   APT-DEC"
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y libsndfile-dev libpng-dev
+cd $SIGPI_SOURCE
+git clone https://github.com/srcejon/aptdec.git
+cd aptdec
+mkdir build; cd build
+cmake ..
+make -j4
+sudo make install
+sudo ldconfig
+# Add Icon
+# Add Desktop
+sudo cp $SIGPI_HOME/desktop/aptdec.desktop $DESKTOP_FILES
+# Change Category
+# Add to Menu
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/aptdec.desktop
+
+
+# HD Radio
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   HD Radio"
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y libao-dev
+cd $SIGPI_SOURCE
+git clone https://github.com/theori-io/nrsc5.git
+cd nrsc5
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
+sudo ldconfig
+# Add Icon
+# Add Desktop
+sudo cp $SIGPI_HOME/desktop/nrsc5.desktop $DESKTOP_FILES
+# Change Category
+# Add to Menu
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/nrsc5.desktop
+
+
+# Multimon-NG
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG"
+echo -e "${SIGPI_BANNER_RESET}"
+
+cd $SIGPI_SOURCE
+git clone https://github.com/EliasOenal/multimon-ng.git
+cd multimon-ng
+mkdir build && cd build
+cmake ..
+make -j4
+sudo make install
+# Add Icon
+# Add Desktop
+sudo cp $SIGPI_HOME/desktop/multimon-ng.desktop $DESKTOP_FILES
+# Change Category
+# Add to Menu
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/multimon-ng.desktop
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Decoders Installed"
+echo -e "${SIGPI_BANNER_RESET}"
