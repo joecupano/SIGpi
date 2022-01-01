@@ -404,6 +404,7 @@ if grep rfm95w "$SIGPI_INSTALLER"; then
 fi
 
 source $SIGPI_SCRIPTS/install_libraries.sh
+source $SIGPI_PACKAGES/pkg_decoders install
 source $SIGPI_SCRIPTS/install_radiosonde.sh
 source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 source $SIGPI_PACKAGES/pkg_direwolf install
