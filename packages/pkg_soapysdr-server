@@ -56,8 +56,9 @@ case "$1" in
 
         ## PACKAGE
         sudo cp $SIGPI_SOURCE/scripts/soapysdr.service /etc/systemd/system/soapysdr.service
-        sudo systemctl enable soapysdr.service
+        sudo systemctl daemon-reload
         sudo systemctl start soapysdr.service
+        sudo systemctl enable soapysdr.service
         sleep 5
         sudo systemctl status soapysdr.service
 
