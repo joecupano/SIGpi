@@ -265,7 +265,7 @@ if [ "$1" = "server" ]; then
     TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
     FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
         "SDR Server Packages" 20 80 12 \
-        "RTLTCPsrv" "RTL_TCP Server " OFF \
+        "RTLSDRsrv" "RTLSDR Server " OFF \
         "SoapySDRsrv" "SoapySDR Server " OFF \
         "SDRangelsrv" "SDRangel server " OFF \
         3>&1 1>&2 2>&3)
@@ -293,9 +293,9 @@ if [ "$1" = "server" ]; then
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
-    # RTLTCPsrv
-    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_rtltcp-server install
+    # RTLSDRsrv
+    if grep RTLSDRsrv "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_rtlsdr-server install
     fi
 
     # SoapySDRsrv
