@@ -57,9 +57,9 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.director
 # What operating system are we?
 if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'sigpi_home.desktop', 'sigidwiki.desktop','org.gnome.Terminal.desktop',\
+    gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop',\
      'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
-     'xastir.desktop', 'gpredict.desktop', 'org.gnome.Nautilus.desktop']"
+     'rtl_433.desktop', 'sigidwiki.desktop', 'sigpi_home.desktop']"
 else
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image
