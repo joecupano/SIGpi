@@ -156,7 +156,7 @@ select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
         "ettus" "Ettus Research USRP UHD" OFF \
-        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
+        "rfm95w" "(RPi only) Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -227,7 +227,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-        "HASviolet" "LoRa and FSK transceiver project " OFF \
+        "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
@@ -528,14 +528,6 @@ fi
 
 # SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
-
-# Turn off Swapfile
-if [ -f /swapfile ]; then
-    echo "Removing swapfile"
-    sudo swapoff /swapfile
-    sleep 5
-    sudo rm -rf /swapfile
-fi
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
