@@ -215,7 +215,8 @@ case "$1" in
         cd sdrangel
         #git reset --hard bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
         #git reset --hard 35adc2545026bf43002f7ed02345ae11a20d1594  #v6.17.5
-        git reset --hard 5a11ef6a8ba2454439cdaf3b378c6f100f5ef901  #v6.17.6
+        #git reset --hard 5a11ef6a8ba2454439cdaf3b378c6f100f5ef901  #v6.17.6
+	git reset --hard 7142ef0b0dc1d92373732da93c2b52bd1ff49d64  #v6.17.7
 
         mkdir build; cd build
         cmake -Wno-dev ..
