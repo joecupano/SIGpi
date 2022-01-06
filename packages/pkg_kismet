@@ -54,11 +54,19 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
-        echo 'deb https://www.kismetwireless.net/repos/apt/release/kali kali main' | sudo tee /etc/apt/sources.list.d/kismet.list
-        sudo apt update
-        sudo apt-get install -y kismet
-        #
+        # What operating system are we?
+        if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
+            wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
+            echo 'deb https://www.kismetwireless.net/repos/apt/release/focal focal main' | sudo tee /etc/apt/sources.list.d/kismet.list
+            sudo apt update
+            sudo apt-get install -y kismet
+        else
+            wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
+            echo 'deb https://www.kismetwireless.net/repos/apt/release/bullseye bullseye main' | sudo tee /etc/apt/sources.list.d/kismet.list
+            sudo apt update
+            sudo apt-get install -y kismet
+        fi
+#
         # Say yes when asked about suid helpers
         #
         echo "kismet" >> $SIGPI_CONFIG 

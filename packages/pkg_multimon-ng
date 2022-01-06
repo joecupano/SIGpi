@@ -1,0 +1,78 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_multimon-ng
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Multimon-ng"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/multimon-ng/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/multimon-ng
+        sed -i /multimon-ng/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-ng Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Multimon-ng"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/multimon-ng/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/multimon-ng
+        sed -i /multimon-ng/d $SIGPI_CONFIG
+        sudo rm -rf $SIGPI_DESKTOP/multimon-ng.desktop
+        sudo rm -rf $DESKTOP_FILES/multimon-ng.desktop
+                
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-ng Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Multimon-ng"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/EliasOenal/multimon-ng.git
+        cd multimon-ng
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        echo "multimon-ng" >> $SIGPI_CONFIG 
+        
+        # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/multimon-ng.desktop $DESKTOP_FILES
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/multimon-ng.desktop
+
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   multimon-ng Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

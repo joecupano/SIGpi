@@ -1,0 +1,88 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_kerberos-sdr
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Kerberos SDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/rtl-sdr-kerberos/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf rtl-sdr-kerberos
+        rm -rf SoapyRTLSDR
+        sed -i /kerberos-sdr/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Kerberos SDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+       
+        cd $SIGPI_SOURCE/rtl-sdr-kerberos/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf rtl-sdr-kerberos
+        rm -rf SoapyRTLSDR
+        sed -i /kerberos-sdr/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Kerberos SDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y python3-pip python3-pyqt4 pyqt4-dev-tools build-essential gfortran libatlas3-base \
+        libatlas-base-dev python3-dev python3-setuptools libffi6 libffi-dev python3-tk pkg-config libfreetype6-dev php7.2-cli
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo pip3 install numpy
+        sudopip3 install matplotlib
+        sudopip3 install scipy
+        sudopip3 install cairocffi
+        sudopip3 install pyapril
+        sudopip3 install pyargus
+        sudopip3 install pyqtgraph
+        sudopip3 install peakutils
+        sudopip3 install bottle
+        sudopip3 install paste
+
+        # INSTALL
+        cd $SIGPI_SOURCE
+        ggit clone https://github.com/rtlsdrblog/rtl-sdr-kerberos
+        cd $SIGPI_SOURCE/rtl-sdr-kerberos
+        mkdir build	&& cd build
+        cmake ../ -DINSTALL_UDEV_RULES=ON
+        make
+        sudo make install
+        sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+        sudo ldconfig
+        echo "kerberos-sdr" >> $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
+

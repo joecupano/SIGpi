@@ -11,10 +11,12 @@
 ###                 install   install TARGET from current release
 ###                 remove    remove installed TARGET
 ###                 purge     remove installed TARGET and purge configs
+###                 update    check to see if new TARGET available
 ###                 upgrade   upgrade TARGET to latest release
+###                 shell     provide SIGpi env variables around a TARGET
 ###
 ###        TARGET
-###                 A SIGpi package 
+###                 A SIGpi package or script
 ###
 
 ###
@@ -118,7 +120,9 @@ case "$1" in
     upgrade)
         sigpi_upgrade
         ;;
-
+    shell )
+        source $2
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_nrsc5
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove nrsc5"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/nrsc5/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/nrsc5
+        sed -i /nrsc5/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge nrsc5"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/nrsc5/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/nrsc5
+        sed -i /nrsc5/d $SIGPI_CONFIG
+        sudo rm -rf $SIGPI_DESKTOP/nrsc5.desktop
+        sudo rm -rf $DESKTOP_FILES/nrsc5.desktop
+                
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install nrsc5"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libao-dev
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/theori-io/nrsc5.git
+        cd nrsc5
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        echo "nrsc5" >> $SIGPI_CONFIG 
+
+        # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/nrsc5.desktop $DESKTOP_FILES
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/nrsc5.desktop
+
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

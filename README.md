@@ -1,21 +1,15 @@
 # SIGpi
 
-Pre-release 5.0
+RELEASE 5.0
 
 ## Introduction
 
-SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on a **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit).** The script MUST be run as user **pi**.
+SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following:
+
+- **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (32 or 64-bit)**
+- **Ubuntu 20.04 LTS** on amd64 and aarch64
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
-
-## Requirements
-
-- [Raspberry Pi 4 4GB Model B ](https://www.amazon.com/CanaKit-Raspberry-4GB-Starter-Kit/dp/B07V5JTMV9) minimum
-- [32GB microSDHC card Class 10](https://www.amazon.com/gp/product/B06XWN9Q99)
-- [Raspberry Pi OS Full "Bullseye" 32 bit](https://www.raspberrypi.com/software/) or [64 Bit](https://downloads.raspberrypi.org/raspios_arm64/images/raspios_arm64-2021-11-08/)
-
-### How about other architectures?
-There is also a build script for Ubuntu 20.04 LTS Desktop at [SIGbox repo](https://github.com/joecupano/SIGbox)
 
 ## Installation
 

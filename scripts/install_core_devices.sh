@@ -77,6 +77,27 @@ make -j4
 sudo make install
 sudo ldconfig
 
+# SoapySDR
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
+sudo apt-get install -y swig
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y libavahi-client-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y python-dev python3-dev
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapySDR.git
+cd SoapySDR
+mkdir build && cd build
+cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make -j4
+sudo make install
+sudo ldconfig
+SoapySDRUtil --info
 
 # LimeSDR
 echo -e "${SIGPI_BANNER_COLOR} ##$   - LimeSDR"
@@ -115,29 +136,6 @@ sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
 # Add to Menu
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
-
-
-# SoapySDR
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
-echo -e "${SIGPI_BANNER_RESET}"
-
-## DEPENDENCIES
-sudo apt-get install -y swig
-sudo apt-get install -y avahi-daemon
-sudo apt-get install -y libavahi-client-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python-dev python3-dev
-
-## INSTALL
-cd $SIGPI_SOURCE
-git clone https://github.com/pothosware/SoapySDR.git
-cd SoapySDR
-mkdir build && cd build
-cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
-make -j4
-sudo make install
-sudo ldconfig
-SoapySDRUtil --info
 
 # SoapyRTLSDR
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRTLSDR "

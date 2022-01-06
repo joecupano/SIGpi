@@ -156,7 +156,7 @@ select_devices() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
         "ettus" "Ettus Research USRP UHD" OFF \
-        "rfm95w" "Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
+        "rfm95w" "(RPi only) Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -227,7 +227,7 @@ select_amateurradio() {
 select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
-        "HASviolet" "LoRa and FSK transceiver project " OFF \
+        "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
@@ -265,7 +265,7 @@ if [ "$1" = "server" ]; then
     TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
     FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
         "SDR Server Packages" 20 80 12 \
-        "RTLTCPsrv" "RTL_TCP Server " OFF \
+        "RTLSDRsrv" "RTLSDR Server " OFF \
         "SoapySDRsrv" "SoapySDR Server " OFF \
         "SDRangelsrv" "SDRangel server " OFF \
         3>&1 1>&2 2>&3)
@@ -293,9 +293,9 @@ if [ "$1" = "server" ]; then
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
-    # RTLTCPsrv
-    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_rtltcp-server install
+    # RTLSDRsrv
+    if grep RTLSDRsrv "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_rtlsdr-server install
     fi
 
     # SoapySDRsrv
@@ -404,7 +404,10 @@ if grep rfm95w "$SIGPI_INSTALLER"; then
 fi
 
 source $SIGPI_SCRIPTS/install_libraries.sh
-source $SIGPI_SCRIPTS/install_radiosonde.sh
+source $SIGPI_PACKAGES/pkg_aptdec install
+source $SIGPI_PACKAGES/pkg_nrsc5 install
+source $SIGPI_PACKAGES/pkg_multimon-ng install
+source $SIGPI_PACKAGES/pkg_radiosonde install
 source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 source $SIGPI_PACKAGES/pkg_direwolf install
 source $SIGPI_PACKAGES/pkg_linpac install
@@ -525,14 +528,6 @@ fi
 
 # SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
-
-# Turn off Swapfile
-if [ -f /swapfile ]; then
-    echo "Removing swapfile"
-    sudo swapoff /swapfile
-    sleep 5
-    sudo rm -rf /swapfile
-fi
 
 
 echo -e "${SIGPI_BANNER_COLOR}"

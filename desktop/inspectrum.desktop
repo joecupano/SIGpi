@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=InspectrumV
+GenericName=Analysing and reverse-enginering signals that have been recorded
+Exec=inspectrum
+Terminal=false
+Categories=SigPi;
+Icon=sigpi_icon_menu.png
+Comment=Analysing and reverse-enginering signals that have been recorded
+Type=Application
