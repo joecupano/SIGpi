@@ -117,7 +117,7 @@ So we go ahead an build from source and notice it wants to be a snowflake and co
 
 ## Example Hardware Setup
 
-![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgournds/SIGpi_architecture.png)
+![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
 
 ### Power
 
