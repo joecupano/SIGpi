@@ -263,11 +263,12 @@ cd $SIGPI_SOURCE
 # Server option invoked ?
 if [ "$1" = "server" ]; then 
     TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
-    FUN=$(whiptail --title "SigPi Server Installer" --clear --checklist --separate-output \
-        "SDR Server Packages" 20 80 12 \
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --radiolist --separate-output \
+        "Which SDR Server Package to autostart " 20 80 12 \
         "RTLSDRsrv" "RTLSDR Server " OFF \
         "SoapySDRsrv" "SoapySDR Server " OFF \
         "SDRangelsrv" "SDRangel server " OFF \
+        "no-server" "None " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
