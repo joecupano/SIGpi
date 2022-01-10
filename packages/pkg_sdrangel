@@ -5,6 +5,15 @@
 ###
 ### pkg_sdrangel
 ###
+###
+
+###
+### NOTES:
+###     When called from **SIGpi update sdrangel** remove is doing some clean-up of 5.0 install of SDRangel
+###     First it removes a duplicate sdrangel entry in PACKAGES
+###     Since SDRangel dependent libraries and FFTWF-Wisdom have been unbundled from pkg_sdrangel v5.1 
+###     into their own installs, PACKAGES is updated with each of the library names during install
+###
 
 case "$1" in 
     remove )
@@ -16,6 +25,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/sdrangel
+        sed -i /sdrangel/d $SIGPI_CONFIG
         sed -i /sdrangel/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -31,6 +41,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/sdrangel
+        sed -i /sdrangel/d $SIGPI_CONFIG
         sed -i /sdrangel/d $SIGPI_CONFIG
 
         sudo rm -rf $SIGPI_DESKTOP/sdrangel.desktop
@@ -113,6 +124,19 @@ case "$1" in
         sudo ldconfig
         echo "sdrangel" >> $SIGPI_CONFIG 
 
+        # Since SDRangel dependencies and FFTWF-Wisdom have their own install we need to update PACKAGES to know they are there
+        if grep cm256cc "$SIGPI_CONFIG"; then
+            echo "sdrangel" >> $SIGPI_CONFIG
+        else
+            echo "sdrangel" >> $SIGPI_CONFIG 
+            echo "cm256cc" >> $SIGPI_CONFIG
+            echo "dsdcc" >> $SIGPI_CONFIG
+            echo "codec2" >> $SIGPI_CONFIG
+            echo "serialdv" >> $SIGPI_CONFIG
+            echo "mbelib" >> $SIGPI_CONFIG
+            echo "fftwf-wisdom" >> $SIGPI_CONFIG
+        fi
+        
 	    ## DESKTOP
         # Add Icon      
         # Add Desktop
