@@ -406,6 +406,13 @@ fi
 source $SIGPI_SCRIPTS/install_libraries.sh
 source $SIGPI_PACKAGES/pkg_aptdec install
 source $SIGPI_PACKAGES/pkg_nrsc5 install
+
+source $SIGPI_PACKAGES/pkg_cm256cc install
+source $SIGPI_PACKAGES/pkg_mbelib install
+source $SIGPI_PACKAGES/pkg_serialdv install
+source $SIGPI_PACKAGES/pkg_dsdcc install
+source $SIGPI_PACKAGES/pkg_codec2 install
+
 source $SIGPI_PACKAGES/pkg_multimon-ng install
 source $SIGPI_PACKAGES/pkg_radiosonde install
 source $SIGPI_PACKAGES/pkg_ubertooth-tools install
@@ -445,6 +452,8 @@ fi
 if grep sdrangel "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrangel install
 fi
+
+source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
 
 # SDR++
 if grep sdrpp "$SIGPI_INSTALLER"; then
