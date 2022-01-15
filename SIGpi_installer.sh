@@ -312,6 +312,11 @@ if [ "$1" = "server" ]; then
         sudo systemctl status sigpi-server-soapy.service
     fi
 
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+    source $SIGPI_PACKAGES/pkg_radiosonde install
+
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   Server Installation Complete !!"
