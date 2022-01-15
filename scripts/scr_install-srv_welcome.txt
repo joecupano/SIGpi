@@ -8,12 +8,11 @@
 
 Welcome to SIGpi Server
 
-This script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use
-on Raspberry Pi OS "Bullseye" (32bit, 64bit). Installation can take a few hours or more between
-system update and compilation
+This script builds a head-less RTLSDR server on a Raspberry Pi OS Lite "Bullseye" (32bit or 64bit).
+The following command lines tools are included:
 
-This script installs drivers for RTL-SDR, HackRF and associated SoapySDR drivers. RTL_433 and
-Dump1090 are installe dby defautl as well. You are given the option to start RTL_TCP or SoapySDR
-server on startup.
+RTL_433, Dump1090, mulitmonitor-ng, and radiosonde
+
+You are given the option to run RTL_TCP or SoapySDR server on startup.
 
 Let's begin.
