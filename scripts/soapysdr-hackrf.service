@@ -1,12 +1,12 @@
 [Unit]
-Description=RTL-SDR Server
+Description=SoapySDR Server (HackRF)
 
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 ExecStartPre=/bin/sleep 15
-ExecStart=/bin/sh -c "rtl_tcp -a $(hostname -I)"
+ExecStart=/bin/sh -c "SoapySDRServer --bind"
 WorkingDirectory=/home/pi
 StandardOutput=inherit
 StandardError=inherit
