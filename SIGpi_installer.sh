@@ -267,7 +267,6 @@ if [ "$1" = "server" ]; then
         "Which SDR Server Package to autostart " 20 80 12 \
         "RTLSDRsrv" "RTLSDR Server " OFF \
         "SoapySDRsrv" "SoapySDR Server " OFF \
-        "SDRangelsrv" "SDRangel server " OFF \
         "no-server" "None " ON \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -302,11 +301,6 @@ if [ "$1" = "server" ]; then
     # SoapySDRsrv
     if grep SoapySDRsrv "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_soapysdr-server install
-    fi
-
-    # SDRangelsrv
-    if grep RTLTCPsrv "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_sdrangel-server install
     fi
 
     echo -e "${SIGPI_BANNER_COLOR}"
