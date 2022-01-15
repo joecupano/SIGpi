@@ -9,36 +9,36 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SoapySDRServer Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SigPi Server Soapy Service"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo systemctl stop soapysdrserver.service
+        sudo systemctl stop sigpi-server-soapy.service
         sleep 5
-        sudo systemctl disable soapysdrserver.service
-        sudo rm -rf /etc/systemd/system/soapysdrserver.service
+        sudo systemctl disable sigpi-server-soapy.service
+        sudo rm -rf /etc/systemd/system/sigpi-server-soapy.service
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDRServer Service Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Soapy Service Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SoapySDRServer Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SigPi Server Soapy Service"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo systemctl stop soapysdrserver.service
+        sudo systemctl stop sigpi-server-soapy.service
         sleep 5
-        sudo systemctl disable soapysdrserver.service
-        sudo rm -rf /etc/systemd/system/soapysdrserver.service
+        sudo systemctl disable sigpi-server-soapy.service
+        sudo rm -rf /etc/systemd/system/sigpi-server-soapy.service
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDRServer Service Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Soapy Service Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SoapySDRServer Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SigPi Server Soapy Service"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -55,20 +55,6 @@ case "$1" in
         make
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
-        sudo ldconfig
-
-        # HackRF
-        ## DEPENDENCIES
-        sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
-
-        ## INSTALL
-        cd $SIGPI_SOURCE
-        git clone https://github.com/mossmann/hackrf.git
-        cd hackrf/host
-        mkdir build && cd build
-        cmake ..
-        make -j4
-        sudo make install
         sudo ldconfig
 
         # SoapySDR
@@ -101,22 +87,11 @@ case "$1" in
         sudo make install
         sudo ldconfig
 
-        # SoapyHackRF
+        # SigPi Server Soapy
         ## INSTALL
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyHackRF.git
-        cd SoapyHackRF
-        mkdir build && cd build
-        cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-        make
-        sudo make install
-        sudo ldconfig
-
-        # SoapySDRServer
-        ## INSTALL
-        cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapySDRServer.git
-        cd SoapySDRServer
+        git clone https://github.com/pothosware/SigPi Server Soapy.git
+        cd SigPi Server Soapy
         mkdir build && cd build
         cmake .. -Wno-dev
         make
@@ -125,7 +100,7 @@ case "$1" in
          echo "SoapySDR" >> $SIGPI_CONFIG
    
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SoapySDRServer Service Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Soapy Service Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

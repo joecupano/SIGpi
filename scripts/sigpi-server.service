@@ -1,12 +1,12 @@
 [Unit]
-Description=SoapySDR Server (HackRF)
+Description=SigPi RTLSDR Server
 
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 ExecStartPre=/bin/sleep 15
-ExecStart=/bin/sh -c "SoapySDRServer --bind"
+ExecStart=/bin/sh -c "rtl_tcp -a $(hostname -I)"
 WorkingDirectory=/home/pi
 StandardOutput=inherit
 StandardError=inherit

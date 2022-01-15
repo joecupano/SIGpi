@@ -9,36 +9,36 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTLSDR Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SigPi Server Service"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo systemctl stop rtlsdr.service
+        sudo systemctl stop sigpi-server.service
         sleep 5
-        sudo systemctl disable rtlsdr.service
-        sudo rm -rf /etc/systemd/system/rtlsdr.service
+        sudo systemctl disable sigpi-server.service
+        sudo rm -rf /etc/systemd/system/sigpi-server.service
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Service Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTLSDR Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SigPi Server"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo systemctl stop rtlsdr.service
+        sudo systemctl stop sigpi-server.service
         sleep 5
-        sudo systemctl disable rtlsdr.service
-        sudo rm -rf /etc/systemd/system/rtlsdr.service
+        sudo systemctl disable sigpi-server.service
+        sudo rm -rf /etc/systemd/system/sigpi-server.service
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Service Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install RTLSDR Service"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SigPi Server  Service"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -57,16 +57,16 @@ case "$1" in
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
         
-        sudo cp $SIGPI_SOURCE/scripts/rtlsdr.service /etc/systemd/system/rtlsdr.service
+        sudo cp $SIGPI_SOURCE/scripts/rtlsdr.service /etc/systemd/system/sigpi-server.service
         sudo systemctl daemon-reload
-        sudo systemctl start rtlsdr
-        sudo systemctl enable rtlsdr
+        sudo systemctl start sigpi-server.service
+        sudo systemctl enable sigpi-server
         sleep 5
-        sudo systemctl status rtlsdr.service
+        sudo systemctl status sigpi-server.service
          echo "RTLSDR" >> $SIGPI_CONFIG
 	
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Service Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Server Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
