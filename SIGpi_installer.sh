@@ -267,8 +267,7 @@ if [ "$1" = "server" ]; then
         "Which SDR Server Package to autostart " 20 80 12 \
         "RTLSDR" "RTLSDR Server " OFF \
         "SoapyRTLSDR" "SoapyRemote using RTLSDR " OFF \
-        "SoapyHackRF" "SoapyRemote using HackRF " OFF \
-        "none" "Install server software only (RTLSDR and SoapyRemote) " ON \
+        "none" "Install server software only " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -291,35 +290,27 @@ if [ "$1" = "server" ]; then
     echo "sigpi_server" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    # RTLSDRsrv
+    # RTLSDR
     if grep RTLSDR "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_rtlsdr-server install
+        source $SIGPI_PACKAGES/pkg_sigpi-server install
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-server.service /etc/systemd/system/sigpi-server.service
+        sudo systemctl daemon-reload
+        sudo systemctl start sigpi-server.service
+        sudo systemctl enable sigpi-server.service
+        sleep 5
+        sudo systemctl status sigpi-server.service
     fi
 
     # SoapyRTLSDR
     if grep SoapyRTLSDR "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_soapyremote install
-        # SoapyRemote Service
-        sudo cp $SIGPI_SOURCE/scripts/soapysdr-rtlsdr.service /etc/systemd/system/soapysdr-rtlsdr.service
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-server-soapy.service /etc/systemd/system/sigpi-server-soapy.service
         sudo systemctl daemon-reload
-        sudo systemctl start soapysdr-rtlsdr.service
-        sudo systemctl enable soapysdr-rtlsdr.service
+        sudo systemctl start sigpi-server-soapy.service
+        sudo systemctl enable sigpi-server-soapy.service
         sleep 5
-        sudo systemctl status soapysdr-rtlsdr.service
+        sudo systemctl status sigpi-server-soapy.service
     fi
-
-    # SoapyHackRF
-    if grep SoapyHackRF "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_soapysdr-server install
-        # SoapyRemote Service
-        sudo cp $SIGPI_SOURCE/scripts/soapysdr-hackrf.service /etc/systemd/system/soapysdr-hackrf.service
-        sudo systemctl daemon-reload
-        sudo systemctl start soapysdr-hackrf.service
-        sudo systemctl enable soapysdr-hackrf.service
-        sleep 5
-        sudo systemctl status soapysdr-hackrf.service
-    fi
-
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
