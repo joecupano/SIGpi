@@ -249,6 +249,40 @@ select_usefulapps() {
     done
 }
 
+select_server_start(){
+    TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
+    FUN=$(whiptail --title "SigPi Server Installer" --clear --radiolist --separate-output \
+        "Which SDR Server Package to autostart " 20 80 12 \
+        "RTLSDR" "RTLSDR Server " OFF \
+        "SoapyRTLSDR" "SoapyRemote using RTLSDR " OFF \
+        "none" "Install server software only " ON \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    echo $FUN >> $SIGPI_INSTALLER
+}
+
+select_serverapps() {
+    FUN=$(whiptail --title "SigPi Server Install" --clear --checklist --separate-output \
+        "Select SDR Applications" 20 80 12 \
+        "rtl_433" "RTL_433 " OFF \
+        "dump1090" "Dump 1090 " OFF \
+        "radiosonde" "RadioSonde " OFF \
+        "mulitmong-ng" "Multimon-ng " OFF \
+        3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    ##echo $FUN >> $SIGPI_INSTALLER
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_INSTALLER
+    done
+}
 
 ###
 ###  MAIN
@@ -261,20 +295,11 @@ mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
 # Server option invoked ?
-if [ "$1" = "server" ]; then 
-    TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
-    FUN=$(whiptail --title "SigPi Server Installer" --clear --radiolist --separate-output \
-        "Which SDR Server Package to autostart " 20 80 12 \
-        "RTLSDR" "RTLSDR Server " OFF \
-        "SoapyRTLSDR" "SoapyRemote using RTLSDR " OFF \
-        "none" "Install server software only " ON \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN
-
+if [ "$1" = "server" ]; then
+    calc_wt_size
+    select_server_start
+    select_server_apps
+    
     TERM=ansi whiptail --title "SigPi Server Install" --clear --msgbox "Ready to Install" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
