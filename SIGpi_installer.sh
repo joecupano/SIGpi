@@ -252,10 +252,10 @@ select_usefulapps() {
 select_server_start(){
     TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
     FUN=$(whiptail --title "SigPi Server Installer" --clear --radiolist --separate-output \
-        "Which SDR Server Package to autostart " 20 80 12 \
-        "RTLSDR" "RTLSDR Server " OFF \
-        "SoapyRTLSDR" "SoapyRemote using RTLSDR " OFF \
-        "none" "Install server software only " ON \
+        "Which SDR Server Package do want started at boot " 20 80 12 \
+        "RTL-TCP" "RTL-TCP Server " OFF \
+        "SoapySDR" "SoapySDR server (using RTLSDR) " OFF \
+        "none" "No server on start " ON \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -264,13 +264,13 @@ select_server_start(){
     echo $FUN >> $SIGPI_INSTALLER
 }
 
-select_serverapps() {
+select_server_apps() {
     FUN=$(whiptail --title "SigPi Server Install" --clear --checklist --separate-output \
-        "Select SDR Applications" 20 80 12 \
+        "Which applications do ytou want to include" 20 80 12 \
         "rtl_433" "RTL_433 " OFF \
         "dump1090" "Dump 1090 " OFF \
         "radiosonde" "RadioSonde " OFF \
-        "mulitmong-ng" "Multimon-ng " OFF \
+        "mulitmon-ng" "Multimon-ng " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
