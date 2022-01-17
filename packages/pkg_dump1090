@@ -58,7 +58,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 
         # FlightAware fork
-        sudo apt-get -y install dump1090-fa
+        sudo apt-get -y install dump1090
 
         # Mutability Original
         #git clone https://github.com/antirez/dump1090.git
