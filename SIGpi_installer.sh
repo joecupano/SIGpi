@@ -313,6 +313,7 @@ if [ "$1" = "server" ]; then
 
     touch $SIGPI_CONFIG
     echo "sigpi_server" >> $SIGPI_CONFIG
+    source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
     cd $SIGPI_SOURCE
 
