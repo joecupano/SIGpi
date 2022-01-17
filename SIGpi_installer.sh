@@ -255,6 +255,7 @@ select_server_start(){
         "Which SDR Server Package do want started at boot " 20 80 12 \
         "RTL-TCP" "RTL-TCP Server " OFF \
         "SoapySDR" "SoapySDR server (using RTLSDR) " OFF \
+        "SDRangelServer" "SDRangek Server (via Docker) " OFF \
         "none" "No server on start " ON \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -320,6 +321,11 @@ if [ "$1" = "server" ]; then
     # RTLSDR
     if grep RTLSDR "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_sigpi-server install
+        source $SIGPI_PACKAGES/pkg_rtl_433 install
+        source $SIGPI_PACKAGES/pkg_dump1090 install
+        source $SIGPI_PACKAGES/pkg_multimon-ng install
+        source $SIGPI_PACKAGES/pkg_radiosonde install
+
         sudo cp $SIGPI_SOURCE/scripts/sigpi-server.service /etc/systemd/system/sigpi-server.service
         sudo systemctl daemon-reload
         sudo systemctl start sigpi-server.service
@@ -330,7 +336,12 @@ if [ "$1" = "server" ]; then
 
     # SoapyRTLSDR
     if grep SoapyRTLSDR "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_soapyremote install
+        source $SIGPI_PACKAGES/pkg_sigpi-server-soapy install
+        source $SIGPI_PACKAGES/pkg_rtl_433 install
+        source $SIGPI_PACKAGES/pkg_dump1090 install
+        source $SIGPI_PACKAGES/pkg_multimon-ng install
+        source $SIGPI_PACKAGES/pkg_radiosonde install
+
         sudo cp $SIGPI_SOURCE/scripts/sigpi-server-soapy.service /etc/systemd/system/sigpi-server-soapy.service
         sudo systemctl daemon-reload
         sudo systemctl start sigpi-server-soapy.service
@@ -339,10 +350,12 @@ if [ "$1" = "server" ]; then
         sudo systemctl status sigpi-server-soapy.service
     fi
 
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
-    source $SIGPI_PACKAGES/pkg_radiosonde install
+    # SDRangelServer
+    if grep SDRangelServer "$SIGPI_INSTALLER"; then
+        source $SIGPI_SCRIPTS/install_docker.sh
+        source $SIGPI_PACKAGES/pkg_sdrangel-server install
+        sleep 5
+    fi
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
