@@ -1,12 +1,12 @@
 [Unit]
-Description=SigPi RTLSDR Server
+Description=SigPi Edge
 
 Wants=network-online.target
 After=network-online.target
 
 [Service]
 ExecStartPre=/bin/sleep 15
-ExecStart=/bin/sh -c "rtl_tcp -a $(hostname -I)"
+ExecStart=/bin/sh -c "sdrangelsrv"
 WorkingDirectory=/home/pi
 StandardOutput=inherit
 StandardError=inherit
