@@ -249,41 +249,6 @@ select_usefulapps() {
     done
 }
 
-select_server_start(){
-    TERM=ansi whiptail --title "SigPi Server Install" --clear --textbox $SIGPI_INSTALLSRV_TXT1 34 100 16
-    FUN=$(whiptail --title "SigPi Server Installer" --clear --radiolist --separate-output \
-        "Which SDR Server Package do want started at boot " 20 80 12 \
-        "RTL-TCP" "RTL-TCP Server " OFF \
-        "SoapySDR" "SoapySDR server (using RTLSDR) " OFF \
-        "SDRangelServer" "SDRangek Server (via Docker) " OFF \
-        "none" "No server on start " ON \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_INSTALLER
-}
-
-select_server_apps() {
-    FUN=$(whiptail --title "SigPi Server Install" --clear --checklist --separate-output \
-        "Which applications do ytou want to include" 20 80 12 \
-        "rtl_433" "RTL_433 " OFF \
-        "dump1090" "Dump 1090 " OFF \
-        "radiosonde" "RadioSonde " OFF \
-        "mulitmon-ng" "Multimon-ng " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    ##echo $FUN >> $SIGPI_INSTALLER
-    IFS=' '     # space is set as delimiter
-    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
-    for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_INSTALLER
-    done
-}
 
 ###
 ###  MAIN
@@ -295,13 +260,11 @@ touch $SIGPI_CONFIG
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
-# Server option invoked ?
-if [ "$1" = "server" ]; then
+# Node option invoked ?
+if [ "$1" = "node" ]; then
     calc_wt_size
-    select_server_start
-    select_server_apps
-    
-    TERM=ansi whiptail --title "SigPi Server Install" --clear --msgbox "Ready to Install" 12 120
+
+    TERM=ansi whiptail --title "SigPi Node Install" --clear --msgbox "Ready to Install" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -313,53 +276,72 @@ if [ "$1" = "server" ]; then
     sudo apt-get -y upgrade
 
     touch $SIGPI_CONFIG
-    echo "sigpi_server" >> $SIGPI_CONFIG
-    source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
+    echo "sigpi_node" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    # RTLSDR
-    if grep RTLSDR "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_sigpi-server install
-        source $SIGPI_PACKAGES/pkg_rtl_433 install
-        source $SIGPI_PACKAGES/pkg_dump1090 install
-        source $SIGPI_PACKAGES/pkg_multimon-ng install
-        source $SIGPI_PACKAGES/pkg_radiosonde install
+    source $SIGPI_SCRIPTS/install_server_dependencies.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+    source $SIGPI_PACKAGES/pkg_radiosonde install
 
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-server.service /etc/systemd/system/sigpi-server.service
-        sudo systemctl daemon-reload
-        sudo systemctl start sigpi-server.service
-        sudo systemctl enable sigpi-server.service
-        sleep 5
-        sudo systemctl status sigpi-server.service
-    fi
-
-    # SoapyRTLSDR
-    if grep SoapyRTLSDR "$SIGPI_INSTALLER"; then
-        source $SIGPI_PACKAGES/pkg_sigpi-server-soapy install
-        source $SIGPI_PACKAGES/pkg_rtl_433 install
-        source $SIGPI_PACKAGES/pkg_dump1090 install
-        source $SIGPI_PACKAGES/pkg_multimon-ng install
-        source $SIGPI_PACKAGES/pkg_radiosonde install
-
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-server-soapy.service /etc/systemd/system/sigpi-server-soapy.service
-        sudo systemctl daemon-reload
-        sudo systemctl start sigpi-server-soapy.service
-        sudo systemctl enable sigpi-server-soapy.service
-        sleep 5
-        sudo systemctl status sigpi-server-soapy.service
-    fi
-
-    # SDRangelServer
-    if grep SDRangelServer "$SIGPI_INSTALLER"; then
-        source $SIGPI_SCRIPTS/install_docker.sh
-        source $SIGPI_PACKAGES/pkg_sdrangel-server install
-        sleep 5
-    fi
+    source $SIGPI_PACKAGES/pkg_sigpi-node install
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Server Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Node Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 17
+    sudo sync
+    sudo reboot
+    exit 0
+
+fi
+
+# Edge option invoked ?
+if [ "$1" = "edge" ]; then
+    calc_wt_size
+    
+    TERM=ansi whiptail --title "SigPi Edge Install" --clear --msgbox "Ready to Install" 12 120
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    echo "sigpi_edge" >> $SIGPI_CONFIG
+    cd $SIGPI_SOURCE
+
+    source $SIGPI_SCRIPTS/install_server_dependencies.sh
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+    source $SIGPI_SCRIPTS/install_libraries.sh
+    source $SIGPI_PACKAGES/pkg_aptdec install
+    source $SIGPI_PACKAGES/pkg_nrsc5 install
+
+    source $SIGPI_PACKAGES/pkg_cm256cc install
+    source $SIGPI_PACKAGES/pkg_mbelib install
+    source $SIGPI_PACKAGES/pkg_serialdv install
+    source $SIGPI_PACKAGES/pkg_dsdcc install
+    source $SIGPI_PACKAGES/pkg_codec2 install
+
+    source $SIGPI_PACKAGES/pkg_sdrangel install
+    source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
+    source $SIGPI_PACKAGES/pkg_sigpi-edge install
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Edge Installation Complete !!"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"

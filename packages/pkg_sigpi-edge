@@ -1,0 +1,68 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_soapysdr-server
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SigPi Edge"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo systemctl stop sigpi-edge.service
+        sleep 5
+        sudo systemctl disable sigpi-edge.service
+        sudo rm -rf /etc/systemd/system/sigpi-edge.service
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Edge Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SigPi Edge"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo systemctl stop sigpi-edge.service
+        sleep 5
+        sudo systemctl disable sigpi-edge.service
+        sudo rm -rf /etc/systemd/system/sigpi-edge.service
+        
+        cd $SIGPI_SOURCE/sdrangel/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/sdrangel
+        sed -i /sigpi-edge/d $SIGPI_CONFIG
+        sed -i /sigpi-edge/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Edge Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SigPi Edge"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-edge.service /etc/systemd/system/sigpi-edge.service
+        sudo systemctl daemon-reload
+        sudo systemctl start sigpi-edge.service
+        sudo systemctl enable sigpi-edge
+        sleep 5
+        sudo systemctl status sigpi-edge.service 
+   
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Edge Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
