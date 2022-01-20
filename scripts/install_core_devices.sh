@@ -13,6 +13,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # AX.25 and utilities"
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - AX.25 "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -20,6 +21,7 @@ sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
 echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 
 # RTL-SDR
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - RTLSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -40,6 +42,7 @@ sudo ldconfig
 
 
 # HackRF
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - HackRF "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -58,6 +61,7 @@ sudo ldconfig
 
 
 # PlutoSDR
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - PlutoSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -78,6 +82,7 @@ sudo make install
 sudo ldconfig
 
 # SoapySDR
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -101,6 +106,7 @@ SoapySDRUtil --info
 
 if grep sigpi_desktop "$SIGPI_INSTALLER"; then
     # LimeSDR
+    echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##$   - LimeSDR"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -140,6 +146,7 @@ if grep sigpi_desktop "$SIGPI_INSTALLER"; then
 fi
 
 # SoapyRTLSDR
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRTLSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -153,6 +160,7 @@ sudo make install
 sudo ldconfig
 
 # SoapyHackRF
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyHackRF "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -166,6 +174,7 @@ sudo make install
 sudo ldconfig
 
 # SoapyPlutoSDR
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyPlutoSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -180,6 +189,7 @@ sudo make install
 sudo ldconfig
 
 # SoapyRemote
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRemote "
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -193,6 +203,7 @@ sudo make install
 sudo ldconfig
 
 # GPS
+echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - GPS (Chrony) "
 echo -e "${SIGPI_BANNER_RESET}"
 
