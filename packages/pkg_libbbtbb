@@ -1,0 +1,68 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_libbbtbb
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove LibBTbb"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/libbtbb/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/libbtbb
+        sed -i /libbtbb/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge LibBTbb"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/libbtbb/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/libbtbb
+        sed -i /libbtbb/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install LibBTbb"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/greatscottgadgets/libbtbb.git
+        cd libbtbb
+        mkdir build && cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        echo "libbtbb" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
