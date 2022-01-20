@@ -104,47 +104,6 @@ sudo make install
 sudo ldconfig
 SoapySDRUtil --info
 
-if grep sigpi_desktop "$SIGPI_INSTALLER"; then
-    # LimeSDR
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##$   - LimeSDR"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    ## DEPENDENCIES
-    sudo apt-get install -y swig
-    sudo apt-get install -y libsqlite3-dev
-    sudo apt-get install -y libi2c-dev
-    sudo apt-get install -y libusb-1.0-0-dev
-    sudo apt-get install -y liboctave-dev
-    sudo apt-get install -y libfltk1.3-dev
-    # sudo apt-get install -y libwxgtk3.0-dev
-    # Following is rpelacement fot libwxgtk3.0-dev
-    sudo apt-get install -y libwxbase3.0-0v5
-    sudo apt-get install -y freeglut3-dev
-
-    ## INSTALL
-    cd $SIGPI_SOURCE
-    git clone https://github.com/myriadrf/LimeSuite.git
-    cd LimeSuite
-    git checkout stable
-    mkdir build-dir && cd build-dir
-    cmake ../
-    make -j4
-    sudo make install
-    sudo ldconfig
-
-    ## DESKTOP
-    # Add Icon
-    sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/*png $DESKTOP_ICONS
-    sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite-32.png $DESKTOP_ICONS/lime-suite.png
-    # Add Desktop
-    sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
-    # Change Category
-    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
-    # Add to Menu
-    xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/lime-suite.desktop
-fi
-
 # SoapyRTLSDR
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRTLSDR "
