@@ -325,10 +325,16 @@ if [ "$1" = "edge" ]; then
 
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
-    source $SIGPI_SCRIPTS/install_libraries.sh
-    source $SIGPI_PACKAGES/pkg_aptdec install
-    source $SIGPI_PACKAGES/pkg_nrsc5 install
 
+    # Install Libraries
+    source $SIGPI_PACKAGES/pkg_libsigmf install
+    source $SIGPI_PACKAGES/pkg_liquid-dsp install
+    source $SIGPI_PACKAGES/pkg_libbtbb install
+    source $SIGPI_PACKAGES/pkg_libdab install
+    source $SIGPI_PACKAGES/pkg_sgp4 install
+    source $SIGPI_PACKAGES/pkg_aptdec install
+    
+    source $SIGPI_PACKAGES/pkg_nrsc5 install
     source $SIGPI_PACKAGES/pkg_cm256cc install
     source $SIGPI_PACKAGES/pkg_mbelib install
     source $SIGPI_PACKAGES/pkg_serialdv install
@@ -423,6 +429,7 @@ cd $SIGPI_SOURCE
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
 source $SIGPI_SCRIPTS/install_core_devices.sh
+source $SIGPI_PACKAGES/pkg_limesuite install
 
 # UHD - Ettus
 if grep ettus "$SIGPI_INSTALLER"; then
