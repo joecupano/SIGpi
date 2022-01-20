@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### pkg_rtl_433
+### pkg_limesd
 ###
 
 case "$1" in 
