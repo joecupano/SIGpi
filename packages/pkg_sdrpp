@@ -64,6 +64,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/AlexandreRouma/SDRPlusPlus
         cd SDRPlusPlus
+        #git reset --hard f539cfad329859ffd0d99e1ae03dd06da35aadf7 #v1.0.4
         mkdir build && cd build
         cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
         -DOPT_BUILD_BLADERF_SOURCE=OFF \
