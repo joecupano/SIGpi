@@ -558,10 +558,8 @@ if grep audacity "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_audacity install 
 fi
 
-# PAVU
-if grep pavu "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_pavucontrol install
-fi
+# PAVU  - Made Mandatory install in SIGpi 5.2 to support virtual audio cables
+source $SIGPI_PACKAGES/pkg_pavucontrol install
 
 # splat
 if grep splat "$SIGPI_INSTALLER"; then
