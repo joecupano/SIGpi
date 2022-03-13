@@ -59,11 +59,13 @@ case "$1" in
         sudo apt-get install -y librtaudio-dev
         sudo apt-get install -y libcodec2-dev
         sudo apt-get install -y libvolk2-bin libvolk2-dev
+        sudo apt-get install -y libzstd-dev
 
         ## PACKAGE 
         cd $SIGPI_SOURCE
         git clone https://github.com/AlexandreRouma/SDRPlusPlus
         cd SDRPlusPlus
+        #git reset --hard f539cfad329859ffd0d99e1ae03dd06da35aadf7 #v1.0.4
         mkdir build && cd build
         cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
         -DOPT_BUILD_BLADERF_SOURCE=OFF \

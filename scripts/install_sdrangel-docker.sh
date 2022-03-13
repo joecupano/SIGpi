@@ -15,17 +15,9 @@ echo -e "${SIGPI_BANNER_RESET}"
 # DEPENDENCIES
 
 # INSTALL
-cd $SIGPI_SOURCE
-git clone https://github.com/f4exb/sdrangel-docker.git
-cd sdrangel-docker/sdrangel
-
-#sdrserver
-#./build_server.sh -f armv8.ubuntu.Dockerfile -T bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
-docker pull f4exb06/sdrangelsrv:v6.17.4
-
-#sdrangel
-#build_vanilla.sh -T bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
-
+docker pull f4exb06/sdrangelsrv:v6.17.6
+docker image tag f4exb06/sdrangelsrv:v6.17.6
+docker run -d -p 8091:8091 --restart unless-stopped --name sigpiserver f4exb06/sdrangelsrv:v6.17.4 sdrangel/server16:latest
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel-docker Installed"

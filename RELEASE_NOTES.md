@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 5.1: 2022-03-13
+- Fix: Server menu option from checklist to radiolist
+- SDR++ updated to v1.0.5
+- SDRangel updated to v6.20.1
+
 ## Release 5.0: 2022-01-07
 - Add **server** install option with choice of SoapySDR, RTLSDR< or SDRangel servers
 - Add **Inspectrum** analysis tool

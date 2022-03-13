@@ -1,0 +1,69 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_hamlib
+###
+###  SDRangel dependency
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove codec2"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/codec2/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/codec2
+        sed -i /codec2/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge codec2"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/codec2/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/codec2
+        sed -i /codec2/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install codec2"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/drowe67/codec2.git
+        cd codec2
+        git reset --hard 76a20416d715ee06f8b36a9953506876689a3bd2
+        mkdir build_linux; cd build_linux
+        cmake -Wno-dev ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        echo "codec2" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

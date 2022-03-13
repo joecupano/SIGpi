@@ -1,0 +1,69 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_cm256cc  
+###
+###  SDRangel dependency
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove cm256cc"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/cm256cc/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/cm256cc
+        sed -i /cm256cc/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge cm256cc"
+        echo -e "${SIGPI_BANNER_RESET}"
+                
+        cd $SIGPI_SOURCE/cm256cc/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/cm256cc
+        sed -i /cm256cc/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install cm256cc"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/cm256cc.git
+        cd cm256cc
+        git reset --hard c0e92b92aca3d1d36c990b642b937c64d363c559
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        echo "cm256cc" >> $SIGPI_CONFIG 
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

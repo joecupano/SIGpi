@@ -1,0 +1,60 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_fftwf-wisdom
+###
+###  SDRangel dependency
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove FFTWF-Wisdom"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        rm $HOME/.config/f4exb/fftw-wisdom
+        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FFTWF-Wisdom Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge FFTWF-Wisdom"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        rm $HOME/.config/f4exb/fftw-wisdom
+        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FFTWF-Wisdom Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install FFTWF-Wisdom"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $HOME/.config/
+        mkdir f4exb
+        cd f4exb
+        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
+        # This will take a very long time.
+        fftwf-wisdom -v -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+    
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   FFTWF-Wisdom Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

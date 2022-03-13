@@ -1,0 +1,68 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_libsigmf
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove LibSigMF"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/libsigmf/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/libsigmf
+        sed -i /libsigmf/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge LibSigMF"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/libsigmf/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/libsigmf
+        sed -i /libsigmf/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install LibSigMF"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/deepsig/libsigmf.git
+        cd libsigmf
+        mkdir build; cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        echo "libsigmf" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

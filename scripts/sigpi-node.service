@@ -1,8 +1,11 @@
 [Unit]
-Description=RTL-SDR Server
-After=network.target
+Description=SigPi Node
+
+Wants=network-online.target
+After=network-online.target
 
 [Service]
+ExecStartPre=/bin/sleep 15
 ExecStart=/bin/sh -c "rtl_tcp -a $(hostname -I)"
 WorkingDirectory=/home/pi
 StandardOutput=inherit

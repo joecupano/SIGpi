@@ -11,16 +11,16 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove Dump1090"
         echo -e "${SIGPI_BANNER_RESET}"
-	
-	rm -rf $SIGPI_SOURCE/dump1090
-        sudo rm /usr/local/bin/dump1090
-        sed -i /dump1090/d $SIGPI_CONFIG
+
+        sudo apt-get remove dump1090-fa
+	sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
         rm -rf ~/.local/share/applications/dump1090.desktop
         sudo rm $DESKTOP_ICONS/dump1090.png
         sudo xdg-desktop-menu forceupdate --mode system
+        sudo rm /usr/local/bin/dump1090
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Removed"
@@ -31,17 +31,16 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge Dump1090"
         echo -e "${SIGPI_BANNER_RESET}"
 	
-	rm -rf $SIGPI_SOURCE/dump1090
-        sudo rm /usr/local/bin/dump1090
-        sed -i /dump1090/d $SIGPI_CONFIG
+	sudo apt-get remove --purge dump1090-fa
+	sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
         rm -rf ~/.local/share/applications/dump1090.desktop
         sudo rm $DESKTOP_ICONS/dump1090.png
-        sudo xdg-desktop-menu forceupdate --mode system
-		
+        sudo xdg-desktop-menu forceupdate --mode system	
         sudo rm /usr/local/bin/dump1090
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Dump1090 Purged"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -57,11 +56,16 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone https://github.com/antirez/dump1090.git
-        cd dump1090
-        make -j4
-        sudo cp dump1090 /usr/local/bin/dump1090
-        echo "dump1090" >> $SIGPI_CONFIG 
+
+        # FlightAware fork
+        sudo apt-get -y install dump1090
+
+        # Mutability Original
+        #git clone https://github.com/antirez/dump1090.git
+        #cd dump1090
+        #make -j4
+        #sudo cp dump1090 /usr/local/bin/dump1090
+        #echo "dump1090" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
 	# Add Icon

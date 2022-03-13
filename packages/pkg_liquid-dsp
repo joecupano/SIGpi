@@ -1,0 +1,68 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_liquid-dsp
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Liquid-DSP"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/liquid-dsp
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/liquid-dsp
+        sed -i /liquid-dsp/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Liquid-DSP"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/liquid-dsp
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/liquid-dsp
+        sed -i /liquid-dsp/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Liquid-DSP"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/jgaeddert/liquid-dsp.git
+        cd liquid-dsp
+        ./bootstrap.sh
+        ./configure --enable-fftoverride 
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        echo "liquid-dsp" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
