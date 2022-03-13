@@ -1,9 +1,9 @@
 # Release Notes
 
-## Release 5.1: 2022-01-14
-- Maintenance release. Just do git pull from within sigpi directory
+## Release 5.1: 2022-03-14
 - Fix: Server menu option from checklist to radiolist
-- SDRangel updated to v6.18
+- Fix: SDR++ v1.0.4
+- SDRangel updated to v6.20.1
 
 ## Release 5.0: 2022-01-07
 - Add **server** install option with choice of SoapySDR, RTLSDR< or SDRangel servers

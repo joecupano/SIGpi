@@ -11,9 +11,12 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
+## Release Notes
+* [over here](RELEASE_NOTES.md)
+
 ## Installation
 
-### For the impatient
+### Fresh Full Install
 
 - Login as Pi on your **fresh install of Raspberry Pi OS Full**
 - Create a directory in your home directory called SIG and switch into it
@@ -29,14 +32,14 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-### For the pragmatic
+### Fresh Bare Install
 
 Follow the same instructions as for the impatient but add **base* as an option
 
 ```
 ./SIGpi_installer.sh base
 ```
-This will installbare minimum software to enjoy receiving signals
+This will install bare minimum software to enjoy receiving signals
 
 - RTLSDR
 - HackRF
@@ -46,8 +49,16 @@ This will installbare minimum software to enjoy receiving signals
 - GQRX
 - CubicSDR
 
-## Release Notes
-* [over here](RELEASE_NOTES.md)
+### Update an Existing 5.0 Install
+
+This is a maintenance release. You can update your existing 5.0 install with the following commands:
+
+```
+SIGpi purge sdrangel
+SIGpi install sdrangel
+SIGpi purge sdrpp
+SIGpi install sdrpp
+```
 
 ## Features
 
