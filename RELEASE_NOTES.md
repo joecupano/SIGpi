@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 5.2: 2022-04-15
+- Add Virtual Audio Cable (sink) support. PAVUcontrol install is mandatory and not a install menu option
+- 
+- 
+
 ## Release 5.1: 2022-03-13
 - Fix: Server menu option from checklist to radiolist
 - SDR++ updated to v1.0.5
