@@ -13,6 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove pavucontrol
+	sudo apt-get remove paprefs
         sed -i /pavu/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -25,6 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge pavucontrol
+	sudo apt-get remove --purge paprefs
         sed -i /pavu/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -46,6 +48,7 @@ case "$1" in
         echo " " >> /etc/pulse/default.pa
         echo "## SIGpi adding Virtual Audio Sink " >> /etc/pulse/default.pa
         echo "load-module module-null-sink sink_name=Virtual_Sink sink_properties=device.description=Virtual_Sink" >> /etc/pulse/default.pa
+	sudo apt-get install paprefs
         echo "pavu" >> $SIGPI_CONFIG 
 
         ## DESKTOP
