@@ -9,7 +9,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove PAVU"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove PAVU and PAprefs"
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove pavucontrol
@@ -17,12 +17,12 @@ case "$1" in
         sed -i /pavu/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge PAVU"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge PAVU and PAprefs"
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge pavucontrol
@@ -30,13 +30,13 @@ case "$1" in
         sed -i /pavu/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU and PAprefs"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -58,7 +58,7 @@ case "$1" in
         # Add to menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
