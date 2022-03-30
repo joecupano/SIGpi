@@ -114,10 +114,11 @@ case "$1" in
         #git reset --hard bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
         #git reset --hard 35adc2545026bf43002f7ed02345ae11a20d1594  #v6.17.5
         #git reset --hard 5a11ef6a8ba2454439cdaf3b378c6f100f5ef901  #v6.17.6
-	    #git reset --hard 7142ef0b0dc1d92373732da93c2b52bd1ff49d64  #v6.17.7
+	#git reset --hard 7142ef0b0dc1d92373732da93c2b52bd1ff49d64  #v6.17.7
         #git reset --hard ebd52169177715549064cd5349b48bf1a42383f7  #v6.18
-      	#git reset --hard bbdfa91deeaa8bdaf7110fdf086c873d45650f20   #v6.20.0
-        git reset --hard ae93186c8a1ba49151a8796fab7b9eca8ba364aa   #v6.20.1
+      	#git reset --hard bbdfa91deeaa8bdaf7110fdf086c873d45650f20  #v6.20.0
+        #git reset --hard ae93186c8a1ba49151a8796fab7b9eca8ba364aa  #v6.20.1
+	git reset --hard 7f1c838cecf449e7cb8cc9731d745e95fd44b227   #v6.20.2
 
 
         mkdir build; cd build
