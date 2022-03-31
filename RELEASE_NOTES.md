@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 5.1: 2022-03-30
+- Maintenance Release
+- SDRangel updated to v6.20.2
+
 ## Release 5.1: 2022-03-13
 - Fix: Server menu option from checklist to radiolist
 - SDR++ updated to v1.0.5
