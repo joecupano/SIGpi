@@ -49,9 +49,9 @@ This will install bare minimum software to enjoy receiving signals
 - GQRX
 - CubicSDR
 
-### Update an Existing 5.1 Install
+### Update an Existing 5.X Install
 
-This is a maintenance release. You can update your existing 5.1 install with the following commands:
+This is a maintenance release. You can update your existing 5.X install with the following commands:
 
 ```
 SIGpi purge sdrangel
