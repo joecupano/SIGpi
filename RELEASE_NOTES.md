@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 5.1: 2022-03-30
+## Release 5.1.1: 2022-03-30
 - Maintenance Release
 - SDRangel updated to v6.20.2
 
