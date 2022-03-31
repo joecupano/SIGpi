@@ -285,8 +285,7 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
     source $SIGPI_PACKAGES/pkg_multimon-ng install
     source $SIGPI_PACKAGES/pkg_radiosonde install
-
-    source $SIGPI_PACKAGES/pkg_sigpi-node install
+    source $SIGPI_PACKAGES/pkg_sigpi-node install $2
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -302,103 +301,6 @@ if [ "$1" = "node" ]; then
     sudo reboot
     exit 0
 
-fi
-
-# Edge option invoked ?
-if [ "$1" = "edge" ]; then
-    calc_wt_size
-    
-    TERM=ansi whiptail --title "SigPi Edge Install" --clear --msgbox "Ready to Install" 12 120
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-    touch $SIGPI_CONFIG
-    echo "sigpi_edge" >> $SIGPI_CONFIG
-    cd $SIGPI_SOURCE
-
-    source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
-
-    # Install Libraries
-    source $SIGPI_PACKAGES/pkg_libsigmf install
-    source $SIGPI_PACKAGES/pkg_liquid-dsp install
-    source $SIGPI_PACKAGES/pkg_libbtbb install
-    source $SIGPI_PACKAGES/pkg_libdab install
-    source $SIGPI_PACKAGES/pkg_sgp4 install
-    source $SIGPI_PACKAGES/pkg_aptdec install
-    
-    source $SIGPI_PACKAGES/pkg_nrsc5 install
-    source $SIGPI_PACKAGES/pkg_cm256cc install
-    source $SIGPI_PACKAGES/pkg_mbelib install
-    source $SIGPI_PACKAGES/pkg_serialdv install
-    source $SIGPI_PACKAGES/pkg_dsdcc install
-    source $SIGPI_PACKAGES/pkg_codec2 install
-
-    source $SIGPI_PACKAGES/pkg_sdrangel install
-    source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
-    source $SIGPI_PACKAGES/pkg_sigpi-edge install
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Edge Installation Complete !!"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sleep 17
-    sudo sync
-    sudo reboot
-    exit 0
-fi
-
-# Base option invoked ?
-if [ "$1" = "base" ]; then 
-
-    TERM=ansi whiptail --title "SigPi Base Install" --clear --msgbox "Ready to Install" 12 120
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-    touch $SIGPI_CONFIG
-    echo "sigpi_desktop" >> $SIGPI_CONFIG    
-    cd $SIGPI_SOURCE
-
-    source $SIGPI_SCRIPTS/install_core_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
-    source $SIGPI_SCRIPTS/install_desktop-prep.sh
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-    source $SIGPI_PACKAGES/pkg_gqrx install
-    source $SIGPI_SCRIPTS/install_desktop-post.sh
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Base Installation Complete !!"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sleep 17
-    sudo sync
-    sudo reboot
-    exit 0
 fi
 
 # Otherwise we are Full install

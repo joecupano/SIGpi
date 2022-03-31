@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ###
-### SIGPI
+### SIGpi
 ###
 ### pkg_sigpi-node
 ###
@@ -41,14 +41,32 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Install SigPi Node"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-      
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-node.service /etc/systemd/system/sigpi-node.service
+
+        if [ "$2" = "rtltcp" ]; then
+            sudo cp $SIGPI_SOURCE/scripts/sigpi-node_rtltcp.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
+        elif [ "$2" = "sdrangelsrv" ]; then
+            sudo cp $SIGPI_SOURCE/scripts/sigpi-node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
+        elif [ "$2" = "soapysdrsrv" ]; then
+            sudo cp $SIGPI_SOURCE/scripts/sigpi-node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##  "
+            echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown Server Type"
+            echo -e "${SIGPI_BANNER_COLOR} ##  "
+            echo -e "${SIGPI_BANNER_COLOR} ##  Your choices are rtltcp, sdrangelsrv, or soapysdrsrv"
+            echo -e "${SIGPI_BANNER_COLOR} ##  "
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 0
+        fi
+
         sudo systemctl daemon-reload
         sudo systemctl start sigpi-node.service
         sudo systemctl enable sigpi-node
         sleep 5
         sudo systemctl status sigpi-node.service
-        echo "RTLSDR" >> $SIGPI_CONFIG
 	
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SigPi Node Installed"
