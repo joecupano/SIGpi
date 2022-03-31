@@ -11,6 +11,45 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
+## Features
+
+### Upgrade with modules, not fresh images
+SIGpi includes it's own package manager to update applications to their latest releases using familiar syntax from package management systems
+
+```
+Usage: sigpi [ACTION] [TARGET]
+          ACTION  
+                 install   install TARGET from current release
+                 remove    remove installed TARGET
+                 purge     remove installed TARGET and purge configs
+                 update    check to see if new TARGET available
+                 upgrade   upgrade TARGET to latest release
+
+          TARGET
+                 A SIGpi package
+```
+### Quarterly Package Updates
+Best efforts made for quarterly update (or earlier) of popular SDR packages such as SDRangel and SDR++
+
+### Add/Remove Packages anytime
+Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
+
+Example
+```
+SIGpi install gqrx
+```
+
+### Multi-Architecture
+Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on the following:
+
+- Raspberry Pi4 4GB RAM running Raspberry Pi OS Full (32-bit)
+- Ubuntu 20.04 LTS (x86, x86_64, aarch64)
+
+### Amateur Radio is nice but we are SIGINT FOCUSED
+
+While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
+
+
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
 
@@ -32,22 +71,15 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-### Fresh Bare Install
+### Fresh Node Install
 
-Follow the same instructions as for the impatient but add **base* as an option
+This is for headless SDR servers and can run on RPI 3 B+
+Follow the same instructions as for the impatient but add **node* as an option
 
 ```
-./SIGpi_installer.sh base
+./SIGpi_installer.sh node
 ```
-This will install bare minimum software to enjoy receiving signals
-
-- RTLSDR
-- HackRF
-- LimeSDR
-- rtl_433
-- dump1090
-- GQRX
-- CubicSDR
+This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
 
 ### Update an Existing 5.X Install
 
@@ -59,29 +91,6 @@ SIGpi install sdrangel
 SIGpi purge sdrpp
 SIGpi install sdrpp
 ```
-
-## Features
-
-### Current or -1 Releases
-We make best effort to include the most recent releases of popular packages and include tools to update your install
-
-### Installs and Updates
-Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
-
-Example
-```
-SIGpi install gqrx
-```
-
-### Multi-Architecture
-Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on the following:
-
-- Raspberry Pi4 4GB RAM running Raspberry Pi OS Full (32-bit)
-- Ubuntu 20.04 LTS (x86, x86_64, aarch64)
-
-### Amateur Radio is nice but we are SIGINT FOCUSED
-
-While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
 
 ## Build Details
 
