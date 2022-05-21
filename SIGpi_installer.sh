@@ -175,6 +175,7 @@ select_gnuradio() {
         "Select a GNUradio version" 20 80 12 \
 		"gnuradio38" "GNU Radio 3.8 " ON \
         "gnuradio39" "GNU Radio 3.9 " OFF \
+        "gnuradio310" "GNU Radio 3.10 " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -376,6 +377,10 @@ fi
 
 if grep gnuradio39 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gnuradio39 install
+fi
+
+if grep gnuradio310 "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio310 install
 fi
 
 # gqrx
