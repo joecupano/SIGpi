@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 5.2: 2022-04-15
+## Release 5.2: 2022-05-20
 - Add Virtual Audio Cable (sink) support. PAVUcontrol install is mandatory and not a install menu option
 - SDRangel updated to v7.0.1
 - GNUradio 3.10 install option added
