@@ -1,6 +1,7 @@
 # SIGpi
 
-RELEASE 5.1.1
+RELEASE 5.2
+
 
 ## Introduction
 
@@ -72,22 +73,15 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-### Fresh Bare Install
+### Fresh Node Install
 
-Follow the same instructions as for the impatient but add **base* as an option
+This is for headless SDR servers and can run on RPI 3 B+
+Follow the same instructions as for the impatient but add **node* as an option
 
 ```
-./SIGpi_installer.sh base
+./SIGpi_installer.sh node
 ```
-This will install bare minimum software to enjoy receiving signals
-
-- RTLSDR
-- HackRF
-- LimeSDR
-- rtl_433
-- dump1090
-- GQRX
-- CubicSDR
+This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
 
 ### Update an Existing 5.X Install
 
@@ -99,7 +93,6 @@ SIGpi install sdrangel
 SIGpi purge sdrpp
 SIGpi install sdrpp
 ```
-
 
 ## Build Details
 
