@@ -1,5 +1,8 @@
 # Release Notes
 
+## Release 5.2.1: 2022-05-26
+- SDRangel updated to v7.2.1
+
 ## Release 5.2: 2022-05-20
 - Add Virtual Audio Cable (sink) support. PAVUcontrol install is mandatory and not a install menu option
 - SDRangel updated to v7.0.1
