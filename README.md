@@ -1,6 +1,6 @@
 # SIGpi
 
-RELEASE 5.2.1
+RELEASE 5.2.2
 
 
 ## Introduction
