@@ -11,6 +11,7 @@
 ###                 install   install TARGET from current release
 ###                 remove    remove installed TARGET
 ###                 purge     remove installed TARGET and purge configs
+###                 nuke      completely remove all fo SIGpi
 ###                 update    check to see if new TARGET available
 ###                 upgrade   upgrade TARGET to latest release
 ###                 shell     provide SIGpi env variables around a TARGET
@@ -107,6 +108,18 @@ case "$1" in
         ;;
     purge )
         source $SIGPI_PACKAGES/$SPKGSCRIPT purge
+        ;;
+    nuke )
+        Lines=$(cat $SIGPI_PKGLIST)
+        for Line in $Lines
+        do
+            first_part=${Line%,*}   # removes the , and everything after it
+            second_part=${Line#*,}  # removes the , and everything before it
+            dahpkg="pkg_$first_part"
+            source $SIGPI_PACKAGES/$dahpkg purge
+        done
+        $SIGPI_PACKAGES/remove_desktop-prep.sh
+        $SIGPI_PACKAGES/remove_desktop-post.sh
         ;;
     install )
         source $SIGPI_PACKAGES/$SPKGSCRIPT install
