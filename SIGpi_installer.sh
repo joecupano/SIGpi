@@ -365,7 +365,7 @@ if grep rtl_433 "$SIGPI_INSTALLER"; then
 fi
 
 # Dump1090
-if grep gnuradio38 "$SIGPI_INSTALLER"; then
+if grep dump1090 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
 fi
 
