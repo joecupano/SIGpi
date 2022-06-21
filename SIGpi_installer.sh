@@ -235,7 +235,6 @@ select_usefulapps() {
 		"wireshark" "Network Traffic Analyzer " OFF \
         "kismet" "Wireless sniffer and monitor " OFF \
         "audacity" "Audio Editor " OFF \
-        "pavu" "PulseAudio Control " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
