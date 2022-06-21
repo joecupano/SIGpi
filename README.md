@@ -67,7 +67,7 @@ While tools are included for Amateur Radio, it is not this builds focus. We are 
 
 ```
 sudo apt-get install -y build-essential cmake git
-mkdir ~/SIG && cd ~/SIG
+mkdir ~/SIGpi && cd ~/SIGpi
 git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ./SIGpi_installer.sh
