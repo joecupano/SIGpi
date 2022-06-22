@@ -48,7 +48,7 @@ case "$1" in
         echo " " >> /etc/pulse/default.pa
         echo "## SIGpi adding Virtual Audio Sink " >> /etc/pulse/default.pa
         echo "load-module module-null-sink sink_name=Virtual_Sink sink_properties=device.description=Virtual_Sink" >> /etc/pulse/default.pa
-	sudo apt-get install paprefs
+	    sudo apt-get install -y paprefs
         echo "pavu" >> $SIGPI_CONFIG 
 
         ## DESKTOP

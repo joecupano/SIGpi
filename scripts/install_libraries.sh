@@ -25,6 +25,7 @@ cd $SIGPI_SOURCE/hamlib-4.4
 make
 sudo make install
 sudo ldconfig
+echo "hamlib" >> $SIGPI_CONFIG 
 
 
 # LibSigMF
@@ -40,6 +41,7 @@ cmake ..
 make -j4
 sudo make install
 sudo ldconfig
+echo "libsigmf" >> $SIGPI_CONFIG 
 
 
 # Liquid-DSP
@@ -55,6 +57,7 @@ cd liquid-dsp
 make -j4
 sudo make install
 sudo ldconfig
+echo "liquid-dsp" >> $SIGPI_CONFIG 
 
 
 # Bluetooth Baseband Library
@@ -70,6 +73,7 @@ cmake ..
 make -j4
 sudo make install
 sudo ldconfig
+echo "libbtbb" >> $SIGPI_CONFIG 
 
 
 # LibDAB
@@ -94,6 +98,7 @@ mkdir build && cd build
 cmake .. -DRTLSDR=on
 sudo make install
 sudo ldconfig
+echo "libdab" >> $SIGPI_CONFIG 
 
 
 # SGP4
@@ -110,6 +115,7 @@ cmake ..
 make -j4
 sudo make install
 sudo ldconfig
+echo "sgp4" >> $SIGPI_CONFIG 
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
