@@ -42,7 +42,7 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install DSDcc"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install DSDcc (Digital Speech Decoder)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         

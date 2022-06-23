@@ -9,7 +9,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Multimon-ng"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Multimon-NG"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/multimon-ng/build
@@ -19,12 +19,12 @@ case "$1" in
         sed -i /multimon-ng/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-ng Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Multimon-ng"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Multimon-NG"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/multimon-ng/build
@@ -36,13 +36,13 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/multimon-ng.desktop
                 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-ng Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Multimon-ng"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -67,7 +67,7 @@ case "$1" in
 
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   multimon-ng Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

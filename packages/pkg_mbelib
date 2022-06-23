@@ -11,7 +11,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove mbelib"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove mbelib (P25 Phase)"
         echo -e "${SIGPI_BANNER_RESET}"
 	    
         cd $SIGPI_SOURCE/mbelib/build
@@ -21,12 +21,12 @@ case "$1" in
         sed -i /mbelib/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge mbelib"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge mbelib (P25 Phase)"
         echo -e "${SIGPI_BANNER_RESET}"
         
         cd $SIGPI_SOURCE/mbelib/build
@@ -36,13 +36,13 @@ case "$1" in
         sed -i /mbelib/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install mbelib"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install mbelib (P25 Phase)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -59,7 +59,7 @@ case "$1" in
         echo "mbelib" >> $SIGPI_CONFIG 
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

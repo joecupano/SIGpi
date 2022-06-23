@@ -11,7 +11,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove codec2"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Codec 2"
         echo -e "${SIGPI_BANNER_RESET}"
 	    
         cd $SIGPI_SOURCE/codec2/build
@@ -21,12 +21,12 @@ case "$1" in
         sed -i /codec2/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge codec2"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Codec 2"
         echo -e "${SIGPI_BANNER_RESET}"
         
         cd $SIGPI_SOURCE/codec2/build
@@ -36,13 +36,13 @@ case "$1" in
         sed -i /codec2/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install codec2"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Codec 2"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -58,7 +58,7 @@ case "$1" in
         echo "codec2" >> $SIGPI_CONFIG 
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   codec2 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

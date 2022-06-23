@@ -44,7 +44,7 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Linpac"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Linpac (AX.25 terminal)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 

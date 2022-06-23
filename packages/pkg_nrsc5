@@ -9,7 +9,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove nrsc5"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove NRSC5 (HD Radio)"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/nrsc5/build
@@ -19,12 +19,12 @@ case "$1" in
         sed -i /nrsc5/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   NRSC5 (HD Radio) Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge nrsc5"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge NRSC5 (HD Radio)"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/nrsc5/build
@@ -36,13 +36,13 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/nrsc5.desktop
                 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   NRSC5 (HD Radio) Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install nrsc5"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install NRSC5 (HD Radio)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -69,7 +69,7 @@ case "$1" in
 
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   nrsc5 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   NRSC5 (HD Radio) Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

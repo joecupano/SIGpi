@@ -6,6 +6,11 @@
 ### installer_desktop-prep
 ###
 
+### NOTES
+### 20220623 - Receive following error for line 41 but appears no issue 
+### Unable to init server: Could not connect: Connection refused
+### Cannot open display: 
+
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Prep"

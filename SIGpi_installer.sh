@@ -305,7 +305,6 @@ if [ "$1" = "node" ]; then
 fi
 
 # Otherwise we are Full install
-
 calc_wt_size
 select_startscreen
 select_devices
@@ -315,6 +314,9 @@ select_amateurradio
 select_usefulapps
 TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
 
+# System Update & Upgrade
+# Core Dependencies
+# Desktop Prep
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
@@ -331,50 +333,63 @@ cd $SIGPI_SOURCE
 #source $SIGPI_SCRIPTS/install_swapspace.sh
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
+
+# Install Core Devices
 source $SIGPI_SCRIPTS/install_core_devices.sh
 
-# LimeSDR
-if grep limesdr "$SIGPI_INSTALLER"; then
+# Install LimeSDR
+if grep limesuite "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_limesuite install
 fi
 
-# UHD - Ettus
+# Install Ettus UHD
 if grep ettus "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ettus install
 fi
 
-# RFM95W  (Adafruit RadioBonnet 900 MHz LoRa-FSK)
+# Install RFM95W (Adafruit RadioBonnet 900 MHz LoRa-FSK)
 if grep rfm95w "$SIGPI_INSTALLER"; then
     source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
 fi
 
+# Install Libraries
 source $SIGPI_SCRIPTS/install_libraries.sh
+# Install APTdec (NOAA APT)
 source $SIGPI_PACKAGES/pkg_aptdec install
+# Install NRSC5 (HD Radio)
 source $SIGPI_PACKAGES/pkg_nrsc5 install
-
+# Install cm256cc
 source $SIGPI_PACKAGES/pkg_cm256cc install
+# Install mbelib (P25 Phase)
 source $SIGPI_PACKAGES/pkg_mbelib install
+# Install SeriaDV (AMBE3000 chip serial control)
 source $SIGPI_PACKAGES/pkg_serialdv install
+# Install DSDcc (Digital Speech Decoder)
 source $SIGPI_PACKAGES/pkg_dsdcc install
+# Install Codec 2
 source $SIGPI_PACKAGES/pkg_codec2 install
-
+# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
 source $SIGPI_PACKAGES/pkg_multimon-ng install
+# Install Radiosonde (Atmospheric Telemetry)
 source $SIGPI_PACKAGES/pkg_radiosonde install
+# Install Ubertooth Tools
 source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+# Install Direwolf (AFSK APRS)
 source $SIGPI_PACKAGES/pkg_direwolf install
+# Install Linpac (AX.25 Terminal
 source $SIGPI_PACKAGES/pkg_linpac install
 
-# RTL_433
+# Install RTL_433
 if grep rtl_433 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_rtl_433 install
 fi
 
-# Dump1090
+# Install Dump1090
 if grep dump1090 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
 fi
 
-# GNU Radio
+# Install GNU Radio
 if grep gnuradio38 "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_gnuradio38 install
 fi
@@ -429,11 +444,6 @@ if grep qsstv "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_qsstv install
 fi
 
-# QSSTV 9.5.X
-#if grep qsstv95 "$SIGPI_INSTALLER"; then
-#    source $SIGPI_PACKAGES/pkg_qsstv95 install
-#fi
-
 # JS8CALL
 if grep js8call "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_js8call install
@@ -469,7 +479,7 @@ if grep audacity "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_audacity install 
 fi
 
-# PAVU  - Made Mandatory install in SIGpi 5.2 to support virtual audio cables
+# PAVU 
 source $SIGPI_PACKAGES/pkg_pavucontrol install
 
 # splat

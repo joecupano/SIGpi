@@ -9,7 +9,7 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove APTdec"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove APTdec (NOAA APT)"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/aptdec/build
@@ -19,12 +19,12 @@ case "$1" in
         sed -i /aptdec/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec (NOAA APT) Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge APTdec"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge APTdec (NOAA APT)"
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_SOURCE/aptdec/build
@@ -36,13 +36,13 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/aptdec.desktop
                 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec (NOAA APT) Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install APTdec"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install APTdec (NOAA APT)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -69,7 +69,7 @@ case "$1" in
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/aptdec.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec (NOAA APT) Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
