@@ -50,11 +50,11 @@ sudo apt-get install -y python3-numpy
 sudo apt-get install -y python3-opengl
 sudo apt-get install -y python3-pydot
 sudo apt-get install -y python3-pygraphviz
-sudo apt-get install -y python-qt4
+#sudo apt-get install -y python-qt4
 sudo apt-get install -y qt5-default
 sudo apt-get install -y python3-pyqt5
 sudo apt-get install -y python3-pyqt5.qtopengl
-sudo apt-get install -y python-pyside
+#sudo apt-get install -y python-pyside
 sudo apt-get install -y python3-pyqtgraph
 sudo apt-get install -y python3-scapy
 sudo apt-get install -y python3-scipy
@@ -67,7 +67,7 @@ sudo apt-get install -y python3-yaml
 sudo apt-get install -y python3-zmq
 sudo apt-get install -y python-cycler-doc 
 sudo apt-get install -y python-docutils
-sudo apt-get install -y python-gobject
+#sudo apt-get install -y python-gobject
 sudo apt-get install -y python-matplotlib-data
 sudo apt-get install -y python-matplotlib-doc
 sudo apt-get install -y python-networkx-doc 
