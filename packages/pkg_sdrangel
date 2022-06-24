@@ -130,20 +130,7 @@ case "$1" in
         sudo make install
         sudo ldconfig
         echo "sdrangel" >> $SIGPI_CONFIG 
-
-        # Since SDRangel dependencies and FFTWF-Wisdom have their own install we need to update PACKAGES to know they are there
-        if grep cm256cc "$SIGPI_CONFIG"; then
-            echo "sdrangel" >> $SIGPI_CONFIG
-        else
-            echo "sdrangel" >> $SIGPI_CONFIG 
-            echo "cm256cc" >> $SIGPI_CONFIG
-            echo "dsdcc" >> $SIGPI_CONFIG
-            echo "codec2" >> $SIGPI_CONFIG
-            echo "serialdv" >> $SIGPI_CONFIG
-            echo "mbelib" >> $SIGPI_CONFIG
-            echo "fftwf-wisdom" >> $SIGPI_CONFIG
-        fi
-        
+      
 	    ## DESKTOP
         # Add Icon      
         # Add Desktop
