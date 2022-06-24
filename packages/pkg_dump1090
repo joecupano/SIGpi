@@ -12,7 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove Dump1090"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove dump1090-fa
+        sudo apt-get remove dump1090-mutability
 	sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Desktop and Icon, force menu update
@@ -31,7 +31,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge Dump1090"
         echo -e "${SIGPI_BANNER_RESET}"
 	
-	sudo apt-get remove --purge dump1090-fa
+	sudo apt-get remove --purge dump1090-mutability
 	sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Desktop and Icon, force menu update
@@ -58,7 +58,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 
         # FlightAware fork
-        sudo apt-get -y install dump1090
+        sudo apt-get -y install dump1090-mutability
 
         # Mutability Original
         #git clone https://github.com/antirez/dump1090.git
