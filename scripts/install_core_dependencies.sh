@@ -32,6 +32,7 @@ sudo apt-get install -y qtbase5-dev
 sudo apt-get install -y qtchooser
 sudo apt-get install -y qt5-qmake
 sudo apt-get install -y qtbase5-dev-tools
+sudo apt-get install -y qtwebengine5-dev qtbase5-private-dev
 
 # Python Baseline
 sudo apt-get install -y python3-pip 
