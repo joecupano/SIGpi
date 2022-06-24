@@ -18,6 +18,7 @@ sudo apt-get install -y build-essential pkg-config git cmake g++ gcc autoconf au
 sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libaio-dev
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
 sudo apt-get install -y libsamplerate-dev
+sudo apt-get install -y libboost-all-dev
 
 # Ubuntu 20.04 LTS Desktop accomodations
 #
@@ -85,15 +86,18 @@ sudo apt-get install -y libusb-1.0-0
 sudo apt-get install -y libusb-1.0-0-dev
 sudo apt-get install -y libusb-dev
 sudo pip3 install pyrtlsdr
+
 ## HackRF
 sudo apt-get install -y libusb-1.0-0-dev 
 sudo apt-get install -y libfftw3-dev
+
 ## PlutoSDR
 sudo apt-get install -y libaio-dev 
 sudo apt-get install -y libusb-1.0-0-dev 
 sudo apt-get install -y libserialport-dev
 sudo apt-get install -y libavahi-client-dev 
 sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
+
 ## LimeSDR
 sudo apt-get install -y swig
 sudo apt-get install -y libsqlite3-dev
