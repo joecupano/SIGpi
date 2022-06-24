@@ -1,5 +1,11 @@
 # Release Notes
 
+## Release 5.3: 2022-06-25
+- Fix SDRangel package installer
+- Fix cm256cc error (related to SDRangel)
+- Fix Qt5WebEngine install
+- Fix multiple Desktop icons
+
 ## Release 5.2.2: 2022-05-30
 - SDRangel updated to v7.3.0
 

@@ -1,6 +1,6 @@
 # SIGpi
 
-RELEASE 5.2.2
+RELEASE 5.3
 
 
 ## Introduction
@@ -11,6 +11,49 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 - **Ubuntu 20.04 LTS** on amd64 and aarch64
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
+
+## Installation
+
+### Fresh Full Install
+
+- Login as Pi on your **fresh install of Raspberry Pi OS Full**
+- Create a directory in your home directory called SIG and switch into it
+- Clone the SIGpi repo
+- Run **SIGpi_installer.sh**
+- Follow script instructions.
+
+```
+sudo apt-get install -y build-essential cmake git
+mkdir ~/SIG && cd ~/SIG
+git clone https://github.com/joecupano/SIGpi.git
+cd SIGpi
+./SIGpi_installer.sh
+```
+
+### Fresh Node Install
+
+This is for headless SDR servers and can run on RPI 3 B+
+Follow the same instructions as for the impatient but add **node* as an option
+
+```
+./SIGpi_installer.sh node
+```
+This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
+
+### Update Packages on existing 5.X Install
+
+You can update packages in your existing 5.X install with the following commands:
+
+```
+SIGpi purge sdrangel
+SIGpi install sdrangel
+SIGpi purge sdrpp
+SIGpi install sdrpp
+```
+
+## Build Details
+
+Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient.
 
 ## Features
 
@@ -54,49 +97,6 @@ While tools are included for Amateur Radio, it is not this builds focus. We are 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
 
-
-## Installation
-
-### Fresh Full Install
-
-- Login as Pi on your **fresh install of Raspberry Pi OS Full**
-- Create a directory in your home directory called SIG and switch into it
-- Clone the SIGpi repo
-- Run **SIGpi_installer.sh**
-- Follow script instructions.
-
-```
-sudo apt-get install -y build-essential cmake git
-mkdir ~/SIG && cd ~/SIG
-git clone https://github.com/joecupano/SIGpi.git
-cd SIGpi
-./SIGpi_installer.sh
-```
-
-### Fresh Node Install
-
-This is for headless SDR servers and can run on RPI 3 B+
-Follow the same instructions as for the impatient but add **node* as an option
-
-```
-./SIGpi_installer.sh node
-```
-This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
-
-### Update an Existing 5.X Install
-
-This is a maintenance release. You can update your existing 5.X install with the following commands:
-
-```
-SIGpi purge sdrangel
-SIGpi install sdrangel
-SIGpi purge sdrpp
-SIGpi install sdrpp
-```
-
-## Build Details
-
-Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient.
 
 ## APRS and Packet using a VHF/UHF Transceiver
 
