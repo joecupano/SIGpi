@@ -136,6 +136,8 @@ case "$1" in
         # Add Icon      
         # Add Desktop
         sudo cp $SIGPI_DESKTOP/sdrangel.desktop $DESKTOP_FILES
+        # Add Run script
+        sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin
         # Change Category
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrangel.desktop
