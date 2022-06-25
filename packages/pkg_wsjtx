@@ -60,22 +60,22 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $HOME/Downloads
-            wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_amd64.deb -P $HOME/Downloads
-	        sudo dpkg -i wsjtx_2.5.2_amd64.deb
+            wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.4_amd64.deb -P $HOME/Downloads
+	        sudo dpkg -i wsjtx_2.5.4_amd64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "armv7l" ]]; then
 	        cd $HOME/Downloads
-	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_armhf.deb -P $HOME/Downloads
-	        sudo dpkg -i wsjtx_2.5.2_armhf.deb
+	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.4_armhf.deb -P $HOME/Downloads
+	        sudo dpkg -i wsjtx_2.5.4_armhf.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $HOME/Downloads
-	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.2_arm64.deb -P $HOME/Downloads
-	        sudo dpkg -i wsjtx_2.5.2_arm64.deb
+	        wget https://physics.princeton.edu/pulsar/K1JT/wsjtx_2.5.4_arm64.deb -P $HOME/Downloads
+	        sudo dpkg -i wsjtx_2.5.4_arm64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
