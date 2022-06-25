@@ -54,6 +54,7 @@ case "$1" in
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/inspectrum.desktop $DESKTOP_FILES
         # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/inspectrum.desktop
         # Add to Menu
