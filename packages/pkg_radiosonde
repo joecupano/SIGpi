@@ -54,6 +54,7 @@ case "$1" in
         sudo rm /usr/local/bin/pos2gpx.pl
         sudo rm /usr/local/bin/pos2kml.pl
         sudo rm /usr/local/bin/pos2nmea.pl
+        sed -i /qsstv95/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Radiosonde Removed"
@@ -106,6 +107,7 @@ case "$1" in
         sudo rm /usr/local/bin/pos2gpx.pl
         sudo rm /usr/local/bin/pos2kml.pl
         sudo rm /usr/local/bin/pos2nmea.pl
+        sed -i /qsstv95/d $SIGPI_CONFIG
       
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Radiosonde Purged"
