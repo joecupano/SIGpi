@@ -1,14 +1,14 @@
 # SIGpi
 
-RELEASE 5.3
+RELEASE 5.4
 
 
 ## Introduction
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following:
 
-- **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (32 or 64-bit)**
-- **Ubuntu 20.04 LTS** on amd64 and aarch64
+- **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+- **Ubuntu 20.04 LTS oe 22.04** on amd64 and aarch64
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
