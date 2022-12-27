@@ -3,38 +3,57 @@
 ###
 ### SIGpi
 ###
-### package_gnuradio39
+### package_gnuradio
+###
 ###
 
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio 3.9"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
         echo -e "${SIGPI_BANNER_RESET}"
 
+        sudo apt-get remove gnuradio gnuradio-dev
+        sed -i /gnuradio38/d $SIGPI_CONFIG
+        
         cd $SIGPI_SOURCE/gnuradio-39/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/gnuradio-39
         sed -i /gnuradio39/d $SIGPI_CONFIG
-	
+
 	### Remove Menu icon
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc-39.desktop
 
+        cd $SIGPI_SOURCE/gnuradio-310/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/gnuradio-310
+        sed -i /gnuradio310/d $SIGPI_CONFIG
+	
+	### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/gnuradio-grc-310.desktop
+
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
+
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio 3.9"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
         echo -e "${SIGPI_BANNER_RESET}"
 
+        sudo apt-get remove --purge gnuradio gnuradio-dev
+        sed -i /gnuradio38/d $SIGPI_CONFIG
+        rm -rf $HOME/.gnuradio
+        
         cd $SIGPI_SOURCE/gnuradio-39/build
         sudo make uninstall
         sudo ldconfig
@@ -48,14 +67,27 @@ case "$1" in
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc-39.desktop
 
+        cd $SIGPI_SOURCE/gnuradio-310/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/gnuradio-310
+        rm -rf $HOME/.gnuradio
+        sed -i /gnuradio310/d $SIGPI_CONFIG
+
+	### Remove Menu icon
+        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
+        ### Remove Desktop links
+        sudo rm $DESKTOP_FILES/gnuradio-grc-310.desktop
+
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.9  (ETA: +60 Minutes)"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio 3.10  (ETA: +60 Minutes)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -97,9 +129,9 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/gnuradio/gnuradio.git
-        mv gnuradio gnuradio-39
-	cd gnuradio-39
-        git checkout maint-3.9
+        mv gnuradio gnuradio-310
+	cd gnuradio-310
+        git checkout maint-3.10
         git submodule update --init --recursive
         mkdir build && cd build
         cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
@@ -109,7 +141,7 @@ case "$1" in
         cd ~
         echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
         echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
-        echo "gnuradio39" >> $SIGPI_CONFIG 
+        echo "gnuradio310" >> $SIGPI_CONFIG 
         
 	## DESKTOP
 	# Add Icon
@@ -120,7 +152,7 @@ case "$1" in
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
         
 	echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.9 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio 3.10 Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

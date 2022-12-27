@@ -3,11 +3,12 @@ aptdec,20211231
 cubicsdr,20211231
 cygnusrfi,20211231
 direwolf,20211231
+dosbox,20221227
 dump1090,20211231
 ettus,20211231
 fldigi,20211231
 flrig,20211231
-gnuradio,20211231
+gnuradio,20221227
 gpredict,20211231
 gqrx,20211231
 hasviolet,20211231
@@ -23,7 +24,7 @@ radiosonde,20211231
 rfm95w,20211231
 rtl_433,20211231
 rtltcp-server,20211231
-sdrangel,20220624
+sdrangel,20221227
 sdrpp,20211231
 soapysdr-server,20211231
 splat,20211231

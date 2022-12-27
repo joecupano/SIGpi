@@ -1,5 +1,12 @@
 # Release Notes
 
+## Release 5.4: 2022-12-28
+- SDRangel updated to v7.8.5
+- Standardize on GNUradio 3.10.X
+- Hamlib updated to 4.5.2
+- Install DOSbox
+- Removed Artemis
+
 ## Release 5.3: 2022-06-25
 - Fix SDRangel package installer
 - Fix cm256cc error (related to SDRangel)
@@ -23,7 +30,7 @@
 
 ## Release 5.1: 2022-03-13
 - Fix: Server menu option from checklist to radiolist
-- SDR++ updated to v1.0.5
+- SDR++ updated to v1.0.4
 - SDRangel updated to v6.20.1
 
 ## Release 5.0: 2022-01-07

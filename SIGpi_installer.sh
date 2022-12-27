@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20220621-2300
+###  REVISION: 20221227-2300
 ###
 
 ###
@@ -104,10 +104,14 @@ if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
+if [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
+    SIGPI_CERTIFIED="true"
+fi
+
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
-    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS."
+    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye), Ubuntu 20.04.3 LTS, or Ubuntu 22.04.1 LTS."
     echo "ERROR:"
     echo "ERROR:  Aborting"
     exit 1;
@@ -172,17 +176,7 @@ select_devices() {
 }
 
 select_gnuradio() {
-    FUN=$(whiptail --title "SigPi Installer" --radiolist --clear --separate-output \
-        "Select a GNUradio version" 20 80 12 \
-		"gnuradio38" "GNU Radio 3.8 " ON \
-        "gnuradio39" "GNU Radio 3.9 " OFF \
-        "gnuradio310" "GNU Radio 3.10 " OFF \
-        3>&1 1>&2 2>&3)
-    RET=$?
-    if [ $RET -eq 1 ]; then
-        $FUN = "NONE"
-    fi
-    echo $FUN >> $SIGPI_INSTALLER
+### GNUradio 3.10 will be installed - no longer a choice
 }
 
 select_sdrapps() {
@@ -308,7 +302,7 @@ fi
 calc_wt_size
 select_startscreen
 select_devices
-select_gnuradio
+# select_gnuradio
 select_sdrapps
 select_amateurradio
 select_usefulapps
@@ -385,22 +379,10 @@ if grep rtl_433 "$SIGPI_INSTALLER"; then
 fi
 
 # Install Dump1090
-if grep dump1090 "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-fi
+source $SIGPI_PACKAGES/pkg_dump1090 install
 
-# Install GNU Radio
-if grep gnuradio38 "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_gnuradio38 install
-fi
-
-if grep gnuradio39 "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_gnuradio39 install
-fi
-
-if grep gnuradio310 "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_gnuradio310 install
-fi
+# Install GNUradio (3.10)
+source $SIGPI_PACKAGES/pkg_gnuradio install
 
 # gqrx
 if grep gqrx "$SIGPI_INSTALLER"; then
@@ -487,10 +469,8 @@ if grep splat "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_splat install
 fi
 
-# Artemis
-if grep artemis "$SIGPI_INSTALLER"; then
-	source $SIGPI_PACKAGES/pkg_artemis install
-fi
+# DOSbox
+source $SIGPI_PACKAGES/pkg_dosbox install
 
 # SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh

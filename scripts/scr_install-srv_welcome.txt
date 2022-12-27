@@ -1,14 +1,16 @@
-   _____ __________      _      _____   _                    
-  / ___//  _/ ____/___  (_)    | ____| / |
-  \__ \ / // / __/ __ \/ /     | |__ | | |
- ___/ // // /_/ / /_/ / /      |___ \| | |
-/____/___/\____/ .___/_/    _|  ___) | |_| 
-              /_/              |____(_)___|   
+   _____ __________      _      _____  _  _ 
+  / ___//  _/ ____/___  (_)    | ____|| || | 
+  \__ \ / // / __/ __ \/ /     | |__  | || |_
+ ___/ // // /_/ / /_/ / /      |___ \ |__   _|
+/____/___/\____/ .___/_/        ___) |   | |
+              /_/              |____(_)  |_|
 
 
 Welcome to SIGpi Server
 
-This script builds a head-less RTLSDR server on a Raspberry Pi OS Lite "Bullseye" (32bit or 64bit).
+This script builds a head-less RTLSDR server on a Raspberry Pi OS Lite "Bullseye",
+Ubuntu 20.04 and 22.04 server (64bit) systems.
+
 The following command lines tools are included:
 
 RTL_433, Dump1090, mulitmonitor-ng, and radiosonde

@@ -1,21 +1,20 @@
-   _____ __________      _      _____  ___ 
-  / ___//  _/ ____/___  (_)    | ____||__ \ 
-  \__ \ / // / __/ __ \/ /     | |__     ) |
- ___/ // // /_/ / /_/ / /      |___ \   / / 
-/____/___/\____/ .___/_/        ___) | / /_ 
-              /_/              |____(_)____|
+   _____ __________      _      _____  _  _ 
+  / ___//  _/ ____/___  (_)    | ____|| || | 
+  \__ \ / // / __/ __ \/ /     | |__  | || |_
+ ___/ // // /_/ / /_/ / /      |___ \ |__   _|
+/____/___/\____/ .___/_/        ___) |   | |
+              /_/              |____(_)  |_|
 
 
 Welcome to SIGpi
 
 This script installs drivers and applications for signals intelligence (SIGINT) and Amateur Radio use
-on Raspberry Pi OS "Bullseye" (32bit, 64bit). Installation can take three hours or more between
+on Raspberry Pi OS "Bullseye", Ubuntu 20.04 and 22.04 (64bit) systems. Installation can take three hours or more between
 system update and compilation
 
 This script installs drivers for RTL-SDR, HackRF, PlutoSDR, LimeSDR, and associated SoapySDR drivers by default.
 Installation will continue with the following steps:
 
-- Choose GNUradio version to install (3.8 or 3.9)
 - Choose General Purpose SDR applications (SDRangel, SDR++, etc)
 - Choose Amateur Radio Applications
 - Choose Additional Useful Tools
