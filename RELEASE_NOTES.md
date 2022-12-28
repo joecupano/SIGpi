@@ -2,6 +2,7 @@
 
 ## Release 5.4: 2022-12-28
 - SDRangel updated to v7.8.5
+- SDR++ updated to 1.1.0
 - Standardize on GNUradio 3.10.X
 - Hamlib updated to 4.5.2
 - Install DOSbox

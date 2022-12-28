@@ -108,29 +108,25 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5
         sudo apt-get install -y libqt5positioning5-plugins
         
-        cd $SIGPI_SOURCE
-        git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel
-        #git reset --hard bb99edddc14a472c5986bf859fa36307f8e59334  #v6.17.4
-        #git reset --hard 35adc2545026bf43002f7ed02345ae11a20d1594  #v6.17.5
-        #git reset --hard 5a11ef6a8ba2454439cdaf3b378c6f100f5ef901  #v6.17.6
-      	#git reset --hard 7142ef0b0dc1d92373732da93c2b52bd1ff49d64  #v6.17.7
-        #git reset --hard ebd52169177715549064cd5349b48bf1a42383f7  #v6.18
-      	#git reset --hard bbdfa91deeaa8bdaf7110fdf086c873d45650f20  #v6.20.0
-        #git reset --hard ae93186c8a1ba49151a8796fab7b9eca8ba364aa  #v6.20.1 
-	      #git reset --hard 7f1c838cecf449e7cb8cc9731d745e95fd44b227  #v6.20.2
-        #git reset --hard d8034f3ee0aa2add079765a81a5e243d7f8759f6  #v7.0.1
-        #git reset --hard 22e11f8cb4621a9e2a4bf0be273baf78c0f0f749  #v7.2.1
-        #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
-        #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
-        git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
-        
+        if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ] || [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
+          wget https://github.com/f4exb/sdrangel/releases/download/v7.8.5/sdrangel-1892-master.tar.gz -P $HOME/Downloads
+          cd $HOME/Downloads
+          tar -xvf sdrangel-1892-master.tar.gz
+	        sudo dpkg -i sdrangel_7.8.5-1_amd64.deb
+        else
+          cd $SIGPI_SOURCE
+          git clone https://github.com/f4exb/sdrangel.git
+          cd sdrangel
+          #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
+          #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
+          git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
+          mkdir build; cd build
+          cmake -Wno-dev ..
+          make -j4
+          sudo make install
+          sudo ldconfig
+        fi 
 
-        mkdir build; cd build
-        cmake -Wno-dev ..
-        make -j4
-        sudo make install
-        sudo ldconfig
         echo "sdrangel" >> $SIGPI_CONFIG 
       
 	    ## DESKTOP
