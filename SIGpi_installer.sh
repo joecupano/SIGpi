@@ -175,10 +175,6 @@ select_devices() {
     done
 }
 
-select_gnuradio() {
-### GNUradio 3.10 will be installed - no longer a choice
-}
-
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select SDR Applications" 20 80 12 \
