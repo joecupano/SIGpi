@@ -25,6 +25,8 @@ sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 #sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
 sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
+sudo chmod 755 $HOME/Desktop/SIGpi.desktop
+sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
 
 # Add SigPi Category for installed applications
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
