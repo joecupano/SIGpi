@@ -1,12 +1,15 @@
 # Release Notes
 
-## Release 5.4: 2022-12-28
+## Release 5.4: 2022-12-30
+- Deprecating 32-bit OS support
+- Deprecating RPi Hardware support for full install to only RPi 4B and RPi 400
+-- RPi 3B+ can be used for node install
+- Deprecating GNUradio 3.8 and 3.9 support. Only GNUradio 3.10.X support going forward
+- Removed Artemis
 - SDRangel updated to v7.8.5
 - SDR++ updated to 1.1.0
-- Standardize on GNUradio 3.10.X
 - Hamlib updated to 4.5.2
 - Install DOSbox
-- Removed Artemis
 
 ## Release 5.3: 2022-06-25
 - Fix SDRangel package installer

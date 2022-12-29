@@ -7,14 +7,18 @@ RELEASE 5.4
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following:
 
-- **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
-- **Ubuntu 20.04 LTS oe 22.04** on amd64 and aarch64
+Full install
+- **Raspberry Pi4 4GB RAM** or **RPi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+- **Ubuntu 20.04 LTS or 22.04** on amd64 and aarch64
+
+Node Install
+- **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
 ## Installation
 
-### Fresh Full Install
+### Fresh Full Install (RPi OS)
 
 - Login as Pi on your **fresh install of Raspberry Pi OS Full**
 - Create a directory in your home directory called SIG and switch into it
@@ -42,7 +46,7 @@ This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
 
 ### Update Packages on existing 5.X Install
 
-You can update packages in your existing 5.X install with the following commands:
+You can update packages in your existing 5.X install with the following commands using **SDRangel** and **SDR++** as examples:
 
 ```
 SIGpi purge sdrangel
@@ -53,7 +57,7 @@ SIGpi install sdrpp
 
 ## Build Details
 
-Total install time will take over three hours because of compile times for vairous components indicates below with an asterisk (*). SDRangel and its dependencies will use half of the time to compile - be patient.
+Total install time will take over three hours because of compile times for SDRangel and its components using half of that - be patient. Of course you can opt not to install SDRangel and go with SDR++ if you are new to SDRs.
 
 ## Features
 
@@ -72,8 +76,8 @@ Usage: sigpi [ACTION] [TARGET]
           TARGET
                  A SIGpi package
 ```
-### Quarterly Package Updates
-Best efforts made for quarterly update (or earlier) of popular SDR packages such as SDRangel and SDR++
+### Package Updates
+Best efforts made to update releases when significant releases are made availabel for component packages, Especiallly for popular SDR packages such as SDRangel and SDR++
 
 ### Add/Remove Packages anytime
 Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
@@ -84,13 +88,9 @@ SIGpi install gqrx
 ```
 
 ### Multi-Architecture
-Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on the following:
-
-- Raspberry Pi4 4GB RAM running Raspberry Pi OS Full (32-bit)
-- Ubuntu 20.04 LTS (x86, x86_64, aarch64)
+Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on **Ubuntu 20.04 LTS** and **Ubuntu 22.04 LTS** (amd64 and aarch64)
 
 ### Amateur Radio is nice but we are SIGINT FOCUSED
-
 While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
 
 
@@ -99,7 +99,6 @@ While tools are included for Amateur Radio, it is not this builds focus. We are 
 
 
 ## APRS and Packet using a VHF/UHF Transceiver
-
 SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
 
 In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
@@ -107,7 +106,6 @@ In the past dedicated hardware known as TNCs (terminal node controllers) was use
 If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
 
 ### AX.25
-
 If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
 
 ```
@@ -135,22 +133,18 @@ As quoted from the [WSJT-site](https://www.physics.princeton.edu/pulsar/k1jt/wsj
 
 "Note: these packages are unlikely to install properly on Linux distributions with required dependencies at lower versions than those on the named distributions. In such cases building from source is the correct way to install WSJT-X."
 
-So we go ahead an build from source and notice it wants to be a snowflake and compile and install its own Hamlib build because of two patches not accepted by Hamlib maintainers. Nevermind how long WSJT-X takes to compile. Since we are SIGINT first we decided to drop WSJT-X this release and let JS8CALL perform said duties. BTW, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
+So we go ahead and build from source and notice it wants to be a snowflake and compile and install its own Hamlib build because of two patches not accepted by Hamlib maintainers. Nevermind how long WSJT-X takes to compile. Since we are SIGINT first we decided to drop WSJT-X this release and let JS8CALL perform said duties. BTW, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
 
 ## Example Hardware Setup
-
 ![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
 
 ### Power
-
 In this setup a 12V@17A switching supply powers all the kit. Since RPi4 are picky about getting 5.1V a set-up converter is added to power it. A 12V Rpi4 are pickya bout getting 5.1V. USB peripherals can be hungry so a powered USB hub is included. While 7 ports are available no more than three devices requiring power should be enabled since hub produces a maximum of 36 Watts ( 3 x 5V x 2.4A = 36 Watts)
 
 ### Raspberry Pi4
-
 Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth and WiFi should be disabled. If Internet is needed and only available via WiFi then so be it and use your onboard WiFi.
 
 ### USB Peripherals
-
 Only three USB devices requiring power should be enabled at a time. The range of devices depicted is only to demonstrate what you could potentially connect to it.
 
 ## What Else
