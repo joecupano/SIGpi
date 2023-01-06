@@ -7,11 +7,14 @@ RELEASE 5.4
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following:
 
-Full install
-- **Raspberry Pi4 4GB RAM** or **RPi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
-- **Ubuntu 20.04 LTS or 22.04** on amd64 and aarch64
+Full Install
+- **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+- **Raspberry RPi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+- **Ubuntu 20.04 LTS or 22.04** on aarch64
+- **Ubuntu 20.04 LTS or 22.04** on amd64
 
 Node Install
+- Same platforms as Full Install
 - **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
@@ -20,11 +23,11 @@ Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
 ### Fresh Full Install (RPi OS)
 
-- Login as Pi on your **fresh install of Raspberry Pi OS Full**
+- Login as pi or sudo user on supported platform
 - Create a directory in your home directory called SIG and switch into it
 - Clone the SIGpi repo
 - Run **SIGpi_installer.sh**
-- Follow script instructions.
+- Run following commands then follow script instructions
 
 ```
 sudo apt-get install -y build-essential cmake git
@@ -36,13 +39,13 @@ cd SIGpi
 
 ### Fresh Node Install
 
-This is for headless SDR servers and can run on RPI 3 B+
-Follow the same instructions as for the impatient but add **node* as an option
+This is for headless SDR servers
+Follow the same instructions as for Full Install but add **node* as an option to last command
 
 ```
 ./SIGpi_installer.sh node
 ```
-This will install RTLTCP, SoapySDRServer, and SDRangelsrv as options
+This will install RTLTCP, SoapySDRServer, and SDRangelsrv
 
 ### Update Packages on existing 5.X Install
 
@@ -57,7 +60,8 @@ SIGpi install sdrpp
 
 ## Build Details
 
-Total install time will take over three hours because of compile times for SDRangel and its components using half of that - be patient. Of course you can opt not to install SDRangel and go with SDR++ if you are new to SDRs.
+Total install time will take over three hours because of compile times for SDRangel and its components using half of that - be patient.
+Of course you can opt not to install SDRangel and go with SDR++ if you are new to SDRs.
 
 ## Features
 
