@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 5.4: 2022-12-30
+## Release 5.4: 2023-01-07
 - Deprecating 32-bit OS support
 - Deprecating RPi Hardware support for full install to only RPi 4B and RPi 400
 -- RPi 3B+ can be used for node install
