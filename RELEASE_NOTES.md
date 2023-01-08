@@ -3,12 +3,12 @@
 ## Release 6.0: 2023-01-08
 - Deprecating 32-bit OS support
 - Deprecating RPi Hardware support to only RPi 4B and RPi 400
-- Node Install (headless server) support for RPi 3B+
-- Deprecating GNUradio 3.8 and 3.9 support. Only GNUradio 3.10.X support going forward
-- Removed GQRX since it has GNUradio dependencies prior to 3.10
-- SDRangel updated to v7.8.5
+- Node Install (headless server) support continued for RPi 3B+
+- GNUradio 3.8 and 3.9 deprecated for GNUradio 3.10.X
+- Created DEB packages for software with long compile times (SDRangel, SDR++, HamLib)
+- SDRangel updated to v7.3.5
 - SDR++ updated to 1.1.0
-- Hamlib updated to 4.5.2
+- Hamlib updated to 4.5.3
 - Install DOSbox
 
 ## Release 5.3: 2022-06-25
