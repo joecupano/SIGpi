@@ -1,0 +1,81 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_hamlib-deb
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Hamlib"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r hamlib_4.5.3-1_armd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r hamlib_4.5.3-1_arm64.deb
+        fi 
+        sed -i /hamlib/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Hamlib"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+cd $SIGPI_PACKAGES
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P hamlib_4.5.3-1_armd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P hamlib_4.5.3-1_arm64.deb
+        fi 
+        sed -i /hamlib/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Hamlib"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i hamlib_4.5.3-1_armd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i hamlib_4.5.3-1_arm64.deb
+        fi
+        echo "sdrangel" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
