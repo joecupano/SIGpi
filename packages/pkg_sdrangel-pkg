@@ -113,17 +113,12 @@ case "$1" in
           wget https://github.com/f4exb/sdrangel/releases/download/v7.8.5/sdrangel-1892-master.tar.gz -P $HOME/Downloads
           cd $HOME/Downloads
           tar -xvf sdrangel-1892-master.tar.gz
-	        sudo dpkg -i sdrangel_7.8.5-1_amd64.deb
+          sudo dpkg -i sdrangel_7.8.5-1_amd64.deb
         else
-          cd $SIGPI_SOURCE
-          git clone https://github.com/f4exb/sdrangel.git
-          cd sdrangel
-          #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
-          #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
-          git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
-          mkdir build; cd build
-          cmake -Wno-dev ..
-          make -j4
+          wget https://drive.google.com/file/d/1u5_8i4khQT8a2R9rqWh-eWjJjHW6MMdc/view?usp=sharing -P $HOME/Downloads
+          cd $HOME/Downloads
+          tar -xvf SDRangel-7.3.0-SIGpi_RPi4-build.tar.gz
+          cd $HOME/SIG/source/sdrangel/build
           sudo make install
           sudo ldconfig
         fi 
