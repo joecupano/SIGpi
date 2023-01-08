@@ -1,33 +1,25 @@
 # SIGpi
 
-RELEASE 5.4
+RELEASE 6.0
 
 
 ## Introduction
 
-SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following:
+SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following platforms:
 
-Full Install
 - **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 - **Raspberry RPi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 - **Ubuntu 20.04 LTS or 22.04** on aarch64
 - **Ubuntu 20.04 LTS or 22.04** on amd64
 
-Node Install
-- Same platforms as Full Install
-- **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+A headless server only install (Node Install) can be performed on **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
 ## Installation
 
-### Fresh Full Install (RPi OS)
-
 - Login as pi or sudo user on supported platform
-- Create a directory in your home directory called SIG and switch into it
-- Clone the SIGpi repo
-- Run **SIGpi_installer.sh**
-- Run following commands then follow script instructions
+- Install pre-requisite packages to install SIGpi
 
 ```
 sudo apt-get install -y build-essential cmake git
@@ -37,33 +29,30 @@ cd SIGpi
 ./SIGpi_installer.sh
 ```
 
-### Fresh Node Install
-
-This is for headless SDR servers
-Follow the same instructions as for Full Install but add **node* as an option to last command
+- From your home directory, create a directory called SIG and switch into it
 
 ```
-./SIGpi_installer.sh node
-```
-This will install RTLTCP, SoapySDRServer, and SDRangelsrv
-
-### Update Packages on existing 5.X Install
-
-You can update packages in your existing 5.X install with the following commands using **SDRangel** and **SDR++** as examples:
-
-```
-SIGpi purge sdrangel
-SIGpi install sdrangel
-SIGpi purge sdrpp
-SIGpi install sdrpp
+mkdir ~/SIG && cd ~/SIG
 ```
 
-## Build Details
+- Clone the SIGpi repo
 
-Total install time will take over three hours because of compile times for SDRangel and its components using half of that - be patient.
-Of course you can opt not to install SDRangel and go with SDR++ if you are new to SDRs.
+```
+git clone https://github.com/joecupano/SIGpi.git
+```
+
+- Change into the new SIGpi directory and run **SIGpi_installer.sh**  (Node install run **SIGpi_installer.sh node** )
+
+
+```
+cd SIGpi
+./SIGpi_installer.sh
+```
 
 ## Features
+
+### Headless Servers (Node Install)
+This is for headless SDR servers requiring no desktop. This will install RTLTCP, SoapySDRServer, and SDRangelsrv
 
 ### Upgrade with modules, not fresh images
 SIGpi includes it's own package manager to update applications to their latest releases using familiar syntax from package management systems
@@ -80,8 +69,15 @@ Usage: sigpi [ACTION] [TARGET]
           TARGET
                  A SIGpi package
 ```
-### Package Updates
-Best efforts made to update releases when significant releases are made availabel for component packages, Especiallly for popular SDR packages such as SDRangel and SDR++
+
+You can update packages in your existing SIGpi install with the following commands using **SDRangel** and **SDR++** as examples:
+
+```
+SIGpi purge sdrangel
+SIGpi install sdrangel
+SIGpi purge sdrpp
+SIGpi install sdrpp
+```
 
 ### Add/Remove Packages anytime
 Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
@@ -90,6 +86,10 @@ Example
 ```
 SIGpi install gqrx
 ```
+
+### Package Updates
+Best efforts made to update releases when significant releases (X.Y) are made available for component packages with speciall attention to popular SDR packages like SDRangel and SDR++
+
 
 ### Multi-Architecture
 Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on **Ubuntu 20.04 LTS** and **Ubuntu 22.04 LTS** (amd64 and aarch64)

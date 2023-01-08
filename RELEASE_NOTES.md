@@ -1,11 +1,10 @@
 # Release Notes
 
-## Release 5.4: 2023-01-07
+## Release 6.0: 2023-01-08
 - Deprecating 32-bit OS support
-- Deprecating RPi Hardware support for full install to only RPi 4B and RPi 400
--- RPi 3B+ can be used for node install
+- Deprecating RPi Hardware support to only RPi 4B and RPi 400
+- Node Install (headless server) support for RPi 3B+
 - Deprecating GNUradio 3.8 and 3.9 support. Only GNUradio 3.10.X support going forward
-- Removed Artemis
 - SDRangel updated to v7.8.5
 - SDR++ updated to 1.1.0
 - Hamlib updated to 4.5.2

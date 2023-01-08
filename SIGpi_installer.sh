@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20221227-2300
+###  REVISION: 20230107-2300
 ###
 
 ###
@@ -153,11 +153,11 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SigPi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
+    TERM=ansi whiptail --title "SIGpi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
 }
 
 select_devices() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
         "limesuite" "LimeSDR" OFF \
         "ettus" "Ettus Research USRP UHD" OFF \
@@ -255,7 +255,7 @@ cd $SIGPI_SOURCE
 if [ "$1" = "node" ]; then
     calc_wt_size
 
-    TERM=ansi whiptail --title "SigPi Node Install" --clear --msgbox "Ready to Install" 12 120
+    TERM=ansi whiptail --title "SIGpi Node Install" --clear --msgbox "Ready to Install" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -302,7 +302,7 @@ select_devices
 select_sdrapps
 select_amateurradio
 select_usefulapps
-TERM=ansi whiptail --title "SigPi Installer" --clear --msgbox "Ready to Install" 12 120
+TERM=ansi whiptail --title "SIGpi Installer" --clear --msgbox "Ready to Install" 12 120
 
 # System Update & Upgrade
 # Core Dependencies
@@ -392,7 +392,7 @@ fi
 
 # SDRangel
 if grep sdrangel "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_sdrangel install
+    source $SIGPI_PACKAGES/pkg_sdrangel-deb install
 fi
 
 source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
