@@ -7,15 +7,6 @@
 ###
 ###
 
-###
-### NOTES:
-###     When called from **SIGpi update sdrangel-deb** remove is doing some clean-up of 5.0 install of SDRangel
-###     First it removes a duplicate sdrangel entry in PACKAGES
-###
-###     Since SDRangel dependent libraries and FFTWF-Wisdom have been unbundled from pkg_sdrangel v5.1 
-###     into their own installs, PACKAGES is updated with each of the library names during install
-###
-
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -26,13 +17,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
 	        sudo dpkg -r sdrangel-7.3.5-1_armd64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
+            sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
 	        sudo dpkg -r sdrangel-7.3.5-1_arm64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
+            sed -i /sdrangel/d $SIGPI_CONFIG
         fi
    
         sed -i /sdrangel/d $SIGPI_CONFIG
@@ -52,13 +43,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
 	        sudo dpkg -P sdrangel-7.3.5-1_armd64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
+            sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
 	        sudo dpkg -P sdrangel-7.3.5-1_arm64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
+            sed -i /sdrangel/d $SIGPI_CONFIG
         fi
    
         sed -i /sdrangel/d $SIGPI_CONFIG

@@ -178,9 +178,9 @@ select_devices() {
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select SDR Applications" 20 80 12 \
-        "cubicsdr" "SDR Receiver " OFF \
-        "sdrangel" "SDRangel " OFF \
-		"sdrpp" "SDR++ " OFF \
+        "cubicsdr" "SDR Receiver 0.2.4" OFF \
+        "sdrangel" "SDRangel 7.3.5" OFF \
+		"sdrpp" "SDR++ 1.1.0" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
