@@ -21,12 +21,20 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/sdrangel/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/sdrangel
-        sed -i /sdrangel/d $SIGPI_CONFIG
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r sdrangel-7.3.5_armd64.deb
+            sed -i /wsjtx/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r sdrangel-7.3.5_arm64.deb
+            sed -i /wsjtx/d $SIGPI_CONFIG
+        fi
+   
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
@@ -39,12 +47,20 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/sdrangel/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/sdrangel
-        sed -i /sdrangel/d $SIGPI_CONFIG
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P sdrangel-7.3.5_armd64.deb
+            sed -i /wsjtx/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P sdrangel-7.3.5_arm64.deb
+            sed -i /wsjtx/d $SIGPI_CONFIG
+        fi
+   
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
@@ -113,16 +129,16 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5
         sudo apt-get install -y libqt5positioning5-plugins
         
-        if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ] || [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
-          wget https://github.com/f4exb/sdrangel/releases/download/v7.8.5/sdrangel-1892-master.tar.gz -P $HOME/Downloads
-          cd $HOME/Downloads
-          tar -xvf sdrangel-1892-master.tar.gz
-          sudo dpkg -i sdrangel_7.8.5-1_amd64.deb
-        else
-          cd $HOME/SIG/packages
-          sudo dpkg -i sdrangel-7.3.0-sigpi-rpi4_20230107-1_arm64.deb
-        fi 
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i sdrangel-7.3.5_armd64.deb
+        fi
 
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i sdrangel-7.3.5_arm64.deb
+        fi
         echo "sdrangel" >> $SIGPI_CONFIG 
         
         cd $HOME/.config/
