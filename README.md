@@ -19,14 +19,11 @@ Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 ## Installation
 
 - Login as pi or sudo user on supported platform
-- Install pre-requisite packages to install SIGpi
+- Update and install pre-requisite packages to install SIGpi
 
 ```
+sudo apt update && sudo apt upgrade
 sudo apt-get install -y build-essential cmake git
-mkdir ~/SIG && cd ~/SIG
-git clone https://github.com/joecupano/SIGpi.git
-cd SIGpi
-./SIGpi_installer.sh
 ```
 
 - From your home directory, create a directory called SIG and switch into it
