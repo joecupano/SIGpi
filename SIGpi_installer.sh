@@ -198,9 +198,10 @@ select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select Amateur Radio Applications" 24 120 12 \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
-        "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
-        "js8call" "js8call 2.20 for another digital mode" OFF \
+        "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY, and many others " OFF \
+        "js8call" "js8call 2.20 JS8 for weak signal kbd-to-kbd messaging " OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
+        "wsjtx" "WSJT-X 2.6.0 for FT4, FT8, JT4, JT9, JT65, Q65, MSK144 " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -454,12 +455,10 @@ fi
 if grep sdrangel "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrangel-deb install
 fi
-# FFTWF-Wisdom
-source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
 
 # SDR++
 if grep sdrpp "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_sdrpp install
+    source $SIGPI_PACKAGES/pkg_sdrpp-deb install
 fi
 
 # HamLib
@@ -472,10 +471,10 @@ if grep fldigi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_fldigi install
 fi
 
-# WSJT-X
-#if grep wsjtx "$SIGPI_INSTALLER"; then
-#    source $SIGPI_PACKAGES/pkg_wsjtx install
-#fi
+ WSJT-X
+if grep wsjtx "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_wsjtx install
+fi
 
 # Xastir
 if grep xastir "$SIGPI_INSTALLER"; then

@@ -129,12 +129,9 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 
 - Save and exit
 
-## WSJT-X ... not
-As quoted from the [WSJT-site](https://www.physics.princeton.edu/pulsar/k1jt/wsjtx.html) 
-
-"Note: these packages are unlikely to install properly on Linux distributions with required dependencies at lower versions than those on the named distributions. In such cases building from source is the correct way to install WSJT-X."
-
-So we go ahead and build from source and notice it wants to be a snowflake and compile and install its own Hamlib build because of two patches not accepted by Hamlib maintainers. Nevermind how long WSJT-X takes to compile. Since we are SIGINT first we decided to drop WSJT-X this release and let JS8CALL perform said duties. BTW, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
+## WSJT-X ... well
+since stable arm64 and amd64 packages are available from the WSJTX team, we opted to add WSJTX back in.
+Remonder, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
 
 ## Example Hardware Setup
 ![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
@@ -142,7 +139,7 @@ So we go ahead and build from source and notice it wants to be a snowflake and c
 ### Power
 In this setup a 12V@17A switching supply powers all the kit. Since RPi4 are picky about getting 5.1V a set-up converter is added to power it. A 12V Rpi4 are pickya bout getting 5.1V. USB peripherals can be hungry so a powered USB hub is included. While 7 ports are available no more than three devices requiring power should be enabled since hub produces a maximum of 36 Watts ( 3 x 5V x 2.4A = 36 Watts)
 
-### Raspberry Pi4
+### Raspberry RPi4
 Since this is a SIGINT platform we do not want to be generating any RF so onboard Bluetooth and WiFi should be disabled. If Internet is needed and only available via WiFi then so be it and use your onboard WiFi.
 
 ### USB Peripherals

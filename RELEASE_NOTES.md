@@ -9,6 +9,7 @@
 - SDRangel updated to v7.3.5
 - SDR++ updated to 1.1.0
 - Hamlib updated to 4.5.3
+- WSJT-X 2.6.0 added
 - Install DOSbox
 
 ## Release 5.3: 2022-06-25
