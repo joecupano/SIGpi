@@ -178,9 +178,6 @@ select_devices() {
 select_sdrapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select SDR Applications" 20 80 12 \
-        "rtl_433" "RTL_433 " OFF \
-        "dump1090" "Dump 1090 " OFF \
-        "gqrx" "SDR Receiver " OFF \
         "cubicsdr" "SDR Receiver " OFF \
         "sdrangel" "SDRangel " OFF \
 		"sdrpp" "SDR++ " OFF \
@@ -200,6 +197,7 @@ select_sdrapps() {
 select_amateurradio() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Select Amateur Radio Applications" 24 120 12 \
+        "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY. WEFAX and many others " OFF \
         "js8call" "js8call 2.20 for another digital mode" OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
@@ -223,9 +221,6 @@ select_usefulapps() {
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
-		"wireshark" "Network Traffic Analyzer " OFF \
-        "kismet" "Wireless sniffer and monitor " OFF \
-        "audacity" "Audio Editor " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -287,7 +282,82 @@ if [ "$1" = "node" ]; then
     echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
     echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
     echo -e "${SIGPI_BANNER_RESET}"
-    sleep 17
+    sleep 15
+    sudo sync
+    sudo reboot
+    exit 0
+
+fi
+
+# base option invoked ?
+if [ "$1" = "base" ]; then
+    calc_wt_size
+
+    TERM=ansi whiptail --title "SIGpi Base Install" --clear --msgbox "Ready to Install" 12 120
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+
+    touch $SIGPI_CONFIG
+    echo "sigpi_desktop" >> $SIGPI_CONFIG
+    cd $SIGPI_SOURCE
+
+    # Install Core Dependencies
+    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/install_desktop-prep.sh
+    # Install Core Devices
+    source $SIGPI_SCRIPTS/install_core_devices.sh
+    # Install Libraries
+    source $SIGPI_SCRIPTS/install_libraries.sh
+    # Install APTdec (NOAA APT)
+    source $SIGPI_PACKAGES/pkg_aptdec install
+    # Install NRSC5 (HD Radio)
+    source $SIGPI_PACKAGES/pkg_nrsc5 install
+    # Install cm256cc
+    source $SIGPI_PACKAGES/pkg_cm256cc install
+    # Install mbelib (P25 Phase)
+    source $SIGPI_PACKAGES/pkg_mbelib install
+    # Install SeriaDV (AMBE3000 chip serial control)
+    source $SIGPI_PACKAGES/pkg_serialdv install
+    # Install DSDcc (Digital Speech Decoder)
+    source $SIGPI_PACKAGES/pkg_dsdcc install
+    # Install Codec 2
+    source $SIGPI_PACKAGES/pkg_codec2 install
+    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+    # Install Radiosonde (Atmospheric Telemetry)
+    source $SIGPI_PACKAGES/pkg_radiosonde install
+    # Install Ubertooth Tools
+    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+    # Install Direwolf (AFSK APRS)
+    source $SIGPI_PACKAGES/pkg_direwolf install
+    # Install Linpac (AX.25 Terminal
+    source $SIGPI_PACKAGES/pkg_linpac install
+    # Install RTL_433
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    # Install Dump1090
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    # Install MultiMon-NG
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+    # Install RadioSonde
+    source $SIGPI_PACKAGES/pkg_radiosonde install
+
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Base Installation Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_RESET}"
+    sleep 15
     sudo sync
     sudo reboot
     exit 0
@@ -368,22 +438,12 @@ source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 source $SIGPI_PACKAGES/pkg_direwolf install
 # Install Linpac (AX.25 Terminal
 source $SIGPI_PACKAGES/pkg_linpac install
-
 # Install RTL_433
-if grep rtl_433 "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-fi
-
+source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install Dump1090
 source $SIGPI_PACKAGES/pkg_dump1090 install
-
 # Install GNUradio (3.10)
 source $SIGPI_PACKAGES/pkg_gnuradio install
-
-# gqrx
-if grep gqrx "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_gqrx install
-fi
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_INSTALLER"; then
@@ -394,12 +454,17 @@ fi
 if grep sdrangel "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrangel-deb install
 fi
-
+# FFTWF-Wisdom
 source $SIGPI_PACKAGES/pkg_fftwf-wisdom install
 
 # SDR++
 if grep sdrpp "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrpp install
+fi
+
+# HamLib
+if grep hamlib "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_hamlib install
 fi
 
 # Fldigi
@@ -442,22 +507,13 @@ if grep cygnusrfi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_cygnusrfi install
 fi
 
-# Wireshark
-if grep wireshark "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_wireshark install
-fi
-
-# Kismet
-if grep kismet "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_kismet install
-fi
-
-# Audacity
-if grep audacity "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_audacity install 
-fi
-
-# PAVU 
+# Install Wireshark
+source $SIGPI_PACKAGES/pkg_wireshark install
+# Install Kismet
+source $SIGPI_PACKAGES/pkg_kismet install
+# Install Audacity
+source $SIGPI_PACKAGES/pkg_audacity install 
+# Install PAVU 
 source $SIGPI_PACKAGES/pkg_pavucontrol install
 
 # splat
