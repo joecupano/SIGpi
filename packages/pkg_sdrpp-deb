@@ -1,0 +1,105 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_sdrpp-deb
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDR++"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r sdrpp-1.1.0-1_armd64.deb
+            sed -i /sdrpp/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r sdrpp-1.1.0-1_arm64.deb
+            sed -i /sdrpp/d $SIGPI_CONFIG
+        fi
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDR++"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P sdrpp-1.1.0-1_armd64.deb
+            sed -i /sdrpp/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P sdrpp-1.1.0-1_arm64.deb
+            sed -i /sdrpp/d $SIGPI_CONFIG
+        fi
+   
+        sudo rm -rf $SIGPI_DESKTOP/sdrpp.desktop
+        sudo rm -rf $DESKTOP_FILES/sdrpp.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDR++-deb"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        # DEPENDENCIES
+        sudo apt-get install -y libglew-dev
+        sudo apt-get install -y libglfw3-dev
+        sudo apt-get install -y libsoapysdr-dev
+        sudo apt-get install -y libad9361-dev 
+        sudo apt-get install -y libairspyhf-dev 
+        sudo apt-get install -y librtaudio-dev
+        sudo apt-get install -y libcodec2-dev
+        sudo apt-get install -y libvolk2-bin libvolk2-dev
+        sudo apt-get install -y libzstd-dev
+        
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i sdrpp-1.1.0-1_armd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i sdrpp-1.1.0-1_arm64.deb
+        fi
+        echo "sdrpp" >> $SIGPI_CONFIG 
+        
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrpp.desktop
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
