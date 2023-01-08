@@ -9,8 +9,7 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 
 - **Raspberry Pi4 4GB RAM** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 - **Raspberry RPi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
-- **Ubuntu 20.04 LTS or 22.04** on aarch64
-- **Ubuntu 20.04 LTS or 22.04** on amd64
+- **Ubuntu 22.04 LTS** on arm64 and amd64
 
 A headless server only install (Node Install) can be performed on **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 
@@ -130,7 +129,7 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 - Save and exit
 
 ## WSJT-X ... well
-since stable arm64 and amd64 packages are available from the WSJTX team, we opted to add WSJTX back in.
+Since stable arm64 and amd64 packages are available from the WSJTX team, we opted to add WSJTX back in.
 Remonder, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
 
 ## Example Hardware Setup
