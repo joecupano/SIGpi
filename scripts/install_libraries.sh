@@ -13,21 +13,6 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 
-# Hamlib 4.4 (12/02/21)
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib 4.4"
-echo -e "${SIGPI_BANNER_RESET}"
-
-wget https://github.com/Hamlib/Hamlib/releases/download/4.4/hamlib-4.4.tar.gz -P $HOME/Downloads
-tar -zxvf $HOME/Downloads/hamlib-4.4.tar.gz -C $SIGPI_SOURCE
-cd $SIGPI_SOURCE/hamlib-4.4
-./configure
-make
-sudo make install
-sudo ldconfig
-echo "hamlib" >> $SIGPI_CONFIG 
-
-
 # LibSigMF
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF"
