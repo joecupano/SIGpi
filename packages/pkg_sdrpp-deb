@@ -16,7 +16,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -r sdrpp-1.1.0-1_amd64.deb
+	        sudo dpkg -r sdrpp_1.1.0-1_amd64.deb
             sed -i /sdrpp/d $SIGPI_CONFIG
         fi
 
@@ -38,13 +38,13 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -P sdrpp-1.1.0-1_amd64.deb
+	        sudo dpkg -P sdrpp_1.1.0-1_amd64.deb
             sed -i /sdrpp/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -P sdrpp-1.1.0-1_arm64.deb
+	        sudo dpkg -P sdrpp_1.1.0-1_arm64.deb
             sed -i /sdrpp/d $SIGPI_CONFIG
         fi
    
@@ -76,12 +76,12 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -i sdrpp-1.1.0-1_amd64.deb
+	        sudo dpkg -i sdrpp_1.1.0-1_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -i sdrpp-1.1.0-1_arm64.deb
+	        sudo dpkg -i sdrpp_1.1.0-1_arm64.deb
         fi
         echo "sdrpp" >> $SIGPI_CONFIG 
         
