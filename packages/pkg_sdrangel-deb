@@ -16,7 +16,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -r sdrangel_7.3.5-1_armd64.deb
+	        sudo dpkg -r sdrangel_7.3.5-1_amd64.deb
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
@@ -42,13 +42,13 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -P sdrangel_7.3.5-1_armd64.deb
+	        sudo dpkg -P sdrangel_7.3.5-1_amd64.deb
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -P sdrangel_7.3.5-1_arm64.deb
+	        sudo dpkg -P sdrangel_7.3.5-1_arm64.deb 
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
    
@@ -123,7 +123,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -i sdrangel_7.3.5-1_armd64.deb
+	        sudo dpkg -i sdrangel_7.3.5-1_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then

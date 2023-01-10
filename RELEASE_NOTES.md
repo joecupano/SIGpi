@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 6.0.1: 2023-01-12
+- Maintenance Release
+- Fixes for Ubuntu 22.04 LTS install
+
 ## Release 6.0: 2023-01-08
 - Deprecating 32-bit OS support
 - Deprecating RPi Hardware support to only Raspberry Pi 4B and Raspberry Pi 400
