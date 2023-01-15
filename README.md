@@ -1,6 +1,6 @@
 # SIGpi
 
-RELEASE 6.0.2
+DEVELOP 6.X
 
 
 ## Introduction
