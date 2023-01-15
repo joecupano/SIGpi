@@ -26,7 +26,6 @@ case "$1" in
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/sdrangel
         sed -i /sdrangel/d $SIGPI_CONFIG
-        sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
 
@@ -43,7 +42,6 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/sdrangel
-        sed -i /sdrangel/d $SIGPI_CONFIG
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
@@ -123,7 +121,8 @@ case "$1" in
           cd sdrangel
           #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
           #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
-          git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
+          #git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
+          git reset --hard 2552160f8f581f25f9bba3c2beb1639c8fce02b2    #7.8.6
           mkdir build; cd build
           cmake -Wno-dev ..
           make -j4
