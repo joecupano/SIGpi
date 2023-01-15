@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 6.0.2: 2023-01-15
+- Maintenance Release
+- Ensure proper version of SDRangel is reflected (SDRangel 7.8.5)
+
 ## Release 6.0.1: 2023-01-12
 - Maintenance Release
 - Fixes for Ubuntu 22.04 LTS install
@@ -12,7 +16,7 @@
 - Node Install (headless server) support continued for RPi 3B+
 - GNUradio 3.8 and 3.9 deprecated for GNUradio 3.10.X
 - Created DEB packages for software with long compile times (SDRangel, SDR++, HamLib)
-- SDRangel updated to v7.3.5
+- SDRangel updated to v7.8.5
 - SDR++ updated to 1.1.0
 - Hamlib updated to 4.5.3
 - WSJT-X 2.6.0 added
