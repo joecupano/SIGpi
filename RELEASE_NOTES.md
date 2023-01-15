@@ -1,9 +1,8 @@
 # Release Notes
 
-## Release 6.1: 2023-01-15
+## Release 6.0.2: 2023-01-15
 - Maintenance Release
-- Fixe syntax and filenames
-- 
+- Ensure proper version of SDRangel is reflected (SDRangel 7.8.5)
 
 ## Release 6.0.1: 2023-01-12
 - Maintenance Release
