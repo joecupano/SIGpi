@@ -274,7 +274,27 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
     source $SIGPI_PACKAGES/pkg_multimon-ng install
     source $SIGPI_PACKAGES/pkg_radiosonde install
-    source $SIGPI_PACKAGES/pkg_sigpi-node install $2
+    source $SIGPI_PACKAGES/pkg_sdrangel-deb install
+
+    if [ "$2" = "rtltcp" ]; then
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_rtltcp.service /etc/systemd/system/sigpi-node.service
+        echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
+    elif [ "$2" = "sdrangelsrv" ]; then
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+        echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
+    elif [ "$2" = "soapysdrsrv" ]; then
+        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+        echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
+    else
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  "
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown Server Type"
+        echo -e "${SIGPI_BANNER_COLOR} ##  "
+        echo -e "${SIGPI_BANNER_COLOR} ##  Your choices are rtltcp, sdrangelsrv, or soapysdrsrv"
+        echo -e "${SIGPI_BANNER_COLOR} ##  "
+        echo -e "${SIGPI_BANNER_RESET}"
+        exit 0
+    fi
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"

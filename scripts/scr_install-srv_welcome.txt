@@ -11,8 +11,8 @@ Ubuntu 20.04 and 22.04 server (64bit) systems.
 
 The following command lines tools are included:
 
-RTL_433, Dump1090, mulitmonitor-ng, and radiosonde
+RTL_433, Dump1090, mulitmonitor-ng, and radiosonde, sdrangelsrv
 
-You are given the option to run RTL_TCP or SoapySDR server on startup.
+You are given the option to run RTL_TCP, SoapySDR, or SDRangel servers on startup.
 
 Let's begin.
