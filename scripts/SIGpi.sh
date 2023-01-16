@@ -73,7 +73,7 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 
 sigpi_update(){
     # Check for updates
-    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi-packages -P $HOME/Downloads
+    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi/packages -P $HOME/Downloads
     if grep $3 "$HOME/Downloads/PACKAGES"; then
         SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
         SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
@@ -131,7 +131,7 @@ case "$1" in
         sigpi_update $3
         ;;
     upgrade)
-        sigpi_upgrade
+        sigpi_upgrade $3
         ;;
     shell )
         source $2
