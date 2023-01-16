@@ -1,5 +1,13 @@
 # Release Notes
 
+## Release 6.X: 2023-XX-XX
+- Maintenance Release
+- Tweaks to SIGpi package management options update and upgrade
+- SDRangel 7.8.6 release 
+- Created DEB package for GNUradio 3.10.5 (no more compile time waiting)
+- Beta of Universal Radio Hacker
+- Beta of srsRAN
+
 ## Release 6.0.2: 2023-01-15
 - Maintenance Release
 - Ensure proper version of SDRangel is reflected (SDRangel 7.8.5)
