@@ -16,7 +16,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -r gnuradio_3.10-1_amd64.deb
+	        sudo apt-get remove gnuradio
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
 
@@ -38,7 +38,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -P gnuradio_3.10-1_amd64.deb
+	        sudo apt-get purge gnuradio
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
 
@@ -76,7 +76,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        sudo dpkg -i gnuradio_3.10-1_amd64.deb
+	        sudo apt-get install gnuradio
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then

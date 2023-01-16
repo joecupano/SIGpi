@@ -107,7 +107,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/gnuradio/gnuradio.git
-	cd gnuradio-310
+	cd gnuradio
         git checkout maint-3.10
         git submodule update --init --recursive
         mkdir build && cd build
