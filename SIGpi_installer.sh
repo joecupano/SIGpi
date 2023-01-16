@@ -181,6 +181,7 @@ select_sdrapps() {
         "cubicsdr" "SDR Receiver 0.2.4" OFF \
         "sdrangel" "SDRangel 7.8.5" OFF \
 		"sdrpp" "SDR++ 1.1.0" OFF \
+        "srsran" "srsRAN, Open-source 4G/5G software radio suite " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -460,6 +461,11 @@ fi
 # SDR++
 if grep sdrpp "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrpp-deb install
+fi
+
+# srsRAN
+if grep srsran "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_srsran install
 fi
 
 # HamLib

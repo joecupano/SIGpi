@@ -1,0 +1,60 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_srsran
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove srsRAN"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove srsran
+        sed -i /srsran/d $SIGPI_CONFIG
+
+       
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge srsRAN"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove --purge srsran
+        sed -i /srsran/d $SIGPI_CONFIG
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install srsRAN"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+
+        sudo add-apt-repository ppa:softwareradiosystems/srsran
+        sudo apt-get update
+        sudo apt-get install srsran -y
+	    
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
