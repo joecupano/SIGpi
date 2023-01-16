@@ -88,8 +88,8 @@ sigpi_update(){
 sigpi_upgrade(){
     # Update local clone
     cd $SIGPI_HOME
-    git pull
     source $SIGPI_PACKAGES/$SPKGSCRIPT remove
+    git pull
     source $SIGPI_PACKAGES/$SPKGSCRIPT install
 }
 
