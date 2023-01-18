@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### install_device_sdrplay
+### pkg_sdrplay
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"

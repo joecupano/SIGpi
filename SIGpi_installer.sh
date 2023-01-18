@@ -159,8 +159,9 @@ select_startscreen(){
 select_devices() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
-        "limesuite" "LimeSDR" OFF \
-        "ettus" "Ettus Research USRP UHD" OFF \
+        "ettus" "Ettus Research USRP UHD " OFF \
+        "limesuite" "LimeSDR " OFF \
+        "sdrplay" "SDRPlay " OFF \
         "rfm95w" "(RPi only) Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -428,6 +429,11 @@ fi
 # Install Ettus UHD
 if grep ettus "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ettus install
+fi
+
+# Install SDRPlay
+if grep sdrplay "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_sdrplay install
 fi
 
 # Install RFM95W (Adafruit RadioBonnet 900 MHz LoRa-FSK)
