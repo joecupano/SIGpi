@@ -12,7 +12,6 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay Device"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# AX.25 and utilities"
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - Install SDRplay API"
 echo -e "${SIGPI_BANNER_RESET}"
@@ -21,19 +20,140 @@ cd $SIGPI_SCRIPTS
 sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
 sudo chmod 755 /usr/local/bin/run_SDRplay.sh
 
-cd $SIGPI_SOURCE
-mkdir SDRplay
-cd SDRplay
-wget https://www.sdrplay.com/software/SDRplay_RSP_API-ARM64-3.07.1.run
-chmod 755 ./SDRplay_RSP_API-ARM64-3.07.1.run
-# execute the API installer (follow the prompts)
-./SDRplay_RSP_API-ARM32-3.07.1.run
+cd $SIGPI_SOURCE     
+if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+    tar -xvf $SIGPI_PACKAGES/SDRPlay_RSP_API-x86-64-3.0.7.tar.gz
+fi
+
+if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+    tar -xvf $SIGPI_PACKAGES/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
+fi
+
+cd SDRPlay
+export VERS="3.07"
+export MAJVERS="3"
+
+more sdrplay_license.txt
+
+while true; do
+    echo "Press y and RETURN to accept the license agreement and continue with"
+    read -p "the installation, or press n and RETURN to exit the installer [y/n] " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) exit;;
+        * ) echo "Please answer y or n";;
+    esac
+done
+
+if [ -d "/etc/udev/rules.d" ]; then
+	echo -n "Udev rules directory found, adding rules..."
+	sudo cp -f 66-mirics.rules /etc/udev/rules.d/66-mirics.rules
+	sudo chmod 644 /etc/udev/rules.d/66-mirics.rules
+    echo "Done"
+else
+	echo " "
+	echo "ERROR: udev rules directory not found, add udev support and run the"
+	echo "installer again. udev support can be added by running..."
+	echo "sudo apt-get install libudev-dev"
+	echo " "
+	exit 1
+fi
+
+if /sbin/ldconfig -p | /bin/fgrep -q libusb-1.0; then
+	echo "Libusb found, continuing..."
+else
+	echo " "
+	echo "ERROR: Libusb cannot be found. Please install libusb and then run"
+	echo "the installer again. Libusb can be installed by running..."
+    echo "sudo apt-get install libusb-1.0.0-dev"
+	echo " "
+	exit 1
+fi
+
+export TYPE="LOCAL"
+if [ -d "/usr/local/lib" ]; then
+    if [ -d "/usr/local/include" ]; then
+        if [ -d "/usr/local/bin" ]; then
+            echo "Installing files into /usr/local (/lib, /bin, /include)..."
+            export INSTALLLIBDIR="/usr/local/lib"
+            export INSTALLINCDIR="/usr/local/include"
+            export INSTALLBINDIR="/usr/local/bin"
+        else
+            TYPE="USR"
+        fi
+    else
+        TYPE="USR"
+    fi
+else
+    TYPE="USR"
+fi
+
+if [ "${TYPE}" != "LOCAL" ]; then
+    echo "Installing files into /usr (/lib, /bin, /include)..."
+    export INSTALLLIBDIR="/usr/lib"
+    export INSTALLINCDIR="/usr/include"
+    export INSTALLBINDIR="/usr/bin"
+fi
+
+echo -n "Installing ${INSTALLLIBDIR}/libsdrplay_api.so.${VERS}..."
+sudo rm -f ${INSTALLLIBDIR}/libsdrplay_api.so.${VERS}
+sudo cp -f ${ARCH}/libsdrplay_api.so.${VERS} ${INSTALLLIBDIR}/.
+sudo chmod 644 ${INSTALLLIBDIR}/libsdrplay_api.so.${VERS}
+sudo rm -f ${INSTALLLIBDIR}/libsdrplay_api.so.${MAJVERS}
+sudo ln -s ${INSTALLLIBDIR}/libsdrplay_api.so.${VERS} ${INSTALLLIBDIR}/libsdrplay_api.so.${MAJVERS}
+sudo rm -f ${INSTALLLIBDIR}/libsdrplay_api.so
+sudo ln -s ${INSTALLLIBDIR}/libsdrplay_api.so.${MAJVERS} ${INSTALLLIBDIR}/libsdrplay_api.so
+echo "Done"
+
+echo -n "Installing header files in ${INSTALLINCDIR}..."
+sudo cp -f inc/sdrplay_api*.h ${INSTALLINCDIR}/.
+sudo chmod 644 ${INSTALLINCDIR}/sdrplay_api*.h
+echo "Done"
+
+echo -n "Installing API Service in ${INSTALLBINDIR}..."
+sudo cp -f ${ARCH}/sdrplay_apiService ${INSTALLBINDIR}/sdrplay_apiService
+echo "Done"
+
+echo -n "Installing Service scripts and starting daemon..."
+if [ -d "/etc/systemd/system" ]; then
+    export SRVTYPE="systemd"
+    if [ "${TYPE}" != "LOCAL" ]; then
+        sudo cp -f sdrplay.service.usr /etc/systemd/system/sdrplay.service
+    else
+        sudo cp -f sdrplay.service.local /etc/systemd/system/sdrplay.service
+    fi
+    sudo chmod 644 /etc/systemd/system/sdrplay.service
+    sudo systemctl start sdrplay
+    sudo systemctl enable sdrplay
+    sudo systemctl daemon-reload
+    sudo systemctl restart sdrplay
+else
+    export SRVTYPE="initd"
+    if [ "${TYPE}" != "LOCAL" ]; then
+        sudo cp -f sdrplayService_usr /etc/init.d/sdrplayService
+    else
+        sudo cp -f sdrplayService_local /etc/init.d/sdrplayService
+    fi
+    sudo chmod 755 /etc/init.d/sdrplayService
+    sudo update-rc.d sdrplayService defaults
+    sudo service sdrplayService start
+    sudo ldconfig
+fi
 
 echo " "
 echo "API installer finished. Once the API is installed, you can use"
 echo "the command 'run_SDRplay' if you need to start the API service."
 echo " "
 echo "The system should be rebooted before the API is used."
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
+echo -e "${SIGPI_BANNER_RESET}"
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDRPlay"
+echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
 git clone https://github.com/SDRplay/SoapySDRPlay
@@ -52,6 +172,15 @@ echo "SoapySDRUtil --find=\"driver=sdrplay\""
 echo "SoapySDRUtil --probe=\"driver=sdrplay\""
 echo "SoapySDRUtil --args=\"driver=sdrplay\" --rate=2e6 --direction=RX"
 
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRPlay Installed"
+echo -e "${SIGPI_BANNER_RESET}"
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Install RSPTCPServer"
+echo -e "${SIGPI_BANNER_RESET}"
+
 cd $SIGPI_SOURCE
 git clone https://github.com/SDRplay/RSPTCPServer
 cd RSPTCPServer
@@ -66,6 +195,11 @@ echo " "
 echo "Finished. Current user guide can be found here..."
 echo " "
 echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - RSPTCPServer Installed"
+echo -e "${SIGPI_BANNER_RESET}"
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
