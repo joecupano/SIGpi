@@ -1,0 +1,99 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_bladerf
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove bladeRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r bladerf_2021.02-1_amd64.deb
+            sed -i /bladerf/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r bladerf_2021.02-1_arm64.deb
+            sed -i /bladerf/d $SIGPI_CONFIG
+        fi
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bladeRF removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge bladeRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P bladerf_2021.02-1_amd64.deb
+            sed -i /bladerf/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P bladerf_2021.02-1_arm64.deb
+            sed -i /bladerf/d $SIGPI_CONFIG
+        fi
+   
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bladeRF Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install bladeRF"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        # DEPENDENCIES
+        
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i bladerf_2021.02-1_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i bladerf_2021.02-1_arm64.deb
+        fi
+        echo "bladerf" >> $SIGPI_CONFIG 
+        
+        # SoapyBladeRF
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyBladeRF "
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyBladeRF.git
+        cd SoapyBladeRF
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make
+        sudo make install
+        sudo ldconfig
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bladeRF Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
