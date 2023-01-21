@@ -19,6 +19,7 @@ sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libai
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
 sudo apt-get install -y libsamplerate-dev
 sudo apt-get install -y libboost-all-dev
+sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
 
 # Ubuntu 20.04 LTS Desktop accomodations
 #
@@ -78,6 +79,8 @@ sudo pip3 install pyinstaller
 sudo pip3 install pygccxml
 sudo pip3 install qtawesome
 
+# Install Go Language
+sudo apt-get install -y golang
 
 # SDRdevice Baseline
 
