@@ -159,6 +159,7 @@ select_startscreen(){
 select_devices() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Select additional devices to install " 20 80 12 \
+        "bladerf" "bladeRF " OFF \
         "ettus" "Ettus Research USRP UHD " OFF \
         "limesuite" "LimeSDR " OFF \
         "sdrplay" "SDRPlay " OFF \
@@ -421,6 +422,11 @@ source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
 # Install Core Devices
 source $SIGPI_SCRIPTS/install_core_devices.sh
+
+# Install bladeRF
+if grep bladerf "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_bladerf install
+fi
 
 # Install LimeSDR
 if grep limesuite "$SIGPI_INSTALLER"; then
