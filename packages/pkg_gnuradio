@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### package_gnuradio
+### pkg_gnuradio-deb
 ###
 ###
 
@@ -13,122 +13,87 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove gnuradio gnuradio-dev
-        sed -i /gnuradio/d $SIGPI_CONFIG
-        
-        cd $SIGPI_SOURCE/gnuradio*
-        cd /build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/gnuradio*
-        sed -i /gnuradio/d $SIGPI_CONFIG
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo apt-get remove gnuradio
+            sed -i /gnuradio/d $SIGPI_CONFIG
+        fi
 
-	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -r gnuradio-3.10-1_arm64.deb
+            sed -i /gnuradio/d $SIGPI_CONFIG
+        fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove --purge gnuradio gnuradio-dev
-        sed -i /gnuradio/d $SIGPI_CONFIG
-        rm -rf $HOME/.gnuradio
-        
-        cd $SIGPI_SOURCE/gnuradio*
-        cd build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/gnuradio*
-        rm -rf $HOME/.gnuradio
-        sed -i /gnuradio/d $SIGPI_CONFIG
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo apt-get purge gnuradio
+            sed -i /gnuradio/d $SIGPI_CONFIG
+        fi
 
-	### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -P gnuradio_3.10-1_arm64.deb
+            sed -i /gnuradio/d $SIGPI_CONFIG
+        fi
+   
+        sudo rm -rf $SIGPI_DESKTOP/gnuradio.desktop
+        sudo rm -rf $DESKTOP_FILES/gnuradio.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-
-        ## DEPENDENCIES
-        sudo apt-get install -y libboost-all-dev
-        sudo apt-get install -y swig
-        sudo apt-get install -y libzmq3-dev
-        sudo apt-get install -y libfftw3-dev
-        sudo apt-get install -y libgsl-dev
-        sudo apt-get install -y libcppunit-dev
-        sudo apt-get install -y libcomedi-dev
-        sudo apt-get install -y libqt4-opengl-dev
-        sudo apt-get install -y libqwt-dev
-        sudo apt-get install -y libsdl1.2-dev
-        sudo apt-get install -y libusb-1.0-0-dev
-        sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y portaudio19-dev
-        sudo apt-get install -y libportaudio2
-        sudo apt-get install -y pulseaudio
-        sudo apt-get install -y libjack-dev
-        sudo apt-get install -y libgmp-dev
-        sudo apt-get install -y libsdl1.2-dev
-        sudo apt-get install -y liblog4cpp5-dev
-        sudo apt-get install -y libqwt-qt5-dev
-        sudo apt-get install -y libqt5opengl5-dev
-        sudo apt-get install -y python3-numpy
-        sudo apt-get install -y python3-mako
-        sudo apt-get install -y python3-sphinx
-        sudo apt-get install -y python3-lxml
-        sudo apt-get install -y python3-pyqt5
-        sudo apt-get install -y python3-yaml
-        sudo apt-get install -y python3-click
-        sudo apt-get install -y python3-click-plugins
-        sudo apt-get install -y python3-zmq
-        sudo apt-get install -y python3-scipy
-        sudo apt-get install -y python3-pip
-        sudo apt-get install -y python3-gi-cairo
         
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/gnuradio/gnuradio.git
-	cd gnuradio
-        git checkout maint-3.10
-        git submodule update --init --recursive
-        mkdir build && cd build
-        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
-        make -j4
-        sudo make install
-        sudo ldconfig
-        cd ~
-        echo "export PYTHONPATH=/usr/local/lib/python3/dist-packages:/usr/local/lib/python3.6/dist-packages:$PYTHONPATH" >> .profile
-        echo "export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH" >> .profile
+        # DEPENDENCIES
+        sudo apt-get install -y libglew-dev
+        sudo apt-get install -y libglfw3-dev
+        sudo apt-get install -y libsoapysdr-dev
+        sudo apt-get install -y libad9361-dev 
+        sudo apt-get install -y libairspyhf-dev 
+        sudo apt-get install -y librtaudio-dev
+        sudo apt-get install -y libcodec2-dev
+        sudo apt-get install -y libvolk2-bin libvolk2-dev
+        sudo apt-get install -y libzstd-dev
+        
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo apt-get install gnuradio
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_PACKAGES
+	        sudo dpkg -i gnuradio_3.10-1_arm64.deb
+        fi
         echo "gnuradio" >> $SIGPI_CONFIG 
         
-	## DESKTOP
-	# Add Icon
+	    ## DESKTOP
+	    # Add Icon
         # Add Desktop
         # Change Category
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/gnuradio-grc.desktop
         
-	echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;

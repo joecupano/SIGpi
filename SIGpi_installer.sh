@@ -277,7 +277,7 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
     source $SIGPI_PACKAGES/pkg_multimon-ng install
     source $SIGPI_PACKAGES/pkg_radiosonde install
-    source $SIGPI_PACKAGES/pkg_sdrangel-deb install
+    source $SIGPI_PACKAGES/pkg_sdrangel install
 
     if [ "$2" = "rtltcp" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi-node_rtltcp.service /etc/systemd/system/sigpi-node.service
@@ -479,7 +479,7 @@ source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install Dump1090
 source $SIGPI_PACKAGES/pkg_dump1090 install
 # Install GNUradio (3.10)
-source $SIGPI_PACKAGES/pkg_gnuradio install
+source $SIGPI_PACKAGES/pkg_gnuradio-src install
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_INSTALLER"; then
@@ -488,12 +488,12 @@ fi
 
 # SDRangel
 if grep sdrangel "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_sdrangel-deb install
+    source $SIGPI_PACKAGES/pkg_sdrangel install
 fi
 
 # SDR++
 if grep sdrpp "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_sdrpp-deb install
+    source $SIGPI_PACKAGES/pkg_sdrpp install
 fi
 
 # srsRAN
@@ -503,7 +503,7 @@ fi
 
 # HamLib
 if grep hamlib "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_hamlib-deb install
+    source $SIGPI_PACKAGES/pkg_hamlib install
 fi
 
 # Fldigi
@@ -548,7 +548,7 @@ fi
 
 # bettercap
 if grep bettercap "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_bettercap-deb install
+    source $SIGPI_PACKAGES/pkg_bettercap install
 fi
 
 # CygnusRFI
