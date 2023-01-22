@@ -222,6 +222,7 @@ select_usefulapps() {
     FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
         "bettercap" "Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance" OFF \
+        "bettercapui" "Web UI for bettercap " OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "gpredict" "Satellite Tracking " OFF \
         "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
@@ -549,6 +550,11 @@ fi
 # bettercap
 if grep bettercap "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_bettercap install
+fi
+
+# bettercapui
+if grep bettercapui "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_bettercapui-src install
 fi
 
 # CygnusRFI

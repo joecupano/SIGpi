@@ -1,0 +1,81 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_bettercapui-src
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove bettercap ui"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+	cd $SIGPI_SOURCE/bettercapui/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/bettercapui
+        sed -i /bettercapui/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge bettercap ui"
+        echo -e "${SIGPI_BANNER_RESET}"
+               
+	cd $SIGPI_SOURCE/bettercapui/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/bettercapui
+        sed -i /bettercapui/d $SIGPI_CONFIG
+
+        rm -rf $HOME/.config/bettercapui
+        sudo rm -rf $SIGPI_DESKTOP/bettercapui.desktop
+        sudo rm -rf $DESKTOP_FILES/bettercapui.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install bettercap ui"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        # DEPENDENCIES
+        sudo apt-get install -y nodejs npm
+        
+        ## PACKAGE 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/bettercap/ui bettercapui
+        make build
+        sudo make install
+        sudo ldconfig
+        echo "bettercapui" >> $SIGPI_CONFIG 
+	
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/bettercapui.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/bettercapui.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
