@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### pkg_sdrpp
+### pkg_sdrpp-src
 ###
 
 case "$1" in 
