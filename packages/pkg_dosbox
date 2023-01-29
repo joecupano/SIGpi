@@ -46,7 +46,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y dosbox
-        cp $SIGPI_PACKAGES/conf_dosbox $SIGPI_ETC/sigpi_dosbox.conf
+        cp $SIGPI_SCRIPTS/conf_dosbox-TEMPLATE $SIGPI_ETC/sigpi_dosbox.conf
         echo "dosbox" >> $SIGPI_CONFIG
 
         ## DESKTOP
