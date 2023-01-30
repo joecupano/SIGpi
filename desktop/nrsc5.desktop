@@ -8,4 +8,4 @@ StartupNotify=false
 Terminal=true
 X-KeepTerminal=True
 Type=Application
-Categories=SigPi-shell;
+Categories=SIGpi-shell;

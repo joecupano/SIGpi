@@ -549,7 +549,7 @@ fi
 
 # bettercap
 if grep bettercap "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_bettercap install
+    source $SIGPI_PACKAGES/pkg_bettercap-src install
 fi
 
 # bettercapui

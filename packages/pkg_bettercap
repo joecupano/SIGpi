@@ -17,13 +17,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -r bettercap_2.32.0-1_amd64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
+            sed -i /bettercap/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -r bettercap_2.32.0-1_arm64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
+            sed -i /bettercap/d $SIGPI_CONFIG
         fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -39,17 +39,17 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -P bettercap_2.32.0-1_amd64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
+            sed -i /bettercap/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -P bettercap_2.32.0-1_arm64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
+            sed -i /bettercap/d $SIGPI_CONFIG
         fi
    
-        sudo rm -rf $SIGPI_DESKTOP/sdrpp.desktop
-        sudo rm -rf $DESKTOP_FILES/sdrpp.desktop
+        sudo rm -rf $SIGPI_DESKTOP/bettercap.desktop
+        sudo rm -rf $DESKTOP_FILES/bettercap.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Purged"
@@ -73,7 +73,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i bettercap_2.32.0-1_arm64.deb
         fi
-        echo "sdrpp" >> $SIGPI_CONFIG 
+        echo "bettercap" >> $SIGPI_CONFIG 
         
 	    ## DESKTOP
 	    # Add Icon
@@ -83,9 +83,9 @@ case "$1" in
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/bettercap.desktop
         # Change Category
-	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
+	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/bettercap.desktop
         # Add to Menu
-        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrpp.desktop
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/bettercap.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Installed"
