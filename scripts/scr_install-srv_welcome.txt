@@ -1,18 +1,18 @@
-   _____ __________      _    _____  ____ 
-  / ___//  _/ ____/___  (_)  / ___/ / __ \
-  \__ \ / // / __/ __ \/ /  / __ \ / / / /
- ___/ // // /_/ / /_/ / /  / /_/ // /_/ / 
-/____/___/\____/ .___/_/   \____(_)____/  
-              /_/                         
+   _____ __________      _    _____  ___
+  / ___//  _/ ____/___  (_)  / ___/ <  /
+  \__ \ / // / __/ __ \/ /  / __ \  / / 
+ ___/ // // /_/ / /_/ / /  / /_/ / / /  
+/____/___/\____/ .___/_/   \____(_)_/   
+              /_/                                          
 Welcome to SIGpi Node
 
-This script builds a head-less RTLSDR server on a Raspberry Pi OS Lite "Bullseye",
-Ubuntu 20.04 and 22.04 server (64bit) systems.
+This script builds a head-less SDR server on a Ubuntu 22.04 server or 
+Raspberry Pi OS Lite "Bullseye" (64bit) systems. Drivers for RTL-SDR,
+HackRF, PlutoSDR, LimeSDR, and associated SoapySDR installed by default.
 
-The following command lines tools are included:
+SIGpi Node includes the following:
 
-RTL_433, Dump1090, mulitmonitor-ng, and radiosonde, sdrangelsrv
-
-You are given the option to run RTL_TCP, SoapySDR, or SDRangel servers on startup.
+- RTL_433, Dump1090, mulitmonitor-ng, and radiosonde, sdrangelsrv
+- Given the option to run RTL_TCP, SoapySDR, or SDRangel servers on startup.
 
 Let's begin.

@@ -159,7 +159,7 @@ select_startscreen(){
 
 select_devices() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Select additional devices to install " 20 80 12 \
+        "Choose additional SDR devices " 20 80 12 \
         "bladerf" "bladeRF " OFF \
         "ettus" "Ettus Research USRP UHD " OFF \
         "limesuite" "LimeSDR " OFF \
@@ -180,11 +180,10 @@ select_devices() {
 
 select_sdrapps() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Select SDR Applications" 20 80 12 \
+        "Choose general purpose SDR Applications" 20 80 12 \
         "cubicsdr" "SDR Receiver 0.2.4" OFF \
         "sdrangel" "SDRangel 7.8.5" OFF \
 		"sdrpp" "SDR++ 1.1.0" OFF \
-        "srsran" "srsRAN, Open-source 4G/5G software radio suite " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -200,12 +199,14 @@ select_sdrapps() {
 
 select_amateurradio() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Select Amateur Radio Applications" 24 120 12 \
+        "Choose Amateur Radio Applications" 24 120 12 \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY, and many others " OFF \
+        "gpredict" "Satellite Tracking " OFF \
         "js8call" "js8call 2.20 JS8 for weak signal kbd-to-kbd messaging " OFF \
         "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
         "wsjtx" "WSJT-X 2.6.0 for FT4, FT8, JT4, JT9, JT65, Q65, MSK144 " OFF \
+        "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -221,13 +222,12 @@ select_amateurradio() {
 
 select_usefulapps() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Useful Applications" 20 120 12 \
+        "Chosse Additional and Advanced Applications" 20 120 12 \
         "bettercap" "Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance" OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
-        "gpredict" "Satellite Tracking " OFF \
         "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
-        "xastir" "APRS Station Tracking and Reporting " OFF \
+        "srsran" "srsRAN, Open-source 4G/5G software radio suite " OFF \
         "uniradhack" "Universal Radio Hacker. Offline wireless protocol investigation" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
