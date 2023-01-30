@@ -55,19 +55,18 @@ sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigidwiki.desktop
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigpi_home.desktop
 
-
-# What operating system are we?
-if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
+if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
     gsettings set org.gnome.shell favorite-apps "['firefox.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Terminal.desktop',\
      'sdrangel.desktop', 'sdrpp.desktop', 'gnuradio-grc.desktop',\
      'rtl_433.desktop', 'sigidwiki.desktop', 'sigpi_home.desktop']"
-else
+fi
+
+if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image
     pcmanfm --set-wallpaper /usr/share/rpd-wallpaper/SIGpi_wallpaper.png
 fi
-
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Post Complete"
