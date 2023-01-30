@@ -4,8 +4,8 @@
 <Menu>
     <Name>Applications</Name>
     <Menu>
-        <Name>SigPi</Name>
-        <Directory>SigPi.directory</Directory>
+        <Name>SIGpi</Name>
+        <Directory>SIGpi.directory</Directory>
         <Include>
             <Filename>artemis.desktop</Filename>
             <Filename>CubicSDR.desktop</Filename>

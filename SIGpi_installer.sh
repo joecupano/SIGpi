@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20230107-2300
+###  REVISION: 20230129-2300
 ###
 
 ###
@@ -29,7 +29,7 @@ SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_DEBS=$SIGPI_HOME/debs
 
-# SigPi Install Support files
+# SIGpi Install Support files
 SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
@@ -57,8 +57,8 @@ DESKTOP_FILES=/usr/share/applications
 DESKTOP_ICONS=/usr/share/icons
 DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
-# SigPi Menu category
-SIGPI_MENU_CATEGORY=SigPi
+# SIGpi Menu category
+SIGPI_MENU_CATEGORY=SIGpi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
 ###
@@ -179,7 +179,7 @@ select_devices() {
 }
 
 select_sdrapps() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Select SDR Applications" 20 80 12 \
         "cubicsdr" "SDR Receiver 0.2.4" OFF \
         "sdrangel" "SDRangel 7.8.5" OFF \
@@ -199,7 +199,7 @@ select_sdrapps() {
 }
 
 select_amateurradio() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Select Amateur Radio Applications" 24 120 12 \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
         "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY, and many others " OFF \
@@ -220,7 +220,7 @@ select_amateurradio() {
 }
 
 select_usefulapps() {
-    FUN=$(whiptail --title "SigPi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Useful Applications" 20 120 12 \
         "bettercap" "Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance" OFF \
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \

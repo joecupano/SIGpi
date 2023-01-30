@@ -21,8 +21,8 @@ echo -e "${SIGPI_BANNER_RESET}"
 # Copy SIGpi Desktop files to XDG Dirs
 #sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
-#sudo cp $SIGPI_DESKTOP/SigPi.directory $DESKTOP_DIRECTORY
-#sudo cp $SIGPI_DESKTOP/SigPi.menu $DESKTOP_XDG_MENU
+#sudo cp $SIGPI_DESKTOP/SIGpi.directory $DESKTOP_DIRECTORY
+#sudo cp $SIGPI_DESKTOP/SIGpi.menu $DESKTOP_XDG_MENU
 sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
 sudo chmod 755 $HOME/Desktop/SIGpi.desktop
 sudo chown $USER $HOME/Desktop/SIGpi.desktop
@@ -30,7 +30,7 @@ sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
 sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
 sudo chown $USER $HOME/Desktop/sigidwiki.desktop
 
-# Add SigPi Category for installed applications
+# Add SIGpi Category for installed applications
 #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/artemis.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
 sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
@@ -51,9 +51,9 @@ sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES
 #sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
 sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
 
-# Add installed applications into SigPi menu
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigidwiki.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sigpi_home.desktop
+# Add installed applications into SIGpi menu
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigidwiki.desktop
+xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigpi_home.desktop
 
 
 # What operating system are we?

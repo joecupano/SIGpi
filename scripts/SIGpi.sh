@@ -33,7 +33,7 @@ SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_DEBS=$SIGPI_HOME/debs
 
-# SigPi Install Support files
+# SIGpi Install Support files
 SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
@@ -61,8 +61,8 @@ DESKTOP_FILES=/usr/share/applications
 DESKTOP_ICONS=/usr/share/icons
 DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
-# SigPi Menu category
-SIGPI_MENU_CATEGORY=SigPi
+# SIGpi Menu category
+SIGPI_MENU_CATEGORY=SIGpi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
 # If we reached this point our hardware and operating system are certified for SIGpi

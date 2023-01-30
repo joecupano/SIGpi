@@ -4,8 +4,8 @@
 <Menu>
     <Name>Applications</Name>
     <Menu>
-        <Name>SigPi shell</Name>
-        <Directory>SigPishell.directory</Directory>
+        <Name>SIGpi shell</Name>
+        <Directory>SIGpishell.directory</Directory>
         <Include>
             <Filename>dump1090.desktop</Filename>
             <Filename>rtl_433.desktop</Filename>
