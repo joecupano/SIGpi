@@ -50,11 +50,11 @@ case "$1" in
         sudo apt-get install -y libsndfile-dev libpng-dev
         
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/srcejon/aptdec.git
+        git clone --recursive https://github.com/Xerbo/aptdec.git
         cd aptdec
-        mkdir build; cd build
-        cmake ..
+        cmake -B build
+        cmake --build build
+        cd build
         make -j4
         sudo make install
         sudo ldconfig
