@@ -21,6 +21,9 @@ sudo apt-get install -y libsamplerate-dev
 sudo apt-get install -y libboost-all-dev
 sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
 
+# Install Dynamic Kernel Module Support 
+sudo apt-get install -y dkms
+
 # Ubuntu 20.04 LTS Desktop accomodations
 #
 # Following need to occur earlier in build
