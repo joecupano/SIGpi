@@ -57,6 +57,7 @@ case "$1" in
         ## PACKAGE 
         cd $SIGPI_SOURCE
         git clone https://github.com/bettercap/bettercap
+        cd bettercap
         make build
         sudo make install
         sudo ldconfig
@@ -65,6 +66,7 @@ case "$1" in
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/bettercap.desktop $DESKTOP_FILES
         # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/bettercap.desktop
         # Add to Menu
