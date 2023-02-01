@@ -182,6 +182,7 @@ select_sdrapps() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Choose general purpose SDR Applications" 20 80 12 \
         "cubicsdr" "SDR Receiver 0.2.4" OFF \
+        "gnuradio" "GNU Radio 3.10" OFF \
         "sdrangel" "SDRangel 7.8.5" OFF \
 		"sdrpp" "SDR++ 1.1.0" OFF \
         3>&1 1>&2 2>&3)
@@ -479,8 +480,11 @@ source $SIGPI_PACKAGES/pkg_linpac install
 source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install Dump1090
 source $SIGPI_PACKAGES/pkg_dump1090 install
-# Install GNUradio (3.10)
-source $SIGPI_PACKAGES/pkg_gnuradio-src install
+
+# GNU Radio
+if grep gnuradio "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_gnuradio-src install
+fi
 
 # CubicSDR
 if grep cubicsdr "$SIGPI_INSTALLER"; then
