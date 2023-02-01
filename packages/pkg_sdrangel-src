@@ -119,10 +119,11 @@ case "$1" in
           cd $SIGPI_SOURCE
           git clone https://github.com/f4exb/sdrangel.git
           cd sdrangel
-          #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
-          #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
-          #git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
-          git reset --hard 2552160f8f581f25f9bba3c2beb1639c8fce02b2    #7.8.6
+          #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  # v7.3.0
+          #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd  # v7.3.2
+          #git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe  # v7.8.5
+          #git reset --hard 2552160f8f581f25f9bba3c2beb1639c8fce02b2  # v7.8.6
+          git reset --hard 5026e4ab5e68405c19bad1c537fd4ebebde0b7ba   # v7.9.0
           mkdir build; cd build
           cmake -Wno-dev ..
           make -j4
