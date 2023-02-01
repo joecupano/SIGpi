@@ -5,9 +5,9 @@
 - SDRangel 7.9.0 release 
 - Created DEB package for GNUradio 3.10.5 (no more compile time waiting)
 - BladeRF support added
-- Beta of Universal Radio Hacker
+- Universal Radio Hacker added
+- bettercap added
 - Beta of srsRAN
-- Beta of Bettercap
 
 ## Release 6.0.2: 2023-01-15
 - Maintenance Release
