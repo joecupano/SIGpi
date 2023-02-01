@@ -243,6 +243,25 @@ select_usefulapps() {
     done
 }
 
+select_nodeserver() {
+    FUN=$(whiptail --title "SIGpi Node Installer" --clear --checklist --separate-output \
+        "Choose which SDR server to run as a service" 20 120 12 \
+        "rtltcpsrv" "RTL-TCP Server " OFF \
+        "sdrangelsrv" "SDRangel Server" OFF \
+        "soapysdrsrv" "SoapySDR Server " OFF \
+		3>&1 1>&2 2>&3)
+    RET=$?
+    if [ $RET -eq 1 ]; then
+        $FUN = "NONE"
+    fi
+    ##echo $FUN >> $SIGPI_INSTALLER
+    IFS=' '     # space is set as delimiter
+    read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
+    for i in "${ADDR[@]}"; do   # access each element of array
+        echo $FUN >> $SIGPI_INSTALLER
+    done
+}
+
 
 ###
 ###  MAIN
@@ -254,10 +273,14 @@ touch $SIGPI_CONFIG
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
-# Node option invoked ?
+##
+## Node Install 
+##
+
 if [ "$1" = "node" ]; then
     calc_wt_size
-
+    select_devices
+    select_nodeserver
     TERM=ansi whiptail --title "SIGpi Node Install" --clear --msgbox "Ready to Install" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
@@ -275,13 +298,58 @@ if [ "$1" = "node" ]; then
 
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    source $SIGPI_PACKAGES/pkg_dump1090 install
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
-    source $SIGPI_PACKAGES/pkg_radiosonde install
-    source $SIGPI_PACKAGES/pkg_sdrangel install
 
-    if [ "$2" = "rtltcp" ]; then
+    # Install bladeRF
+    if grep bladerf "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_bladerf install
+    fi
+    # Install LimeSDR
+    if grep limesuite "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_limesuite install
+    fi
+    # Install Ettus UHD
+    if grep ettus "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_ettus install
+    fi
+    # Install SDRPlay
+    if grep sdrplay "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_sdrplay install
+    fi
+    # Install RFM95W (Adafruit RadioBonnet 900 MHz LoRa-FSK)
+    if grep rfm95w "$SIGPI_INSTALLER"; then
+        source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
+    fi
+
+    # Install APTdec (NOAA APT)
+    source $SIGPI_PACKAGES/pkg_aptdec install
+    # Install NRSC5 (HD Radio)
+    source $SIGPI_PACKAGES/pkg_nrsc5 install
+    # Install cm256cc
+    source $SIGPI_PACKAGES/pkg_cm256cc install
+    # Install mbelib (P25 Phase)
+    source $SIGPI_PACKAGES/pkg_mbelib install
+    # Install SeriaDV (AMBE3000 chip serial control)
+    source $SIGPI_PACKAGES/pkg_serialdv install
+    # Install DSDcc (Digital Speech Decoder)
+    source $SIGPI_PACKAGES/pkg_dsdcc install
+    # Install Codec 2
+    source $SIGPI_PACKAGES/pkg_codec2 install
+    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
+    # Install Radiosonde (Atmospheric Telemetry)
+    source $SIGPI_PACKAGES/pkg_radiosonde install
+    # Install Ubertooth Tools
+    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+    # Install Direwolf (AFSK APRS)
+    source $SIGPI_PACKAGES/pkg_direwolf install
+    # Install Linpac (AX.25 Terminal
+    source $SIGPI_PACKAGES/pkg_linpac install
+    # Install RTL_433
+    source $SIGPI_PACKAGES/pkg_rtl_433 install
+    # Install Dump1090
+    source $SIGPI_PACKAGES/pkg_dump1090 install
+    
+    if [ "$2" = "rtltcpsrv" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi-node_rtltcp.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
     elif [ "$2" = "sdrangelsrv" ]; then
@@ -314,10 +382,13 @@ if [ "$1" = "node" ]; then
     sudo sync
     sudo reboot
     exit 0
-
 fi
 
-# base option invoked ?
+
+##
+## Base Install
+##
+
 if [ "$1" = "base" ]; then
     calc_wt_size
 
@@ -343,6 +414,7 @@ if [ "$1" = "base" ]; then
     source $SIGPI_SCRIPTS/install_core_devices.sh
     # Install Libraries
     source $SIGPI_SCRIPTS/install_libraries.sh
+    
     # Install APTdec (NOAA APT)
     source $SIGPI_PACKAGES/pkg_aptdec install
     # Install NRSC5 (HD Radio)
@@ -372,9 +444,6 @@ if [ "$1" = "base" ]; then
     # Install Dump1090
     source $SIGPI_PACKAGES/pkg_dump1090 install
     # Install MultiMon-NG
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
-    # Install RadioSonde
-    source $SIGPI_PACKAGES/pkg_radiosonde install
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -383,7 +452,7 @@ if [ "$1" = "base" ]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconds unless CTRL-C hit"
     echo -e "${SIGPI_BANNER_RESET}"
     sleep 15
     sudo sync
@@ -392,7 +461,11 @@ if [ "$1" = "base" ]; then
 
 fi
 
-# Otherwise we are Full install
+
+##
+## Full Install (Default)
+##
+
 calc_wt_size
 select_startscreen
 select_devices
@@ -424,27 +497,22 @@ source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
 # Install Core Devices
 source $SIGPI_SCRIPTS/install_core_devices.sh
-
 # Install bladeRF
 if grep bladerf "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_bladerf install
 fi
-
 # Install LimeSDR
 if grep limesuite "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_limesuite install
 fi
-
 # Install Ettus UHD
 if grep ettus "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ettus install
 fi
-
 # Install SDRPlay
 if grep sdrplay "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_sdrplay install
 fi
-
 # Install RFM95W (Adafruit RadioBonnet 900 MHz LoRa-FSK)
 if grep rfm95w "$SIGPI_INSTALLER"; then
     source $SIGPI_SCRIPTS/install_devices_rfm95w.sh
