@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=js8call
+Encoding=UTF-8
+Comment=JS8 Mode weak signals
+Exec=SIGpi_exec-in-shell "js8call"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SIGpi-shell;

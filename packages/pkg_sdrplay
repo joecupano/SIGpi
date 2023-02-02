@@ -22,7 +22,7 @@ sudo chmod 755 /usr/local/bin/run_SDRplay.sh
 
 cd $SIGPI_SOURCE     
 if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86-64-3.0.7.tar.gz
+    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
 fi
 
 if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
