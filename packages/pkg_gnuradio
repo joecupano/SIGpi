@@ -3,8 +3,13 @@
 ###
 ### SIGpi
 ###
-### pkg_gnuradio-deb
+### pkg_gnuradio
 ###
+###
+
+###  20230202
+###  For x86_64 we add GNUradio repo and install 3.10.5 package
+###  For aarm64 we compile for 3.9 since 3.10 will not compile and 3.9 package not available
 ###
 
 case "$1" in 
@@ -75,13 +80,14 @@ case "$1" in
         
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo apt-get install gnuradio
+	        # Add GNUradio repo
+            sudo add-apt-repository ppa:gnuradio/gnuradio-releases
+	        sudo apt-get install gnuradio   # v3.10.5
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo apt-get install gnuradio
+	        sudo apt-get install gnuradio   # v3.8.2
         fi
         echo "gnuradio" >> $SIGPI_CONFIG 
         
