@@ -170,7 +170,7 @@ select_devices() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_INSTALLER
+
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
@@ -190,7 +190,7 @@ select_sdrapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_INSTALLER
+
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
@@ -213,7 +213,7 @@ select_amateurradio() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_INSTALLER
+
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
@@ -235,7 +235,7 @@ select_usefulapps() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_INSTALLER
+
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
@@ -254,7 +254,7 @@ select_nodeserver() {
     if [ $RET -eq 1 ]; then
         $FUN = "NONE"
     fi
-    ##echo $FUN >> $SIGPI_INSTALLER
+
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
@@ -443,7 +443,6 @@ if [ "$1" = "base" ]; then
     source $SIGPI_PACKAGES/pkg_rtl_433 install
     # Install Dump1090
     source $SIGPI_PACKAGES/pkg_dump1090 install
-    # Install MultiMon-NG
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -643,15 +642,14 @@ source $SIGPI_PACKAGES/pkg_audacity install
 # Install PAVU 
 source $SIGPI_PACKAGES/pkg_pavucontrol install
 
-# splat
+# Install SPLAT
 if grep splat "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_splat install
 fi
 
-# DOSbox
+# Install DOSbox
 source $SIGPI_PACKAGES/pkg_dosbox install
-
-# SIGpi Menus
+# Install SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
 
 
