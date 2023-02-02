@@ -1,10 +1,9 @@
 # Release Notes
 
-## Release 6.X: 2023-XX-XX
-- Tweaks to SIGpi package management options update and upgrade
-- SDRangel 7.9.0 release 
-- Created DEB package for GNUradio 3.10.5 (no more compile time waiting)
+## Release 6.X: 2023-02-03
+- Rollback aarch64 to GNUradio 3.9.8 given unresolved issue with 3.10.5 compile
 - BladeRF support added
+- SDRangel 7.9.0 release 
 - Universal Radio Hacker added
 - bettercap added
 - Beta of srsRAN
