@@ -27,7 +27,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo apt-get remove gnuradio
+	        sudo dpkg -r gnuradio_3.9.8.0-1_arm64.deb
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
 
@@ -49,7 +49,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo apt-get purge gnuradio
+	        sudo dpkg -P gnuradio_3.9.8.0-1_arm64.deb
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
    
@@ -87,7 +87,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo apt-get install gnuradio   # v3.8.2
+	        sudo dpkg -i gnuradio_3.9.8.0-1_arm64.deb   # v3.9.8.0
         fi
         echo "gnuradio" >> $SIGPI_CONFIG 
         
