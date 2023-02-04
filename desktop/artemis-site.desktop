@@ -1,7 +1,0 @@
-Name=Artemis
-Comment=Radio Signals Recognition Manual
-Exec=xdg-open https://aresvalley.com/artemis/
-Icon=/usr/share/icons/sigpi_icon_menu.png
-Terminal=false
-Type=Application
-Categories=SigPi;

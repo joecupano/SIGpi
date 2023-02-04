@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Universal Radio Hacker
+Encoding=UTF-8
+Comment=suite for wireless protocol investigation
+Exec=SIGpi_exec-in-shell "urh"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SIGpi-shell;

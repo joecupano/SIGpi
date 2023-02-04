@@ -14,13 +14,13 @@ case "$1" in
 
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -r wsjtx_2.6.0_amd64.deb
             sed -i /wsjtx/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -r wsjtx_2.6.0_arm64.deb
             sed -i /wsjtx/d $SIGPI_CONFIG
         fi
@@ -36,13 +36,13 @@ case "$1" in
 
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -P wsjtx_2.6.0_amd64.deb
             sed -i /wsjtx/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -P wsjtx_2.6.0_arm64.deb
             sed -i /wsjtx/d $SIGPI_CONFIG
         fi
@@ -71,13 +71,13 @@ case "$1" in
         cd $SIGPI_PACKAGES
         
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -i wsjtx_2.6.0_amd64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_PACKAGES
+	        cd $SIGPI_DEBS
 	        sudo dpkg -i wsjtx_2.6.0_arm64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi

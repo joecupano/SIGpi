@@ -28,7 +28,7 @@ sudo rm -rf $HOME/Desktop/sigidwiki.desktop
 sudo rm -rf $HOME/Desktop/sigpi_home.desktop
 
 
-# Add SigPi Category for installed applications
+# Add SIGpi Category for installed applications
 #sudo rm -rf $DESKTOP_FILES/artemis.desktop
 sudo rm -rf $DESKTOP_FILES/CubicSDR.desktop
 sudo rm -rf $DESKTOP_FILES/gnuradio-grc.desktop
@@ -49,7 +49,7 @@ sudo rm -rf $DESKTOP_FILES/qsstv.desktop
 #sudo rm -rf $DESKTOP_FILES/message_aggregator.desktop
 sudo rm -rf $DESKTOP_FILES/xastir.desktop
 
-# Remove installed applications from SigPi menu
+# Remove installed applications from SIGpi menu
 sudo rm -rf $DESKTOP_FILES/sigidwiki.desktop
 sudo rm -rf $DESKTOP_FILES/sigpi_home.desktop
 

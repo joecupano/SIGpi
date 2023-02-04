@@ -31,8 +31,9 @@ SIGPI_HOME=$SIGPI_ROOT/SIGpi
 SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
+SIGPI_DEBS=$SIGPI_HOME/debs
 
-# SigPi Install Support files
+# SIGpi Install Support files
 SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
@@ -60,8 +61,8 @@ DESKTOP_FILES=/usr/share/applications
 DESKTOP_ICONS=/usr/share/icons
 DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 
-# SigPi Menu category
-SIGPI_MENU_CATEGORY=SigPi
+# SIGpi Menu category
+SIGPI_MENU_CATEGORY=SIGpi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
 # If we reached this point our hardware and operating system are certified for SIGpi
@@ -73,7 +74,7 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 
 sigpi_update(){
     # Check for updates
-    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi-packages -P $HOME/Downloads
+    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi/packages -P $HOME/Downloads
     if grep $3 "$HOME/Downloads/PACKAGES"; then
         SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
         SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
@@ -88,8 +89,8 @@ sigpi_update(){
 sigpi_upgrade(){
     # Update local clone
     cd $SIGPI_HOME
-    git pull
     source $SIGPI_PACKAGES/$SPKGSCRIPT remove
+    git pull
     source $SIGPI_PACKAGES/$SPKGSCRIPT install
 }
 
@@ -131,7 +132,7 @@ case "$1" in
         sigpi_update $3
         ;;
     upgrade)
-        sigpi_upgrade
+        sigpi_upgrade $3
         ;;
     shell )
         source $2

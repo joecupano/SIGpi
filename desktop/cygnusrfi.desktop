@@ -7,5 +7,5 @@ Icon=/usr/share/icons/cygnusrfi.png
 Terminal=true
 X-MultipleArgs=false
 Type=Application
-Categories=SigPi;
+Categories=SIGpi;
 StartupNotify=true

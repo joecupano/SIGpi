@@ -7,5 +7,5 @@ Icon=/usr/share/icons/sdrangel.png
 StartupNotify=true
 Terminal=true
 Type=Application
-Categories=SigPi;
+Categories=SIGpi;
 X-KeepTerminal=true

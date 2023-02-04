@@ -63,7 +63,7 @@ case "$1" in
         sudo cp $SIGPI_HOME/desktop/multimon-ng.desktop $DESKTOP_FILES
         # Change Category
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/multimon-ng.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/multimon-ng.desktop
 
         
         echo -e "${SIGPI_BANNER_COLOR}"

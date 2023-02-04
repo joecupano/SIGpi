@@ -50,11 +50,11 @@ case "$1" in
         sudo apt-get install -y libsndfile-dev libpng-dev
         
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/srcejon/aptdec.git
+        git clone --recursive https://github.com/Xerbo/aptdec.git
         cd aptdec
-        mkdir build; cd build
-        cmake ..
+        cmake -B build
+        cmake --build build
+        cd build
         make -j4
         sudo make install
         sudo ldconfig
@@ -66,7 +66,7 @@ case "$1" in
         sudo cp $SIGPI_HOME/desktop/aptdec.desktop $DESKTOP_FILES
         # Change Category
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPishell.directory $DESKTOP_FILES/aptdec.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/aptdec.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   APTdec (NOAA APT) Installed"

@@ -15,10 +15,15 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 # Baseline
 sudo apt-get install -y build-essential pkg-config git cmake g++ gcc autoconf automake libtool libgl1-mesa-dev checkinstall
+sudo apt-get install -y software-properties-common   # Needed for aarch64
 sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libaio-dev
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
 sudo apt-get install -y libsamplerate-dev
 sudo apt-get install -y libboost-all-dev
+sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+
+# Install Dynamic Kernel Module Support 
+sudo apt-get install -y dkms
 
 # Ubuntu 20.04 LTS Desktop accomodations
 #
@@ -35,7 +40,7 @@ sudo apt-get install -y qtbase5-dev-tools
 sudo apt-get install -y qtwebengine5-dev qtbase5-private-dev
 
 # Python Baseline
-sudo apt-get install -y python3-pip 
+sudo apt-get install -y python3-pip
 sudo apt-get install -y python3-cairocffi
 sudo apt-get install -y python3-click
 sudo apt-get install -y python3-click-plugins
@@ -75,9 +80,12 @@ sudo apt-get install -y python-matplotlib-doc
 sudo apt-get install -y python-networkx-doc 
 sudo apt-get install -y python3-dbg
 sudo pip3 install pyinstaller
+sudo pip3 install packaging
 sudo pip3 install pygccxml
 sudo pip3 install qtawesome
 
+# Install Go Language
+sudo apt-get install -y golang
 
 # SDRdevice Baseline
 

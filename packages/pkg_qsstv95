@@ -84,11 +84,13 @@ case "$1" in
 	
         ## DESKTOP
 	# Add Icon
+        #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
         # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
         # Change Category
 	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/qsstv.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/qsstv.desktop
         
 	echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV 9.5.X Installed !!"

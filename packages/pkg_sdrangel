@@ -1,18 +1,10 @@
-#!/bin/bash
+#!/bin/bashsdrangel_7.3
 
 ###
 ### SIGpi
 ###
-### pkg_sdrangel
+### pkg_sdrangel-deb
 ###
-###
-
-###
-### NOTES:
-###     When called from **SIGpi update sdrangel** remove is doing some clean-up of 5.0 install of SDRangel
-###     First it removes a duplicate sdrangel entry in PACKAGES
-###     Since SDRangel dependent libraries and FFTWF-Wisdom have been unbundled from pkg_sdrangel v5.1 
-###     into their own installs, PACKAGES is updated with each of the library names during install
 ###
 
 case "$1" in 
@@ -20,12 +12,22 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/sdrangel/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/sdrangel
-        sed -i /sdrangel/d $SIGPI_CONFIG
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r sdrangel_7.8.6-1_amd64.deb
+            sudo dpkg -r sdrangel_7.9.0-1_amd64.deb
+            sed -i /sdrangel/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -r sdrangel_7.8.6-1_arm64.deb
+            sudo dpkg -r sdrangel_7.9.0-1_arm64.deb
+            sed -i /sdrangel/d $SIGPI_CONFIG
+        fi
+   
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
@@ -38,12 +40,22 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/sdrangel/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/sdrangel
-        sed -i /sdrangel/d $SIGPI_CONFIG
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -P sdrangel_7.8.6-1_amd64.deb
+            sudo dpkg -P sdrangel_7.9.0-1_amd64.deb
+            sed -i /sdrangel/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -P sdrangel_7.8.6-1_arm64.deb 
+            sudo dpkg -P sdrangel_7.9.0-1_arm64.deb 
+            sed -i /sdrangel/d $SIGPI_CONFIG
+        fi
+   
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
         sed -i /fftwf-wisdom/d $SIGPI_CONFIG
@@ -58,7 +70,7 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel (ETA: +80 Minutes)"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel-deb"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -112,27 +124,18 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5
         sudo apt-get install -y libqt5positioning5-plugins
         
-        if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ] || [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
-          wget https://github.com/f4exb/sdrangel/releases/download/v7.8.5/sdrangel-1892-master.tar.gz -P $HOME/Downloads
-          cd $HOME/Downloads
-          tar -xvf sdrangel-1892-master.tar.gz
-	        sudo dpkg -i sdrangel_7.8.5-1_amd64.deb
-        else
-          cd $SIGPI_SOURCE
-          git clone https://github.com/f4exb/sdrangel.git
-          cd sdrangel
-          #git reset --hard 252379d5939848543e7ca3969905ef0cef07723a  #v7.3.0
-          #git reset --hard 9b2c7511fef0daf8780ab6b539cf2821a0aca4fd   #v7.3.2
-          git reset --hard f65c6ab1e74332d576b2b72904b0bfae5fdb3cbe   #v7.8.5
-          mkdir build; cd build
-          cmake -Wno-dev ..
-          make -j4
-          sudo make install
-          sudo ldconfig
-        fi 
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sdrangel_7.8.6-1_amd64.deb
+        fi
 
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sdrangel_7.9.0-1_arm64.deb
+        fi
         echo "sdrangel" >> $SIGPI_CONFIG 
-      
+        
         cd $HOME/.config/
         mkdir f4exb
         cd f4exb
@@ -140,6 +143,7 @@ case "$1" in
         # This will take a very long time.
         fftwf-wisdom -v -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
         echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+
 
 	    ## DESKTOP
         # Add Icon      
@@ -149,7 +153,7 @@ case "$1" in
         sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin
         # Change Category
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/sdrangel.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"

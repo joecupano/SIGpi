@@ -65,7 +65,7 @@ case "$1" in
 	# Add Category
         # sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/cygnusrfi.desktop
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/cygnusrfi.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/cygnusrfi.desktop
         
 
         echo -e "${SIGPI_BANNER_COLOR}"

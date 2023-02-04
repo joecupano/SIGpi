@@ -62,7 +62,7 @@ case "$1" in
         sudo cp $SIGPI_HOME/desktop/splat.desktop $DESKTOP_FILES
 	    # Change Category
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/splat.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/splat.desktop
 
 	    
         echo -e "${SIGPI_BANNER_COLOR}"

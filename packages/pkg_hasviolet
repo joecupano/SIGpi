@@ -93,7 +93,7 @@ case "$1" in
         sudo cp $SIGPI_HOME/desktop/hasviolet.desktop $DESKTOP_FILES
 	    # Add Category
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SigPi.directory $DESKTOP_FILES/hasviolet.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/hasviolet.desktop
         
 
 

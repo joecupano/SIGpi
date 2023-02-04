@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=bettercap
+Encoding=UTF-8
+Comment=Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance 
+Exec=SIGpi_exec-in-shell "bettercap --help"
+Icon=sigpi_icon_menu.png
+StartupNotify=false
+Terminal=true
+X-KeepTerminal=True
+Type=Application
+Categories=SIGpi-shell;

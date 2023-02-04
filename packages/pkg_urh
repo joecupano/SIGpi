@@ -1,0 +1,71 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_urh
+###
+###
+### Universal Radio hacker install
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove URH"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        sudo python3 -m pip uninstall urh
+        sed -i /urh/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   URH Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge URH"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo python3 -m pip uninstall urh
+        sed -i /urh/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   URH Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install URH"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo python3 -m pip install cython
+
+        ## PACKAGE
+        sudo python3 -m pip install urh
+        echo "urh" >> $SIGPI_CONFIG
+
+        ## DESKTOP
+	    # Add Icon
+        #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/urh.desktop $DESKTOP_FILES
+        # Change Category
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/urh.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/urh.desktop
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
