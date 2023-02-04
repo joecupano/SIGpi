@@ -3,6 +3,7 @@
 ## Release 6.X: 2023-02-03
 - Rollback aarch64 to GNUradio 3.9.8 given unresolved issue with 3.10.5 compile
 - BladeRF support added
+- SDRPlay support added
 - SDRangel 7.9.0 release 
 - Universal Radio Hacker added
 - bettercap added
