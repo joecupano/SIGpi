@@ -114,7 +114,7 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Radiosonde (Atmospheric Telemetry)
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Radiosonde (Atmospheric Telemetry)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
