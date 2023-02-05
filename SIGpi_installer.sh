@@ -183,7 +183,7 @@ select_sdrapps() {
         "Choose general purpose SDR Applications" 20 80 12 \
         "cubicsdr" "SDR Receiver 0.2.4" OFF \
         "gnuradio" "GNU Radio 3.10" OFF \
-        "sdrangel" "SDRangel 7.8.5" OFF \
+        "sdrangel" "SDRangel 7.9.0" OFF \
 		"sdrpp" "SDR++ 1.1.0" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
