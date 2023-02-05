@@ -49,7 +49,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_PACKAGES
-	        echo -e "Not avialable for ARM64"
+	        echo -e "Not available for ARM64"
         fi
 	    
         echo -e "${SIGPI_BANNER_COLOR}"
