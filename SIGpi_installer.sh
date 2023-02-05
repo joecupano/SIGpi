@@ -228,7 +228,7 @@ select_usefulapps() {
         "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
-        "srsran" "srsRAN, Open-source 4G/5G software radio suite " OFF \
+        "srsran" "srsRAN, Open-source 4G/5G software radio suite (amd64 only)" OFF \
         "uniradhack" "Universal Radio Hacker. Offline wireless protocol investigation" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
