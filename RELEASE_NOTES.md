@@ -5,6 +5,7 @@
 - Syntax errors in install menu
 - SDRPlay. Fix library install script
 - Fix SDRangel 7.9.0 version install on amd64
+- Add reminde in install menu that srsRAN is for amd64 only
 
 ## Release 6.1: 2023-02-03
 - Rollback aarch64 to GNUradio 3.9.8 given unresolved issue with 3.10.5 compile
