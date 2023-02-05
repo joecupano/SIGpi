@@ -125,6 +125,11 @@ sudo apt-get install -y libusb-1.0-0-dev
 sudo apt-get install -y python-dev
 sudo apt-get install -y python3-dev
 
+## Other pre-requisites from fixes
+sudo apt-get install -y libvolk2-bin libvolk2-dev   # GNuradio ?
+sudo apt-get install -y gettext
+sudo apt-get install -y libad9361-dev 
+
 # SDRangel Requirements
 sudo apt-get update && sudo apt-get -y install \
 git cmake g++ pkg-config autoconf automake libtool libfftw3-dev libusb-1.0-0-dev libusb-dev libhidapi-dev libopengl-dev \
