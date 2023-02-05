@@ -30,7 +30,7 @@ if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 fi
 
 cd SDRPlay
-sudo ./Install_lib.sh
+sudo ./install_lib.sh
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
