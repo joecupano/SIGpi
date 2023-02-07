@@ -129,6 +129,7 @@ case "$1" in
         sudo apt-get install -y python3-scipy
         sudo apt-get install -y python3-pip
         sudo apt-get install -y python3-gi-cairo
+        sudo pip3 install "pybind11[global]"      # GNUradio 3.9.80 on RPi
         
         # Install VOLK
         cd $SIGPI_SOURCE 
@@ -158,6 +159,7 @@ case "$1" in
             #git reset --hard fed5b967c501bdb0bff5514f978dd0c7a2866386   # v3.10.5.1
             #git submodule update --init --recursive
             mkdir build && cd build
+            # add this if want dox gen off   -DENABLE_DOXYGEN=ON/OFF
             cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
             make -j4
             sudo make install

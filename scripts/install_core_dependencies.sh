@@ -129,6 +129,7 @@ sudo apt-get install -y python3-dev
 sudo apt-get install -y libvolk2-bin libvolk2-dev   # GNuradio ?
 sudo apt-get install -y gettext
 sudo apt-get install -y libad9361-dev 
+sudo pip3 install "pybind11[global]"   # GNUradio 3.9.80 on RPi
 
 # SDRangel Requirements
 sudo apt-get update && sudo apt-get -y install \
