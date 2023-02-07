@@ -69,7 +69,7 @@ case "$1" in
         git clone https://github.com/greatscottgadgets/ubertooth.git
         cd ubertooth/host
         mkdir build && cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         echo "ubertooth" >> $SIGPI_CONFIG 

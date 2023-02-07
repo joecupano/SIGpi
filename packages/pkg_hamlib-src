@@ -51,7 +51,7 @@ case "$1" in
         tar -zxvf $HOME/Downloads/hamlib-4.5.4.tar.gz -C $SIGPI_SOURCE
         cd $SIGPI_SOURCE/hamlib-4.5.4
         ./configure
-        make
+        make -j4
         sudo make install
         sudo ldconfig
         echo "hamlib" >> $SIGPI_CONFIG 

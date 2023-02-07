@@ -63,7 +63,7 @@ case "$1" in
         git clone https://github.com/merbanan/rtl_433.git
         cd rtl_433
         mkdir build && cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig

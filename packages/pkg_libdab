@@ -60,7 +60,7 @@ case "$1" in
         git clone https://github.com/JvanKatwijk/dab-cmdline.git
         cd $SIGPI_SOURCE/dab-cmdline/library
         mkdir build && cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig

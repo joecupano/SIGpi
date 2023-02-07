@@ -74,7 +74,7 @@ case "$1" in
         cd LimeSuite
         git checkout stable
         mkdir build-dir && cd build-dir
-        cmake ../
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig
