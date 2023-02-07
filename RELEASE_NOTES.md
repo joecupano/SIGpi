@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 6.1.1: 2023-02-18
+## Release 6.1.1: 2023-02-07
 - Maintenance Release
 - Syntax errors in install menu
 - SDRPlay. Fix library install script
