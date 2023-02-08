@@ -575,7 +575,7 @@ fi
 
 # HamLib
 if grep hamlib "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_hamlib install
+    source $SIGPI_PACKAGES/pkg_hamlib-src install
 fi
 
 # Fldigi
