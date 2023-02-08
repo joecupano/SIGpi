@@ -181,9 +181,9 @@ select_devices() {
 select_sdrapps() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Choose general purpose SDR Applications" 20 80 12 \
-        "cubicsdr" "SDR Receiver 0.2.4" OFF \
-        "gnuradio" "GNU Radio 3.10" OFF \
-        "sdrangel" "SDRangel 7.9.0" OFF \
+        "cubicsdr" "SDR Receiver " OFF \
+        "gnuradio" "GNU Radio " OFF \
+        "sdrangel" "SDRangel " OFF \
 		"sdrpp" "SDR++ 1.1.0" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -202,11 +202,11 @@ select_amateurradio() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
         "Choose Amateur Radio Applications" 24 120 12 \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
-        "fldigi" "Fldigi 4.1.18 for MFSK, PSK31, CW, RTTY, and many others " OFF \
+        "fldigi" "Fldigi for MFSK, PSK31, CW, RTTY, and many others " OFF \
         "gpredict" "Satellite Tracking " OFF \
-        "js8call" "js8call 2.20 JS8 for weak signal kbd-to-kbd messaging " OFF \
-        "qsstv" "QSSTV 9.4.X for SSTV modes " OFF \
-        "wsjtx" "WSJT-X 2.6.0 for FT4, FT8, JT4, JT9, JT65, Q65, MSK144 " OFF \
+        "js8call" "js8call JS8 for weak signal kbd-to-kbd messaging " OFF \
+        "qsstv" "QSSTV for SSTV modes " OFF \
+        "wsjtx" "WSJT-X for FT4, FT8, JT4, JT9, JT65, Q65, MSK144 " OFF \
         "xastir" "APRS Station Tracking and Reporting " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
