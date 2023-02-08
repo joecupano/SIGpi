@@ -51,7 +51,7 @@ case "$1" in
         git clone https://github.com/dnwrnr/sgp4.git
         cd $SIGPI_SOURCE/sgp4
         mkdir build; cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig

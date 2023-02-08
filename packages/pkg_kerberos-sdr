@@ -69,7 +69,7 @@ case "$1" in
         cd $SIGPI_SOURCE/rtl-sdr-kerberos
         mkdir build	&& cd build
         cmake ../ -DINSTALL_UDEV_RULES=ON
-        make
+        make -j4
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig

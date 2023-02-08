@@ -1,6 +1,15 @@
 # Release Notes
 
-## Release 6.X: 2023-02-03
+## Release 6.1.1: 2023-02-08
+- Maintenance Release
+- Syntax errors in install menu
+- SDRPlay. Fix library install script
+- Fix SDRangel 7.9.0 version install on amd64
+- Fix GNUradio 3.9.8 (arm64) compile issue dependency change
+- Fix Hamlib 4.5.4 install
+- Add reminder in install menu that srsRAN is for amd64 only
+
+## Release 6.1: 2023-02-03
 - Rollback aarch64 to GNUradio 3.9.8 given unresolved issue with 3.10.5 compile
 - BladeRF support added
 - SDRPlay support added

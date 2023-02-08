@@ -67,7 +67,7 @@ case "$1" in
         git clone https://www.github.com/wb2osz/direwolf.git
         cd direwolf
         mkdir build && cd build
-        cmake .. 
+        cmake .. -Wno-dev
         make -j4
         sudo make install
 

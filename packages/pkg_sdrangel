@@ -16,15 +16,13 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-            sudo dpkg -r sdrangel_7.8.6-1_amd64.deb
-            sudo dpkg -r sdrangel_7.9.0-1_amd64.deb
+            sudo dpkg -r sdrangel
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -r sdrangel_7.8.6-1_arm64.deb
-            sudo dpkg -r sdrangel_7.9.0-1_arm64.deb
+            sudo dpkg -r sdrangel
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
    
@@ -44,15 +42,13 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -P sdrangel_7.8.6-1_amd64.deb
-            sudo dpkg -P sdrangel_7.9.0-1_amd64.deb
+            sudo dpkg -P sdrangel
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -P sdrangel_7.8.6-1_arm64.deb 
-            sudo dpkg -P sdrangel_7.9.0-1_arm64.deb 
+            sudo dpkg -P sdrangel 
             sed -i /sdrangel/d $SIGPI_CONFIG
         fi
    
@@ -112,6 +108,7 @@ case "$1" in
         sudo apt-get install -y qtpositioning5-dev
         sudo apt-get install -y qtlocation5-dev
         sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y libgl1-mesa-glx
         sudo apt-get install -y libqt5opengl5-dev
         sudo apt-get install -y libqt5quick5
         sudo apt-get install -y libqt5charts5-dev
@@ -127,7 +124,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrangel_7.8.6-1_amd64.deb
+	        sudo dpkg -i sdrangel_7.9.0-1_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then

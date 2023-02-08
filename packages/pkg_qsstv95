@@ -78,7 +78,7 @@ case "$1" in
         mv $SIGPI_SOURCE/qsstv $SIGPI_SOURCE/qsstv95
 	cd $SIGPI_SOURCE/qsstv95
         qmake
-        make
+        make -j4
         sudo make install
         echo "qsstv95" >> $SIGPI_CONFIG 
 	

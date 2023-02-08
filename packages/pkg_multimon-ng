@@ -52,7 +52,7 @@ case "$1" in
         git clone https://github.com/EliasOenal/multimon-ng.git
         cd multimon-ng
         mkdir build && cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig

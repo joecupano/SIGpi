@@ -30,7 +30,7 @@ if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 fi
 
 cd SDRPlay
-sudo ./Install_lib.sh
+sudo ./install_lib.sh
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
@@ -45,7 +45,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/SDRplay/SoapySDRPlay
 cd SoapySDRPlay
 mkdir build && cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
@@ -63,8 +63,8 @@ cd $SIGPI_SOURCE
 git clone https://github.com/SDRplay/RSPTCPServer
 cd RSPTCPServer
 mkdir build && cd build
-cmake ..
-make
+cmake .. -Wno-dev
+make -j4
 sudo make install
 sudo ldconfig
 

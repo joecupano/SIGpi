@@ -54,7 +54,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/mossmann/hackrf.git
 cd hackrf/host
 mkdir build && cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
@@ -76,7 +76,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/analogdevicesinc/libiio.git
 cd libiio
 mkdir build && cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig

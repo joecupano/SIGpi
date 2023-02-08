@@ -58,7 +58,7 @@ case "$1" in
         git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
         cd uhd/host
         mkdir build	&& cd build
-        cmake ../
+        cmake .. -Wno-dev
         sudo make install
         sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
         sudo ldconfig

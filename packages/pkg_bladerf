@@ -57,7 +57,7 @@ case "$1" in
         git clone https://github.com/Nuand/bladeRF.git
         cd bladeRF
         mkdir build && cd build
-        cmake ../
+        cmake .. -Wno-dev
         make
         sudo make install
         sudo ldconfig

@@ -49,7 +49,7 @@ case "$1" in
         git clone https://github.com/deepsig/libsigmf.git
         cd libsigmf
         mkdir build; cd build
-        cmake ..
+        cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig

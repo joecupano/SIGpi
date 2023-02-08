@@ -22,7 +22,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/deepsig/libsigmf.git
 cd libsigmf
 mkdir build; cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
@@ -54,7 +54,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/greatscottgadgets/libbtbb.git
 cd libbtbb
 mkdir build && cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
@@ -74,7 +74,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/JvanKatwijk/dab-cmdline.git
 cd $SIGPI_SOURCE/dab-cmdline/library
 mkdir build && cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
@@ -96,7 +96,7 @@ cd $SIGPI_SOURCE
 git clone https://github.com/dnwrnr/sgp4.git
 cd $SIGPI_SOURCE/sgp4
 mkdir build; cd build
-cmake ..
+cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig

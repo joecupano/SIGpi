@@ -1,6 +1,6 @@
 # SIGpi
 
-RELEASE 6.1
+RELEASE 6.1.1
 
 
 ## Introduction
@@ -79,7 +79,7 @@ Perhaps you forgot to add an application during your initial run of SIGpi_instal
 
 Example
 ```
-SIGpi install gqrx
+SIGpi install kismet
 ```
 
 ### Package Updates

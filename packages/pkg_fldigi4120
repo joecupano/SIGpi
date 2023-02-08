@@ -105,7 +105,7 @@ case "$1" in
         mv $SIGPI_SOURCE/flxmlrpc-0.1.4 $SIGPI_SOURCE/flxmlrpc-latest
 	cd $SIGPI_SOURCE/flxmlrpc-latest
         ./configure --prefix=/usr/local --enable-static
-        make
+        make -j4
         sudo make install
         sudo ldconfig
 	
@@ -115,7 +115,7 @@ case "$1" in
         mv $SIGPI_SOURCE/flrig-1.4.2 $SIGPI_SOURCE/flrig-latest
 	cd $SIGPI_SOURCE/flrig-latest
         ./configure --prefix=/usr/local --enable-static
-        make
+        make -j4
         sudo make install
         sudo ldconfig
         sudo cp $SIGPI_SOURCE/flrig-1.4.2/data/flrig.desktop $SIGPI_DESKTOP
@@ -126,7 +126,7 @@ case "$1" in
         mv $SIGPI_SOURCE/fldigi-4.1.20 $SIGPI_SOURCE/fldigi-latest
 	cd $SIGPI_SOURCE/fldigi-latest
         ./configure --prefix=/usr/local --enable-static
-        make
+        make -j4
         sudo make install
         sudo ldconfig
         sudo cp $SIGPI_SOURCE/fldigi-4.1.20/data/fldigi.desktop $SIGPI_DESKTOP
