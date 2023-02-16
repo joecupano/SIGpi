@@ -11,7 +11,7 @@
 ###                 install   install TARGET from current release
 ###                 remove    remove installed TARGET
 ###                 purge     remove installed TARGET and purge configs
-###                 nuke      completely remove all fo SIGpi
+###                 nuke      completely remove all of SIGpi
 ###                 update    check to see if new TARGET available
 ###                 upgrade   upgrade TARGET to latest release
 ###                 shell     provide SIGpi env variables around a TARGET
@@ -73,8 +73,9 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ###
 
 sigpi_update(){
-    # Check for updates
-    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/scripts/SIGpi/packages -P $HOME/Downloads
+    # Check for available updates to package
+    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
+    
     if grep $3 "$HOME/Downloads/PACKAGES"; then
         SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
         SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
@@ -87,7 +88,7 @@ sigpi_update(){
 }
 
 sigpi_upgrade(){
-    # Update local clone
+    # Remove Package, update local clone, install updated package
     cd $SIGPI_HOME
     source $SIGPI_PACKAGES/$SPKGSCRIPT remove
     git pull
