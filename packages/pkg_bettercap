@@ -3,8 +3,7 @@
 ###
 ### SIGpi
 ###
-### pkg_bettercap-deb
-###
+### pkg_bettercap
 ###
 
 case "$1" in 
@@ -12,19 +11,13 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove bettercap"
         echo -e "${SIGPI_BANNER_RESET}"
-
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r bettercap_2.32.0-1_amd64.deb
-            sed -i /bettercap/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r bettercap_2.32.0-1_arm64.deb
-            sed -i /bettercap/d $SIGPI_CONFIG
-        fi
+        
+	cd $SIGPI_SOURCE/bettercap/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/bettercap
+        sed -i /bettercap/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Removed"
@@ -34,20 +27,15 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge bettercap"
         echo -e "${SIGPI_BANNER_RESET}"
+               
+	cd $SIGPI_SOURCE/bettercap/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/bettercap
+        sed -i /bettercap/d $SIGPI_CONFIG
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P bettercap_2.32.0-1_amd64.deb
-            sed -i /bettercap/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P bettercap_2.32.0-1_arm64.deb
-            sed -i /bettercap/d $SIGPI_CONFIG
-        fi
-   
+        rm -rf $HOME/.config/bettercap
         sudo rm -rf $SIGPI_DESKTOP/bettercap.desktop
         sudo rm -rf $DESKTOP_FILES/bettercap.desktop
 
@@ -58,35 +46,32 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install bettercap-deb"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install bettercap"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-        
-       
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -i bettercap_2.32.0-1_amd64.deb
-        fi
 
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -i bettercap_2.32.0-1_arm64.deb
-        fi
-        echo "bettercap" >> $SIGPI_CONFIG 
+        # DEPENDENCIES
+        sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+        sudo apt-get install -y golang
         
+        ## PACKAGE 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/bettercap/bettercap
+        cd bettercap
+        make build
+        sudo make install
+        sudo ldconfig
+        echo "bettercap" >> $SIGPI_CONFIG 
+	
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
         sudo cp $SIGPI_HOME/desktop/bettercap.desktop $DESKTOP_FILES
-	    # Change Category
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/bettercap.desktop
         # Change Category
-	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/bettercap.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/bettercap.desktop
         # Add to Menu
-        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/bettercap.desktop
-        
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/bettercap.desktop
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Installed"
         echo -e "${SIGPI_BANNER_RESET}"
