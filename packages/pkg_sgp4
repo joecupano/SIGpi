@@ -6,6 +6,8 @@
 ### pkg_sgp4
 ###
 ###
+### Simplified perturbations models 
+###
 
 case "$1" in 
     remove )

@@ -6,6 +6,8 @@
 ### pkg_libsigmf
 ###
 ###
+### libsigmf is a header-only C++ library for working with SigMF metadata.
+###
 
 case "$1" in 
     remove )

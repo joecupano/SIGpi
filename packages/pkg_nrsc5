@@ -5,6 +5,10 @@
 ###
 ### pkg_nrsc5
 ###
+###
+### This program receives NRSC-5 digital radio stations using an RTL-SDR dongle. It offers
+### a command-line interface as well as an API upon which other applications can be built.
+###
 
 case "$1" in 
     remove )
