@@ -6,10 +6,6 @@
 ### pkg_libdab
 ###
 ###
-### The DAB library provides entries for the functionality to handle DAB/DAB+ through some simple calls.
-### A few callback functions provide the communication back from the library to the caller.
-### The library interface is given in dab-api.h
-###
 
 case "$1" in 
     remove )

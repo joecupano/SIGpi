@@ -3,20 +3,9 @@
 ###
 ### SIGpi
 ###
-### pkg_codec2
+### pkg_hamlib
 ###
-###
-### Codec 2 is an open source (LGPL 2.1) low bit rate speech codec: http://rowetel.com/codec2.html
-###
-### Also included:
-###
-###    The FreeDV API for digital voice over radio. FreeDV is an open source digital voice protocol that integrates modems, codecs, and FEC README_freedv
-###    APIs for raw and Ethernet packet data over radio README_data
-###    High performance coherent OFDM modem for HF channels README_ofdm
-###    High performance non-coherent FSK modem README_fsk
-###    An STM32 embedded version of FreeDV 1600/700D/700E for the SM1000
-###    Coherent PSK modem README_cohpsk for HF channels
-###    FDMDV DPSK modem README_fdmdv for HF channels
+###  SDRangel dependency
 ###
 
 case "$1" in 

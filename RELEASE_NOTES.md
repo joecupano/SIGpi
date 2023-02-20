@@ -1,10 +1,5 @@
 # Release Notes
 
-## Release 6.X: 2023-03-03
-- Maintenance Release
-- Syntax errors SIGpi.sh
-- Add comments within pkg scripts
-
 ## Release 6.1.1: 2023-02-08
 - Maintenance Release
 - Syntax errors in install menu

@@ -5,11 +5,6 @@
 ###
 ### pkg_serialdv
 ###
-###
-### SerialDV is inspired from the OpenDV project but retains only
-### the minimal interface to encode and decode audio with AMBE3000 based devices
-### in packet mode over a serial link.
-###
 
 case "$1" in 
     remove )

@@ -8,10 +8,9 @@ dump1090,20211231
 ettus,20211231
 fldigi,20211231
 flrig,20211231
-gnuradio,20230201
+gnuradio,20221227
 gpredict,20211231
 gqrx,20211231
-hamlib,20230109
 hasviolet,20211231
 js8call,20211231
 kismet,20211231
@@ -25,7 +24,7 @@ radiosonde,20211231
 rfm95w,20211231
 rtl_433,20211231
 rtltcp-server,20211231
-sdrangel,20230211
+sdrangel,20221227
 sdrpp,20211231
 soapysdr-server,20211231
 splat,20211231
