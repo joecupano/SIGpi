@@ -5,10 +5,14 @@
 ###
 ### pkg_cm256cc  
 ###
-###  SDRangel dependency
 ###
-
-### Boost_INCLUDE_DIR missing 20220622
+### cm256cc is a simple library for erasure codes. From given data it generates redundant data that can be used to recover the originals.
+###
+### The erasure code is parameterized by three values (OriginalCount, RecoveryCount, BlockBytes). These are:
+###
+###    The number of blocks of original data (OriginalCount), which must be less than 256.
+###    The number of blocks of redundant data (RecoveryCount), which must be no more than 256 - OriginalCount.
+###
 
 case "$1" in 
     remove )

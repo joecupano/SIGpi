@@ -1,0 +1,94 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_sigdigger
+###
+###
+### SigDigger is a free digital signal analyzer for GNU/Linux and macOS, designed to extract
+### information of unknown radio signals. It supports a variety of SDR devices through SoapySDR, and
+### allows adjustable demodulation of FSK, PSK and ASK signals, decode analog video, analyze
+### bursty signals and listen to analog voice channels (all in real time).
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SigDigger"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_SOURCE/SigDigger
+        cd build
+        sudo make uninstall
+        sudo ldconfig
+        sudo rm -rf $SIGPI_SOURCE/SigDigger*
+
+        cd $SIGPI_SOURCE/SuWidgets
+        cd build
+        sudo make uninstall
+        sudo ldconfig
+        sudo rm -rf $SIGPI_SOURCE/SuWidgets*
+
+        sed -i /sigdigger/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigDigger Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SigDigger"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE/SigDigger
+        cd build
+        sudo make uninstall
+        sudo ldconfig
+        sudo rm -rf $SIGPI_SOURCE/SigDigger*
+
+        cd $SIGPI_SOURCE/SuWidgets
+        cd build
+        sudo make uninstall
+        sudo ldconfig
+        sudo rm -rf $SIGPI_SOURCE/SuWidgets*
+        
+        sed -i /sigdigger/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigDigger Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SigDigger"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/BatchDrake/SuWidgets
+        cd SuWidgets
+        qmake SuWidgetsLib.pro
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        cd $SIGPI_SOURCE
+        git clone https://github.com/BatchDrake/SigDigger
+        cd SigDigger
+        qmake SigDigger.pro
+        make -j4
+        sudo make install
+        echo "sigdigger" >> $SIGPI_CONFIG 
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SigDigger Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

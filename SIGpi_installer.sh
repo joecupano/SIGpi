@@ -550,7 +550,7 @@ source $SIGPI_PACKAGES/pkg_dump1090 install
 
 # GNU Radio
 if grep gnuradio "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_gnuradio-src install
+    source $SIGPI_PACKAGES/pkg_gnuradio install
 fi
 
 # CubicSDR
@@ -575,7 +575,7 @@ fi
 
 # HamLib
 if grep hamlib "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_hamlib-src install
+    source $SIGPI_PACKAGES/pkg_hamlib install
 fi
 
 # Fldigi
@@ -620,12 +620,12 @@ fi
 
 # bettercap
 if grep bettercap "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_bettercap-src install
+    source $SIGPI_PACKAGES/pkg_bettercap install
 fi
 
 # bettercapui
 #if grep bettercapui "$SIGPI_INSTALLER"; then
-#    source $SIGPI_PACKAGES/pkg_bettercapui-src install
+#    source $SIGPI_PACKAGES/pkg_bettercapui install
 #fi
 
 # CygnusRFI
