@@ -1,9 +1,9 @@
-#!/bin/bashsdrangel_7.3
+#!/bin/bash
 
 ###
 ### SIGpi
 ###
-### pkg_sdrangel-deb
+### pkg_sdrangel
 ###
 ###
 
@@ -66,7 +66,7 @@ case "$1" in
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel-deb"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
