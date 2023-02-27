@@ -322,8 +322,6 @@ if [ "$1" = "node" ]; then
 
     # Install APTdec (NOAA APT)
     source $SIGPI_PACKAGES/pkg_aptdec install
-    # Install NRSC5 (HD Radio)
-    source $SIGPI_PACKAGES/pkg_nrsc5 install
     # Install cm256cc
     source $SIGPI_PACKAGES/pkg_cm256cc install
     # Install mbelib (P25 Phase)
@@ -334,16 +332,12 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_dsdcc install
     # Install Codec 2
     source $SIGPI_PACKAGES/pkg_codec2 install
-    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
     # Install Radiosonde (Atmospheric Telemetry)
     source $SIGPI_PACKAGES/pkg_radiosonde install
     # Install Ubertooth Tools
     source $SIGPI_PACKAGES/pkg_ubertooth-tools install
     # Install Direwolf (AFSK APRS)
     source $SIGPI_PACKAGES/pkg_direwolf install
-    # Install Linpac (AX.25 Terminal
-    source $SIGPI_PACKAGES/pkg_linpac install
     # Install RTL_433
     source $SIGPI_PACKAGES/pkg_rtl_433 install
     # Install Dump1090
