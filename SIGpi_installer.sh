@@ -33,8 +33,8 @@ SIGPI_DEBS=$SIGPI_HOME/debs
 SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
-SIGPI_INSTALL_TXT1=$SIGPI_SCRIPTS/scr_install_welcome.txt
-SIGPI_INSTALLSRC_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
+SIGPI_INSTALL_TXT=$SIGPI_SCRIPTS/scr_install_welcome.txt
+SIGPI_INSTALLSRV_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -154,7 +154,11 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SIGpi Installer" --clear --textbox $SIGPI_INSTALL_TXT1 34 100 16
+    TERM=ansi whiptail --title "SIGpi Installer" --clear --textbox $SIGPI_INSTALL_TXT 34 100 16
+}
+
+select_startsrvscreen(){
+    TERM=ansi whiptail --title "SIGpi Node Installer" --clear --textbox $SIGPI_INSTALLSRV_TXT 34 100 16
 }
 
 select_devices() {
@@ -279,6 +283,7 @@ cd $SIGPI_SOURCE
 
 if [ "$1" = "node" ]; then
     calc_wt_size
+    select_startsrvscreen
     select_devices
     select_nodeserver
     TERM=ansi whiptail --title "SIGpi Node Install" --clear --msgbox "Ready to Install" 12 120
