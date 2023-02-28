@@ -4,6 +4,7 @@
 - Maintenance Release
 - Syntax errors SIGpi.sh
 - Add comments within pkg scripts
+- SIGpi Node SDRangel server config fix
 
 ## Release 6.1.1: 2023-02-08
 - Maintenance Release
