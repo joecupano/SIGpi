@@ -85,15 +85,27 @@ sudo apt-get install -y libserialport-dev
 sudo apt-get install -y libavahi-client-dev 
 sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
 ## LimeSDR
-#sudo apt-get install -y swig
-#sudo apt-get install -y libsqlite3-dev
-#sudo apt-get install -y libi2c-dev
-#sudo apt-get install -y libusb-1.0-0-dev
-#sudo apt-get install -y libwxgtk3.0-dev
-#sudo apt-get install -y freeglut3-dev
-#sudo apt-get install -y liboctave-dev
-#sudo apt-get install -y libfltk1.3-dev
-
+sudo apt-get install -y swig
+sudo apt-get install -y libsqlite3-dev
+sudo apt-get install -y libi2c-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y libwxgtk3.0-dev
+sudo apt-get install -y freeglut3-dev
+sudo apt-get install -y liboctave-dev
+sudo apt-get install -y libfltk1.3-dev
+## SDRangel Server
+sudo apt-get -y install tzdata
+sudo apt-get -y install vim iputils-ping traceroute iproute2 nmap net-tools python3-requests python3-flask
+sudo apt-get -y install git cmake g++ pkg-config autoconf automake libtool libfftw3-dev libusb-1.0-0-dev wget libusb-dev libhidapi-dev
+sudo apt-get -y install qtbase5-dev qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev
+sudo apt-get -y install libqt5opengl5-dev libqt5quick5 qml-module-qtlocation qml-module-qtlocation qml-module-qtpositioning qml-module-qtquick-window2 qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts libqt5serialport5-dev libqt5charts5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev qtwebengine5-dev qtbase5-private-dev
+sudo apt-get -y install libpython3-dev
+sudo apt-get -y install librdmacm1
+sudo apt-get -y install libboost-all-dev
+sudo apt-get -y install libasound2-dev pulseaudio libopencv-dev libxml2-dev bison flex ffmpeg libavcodec-dev libavformat-dev libopus-dev libfaad-dev zlib1g-dev
+sudo apt-get -y install libspeexdsp-dev libsamplerate0-dev
+sudo apt-get -y install xxd
+sudo apt-get -y install python3 python3-cheetah python3-mako
 ## SoapySDR 
 sudo apt-get install -y swig
 sudo apt-get install -y avahi-daemon
