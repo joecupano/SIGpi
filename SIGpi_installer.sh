@@ -299,6 +299,10 @@ if [ "$1" = "node" ]; then
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
+    # Copy SIGpi commands into /usr/local/bin
+    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
+    cdsudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
+
     # Install bladeRF
     if grep bladerf "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_bladerf install
@@ -344,13 +348,14 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_dump1090 install
     
     if [ "$2" = "rtltcpsrv" ]; then
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_rtltcp.service /etc/systemd/system/sigpi-node.service
+        sudo cp $SIGPI_SOURCE/scripts/sigpi_node_rtltcp.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
     elif [ "$2" = "sdrangelsrv" ]; then
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+        source $SIGPI_PACKAGES/pkg_sdrangelsrv
+        sudo cp $SIGPI_SOURCE/scripts/sigpi_node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
     elif [ "$2" = "soapysdrsrv" ]; then
-        sudo cp $SIGPI_SOURCE/scripts/sigpi-node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+        sudo cp $SIGPI_SOURCE/scripts/sigpi_node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
     else
         echo -e "${SIGPI_BANNER_COLOR}"
