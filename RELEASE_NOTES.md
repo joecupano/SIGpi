@@ -1,10 +1,11 @@
 # Release Notes
 
-## Release 6.X: 2023-03-03
+## Release 6.X: 2023-03-02
 - Maintenance Release
 - Syntax errors SIGpi.sh
 - Add comments within pkg scripts
 - SIGpi Node SDRangel server config fix
+- Add SigDigger digtal signal analyzer
 
 ## Release 6.1.1: 2023-02-08
 - Maintenance Release
