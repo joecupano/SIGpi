@@ -10,7 +10,7 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 - **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 - **Ubuntu 22.04 LTS** on arm64 and amd64
 
-A headless server only install (Node Install) can be performed on **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
+A headless server only install (Node Install) can be performed on **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS lite (64-bit)** or **Ubuntu 22.04 LTS Server**
 
 Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
 
