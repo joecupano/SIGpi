@@ -227,11 +227,12 @@ select_amateurradio() {
 
 select_usefulapps() {
     FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
-        "Chosse Additional and Advanced Applications" 20 120 12 \
+        "Choose Additional and Advanced Applications" 20 120 12 \
         "bettercap" "Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance" OFF \
-        "cygnusrfi" "RFI) analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
+        "cygnusrfi" "RFI analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
         "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
+        "sigdigger" "SigDigger, free digital signal analyzer " OFF \
         "srsran" "srsRAN, Open-source 4G/5G software radio suite (amd64 only)" OFF \
         "uniradhack" "Universal Radio Hacker. Offline wireless protocol investigation" OFF \
         3>&1 1>&2 2>&3)
@@ -635,6 +636,13 @@ fi
 # CygnusRFI
 if grep cygnusrfi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_cygnusrfi install
+fi
+
+# SigDigger
+if grep sigdigger "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_sigutils install
+    source $SIGPI_PACKAGES/pkg_suscani install
+    source $SIGPI_PACKAGES/pkg_sigdigger install
 fi
 
 # Install Wireshark

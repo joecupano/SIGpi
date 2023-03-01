@@ -82,6 +82,16 @@ case "$1" in
         sudo make install
         echo "sigdigger" >> $SIGPI_CONFIG 
         
+        ## DESKTOP
+        # Add Icon      
+        # Add Desktop
+        sudo cp $SIGPI_DESKTOP/sigdigger.desktop $DESKTOP_FILES
+        # Add Run script
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigdigger.desktop
+
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SigDigger Installed"
         echo -e "${SIGPI_BANNER_RESET}"

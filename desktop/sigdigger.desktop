@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=SigDigger
+GenericName=Digital Signal Analyzer
+Comment=SigDigger
+Exec=SIGpi_exec-in-shell "sigdigger"
+Icon=sigpi_icon_menu.png
+StartupNotify=true
+Terminal=true
+Type=Application
+Categories=SIGpi;
+X-KeepTerminal=true
