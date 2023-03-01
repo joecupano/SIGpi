@@ -67,7 +67,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         source $SIGPI_PACKAGES/pkg_sigutils install
-        source $SIGPI_PACKAGES/pkg_suscani install
+        source $SIGPI_PACKAGES/pkg_suscan install
         
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SuWidgets
