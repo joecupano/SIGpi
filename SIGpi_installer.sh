@@ -640,8 +640,6 @@ fi
 
 # SigDigger
 if grep sigdigger "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_sigutils install
-    source $SIGPI_PACKAGES/pkg_suscani install
     source $SIGPI_PACKAGES/pkg_sigdigger install
 fi
 
