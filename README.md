@@ -2,7 +2,6 @@
 
 RELEASE 6.2
 
-
 ## Introduction
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following platforms:
@@ -10,44 +9,10 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis o
 - **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS Full (64-bit)**
 - **Ubuntu 22.04 LTS** on arm64 and amd64
 
-A headless server only install (Node Install) can be performed on **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS lite (64-bit)** or **Ubuntu 22.04 LTS Server**
+A headless server aka **Node Install** can be built on a minimum of a **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS Lite (64-bit)** or **Ubuntu 22.04 LTS Server**
 
-Be sure to check the [wiki](https://github.com/joecupano/SIGpi/wiki)
-
-## Installation
-
-- Login as pi or sudo user on supported platform
-- Update and install pre-requisite packages to install SIGpi
-
-```
-sudo apt update && sudo apt upgrade
-sudo apt-get install -y build-essential cmake git
-```
-
-- From your home directory, create a directory called SIG and switch into it
-
-```
-mkdir ~/SIG && cd ~/SIG
-```
-
-- Clone the SIGpi repo
-
-```
-git clone https://github.com/joecupano/SIGpi.git
-```
-
-- Change into the new SIGpi directory and run **SIGpi_installer.sh**  (Node install run **SIGpi_installer.sh node** )
-
-
-```
-cd SIGpi
-./SIGpi_installer.sh
-```
 
 ## Features
-
-### Headless Servers (Node Install)
-This is for headless SDR servers requiring no desktop. This will install RTLTCP, SoapySDRServer, and SDRangelsrv
 
 ### Upgrade with modules, not fresh images
 SIGpi includes it's own package manager to update applications to their latest releases using familiar syntax from package management systems
@@ -75,8 +40,22 @@ SIGpi install sdrpp
 ```
 
 ### Add/Remove Packages anytime
-Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. SIGpi includes its own package management tool for software it supports using similar syntax distro package managers like APT (install, remove, purge, update, upgrade.)
+Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. **SIGpi** includes its own application management system akin to OS package management systems like APT. The difference is sigpi manages
+applications whether they are from the distro releases or compiled from other repos such as Github. This enables you to just install the **base** system and go back and add inidividual applications. sigpi can periodically be run to check on availability of new applications and upgrade them.
+```
+ Usage:    SIGpi [ACTION] [TARGET]
 
+        ACTION  
+                 install   install TARGET application from current release
+                 remove    remove installed TARGET application
+                 purge     remove installed TARGET application and purge configs
+                 update    check to see if new TARGET application available
+                 upgrade   upgrade TARGET application to latest release
+                 shell     wrap SIGpi environment variables around a TARGET script
+
+        TARGET
+                 A SIGpi package or script
+```
 Example
 ```
 SIGpi install kismet
@@ -85,51 +64,56 @@ SIGpi install kismet
 ### Package Updates
 Best efforts made to update releases when significant releases (X.Y) are made available for component packages with speciall attention to popular SDR packages like SDRangel and SDR++
 
-
 ### Multi-Architecture
-Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on **Ubuntu 20.04 LTS** and **Ubuntu 22.04 LTS** (amd64 and aarch64)
+Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on **Ubuntu 22.04 LTS** (amd64 and aarch64)
 
-### Amateur Radio is nice but we are SIGINT FOCUSED
+### Amateur Radio
 While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
+
+
+## Installation
+
+- Login as pi or sudo user on supported platform
+- Update and install pre-requisite packages to install SIGpi
+- From your home directory, create a directory called SIG and switch into it
+- Clone the SIGpi repo 
+- Change directory into SIGpi
+
+```
+sudo apt update && sudo apt upgrade
+sudo apt-get install -y build-essential cmake git
+cd ~
+mkdir ~/SIG && cd ~/SIG
+git clone https://github.com/joecupano/SIGpi.git
+cd SIGpi
+```
+
+### Full Installation
+
+This is the full desktop installation. Run the following command:
+
+```
+./SIGpi_installer.sh
+```
+
+### Node Installation
+
+A node is an SDR connected to a headless server running software accessed/managed by command line or a network accessible
+API interface. **Node Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS LiteFull (64-bit)**
+SIGpi Node install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a node
+
+```
+./SIGpi_installer.sh node
+```
+
+During installation you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start 
+any of them. 
 
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
 
 
-## APRS and Packet using a VHF/UHF Transceiver
-SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
-
-In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
-
-If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
-
-### AX.25
-If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
-
-```
-sudo nano /etc/ax25/axports
-```
-
-- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
-
-```
-# /etc/ax25/axports
-#
-# The format of this file is:
-#
-# name callsign speed paclen window description
-#
-ax0     N0CALL-3      1200    255     4       APRS / Packet
-#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
-#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
-```
-
-- Save and exit
-
-## WSJT-X ... well
-Since stable arm64 and amd64 packages are available from the WSJTX team, we opted to add WSJTX back in.
-Remonder, WSJT-X does not like being installed with JS8CALL given its use of wsjtx-data package.
 
 ## Example Hardware Setup
 ![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
