@@ -126,6 +126,9 @@ case "$1" in
     install )
         source $SIGPI_PACKAGES/$SPKGSCRIPT install
         ;;
+    build )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT build
+        ;;
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
         ;;
