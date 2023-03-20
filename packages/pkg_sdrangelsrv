@@ -95,12 +95,12 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrangel-server_7.9.0-1_amd64.deb
+	        sudo dpkg -i sdrangel-server_7.11.0-1_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrangel-server_7.9.0-1_arm64.deb
+	        sudo dpkg -i sdrangel-server_7.11.0-1_arm64.deb
         fi
         echo "sdrangel" >> $SIGPI_CONFIG 
         
@@ -113,7 +113,52 @@ case "$1" in
         echo "fftwf-wisdom" >> $SIGPI_CONFIG 
       
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build SDRangel Server"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y libusb-dev
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y gettext
+        sudo apt-get install -y pulseaudio
+        sudo apt-get install -y libopencv-dev
+        sudo apt-get install -y libxml2-dev
+        sudo apt-get install -y bison
+        sudo apt-get install -y flex
+        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y libavcodec-dev
+        sudo apt-get install -y libavformat-dev
+        sudo apt-get install -y opus-tools
+        sudo apt-get install -y libopus-dev
+        sudo apt-get install -y qml-module-qtlocation
+        sudo apt-get install -y qml-module-qtpositioning
+        sudo apt-get install -y qml-module-qtquick-window2
+        sudo apt-get install -y qml-module-qtquick-dialogs
+        sudo apt-get install -y qml-module-qtquick-controls
+        sudo apt-get install -y qml-module-qtquick-layouts
+        
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel
+        git reset --hard d67aac3  # v7.11.0
+        mkdir build; cd build
+        cmake .. -Wno-dev -DBUILD_GUI=off
+        make -j4
+        sudo checkinstall --install=no
+      
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Built"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
