@@ -1,7 +1,7 @@
 # Release Notes
 
 ## Release 6.2.1: 2023-03-20
-- Maintenance Release
+- Feature Release
 - SDRangel 7.11.0 release
 - Adding SIGpi **build** option to various packages (see [wiki](https://github.com/joecupano/SIGpi/wiki))
 
