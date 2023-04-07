@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 6.2.2: 2023-04-07
+- Maintenance Release
+- SDRangel 7.12.0 Release
+- Hamlib 4.5.5 Release
+
 ## Release 6.2.1: 2023-03-20
 - Feature Release
 - SDRangel 7.11.0 release
