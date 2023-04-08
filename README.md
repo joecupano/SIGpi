@@ -33,10 +33,8 @@ Usage: sigpi [ACTION] [TARGET]
 You can update packages in your existing SIGpi install with the following commands using **SDRangel** and **SDR++** as examples:
 
 ```
-SIGpi purge sdrangel
-SIGpi install sdrangel
-SIGpi purge sdrpp
-SIGpi install sdrpp
+SIGpi upgrade sdrangel
+SIGpi upgrade sdrpp
 ```
 
 ### Add/Remove Packages anytime
