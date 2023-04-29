@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 6.2.3: 2023-04-29
+- Maintenance Release
+- SDRangel 7.13.0 Release
+
 ## Release 6.2.2: 2023-04-07
 - Maintenance Release
 - SDRangel 7.12.0 Release
