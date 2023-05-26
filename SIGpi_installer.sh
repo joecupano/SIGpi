@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20230129-2300
+###  REVISION: 20230526-0300
 ###
 
 ###
@@ -235,6 +235,8 @@ select_usefulapps() {
         "sigdigger" "SigDigger, free digital signal analyzer " OFF \
         "srsran" "srsRAN, Open-source 4G/5G software radio suite (amd64 only)" OFF \
         "uniradhack" "Universal Radio Hacker. Offline wireless protocol investigation" OFF \
+        "wireshark" "Network protocol analyzer" OFF \
+        "kismet" "Wireless sniffer and monitor " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -644,11 +646,18 @@ if grep sigdigger "$SIGPI_INSTALLER"; then
 fi
 
 # Install Wireshark
-source $SIGPI_PACKAGES/pkg_wireshark install
+if grep wireshark "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_wireshark install
+fi
+
 # Install Kismet
-source $SIGPI_PACKAGES/pkg_kismet install
+if grep kismet "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_kismet install
+fi
+
 # Install Audacity
 source $SIGPI_PACKAGES/pkg_audacity install 
+
 # Install PAVU 
 source $SIGPI_PACKAGES/pkg_pavucontrol install
 
@@ -659,6 +668,7 @@ fi
 
 # Install DOSbox
 source $SIGPI_PACKAGES/pkg_dosbox install
+
 # Install SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
 

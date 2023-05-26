@@ -152,7 +152,7 @@ case "$1" in
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
         git reset --hard d67aac3  # v7.11.0
-        mkdir build; cd build
+        mkdir build && cd build
         cmake .. -Wno-dev -DBUILD_GUI=off
         make -j4
         sudo checkinstall --install=no
