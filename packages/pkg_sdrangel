@@ -222,7 +222,8 @@ case "$1" in
         #git reset --hard d67aac3  # v7.11.0
         #git reset --hard cf0489d  # v7.12.0
         #git reset --hard 3f9f81c  # v7.13.0
-        git reset --hard b12e282   # v7.14.1
+        #git reset --hard b12e282  # v7.14.1
+        git reset --hard b4847f1   # v7.15.0
         mkdir build && cd build
         cmake -Wno-dev ..
         make -j4

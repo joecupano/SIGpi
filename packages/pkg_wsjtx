@@ -13,17 +13,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r wsjtx_2.6.0_amd64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r wsjtx_2.6.0_arm64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
-        fi
+        sudo dpkg -r wsjtx_2.6.0
+        sudo dpkg -r wsjtx_2.6.1
+        sed -i /wsjtx/d $SIGPI_CONFIG
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Removed"
@@ -35,18 +27,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P wsjtx_2.6.0_amd64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P wsjtx_2.6.0_arm64.deb
-            sed -i /wsjtx/d $SIGPI_CONFIG
-        fi
-
+        sudo dpkg -P wsjtx_2.6.0
+        sudo dpkg -P wsjtx_2.6.1
+ 
 	    rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop
         sudo rm -rf $DESKTOP_FILES/wsjtx.desktop
@@ -72,13 +55,13 @@ case "$1" in
         
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i wsjtx_2.6.0_amd64.deb
+	        sudo dpkg -i wsjtx_2.6.1_amd64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i wsjtx_2.6.0_arm64.deb
+	        sudo dpkg -i wsjtx_2.6.1_arm64.deb
             echo "wsjtx" >> $SIGPI_CONFIG 
         fi
 

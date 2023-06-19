@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 6.2.5: 2023-06-19
+- Maintenance Release
+- SDRangel 7.15.0 Release
+- WSJT-X 2.6.1 Release
+
 ## Release 6.2.4: 2023-05-26
 - Maintenance Release
 - SDRangel 7.14.1 Release
