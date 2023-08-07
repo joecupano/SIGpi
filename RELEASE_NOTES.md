@@ -1,7 +1,8 @@
 # Release Notes
 
-## Release 6.3: 2023-07-15
-- Amateure Radio Related Updates
+## Release 6.2.6: 2023-08-07
+- Maintenance Release
+- SDRangel 7.15.2 Release
 
 ## Release 6.2.5: 2023-06-19
 - Maintenance Release
