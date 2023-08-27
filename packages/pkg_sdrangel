@@ -122,6 +122,7 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5-plugins
         sudo apt-get install -y libqt5gamepad5-dev
         
+        ## INSTALL
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -134,15 +135,15 @@ case "$1" in
         fi
         echo "sdrangel" >> $SIGPI_CONFIG 
         
+        ### FFTW-WISDOM CHECK AND LINK
         mkdir $HOME/.config/f4exb
         mkdir $HOME/.local/share/f4exb
         mkdir $HOME/.local/share/f4exb/SDRangel
-
-        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-        # This will take a very long time.
-        fftwf-wisdom -v -n -o $HOME/.local/share/f4exb/SDRangel/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        cp $HOME/.local/share/f4exb/SDRangel/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
-        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
 
 	    ## DESKTOP
         # Add Icon      
@@ -216,11 +217,11 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5
         sudo apt-get install -y libqt5positioning5-plugins
         sudo apt-get install -y libqt5gamepad5-dev
-             
+
+        ## INSTALL
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel
-      
+        cd sdrangel     
         #git reset --hard d67aac3  # v7.11.0
         #git reset --hard cf0489d  # v7.12.0
         #git reset --hard 3f9f81c  # v7.13.0
@@ -228,20 +229,29 @@ case "$1" in
         #git reset --hard b4847f1  # v7.15.0
         #git reset --hard 8383467  # v7.15.2
         git reset --hard 028a44c   # v7.15.3
-        mkdir build && cd build
-        
+        mkdir build && cd build   
         make -j4
         sudo checkinstall --install=no
 
+        ### FFTW-WISDOM CHECK AND LINK
         mkdir $HOME/.config/f4exb
         mkdir $HOME/.local/share/f4exb
         mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
 
-        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-        # This will take a very long time.
-        fftwf-wisdom -v -n -o $HOME/.local/share/f4exb/SDRangel/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        cp $HOME/.local/share/f4exb/SDRangel/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
-        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+        ## DESKTOP
+        # Add Icon      
+        # Add Desktop
+        sudo cp $SIGPI_DESKTOP/sdrangel.desktop $DESKTOP_FILES
+        # Add Run script
+        sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built"
