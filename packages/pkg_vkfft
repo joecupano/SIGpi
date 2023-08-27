@@ -1,0 +1,116 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_vkfft
+###
+###
+### VkFFT is an efficient GPU-accelerated multidimensional Fast Fourier Transform library for
+### Vulkan/CUDA/HIP/OpenCL/Level Zero/Metal projects. VkFFT aims to provide the community with an open-source alternative 
+### to Nvidia's cuFFT library while achieving better performance. VkFFT is written in C language and supports
+### Vulkan, CUDA, HIP, OpenCL, Level Zero and Metal as backends. (https://github.com/DTolm/VkFFT)
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove VkFFT"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r vkfft
+            sed -i /vkfft/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r vkfft
+            sed -i /vkfft/d $SIGPI_CONFIG
+        fi
+        sed -i /vkfft/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge VkFFT"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P vkfft
+            sed -i /vkfft/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P vkfft
+            sed -i /vkfft/d $SIGPI_CONFIG
+        fi
+        sed -i /vkfft/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install VkFFT"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+
+        ## INSTALL
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i vkfft_1.3.1-1_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i vkfft_1.3.1-1_arm64.deb
+        fi
+        echo "vkfft" >> $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build VkFFT"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/DTolm/VkFFT.git
+        cd VkFFT
+        git checkout v1.3.1
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Built"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
