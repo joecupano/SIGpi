@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20230526-0300
+###  REVISION: 20230828-0300
 ###
 
 ###
@@ -34,7 +34,8 @@ SIGPI_INSTALLER=$SIGPI_ETC/INSTALL_CONFIG
 SIGPI_CONFIG=$SIGPI_ETC/INSTALLED
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
 SIGPI_INSTALL_TXT=$SIGPI_SCRIPTS/scr_install_welcome.txt
-SIGPI_INSTALLSRV_TXT1=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
+SIGPI_INSTALLSRV_TXT=$SIGPI_SCRIPTS/scr_install-srv_welcome.txt
+SIGPI_INSTALLBASE_TXT=$SIGPI_SCRIPTS/scr_install-base_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -159,6 +160,10 @@ select_startscreen(){
 
 select_startsrvscreen(){
     TERM=ansi whiptail --title "SIGpi Node Installer" --clear --textbox $SIGPI_INSTALLSRV_TXT 34 100 16
+}
+
+select_startbasescreen(){
+    TERM=ansi whiptail --title "SIGpi Base Installer" --clear --textbox $SIGPI_INSTALLBASE_TXT 34 100 16
 }
 
 select_devices() {
@@ -354,6 +359,8 @@ if [ "$1" = "node" ]; then
     source $SIGPI_PACKAGES/pkg_rtl_433 install
     # Install Dump1090
     source $SIGPI_PACKAGES/pkg_dump1090 install
+    # Generate FFT Wisdom file
+    source $SIGPI_PACKAGES/pkg_fftw
     
     if [ "$2" = "rtltcpsrv" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi_node_rtltcp.service /etc/systemd/system/sigpi-node.service
@@ -398,6 +405,7 @@ fi
 
 if [ "$1" = "base" ]; then
     calc_wt_size
+    select_startbasescreen
 
     TERM=ansi whiptail --title "SIGpi Base Install" --clear --msgbox "Ready to Install" 12 120
 
@@ -668,6 +676,9 @@ fi
 
 # Install DOSbox
 source $SIGPI_PACKAGES/pkg_dosbox install
+
+# Generate FFT Wisdom file
+source $SIGPI_PACKAGES/pkg_fftw
 
 # Install SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
