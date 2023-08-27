@@ -143,6 +143,9 @@ qtwebengine5-dev qtbase5-private-dev \
 libfaad-dev zlib1g-dev libboost-all-dev libasound2-dev pulseaudio libopencv-dev libxml2-dev bison flex \
 ffmpeg libavcodec-dev libavformat-dev libopus-dev doxygen graphviz
 
+# Vulkan Drivers to leverage GPU as FFT for SDR
+sudo apt install -y mesa-vulkan-drivers vulkan-tools
+
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Core Dependencies Installed"
 echo -e "${SIGPI_BANNER_RESET}"
