@@ -107,6 +107,13 @@ SIGpi Node install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server
 During installation you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start 
 any of them. 
 
+### Base Installation
+
+This is a minimal desktop installation that includes RTLSDR and HackRF support and command line tools. No SDR GUI apps.
+
+```
+./SIGpi_installer.sh base
+```
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)

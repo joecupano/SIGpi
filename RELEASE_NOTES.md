@@ -1,7 +1,7 @@
 # Release Notes
 
 ## Release 6.3: 2023-08-28
-- Add tools for FFT via GPU experimentation (VkFFT GPU FFT library)
+- Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
 - Add Vulkan drivers to core dependencies
 - FFTW-Wisdom now its own package and not bundled under SDRangel
 - Publish SIGpi Base install option (SDR device drivers, CMDline tools, DireWolf for APRS)
