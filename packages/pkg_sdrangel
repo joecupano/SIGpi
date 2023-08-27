@@ -134,14 +134,15 @@ case "$1" in
         fi
         echo "sdrangel" >> $SIGPI_CONFIG 
         
-        cd $HOME/.config/
-        mkdir f4exb
-        cd f4exb
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+
         # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
         # This will take a very long time.
-        fftwf-wisdom -v -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fftwf-wisdom -v -n -o $HOME/.local/share/f4exb/SDRangel/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        cp $HOME/.local/share/f4exb/SDRangel/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
         echo "fftwf-wisdom" >> $SIGPI_CONFIG 
-
 
 	    ## DESKTOP
         # Add Icon      
@@ -219,6 +220,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
+      
         #git reset --hard d67aac3  # v7.11.0
         #git reset --hard cf0489d  # v7.12.0
         #git reset --hard 3f9f81c  # v7.13.0
@@ -226,11 +228,20 @@ case "$1" in
         #git reset --hard b4847f1  # v7.15.0
         #git reset --hard 8383467  # v7.15.2
         git reset --hard 028a44c   # v7.15.3
-
         mkdir build && cd build
-        cmake -Wno-dev ..
+        
         make -j4
         sudo checkinstall --install=no
+
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+
+        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
+        # This will take a very long time.
+        fftwf-wisdom -v -n -o $HOME/.local/share/f4exb/SDRangel/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        cp $HOME/.local/share/f4exb/SDRangel/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
+        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built"
