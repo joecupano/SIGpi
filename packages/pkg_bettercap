@@ -12,7 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove bettercap"
         echo -e "${SIGPI_BANNER_RESET}"
         
-	cd $SIGPI_SOURCE/bettercap/build
+	    cd $SIGPI_SOURCE/bettercap/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
@@ -26,9 +26,9 @@ case "$1" in
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge bettercap"
-        echo -e "${SIGPI_BANNER_RESET}"
-               
-	cd $SIGPI_SOURCE/bettercap/build
+        echo -e "${SIGPI_BANNER_RESET}"       
+	    
+        cd $SIGPI_SOURCE/bettercap/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE

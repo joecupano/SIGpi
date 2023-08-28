@@ -1,0 +1,104 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_zerotier
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove ZeroTier"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -r zerotier-one_1.12.1_amd64.deb
+            sed -i /zerotier-one/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -r zerotier-one-1.1.0-1_arm64.deb
+            sed -i /zerotier-one/d $SIGPI_CONFIG
+        fi
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   ZeroTier Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge ZeroTier"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -P zerotier-one_1.12.1_amd64.deb
+            sed -i /zerotier-one/d $SIGPI_CONFIG
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -P zerotier-one_1.12.1_arm64.deb
+            sed -i /zerotier-one/d $SIGPI_CONFIG
+        fi
+   
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   ZeroTier Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install ZeroTier-"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        # DEPENDENCIES
+        sudo apt-get install -y libglew-dev
+        sudo apt-get install -y libglfw3-dev
+        sudo apt-get install -y libsoapysdr-dev
+        sudo apt-get install -y libad9361-dev 
+        sudo apt-get install -y libairspyhf-dev 
+        sudo apt-get install -y librtaudio-dev
+        sudo apt-get install -y libcodec2-dev
+        sudo apt-get install -y libvolk2-bin libvolk2-dev
+        sudo apt-get install -y libzstd-dev
+        
+        # INSTALL
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i zerotier-one_1.12.1_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i zerotier-one_1.12.1_arm64.deb
+        fi
+        echo "zerotier-one" >> $SIGPI_CONFIG 
+        
+	    ## DESKTOP
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   ZeroTier Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ## BUILD OPTION NOT AVAILABLE"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

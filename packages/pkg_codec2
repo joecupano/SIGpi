@@ -57,6 +57,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
+        ## DEPENDENCIES
+
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
@@ -67,6 +70,12 @@ case "$1" in
         sudo make install
         sudo ldconfig
         echo "codec2" >> $SIGPI_CONFIG 
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Installed"

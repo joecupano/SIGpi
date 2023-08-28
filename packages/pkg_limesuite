@@ -68,7 +68,7 @@ case "$1" in
         sudo apt-get install -y libwxbase3.0-0v5
         sudo apt-get install -y freeglut3-dev
 
-        ## INSTALL
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/myriadrf/LimeSuite.git
         cd LimeSuite

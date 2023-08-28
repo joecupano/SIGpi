@@ -57,10 +57,10 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
 
-        # FlightAware fork
+        ### FlightAware fork
         sudo apt-get -y install dump1090-mutability
-
-        # Mutability Original
+        
+        ### Mutability Original
         #git clone https://github.com/antirez/dump1090.git
         #cd dump1090
         #make -j4
