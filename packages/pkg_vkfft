@@ -68,7 +68,7 @@ case "$1" in
 
         ## DEPENDENCIES
 
-        ## INSTALL
+        ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -94,7 +94,7 @@ case "$1" in
         
         ## DEPENDENCIES
 
-        ## INSTALL
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/DTolm/VkFFT.git
         cd VkFFT

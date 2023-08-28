@@ -89,6 +89,38 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build DireWolf (AFSK APRS)"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libudev-dev
+        sudo apt-get install -y libgps-dev
+        sudo apt-get install -y libhamlib-dev
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://www.github.com/wb2osz/direwolf.git
+        cd direwolf
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+                
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Built"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

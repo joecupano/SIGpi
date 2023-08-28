@@ -66,9 +66,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
+        ## DEPENDENCIES
         source $SIGPI_PACKAGES/pkg_sigutils install
         source $SIGPI_PACKAGES/pkg_suscan install
         
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SuWidgets
         cd SuWidgets

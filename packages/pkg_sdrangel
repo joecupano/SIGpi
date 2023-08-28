@@ -244,14 +244,10 @@ case "$1" in
         cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
 
         ## DESKTOP
-        # Add Icon      
+	    # Add Icon
         # Add Desktop
-        sudo cp $SIGPI_DESKTOP/sdrangel.desktop $DESKTOP_FILES
-        # Add Run script
-        sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin
         # Change Category
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
+	    # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built"

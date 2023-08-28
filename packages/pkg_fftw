@@ -69,43 +69,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   FFTW Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build FFTW"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        ## DEPENDENCIES
-        sudo apt-get install -y libfftw3-dev
-        sudo apt-get install -y libboost-all-dev
-        sudo apt-get install -y libgl1-mesa-dev 
-        sudo apt-get install -y libopencv-dev
-        sudo apt-get install -y libxml2-dev
-        sudo apt-get install -y bison
-        sudo apt-get install -y flex
-        sudo apt-get install -y ffmpeg
-        sudo apt-get install -y opus-tools
-        sudo apt-get install -y libopus-dev
-        sudo apt-get install -y libgl1-mesa-glx
-
-        ## INSTALL           
-        cd $SIGPI_SOURCE
-        # git clone
-        # cd to-cloned
-        # mkdir build && cd build
-        # make -j4
-        # sudo checkinstall --install=no
-
-        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-        # This will take a very long time.
-        fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FFTW Built"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

@@ -96,6 +96,47 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+     build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build LimeSDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y swig
+        sudo apt-get install -y libsqlite3-dev
+        sudo apt-get install -y libi2c-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y liboctave-dev
+        sudo apt-get install -y libfltk1.3-dev
+        # sudo apt-get install -y libwxgtk3.0-dev
+        # Following is rpelacement fot libwxgtk3.0-dev
+        sudo apt-get install -y libwxbase3.0-0v5
+        sudo apt-get install -y freeglut3-dev
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/myriadrf/LimeSuite.git
+        cd LimeSuite
+        git checkout stable
+        mkdir build-dir && cd build-dir
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        
+        ## DESKTOP
+	# Add Icon
+        # Add Desktop
+        # Change Category
+	# Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LimeSDR Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

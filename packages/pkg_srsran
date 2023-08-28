@@ -38,7 +38,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Install srsRAN"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
 
+        ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_PACKAGES
