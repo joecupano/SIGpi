@@ -12,7 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove FLrig"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove flrig
+        sudo dpkg -r flrig
         sed -i /flrig/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -24,7 +24,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge FLrig"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove --purge flrig
+        sudo dpkg -P flrig
         sed -i /flrig/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -41,18 +41,28 @@ case "$1" in
         ## DEPENDENCIES
 
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        sudo apt-get install -y flrig
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i flrig_2.0.03-1_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i flrig_2.0.03_arm64.deb
+        fi
         echo "flrig" >> $SIGPI_CONFIG 
 
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
-        # Change Category
-	    #sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-        # Add to Menu
-        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
-        
+        # Add Category
+        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
+        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
+        # Add to Menu.
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flarq.desktop
+	    
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Installed"
         echo -e "${SIGPI_BANNER_RESET}"
