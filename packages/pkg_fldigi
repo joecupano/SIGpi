@@ -12,7 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove FLdigi"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove fldigi
+        sudo dpkg -r fldigi
         sed -i /fldigi/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -24,7 +24,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge FLdigi"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get remove --purge fldigi
+        sudo dpkg -P fldigi
         sed -i /fldigi/d $SIGPI_CONFIG
         
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -41,8 +41,16 @@ case "$1" in
         ## DEPENDENCIES
 
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        sudo apt-get install -y fldigi
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i fldigi_4.1.27-1_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i fldigi_4.1.27_arm64.deb
+        fi
         echo "fldigi" >> $SIGPI_CONFIG 
 
 	    ## DESKTOP
@@ -51,7 +59,7 @@ case "$1" in
         # Add Category
         sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/fldigi.desktop
         sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
-        # Add to Menu
+        # Add to Menu.
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/fldigi.desktop
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flarq.desktop
 	    
