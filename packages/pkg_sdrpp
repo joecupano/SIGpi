@@ -13,19 +13,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDR++"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r sdrpp_1.1.0-1_amd64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -r sdrpp-1.1.0-1_arm64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
-        fi
-
+        sudo dpkg -r sdrpp
+        sed -i /sdrpp/d $SIGPI_CONFIG
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Removed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -35,18 +25,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDR++"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P sdrpp_1.1.0-1_amd64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -P sdrpp_1.1.0-1_arm64.deb
-            sed -i /sdrpp/d $SIGPI_CONFIG
-        fi
+        sudo dpkg -P sdrpp
+        sed -i /sdrpp/d $SIGPI_CONFIG
    
         sudo rm -rf $SIGPI_DESKTOP/sdrpp.desktop
         sudo rm -rf $DESKTOP_FILES/sdrpp.desktop

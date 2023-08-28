@@ -13,22 +13,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r sdrangel
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r sdrangel
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-   
+        sudo dpkg -r sdrangel
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
-        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
+        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Removed"
@@ -39,25 +27,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P sdrangel
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P sdrangel 
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-   
+        sudo dpkg -P sdrangel
         sed -i /sdrangel/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
-        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
-
-        sudo rm -rf $SIGPI_DESKTOP/sdrangel.desktop
-        sudo rm -rf $DESKTOP_FILES/sdrangel.desktop
+        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        sudo rm $DESKTOP_FILES/sdrangel.desktop
+        # Add Run script
+        sudo rm /usr/local/bin/run_sdrangel.sh
+        xdg-desktop-menu uninstall --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Purged"
@@ -122,7 +99,7 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5-plugins
         sudo apt-get install -y libqt5gamepad5-dev
         
-        ## INSTALL
+        ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS

@@ -13,22 +13,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel Server"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r sdrangel-server
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r sdrangel-server
-            sed -i /sdrangel/d $SIGPI_CONFIG
-        fi
-   
-        sed -i /sdrangel/d $SIGPI_CONFIG
+        sudo dpkg -r sdrangelsrv
+        sed -i /sdrangelsrv/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
-        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
+        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Removed"
@@ -39,22 +27,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel Server"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P sdrangel-server
-            sed -i /sdrangelsrv/d $SIGPI_CONFIG
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P sdrangel-server
-            sed -i /sdrangelsrv/d $SIGPI_CONFIG
-        fi
-   
-        sed -i /sdrangel/d $SIGPI_CONFIG
+        sudo dpkg -P sdrangelsrv
+        sed -i /sdrangelsrv/d $SIGPI_CONFIG
         rm $HOME/.config/f4exb/fftw-wisdom
-        sed -i /fftwf-wisdom/d $SIGPI_CONFIG
+        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Purged"
@@ -105,13 +81,15 @@ case "$1" in
         fi
         echo "sdrangelsrv" >> $SIGPI_CONFIG 
         
-        cd $HOME/.config/
-        mkdir f4exb
-        cd f4exb
-        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-        # This will take a very long time.
-        fftwf-wisdom -v -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
 
         ## DESKTOP
 	    # Add Icon
