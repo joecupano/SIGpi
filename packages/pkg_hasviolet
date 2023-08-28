@@ -95,9 +95,6 @@ case "$1" in
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/hasviolet.desktop
         
-
-
-
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   HASviolet Installed"
         echo -e "${SIGPI_BANNER_RESET}"

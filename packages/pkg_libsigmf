@@ -47,6 +47,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
+        ## DEPENDENCIES
+
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/deepsig/libsigmf.git
         cd libsigmf
@@ -55,8 +58,13 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-
         echo "libsigmf" >> $SIGPI_CONFIG 
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   LibSigMF Installed"

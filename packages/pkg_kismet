@@ -54,7 +54,6 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        # What operating system are we?
         if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
             wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
             echo 'deb https://www.kismetwireless.net/repos/apt/release/focal focal main' | sudo tee /etc/apt/sources.list.d/kismet.list
@@ -66,9 +65,7 @@ case "$1" in
             sudo apt update
             sudo apt-get install -y kismet
         fi
-#
-        # Say yes when asked about suid helpers
-        #
+        ### Say yes when asked about suid helpers
         echo "kismet" >> $SIGPI_CONFIG 
         
         ## DESKTOP

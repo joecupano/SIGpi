@@ -12,7 +12,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove bettercap ui"
         echo -e "${SIGPI_BANNER_RESET}"
         
-	cd $SIGPI_SOURCE/bettercapui/build
+	    cd $SIGPI_SOURCE/bettercapui/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
@@ -28,7 +28,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge bettercap ui"
         echo -e "${SIGPI_BANNER_RESET}"
                
-	cd $SIGPI_SOURCE/bettercapui/build
+	    cd $SIGPI_SOURCE/bettercapui/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
@@ -50,7 +50,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        # DEPENDENCIES
+        ## DEPENDENCIES
         sudo apt-get install -y nodejs npm
         
         ## PACKAGE 

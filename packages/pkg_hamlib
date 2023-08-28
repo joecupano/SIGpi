@@ -66,6 +66,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
+        ## DEPENDENCIES
+
+        ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -76,7 +79,13 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i hamlib_4.5.5-1_arm64.deb
         fi
-        echo "sdrangel" >> $SIGPI_CONFIG 
+        echo "sdrangel" >> $SIGPI_CONFIG
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed"
@@ -88,13 +97,22 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Install Hamlib"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-        
+
+        ## DEPENDENCIES
+
+        ## PACKAGE
         wget https://github.com/Hamlib/Hamlib/releases/download/4.5.5/hamlib-4.5.5.tar.gz -P $HOME/Downloads
         tar -zxvf $HOME/Downloads/hamlib-4.5.5.tar.gz -C $SIGPI_SOURCE
         cd $SIGPI_SOURCE/hamlib-4.5.5
         ./configure
         make -j4
         sudo checkinstall --install=no
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed"

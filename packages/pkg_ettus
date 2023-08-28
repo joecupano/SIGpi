@@ -46,14 +46,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        # UHD
-
         ## DEPENDENCIES
         sudo apt-get install -y libboost-all-dev
         sudo apt-get install -y libusb-1.0-0-dev
         sudo apt-get install -y python3-mako
 
-        # INSTALL
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
         cd uhd/host

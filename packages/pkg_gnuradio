@@ -34,7 +34,7 @@ case "$1" in
 	    rm -rf $SIGPI_SOURCE/gnuradio*
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
-	### Remove Menu icon
+	    ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
@@ -67,7 +67,7 @@ case "$1" in
             sed -i /gnuradio/d $SIGPI_CONFIG
         fi
 
-	### Remove Menu icon
+	    ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
@@ -131,7 +131,9 @@ case "$1" in
         sudo apt-get install -y python3-gi-cairo
         sudo pip3 install "pybind11[global]"      # GNUradio 3.9.80 on RPi
         
-        # Install VOLK
+        ## PACKAGE
+        
+        ### Install VOLK
         cd $SIGPI_SOURCE 
         git clone https://github.com/gnuradio/volk.git
         cd volk
@@ -145,7 +147,7 @@ case "$1" in
         
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	    # Add GNUradio repo
+	    ### Add GNUradio repo
             sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 	        sudo apt-get install -y gnuradio   # v3.10.5
             echo "gnuradio" >> $SIGPI_CONFIG 
@@ -167,8 +169,8 @@ case "$1" in
             echo "gnuradio" >> $SIGPI_CONFIG 
         fi
 
-	## DESKTOP
-	# Add Icon
+    	## DESKTOP
+	    # Add Icon
         # Add Desktop
         # Change Category
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop

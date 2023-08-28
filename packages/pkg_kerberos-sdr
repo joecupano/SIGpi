@@ -63,7 +63,7 @@ case "$1" in
         sudopip3 install bottle
         sudopip3 install paste
 
-        # INSTALL
+        # PACKAGE
         cd $SIGPI_SOURCE
         ggit clone https://github.com/rtlsdrblog/rtl-sdr-kerberos
         cd $SIGPI_SOURCE/rtl-sdr-kerberos
@@ -74,6 +74,12 @@ case "$1" in
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
         echo "kerberos-sdr" >> $SIGPI_CONFIG
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Installed"

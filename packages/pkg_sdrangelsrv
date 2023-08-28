@@ -92,6 +92,7 @@ case "$1" in
         sudo apt-get install -y qml-module-qtquick-controls
         sudo apt-get install -y qml-module-qtquick-layouts
         
+        ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -111,6 +112,12 @@ case "$1" in
         # This will take a very long time.
         fftwf-wisdom -v -n -o fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
         echo "fftwf-wisdom" >> $SIGPI_CONFIG 
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
       
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Installed"
@@ -148,6 +155,7 @@ case "$1" in
         sudo apt-get install -y qml-module-qtquick-controls
         sudo apt-get install -y qml-module-qtquick-layouts
         
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
@@ -156,6 +164,12 @@ case "$1" in
         cmake .. -Wno-dev -DBUILD_GUI=off
         make -j4
         sudo checkinstall --install=no
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
       
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Built"

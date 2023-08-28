@@ -50,9 +50,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        # DEPENDENCIES
+        ## DEPENDENCIES
 
         ## PACKAGE 
+        
+        ### BladeRF
         cd $SIGPI_SOURCE
         git clone https://github.com/Nuand/bladeRF.git
         cd bladeRF
@@ -63,7 +65,7 @@ case "$1" in
         sudo ldconfig
         echo "bladerf" >> $SIGPI_CONFIG 
 	
-        # SoapyBladeRF
+        ### SoapyBladeRF
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyBladeRF "
         echo -e "${SIGPI_BANNER_RESET}"
