@@ -68,10 +68,40 @@ case "$1" in
         # Add Desktop
         # Change Directory
         # Add to Menu
-        
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   UHD Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Ettus UHD Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build Ettus UHD"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y python3-mako
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
+        cd uhd/host
+        mkdir build	&& cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Directory
+        # Add to Menu
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Ettus UHD Built"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

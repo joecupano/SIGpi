@@ -73,6 +73,34 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+     build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build Liquid-DSP"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/jgaeddert/liquid-dsp.git
+        cd liquid-dsp
+        ./bootstrap.sh
+        ./configure --enable-fftoverride 
+        make -j4
+        sudo checkinstall --install=no
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Built"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

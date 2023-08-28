@@ -47,6 +47,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
+        ## DEPENDENCIES
+
+        ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/serialDV.git
         cd serialDV
@@ -57,8 +60,43 @@ case "$1" in
         sudo make install
         sudo ldconfig
         
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SerialDV Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build SeriaDV (AMBE3000 chip serial control)"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/serialDV.git
+        cd serialDV
+        git reset --hard "v1.1.4"
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SerialDV Built"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

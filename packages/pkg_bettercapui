@@ -74,9 +74,37 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build bettercap ui"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y nodejs npm
+        
+        ## PACKAGE 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/bettercap/ui bettercapui
+        cd bettercapui
+        make build
+        sudo checkinstall --install=no
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui built"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
+
