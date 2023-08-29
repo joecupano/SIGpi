@@ -458,7 +458,8 @@ if [ "$1" = "base" ]; then
     source $SIGPI_PACKAGES/pkg_rtl_433 install
     # Install Dump1090
     source $SIGPI_PACKAGES/pkg_dump1090 install
-
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Base Installation Complete !!"
@@ -615,7 +616,15 @@ fi
 
 # JS8CALL
 if grep js8call "$SIGPI_INSTALLER"; then
-    source $SIGPI_PACKAGES/pkg_js8call install
+    if grep wsjtx "$SIGPI_INSTALLER"; then
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ## ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+    else
+        source $SIGPI_PACKAGES/pkg_js8call install
+    fi
 fi
 
 # Gpredict
