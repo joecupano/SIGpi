@@ -31,6 +31,8 @@ sudo apt-get install -y dkms
 sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac-dev faac faad pulseaudio pcmanfm
 # libwxgtk3.0-dev has no candidate in Ubuntu 20.04, libwxgtk3.0-gtk3-dev is its replacement
 sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev
+sudo apt-get install -y zstd
+
 
 # Qt5 Base Packages
 sudo apt-get install -y qtbase5-dev 
@@ -57,11 +59,9 @@ sudo apt-get install -y python3-numpy
 sudo apt-get install -y python3-opengl
 sudo apt-get install -y python3-pydot
 sudo apt-get install -y python3-pygraphviz
-#sudo apt-get install -y python-qt4
 sudo apt-get install -y qt5-default
 sudo apt-get install -y python3-pyqt5
 sudo apt-get install -y python3-pyqt5.qtopengl
-#sudo apt-get install -y python-pyside
 sudo apt-get install -y python3-pyqtgraph
 sudo apt-get install -y python3-scapy
 sudo apt-get install -y python3-scipy
@@ -72,17 +72,17 @@ sudo apt-get install -y python3-tk-dbg
 sudo apt-get install -y python3-tornado
 sudo apt-get install -y python3-yaml
 sudo apt-get install -y python3-zmq
-sudo apt-get install -y python-cycler-doc 
-sudo apt-get install -y python-docutils
-#sudo apt-get install -y python-gobject
-sudo apt-get install -y python-matplotlib-data
-sudo apt-get install -y python-matplotlib-doc
-sudo apt-get install -y python-networkx-doc 
+sudo apt-get install -y python3-cycler-doc 
+sudo apt-get install -y python3-docutils
+sudo apt-get install -y python3-matplotlib-data
+sudo apt-get install -y python3-matplotlib-doc
+sudo apt-get install -y python3-networkx-doc 
 sudo apt-get install -y python3-dbg
 sudo pip3 install pyinstaller
 sudo pip3 install packaging
 sudo pip3 install pygccxml
 sudo pip3 install qtawesome
+sudo apt-get install -y python-is-python3
 
 # Install Go Language
 sudo apt-get install -y golang
@@ -122,7 +122,6 @@ sudo apt-get install -y swig
 sudo apt-get install -y avahi-daemon
 sudo apt-get install -y libavahi-client-dev
 sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python-dev
 sudo apt-get install -y python3-dev
 
 ## Other pre-requisites from fixes
