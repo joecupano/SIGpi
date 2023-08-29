@@ -120,7 +120,7 @@ case "$1" in
             fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
         fi
         cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
 
 	    ## DESKTOP
         # Add Icon      
@@ -218,7 +218,7 @@ case "$1" in
             fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
         fi
         cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
 
         ## DESKTOP
 	    # Add Icon
