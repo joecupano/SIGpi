@@ -1,0 +1,111 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_rtlsdr
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTLSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/rtl-sdr-blog/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/rtl-sdr-blog
+        sed -i /rtlsdr/d $SIGPI_CONFIG
+	
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTLSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/rtl-sdr-blog/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	rm -rf $SIGPI_SOURCE/rtl-sdr-blog
+        sed -i /rtlsdr/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install RTLSDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt purge ^librtlsdr
+        sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
+        sudo apt-get install libusb-1.0-0-dev
+        
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+        cd rtl-sdr-blog
+        mkdir build && cd build
+        cmake ../ -DINSTALL_UDEV_RULES=ON
+        make -j4
+        sudo make install
+        sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+        sudo ldconfig
+        echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
+
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+     build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build RTLSDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt purge ^librtlsdr
+        sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
+        sudo apt-get install libusb-1.0-0-dev
+        
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+        cd rtl-sdr-blog
+        mkdir build && cd build
+        cmake ../ -DINSTALL_UDEV_RULES=ON
+        make -j4
+        sudo checkinstall --install=no
+        
+        ## DESKTOP
+	# Add Icon
+        # Add Desktop
+        # Change Category
+	# Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
