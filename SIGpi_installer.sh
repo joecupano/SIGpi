@@ -172,6 +172,7 @@ select_devices() {
         "bladerf" "bladeRF " OFF \
         "ettus" "Ettus Research USRP UHD " OFF \
         "limesuite" "LimeSDR " OFF \
+        "plutosdr" "PlutoSDR " OFF \
         "sdrplay" "SDRPlay " OFF \
         "rfm95w" "(RPi only) Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
@@ -328,6 +329,10 @@ if [ "$1" = "node" ]; then
     if grep ettus "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_ettus install
     fi
+    # Install PlutoSDR
+    if grep plutosdr "$SIGPI_INSTALLER"; then
+        source $SIGPI_PACKAGES/pkg_plutosdr install
+    fi
     # Install SDRPlay
     if grep sdrplay "$SIGPI_INSTALLER"; then
         source $SIGPI_PACKAGES/pkg_sdrplay install
@@ -428,8 +433,7 @@ if [ "$1" = "base" ]; then
     # Install Core Devices
     source $SIGPI_SCRIPTS/install_core_devices.sh
     # Install Libraries
-    source $SIGPI_SCRIPTS/install_libraries.sh
-    
+    source $SIGPI_SCRIPTS/install_libraries.sh   
     # Install APTdec (NOAA APT)
     source $SIGPI_PACKAGES/pkg_aptdec install
     # Install NRSC5 (HD Radio)
@@ -523,6 +527,10 @@ fi
 # Install Ettus UHD
 if grep ettus "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_ettus install
+fi
+# Install PlutoSDR
+if grep plutosdr "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_plutosdr install
 fi
 # Install SDRPlay
 if grep sdrplay "$SIGPI_INSTALLER"; then
