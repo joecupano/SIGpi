@@ -139,7 +139,7 @@ case "$1" in
         cd volk
         mkdir build && cd build
         git submodule update --init
-        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
+        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
         make -j4
         make test
         sudo make install
