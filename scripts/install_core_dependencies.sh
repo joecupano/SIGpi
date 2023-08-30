@@ -33,7 +33,6 @@ sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac
 sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev
 sudo apt-get install -y zstd
 
-
 # Qt5 Base Packages
 sudo apt-get install -y qtbase5-dev 
 sudo apt-get install -y qtchooser
@@ -72,11 +71,11 @@ sudo apt-get install -y python3-tk-dbg
 sudo apt-get install -y python3-tornado
 sudo apt-get install -y python3-yaml
 sudo apt-get install -y python3-zmq
-sudo apt-get install -y python3-cycler-doc 
+sudo apt-get install -y python-cycler-doc 
 sudo apt-get install -y python3-docutils
-sudo apt-get install -y python3-matplotlib-data
-sudo apt-get install -y python3-matplotlib-doc
-sudo apt-get install -y python3-networkx-doc 
+sudo apt-get install -y python-matplotlib-data
+sudo apt-get install -y python-matplotlib-doc
+sudo apt-get install -y python-networkx-doc 
 sudo apt-get install -y python3-dbg
 sudo pip3 install pyinstaller
 sudo pip3 install packaging
@@ -112,7 +111,6 @@ sudo apt-get install -y swig
 sudo apt-get install -y libsqlite3-dev
 sudo apt-get install -y libi2c-dev
 sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y libwxgtk3.0-dev
 sudo apt-get install -y freeglut3-dev
 sudo apt-get install -y liboctave-dev
 sudo apt-get install -y libfltk1.3-dev
