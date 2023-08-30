@@ -57,7 +57,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         ## DEPENDENCIES
-        sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
+        #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
+        sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
 
         ## PACKAGE
         cd $SIGPI_SOURCE
