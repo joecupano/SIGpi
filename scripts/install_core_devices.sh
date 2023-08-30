@@ -26,20 +26,36 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - RTLSDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
 ## DEPENDENCIES
-sudo apt-get install -y libusb-1.0-0-dev
-sudo pip3 install pyrtlsdr
+#sudo apt-get install -y libusb-1.0-0-dev
+#sudo pip3 install pyrtlsdr
 
-# INSTALL
+## PACKAGE
+#cd $SIGPI_SOURCE
+#git clone https://github.com/osmocom/rtl-sdr.git
+#cd rtl-sdr
+#mkdir build	&& cd build
+#cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+#make
+#sudo make install
+#sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+#sudo ldconfig
+
+## DEPENDENCIES
+sudo apt purge ^librtlsdr
+sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
+sudo apt-get install libusb-1.0-0-dev
+        
+## PACKAGE
 cd $SIGPI_SOURCE
-git clone https://github.com/osmocom/rtl-sdr.git
-cd rtl-sdr
-mkdir build	&& cd build
+git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+cd rtl-sdr-blog
+mkdir build && cd build
 cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
-make
+make -j4
 sudo make install
 sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
 sudo ldconfig
-
+echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
 
 # HackRF
 echo -e "${SIGPI_BANNER_COLOR}"
@@ -53,28 +69,6 @@ sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
 cd $SIGPI_SOURCE
 git clone https://github.com/mossmann/hackrf.git
 cd hackrf/host
-mkdir build && cd build
-cmake .. -Wno-dev
-make -j4
-sudo make install
-sudo ldconfig
-
-
-# PlutoSDR
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - PlutoSDR "
-echo -e "${SIGPI_BANNER_RESET}"
-
-## DEPENDENCIES
-sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
-sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
-sudo apt-get install -y python3 python3-pip python3-setuptools
-
-# INSTALL
-cd $SIGPI_SOURCE
-git clone https://github.com/analogdevicesinc/libiio.git
-cd libiio
 mkdir build && cd build
 cmake .. -Wno-dev
 make -j4
@@ -128,21 +122,6 @@ git clone https://github.com/pothosware/SoapyHackRF.git
 cd SoapyHackRF
 mkdir build && cd build
 cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-make
-sudo make install
-sudo ldconfig
-
-# SoapyPlutoSDR
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyPlutoSDR "
-echo -e "${SIGPI_BANNER_RESET}"
-
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
-cd $SIGPI_SOURCE
-git clone https://github.com/pothosware/SoapyPlutoSDR.git
-cd SoapyPlutoSDR
-mkdir build && cd build
-cmake .. -Wno-dev
 make
 sudo make install
 sudo ldconfig
