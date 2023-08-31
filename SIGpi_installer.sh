@@ -451,8 +451,6 @@ if [ "$1" = "base" ]; then
     source $SIGPI_PACKAGES/pkg_dsdcc install
     # Install Codec 2
     source $SIGPI_PACKAGES/pkg_codec2 install
-    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
     # Install Radiosonde (Atmospheric Telemetry)
     source $SIGPI_PACKAGES/pkg_radiosonde install
     # Install Ubertooth Tools
@@ -461,6 +459,8 @@ if [ "$1" = "base" ]; then
     source $SIGPI_PACKAGES/pkg_direwolf install
     # Install Linpac (AX.25 Terminal
     source $SIGPI_PACKAGES/pkg_linpac install
+    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+    source $SIGPI_PACKAGES/pkg_multimon-ng install
     # Install RTL_433
     source $SIGPI_PACKAGES/pkg_rtl_433 install
     # Install Dump1090
@@ -560,8 +560,6 @@ source $SIGPI_PACKAGES/pkg_serialdv install
 source $SIGPI_PACKAGES/pkg_dsdcc install
 # Install Codec 2
 source $SIGPI_PACKAGES/pkg_codec2 install
-# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-source $SIGPI_PACKAGES/pkg_multimon-ng install
 # Install Radiosonde (Atmospheric Telemetry)
 source $SIGPI_PACKAGES/pkg_radiosonde install
 # Install Ubertooth Tools
@@ -570,6 +568,8 @@ source $SIGPI_PACKAGES/pkg_ubertooth-tools install
 source $SIGPI_PACKAGES/pkg_direwolf install
 # Install Linpac (AX.25 Terminal
 source $SIGPI_PACKAGES/pkg_linpac install
+# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+source $SIGPI_PACKAGES/pkg_multimon-ng install
 # Install RTL_433
 source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install Dump1090
