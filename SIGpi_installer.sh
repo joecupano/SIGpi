@@ -286,6 +286,9 @@ touch $SIGPI_CONFIG
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
+# Install Swapspace
+source $SIGPI_SCRIPTS/install_swapspace.sh
+
 ##
 ## Node Install 
 ##
