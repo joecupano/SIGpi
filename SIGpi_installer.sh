@@ -213,6 +213,7 @@ select_amateurradio() {
         "Choose Amateur Radio Applications" 24 120 12 \
         "hamlib" "Ham Radio Control Libraries 4.5.3 " OFF \
         "fldigi" "Fldigi for MFSK, PSK31, CW, RTTY, and many others " OFF \
+        "flrig" "Optional Rig Control program for Fldigi " OFF \
         "gpredict" "Satellite Tracking " OFF \
         "js8call" "js8call JS8 for weak signal kbd-to-kbd messaging " OFF \
         "qsstv" "QSSTV for SSTV modes " OFF \
@@ -610,6 +611,11 @@ fi
 # Fldigi
 if grep fldigi "$SIGPI_INSTALLER"; then
     source $SIGPI_PACKAGES/pkg_fldigi install
+fi
+
+# Flrig
+if grep flrig "$SIGPI_INSTALLER"; then
+    source $SIGPI_PACKAGES/pkg_flrig install
 fi
 
 # WSJT-X
