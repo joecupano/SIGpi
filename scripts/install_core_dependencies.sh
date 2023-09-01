@@ -77,11 +77,13 @@ sudo apt-get install -y python-matplotlib-data
 sudo apt-get install -y python-matplotlib-doc
 sudo apt-get install -y python-networkx-doc 
 sudo apt-get install -y python3-dbg
+sudo apt-get install -y python3-dev
 sudo pip3 install pyinstaller
 sudo pip3 install packaging
 sudo pip3 install pygccxml
 sudo pip3 install qtawesome
 sudo apt-get install -y python-is-python3
+sudo apt-get install -y python-dev-is-python3
 
 # Install Go Language
 sudo apt-get install -y golang
