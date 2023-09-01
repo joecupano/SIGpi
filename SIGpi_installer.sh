@@ -286,8 +286,6 @@ touch $SIGPI_CONFIG
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
-# Install Swapspace
-source $SIGPI_SCRIPTS/install_swapspace.sh
 
 ##
 ## Node Install 
@@ -313,6 +311,7 @@ if [ "$1" = "node" ]; then
     echo "sigpi_node" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
+    source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
@@ -430,9 +429,10 @@ if [ "$1" = "base" ]; then
     echo "sigpi_desktop" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    # Install Core Dependencies
+    source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
     source $SIGPI_SCRIPTS/install_desktop-prep.sh
+
     # Install Core Devices
     source $SIGPI_SCRIPTS/install_core_devices.sh
     # Install Libraries
