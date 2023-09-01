@@ -14,7 +14,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 if [ -f /swapfile ]; then
     echo "Removing existing swapfile"
-    swapoff /swapfile
+    sudo swapoff /swapfile
     sleep 5
     sudo rm -rf /swapfile
 fi
