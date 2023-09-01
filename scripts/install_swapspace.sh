@@ -8,7 +8,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Swapspace"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Swapspace"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
