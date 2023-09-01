@@ -49,7 +49,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i fldigi_4.1.27_arm64.deb
+	        sudo dpkg -i fldigi_4.1.27-1_arm64.deb
         fi
         echo "fldigi" >> $SIGPI_CONFIG 
 
