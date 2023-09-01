@@ -5,7 +5,7 @@
 ###
 
 ###
-###  REVISION: 20230827-1900
+###  REVISION: 20230831-1900
 ###
 
 ###
@@ -368,7 +368,7 @@ if [ "$1" = "node" ]; then
     # Install Dump1090
     source $SIGPI_PACKAGES/pkg_dump1090 install
     # Generate FFT Wisdom file
-    source $SIGPI_PACKAGES/pkg_fftw
+    source $SIGPI_PACKAGES/pkg_fftw install
     
     if [ "$2" = "rtltcpsrv" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi_node_rtltcp.service /etc/systemd/system/sigpi-node.service
@@ -513,7 +513,7 @@ touch $SIGPI_CONFIG
 echo "sigpi_desktop" >> $SIGPI_CONFIG    
 cd $SIGPI_SOURCE
 
-#source $SIGPI_SCRIPTS/install_swapspace.sh
+source $SIGPI_SCRIPTS/install_swapspace.sh
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
@@ -574,6 +574,8 @@ source $SIGPI_PACKAGES/pkg_multimon-ng install
 source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install Dump1090
 source $SIGPI_PACKAGES/pkg_dump1090 install
+# Generate FFT Wisdom file
+source $SIGPI_PACKAGES/pkg_fftw install
 
 # GNU Radio
 if grep gnuradio "$SIGPI_INSTALLER"; then
@@ -696,9 +698,6 @@ fi
 
 # Install DOSbox
 source $SIGPI_PACKAGES/pkg_dosbox install
-
-# Generate FFT Wisdom file
-source $SIGPI_PACKAGES/pkg_fftw
 
 # Install SIGpi Menus
 source $SIGPI_SCRIPTS/install_desktop-post.sh
