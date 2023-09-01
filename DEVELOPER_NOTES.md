@@ -152,3 +152,11 @@ The following packages have unmet dependencies:
                Recommends: kismet-capture-ti-cc-2540 but it is not going to be installed
 ```
 
+## x86-64
+
+### GNURadio
+
+```
+sed: can't read /usr/share/applications/gnuradio-grc.desktop: No such file or directory
+xdg-desktop-menu: file '/usr/share/applications/gnuradio-grc.desktop' does not exist
+```
