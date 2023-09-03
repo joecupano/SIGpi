@@ -205,8 +205,11 @@ case "$1" in
         #git reset --hard b12e282  # v7.14.1
         #git reset --hard b4847f1  # v7.15.0
         #git reset --hard 8383467  # v7.15.2
-        git reset --hard 028a44c   # v7.15.3
+        #git reset --hard 028a44c  # v7.15.3
+        git reset --hard 7b85db4   # v7.15.4
+
         mkdir build && cd build   
+        cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no
 
