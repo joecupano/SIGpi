@@ -1,10 +1,15 @@
 # Release Notes
 
 ## Release 6.4: 2023-09-03
-- Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
--
-- SDRangel 7.15.4 Release
-- SDRangel Server 7.15.4 Release
+- Enable Swapspace for faster install
+- Python2 reference removal cleanup
+- RTLSDR v4 support
+- Moved PlutoSDR from core device install to optional
+- GNUradio cleamnup (3.9.80 for RPi, 3.10.7 for x86-64)
+- Block JS8 install if WSJTX installed due to library conflicts
+- SDRangel 7.15.4 Update (Destop and Server)
+- FLdigi 4.1.27 update
+- FLrig 2.0.03 update
 
 ## Release 6.3: 2023-08-28
 - Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
