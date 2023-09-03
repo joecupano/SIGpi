@@ -137,7 +137,8 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
-        git reset --hard 028a44c   # v7.15.3
+        #git reset --hard 028a44c  # v7.15.3
+        git reset --hard 7b85db4   # v7.15.4
         mkdir build && cd build
         cmake .. -Wno-dev -DBUILD_GUI=off
         make -j4
