@@ -1,5 +1,11 @@
 # Release Notes
 
+## Release 6.4: 2023-09-03
+- Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
+-
+- SDRangel 7.15.4 Release
+- SDRangel Server 7.15.4 Release
+
 ## Release 6.3: 2023-08-28
 - Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
 - Add Vulkan drivers to core dependencies
