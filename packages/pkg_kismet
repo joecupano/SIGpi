@@ -53,12 +53,12 @@ case "$1" in
         sudo apt-get install -y python3-serial python3-usb python3-dev python3-websockets libubertooth-dev libbtbb-dev
 
         wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | gpg --dearmor | sudo tee /usr/share/keyrings/kismet-archive-keyring.gpg >/dev/null
-        echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/kinetic kinetic main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
+        echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/bullseye bullseye main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
         sudo apt update
         sudo apt install kismet
         ### Say yes when asked about suid helpers
-        echo "kismet" >> $SIGPI_CONFIG 
-        
+        echo "kismet" >> $SIGPI_CONFIG
+
         ## DESKTOP
         # Add Icon
         sudo cp $SIGPI_ICONS/kismet.svg $DESKTOP_ICONS
