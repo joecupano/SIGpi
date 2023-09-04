@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 6.4: 2023-09-03
+## Release 6.4: 2023-09-04
 - Enable Swapspace for faster install
 - Python2 reference removal cleanup
 - RTLSDR v4 support
