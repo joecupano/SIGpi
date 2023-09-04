@@ -41,20 +41,28 @@ case "$1" in
         ## DEPENDENCIES
 
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        sudo apt-get install -y js8call
-        echo "js8call" >> $SIGPI_CONFIG 
-        
-        ## DESKTOP
-	    # Add Icon
-        #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
-        # Add Desktop
-        sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
-        # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
-        
+        if grep wsjtx "$SIGPI_CONFIG"; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ## ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR}"
+        else
+            cd $SIGPI_SOURCE
+            sudo apt-get install -y js8call
+            echo "js8call" >> $SIGPI_CONFIG 
+       
+            ## DESKTOP
+	        # Add Icon
+            #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
+            # Add Desktop
+            sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
+            # Change Category
+	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
+            # Add to Menu
+            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
+        fi
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
         echo -e "${SIGPI_BANNER_RESET}"
