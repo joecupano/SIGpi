@@ -59,20 +59,8 @@ case "$1" in
 
         ## PACKAGE
         sudo apt-get install -y wireshark wireshark-dev libwireshark-dev
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbb
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-        make -j4
-        sudo make install
         echo "wireshark" >> $SIGPI_CONFIG 
-
-        # BTBR Plugin
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-        make -j4
-        sudo make install
-        
+       
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
