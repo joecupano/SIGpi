@@ -58,6 +58,15 @@ case "$1" in
         sudo ldconfig
         echo "libbtbb" >> $SIGPI_CONFIG 
 
+        ### BTBR Plugin
+        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
+        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
+        mkdir build && cd build
+        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
@@ -83,6 +92,14 @@ case "$1" in
         cd libbtbb
         mkdir build && cd build
         cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+
+        ### BTBR Plugin
+        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
+        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
+        mkdir build && cd build
+        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
         make -j4
         sudo checkinstall --install=no
 
