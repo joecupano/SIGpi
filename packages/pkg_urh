@@ -6,7 +6,7 @@
 ### pkg_urh
 ###
 ###
-### Universal Radio hacker install
+### Universal Radio hacker install 
 ###
 ###
 
@@ -46,22 +46,27 @@ case "$1" in
         sudo python3 -m pip install cython
 
         ## PACKAGE
-        sudo python3 -m pip install urh
-        echo "urh" >> $SIGPI_CONFIG
-
-        ## DESKTOP
-	    # Add Icon
-        #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
-        # Add Desktop
-        sudo cp $SIGPI_HOME/desktop/urh.desktop $DESKTOP_FILES
-        # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/urh.desktop
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/urh.desktop
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        sudo python3 -m pip install urh
+            ## DESKTOP
+	        # Add Icon
+            #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
+            # Add Desktop
+            sudo cp $SIGPI_HOME/desktop/urh.desktop $DESKTOP_FILES
+            # Change Category
+	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/urh.desktop
+            # Add to Menu
+            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/urh.desktop
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
+            echo -e "${SIGPI_BANNER_RESET}"
+            echo "urh" >> $SIGPI_CONFIG
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   URH not stable for Raspberry Pi OS"
+            echo -e "${SIGPI_BANNER_RESET}"
+        fi
         ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
