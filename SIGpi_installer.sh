@@ -312,7 +312,6 @@ if [ "$1" = "node" ]; then
     echo "sigpi_node" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_server_dependencies.sh
     source $SIGPI_SCRIPTS/install_core_devices.sh
 
@@ -430,7 +429,6 @@ if [ "$1" = "base" ]; then
     echo "sigpi_desktop" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/install_swapspace.sh
     source $SIGPI_SCRIPTS/install_core_dependencies.sh
     source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
@@ -514,7 +512,6 @@ touch $SIGPI_CONFIG
 echo "sigpi_desktop" >> $SIGPI_CONFIG    
 cd $SIGPI_SOURCE
 
-source $SIGPI_SCRIPTS/install_swapspace.sh
 source $SIGPI_SCRIPTS/install_core_dependencies.sh
 source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
