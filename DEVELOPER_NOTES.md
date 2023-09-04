@@ -127,6 +127,31 @@ xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does 
 xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
 ```
 
+### JS8CALL or WSJT-X but not both
+
+If you attempt to install JS8CALL (arm64 or amd64) on a system that already has WSJT-X installed,
+a crash report will get generated and munge follow-on APT package installs. Here are the errors
+that get generated from the JS8CALL install.
+
+```Selecting previously unselected package wsjtx-data.
+Preparing to unpack .../wsjtx-data_2.5.4+repack-1_all.deb ...
+Unpacking wsjtx-data (2.5.4+repack-1) ...
+dpkg: error processing archive /var/cache/apt/archives/wsjtx-data_2.5.4+repack-1_all.deb (--unpack):
+ trying to overwrite '/usr/share/pixmaps/wsjtx_icon.png', which is also in package wsjtx 2.6.1
+dpkg-deb: error: paste subprocess was killed by signal (Broken pipe)
+Selecting previously unselected package libqcustomplot2.0:amd64.
+Preparing to unpack .../libqcustomplot2.0_2.0.1+dfsg1-5_amd64.deb ...
+Unpacking libqcustomplot2.0:amd64 (2.0.1+dfsg1-5) ...
+Selecting previously unselected package js8call.
+Preparing to unpack .../js8call_2.2.0+ds-2_amd64.deb ...
+Unpacking js8call (2.2.0+ds-2) ...
+Errors were encountered while processing:
+ /var/cache/apt/archives/wsjtx-data_2.5.4+repack-1_all.deb
+E: Sub-process /usr/bin/dpkg returned an error code (1)
+```
+
+It appears JS8CALL uses an old WSJTX Data package that creates the problem (?)
+
 ### Kismet
 
 ```
