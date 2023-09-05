@@ -10,6 +10,7 @@
 - SDRangel 7.15.4 Update (Destop and Server)
 - FLdigi 4.1.27 update
 - FLrig 2.0.03 update
+- Add ZeroTier network package as CMDline install
 
 ## Release 6.3: 2023-08-28
 - Add tools for FFT GPU tools for experimentation (VkFFT GPU FFT library)
