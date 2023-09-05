@@ -44,9 +44,11 @@ case "$1" in
         if grep wsjtx "$SIGPI_CONFIG"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ## ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
             echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Install Terminated"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_RESET}"
         else
             cd $SIGPI_SOURCE
             sudo apt-get install -y js8call
@@ -61,11 +63,12 @@ case "$1" in
 	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
             # Add to Menu
             xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
+            echo -e "${SIGPI_BANNER_RESET}"
         fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
+
         ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"

@@ -53,7 +53,9 @@ case "$1" in
         if grep js8call "$SIGPI_CONFIG"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ## ERROR: WSJT-X cannot be installed while JS8CALL is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: WSJT-X cannot be installed while JS8CALL is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   WSTJT-X Install Temrinated"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_COLOR}"
         else
@@ -79,11 +81,11 @@ case "$1" in
             # Add to Menu
             xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
             xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
+            
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Installed"
+            echo -e "${SIGPI_BANNER_RESET}"
         fi
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
