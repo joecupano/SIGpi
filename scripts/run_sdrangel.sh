@@ -5,6 +5,7 @@
 ###
 ### 
 
-sdrangel --fftwf-wisdom ~/.config/f4exb/fftw-wisdom
+#sdrangel --fftwf-wisdom ~/.config/f4exb/fftw-wisdom
+sdrangel
 
 ###
