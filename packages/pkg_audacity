@@ -55,7 +55,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    remove )
+    build )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
