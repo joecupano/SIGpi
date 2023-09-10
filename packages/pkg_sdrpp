@@ -112,6 +112,7 @@ case "$1" in
         -DOPT_BUILD_AIRSPY_SOURCE=OFF
         make -j4
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
 
         ## DESKTOP
 	    # Add Icon
@@ -120,7 +121,7 @@ case "$1" in
         # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Built"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Built. Debian package available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

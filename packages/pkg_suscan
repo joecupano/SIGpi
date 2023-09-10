@@ -97,6 +97,7 @@ case "$1" in
         cmake ..
         make -j4
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
         
         ## DESKTOP
 	    # Add Icon
@@ -105,7 +106,7 @@ case "$1" in
 	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan built"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan built. Debian package available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

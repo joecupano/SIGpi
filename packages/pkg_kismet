@@ -105,12 +105,11 @@ case "$1" in
         cd kismet
         ./configure
         make -j4
-        sudo make suidinstall
-        sudo usermod -aG kismet pi
-        echo "kismet" >> $SIGPI_CONFIG
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Built"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Kismet Built. Debian package available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

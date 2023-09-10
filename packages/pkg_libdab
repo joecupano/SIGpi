@@ -109,11 +109,13 @@ case "$1" in
         cmake .. -Wno-dev
         make -j4
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
         
         cd $SIGPI_SOURCE/dab-cmdline/example-2
         mkdir build && cd build
         cmake .. -DRTLSDR=on
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
         
         ## DESKTOP
 	    # Add Icon
@@ -122,7 +124,7 @@ case "$1" in
 	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB Built"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB Built. Debian package available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
