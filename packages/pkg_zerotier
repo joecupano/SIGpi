@@ -92,7 +92,7 @@ case "$1" in
     build )
         echo -e "${SIGPI_BANNER_RESET}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ## BUILD OPTION NOT AVAILABLE"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
