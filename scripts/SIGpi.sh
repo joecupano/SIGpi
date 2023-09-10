@@ -129,6 +129,10 @@ case "$1" in
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
         ;;
+    build-install )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT build
+        sudo dpkg -i $SIGPI_DEBS/$2
+        ;;
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
         ;;
@@ -143,7 +147,7 @@ case "$1" in
         ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
