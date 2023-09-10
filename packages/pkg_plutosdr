@@ -1,48 +1,126 @@
 #!/bin/bash
 
 ###
-### SIGPI
+### SIGpi
 ###
 ### pkg_plutosdr
 ###
 
-# PlutoSDR
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   Install PlutoSDR "
-echo -e "${SIGPI_BANNER_RESET}"
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove PlutoSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-## DEPENDENCIES
-sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
-sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
-sudo apt-get install -y python3 python3-pip python3-setuptools
+        sudo dpkg -r libiio
+        sudo dpkg -r SoapyPlutoSDR
+        sed -i /libiio/d $SIGPI_CONFIG
 
-# INSTALL
-cd $SIGPI_SOURCE
-git clone https://github.com/analogdevicesinc/libiio.git
-cd libiio
-mkdir build && cd build
-#202030830 Compile error not finding ZSTD though installed. So disable for now
-cmake .. -Wno-dev -WITH_ZSTD=OFF
-make -j4
-sudo make install
-sudo ldconfig
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge PlutoSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-# SoapyPlutoSDR
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   Install SoapyPlutoSDR "
-echo -e "${SIGPI_BANNER_RESET}"
+        sudo dpkg -P libiio
+        sudo dpkg -P SoapyPlutoSDR
+        sed -i /libiio/d $SIGPI_CONFIG
 
-sudo apt-get install -y libserialport-dev libavahi-client-dev 
-cd $SIGPI_SOURCE
-git clone https://github.com/pothosware/SoapyPlutoSDR.git
-cd SoapyPlutoSDR
-mkdir build && cd build
-cmake .. -Wno-dev
-make
-sudo make install
-sudo ldconfig
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        # PlutoSDR
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   Install PlutoSDR "
+        echo -e "${SIGPI_BANNER_RESET}"
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Installed"
-echo -e "${SIGPI_BANNER_RESET}"
+        ## DEPENDENCIES
+        sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
+        sudo apt-get install -y libserialport-dev libavahi-client-dev 
+        sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
+        sudo apt-get install -y python3 python3-pip python3-setuptools
+
+        # INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/analogdevicesinc/libiio.git
+        cd libiio
+        mkdir build && cd build
+        #202030830 Compile error not finding ZSTD though installed. So disable for now
+        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        # SoapyPlutoSDR
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   Install SoapyPlutoSDR "
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get install -y libserialport-dev libavahi-client-dev 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyPlutoSDR.git
+        cd SoapyPlutoSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make
+        sudo make install
+        sudo ldconfig
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        # PlutoSDR
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   Build PlutoSDR "
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
+        sudo apt-get install -y libserialport-dev libavahi-client-dev 
+        sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
+        sudo apt-get install -y python3 python3-pip python3-setuptools
+
+        # INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/analogdevicesinc/libiio.git
+        cd libiio
+        mkdir build && cd build
+        #202030830 Compile error not finding ZSTD though installed. So disable for now
+        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+
+        # SoapyPlutoSDR
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   Install SoapyPlutoSDR "
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get install -y libserialport-dev libavahi-client-dev 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyPlutoSDR.git
+        cd SoapyPlutoSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
