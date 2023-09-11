@@ -63,7 +63,6 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        git reset --hard 76a20416d715ee06f8b36a9953506876689a3bd2
         mkdir build_linux; cd build_linux
         cmake -Wno-dev ..
         make -j4
@@ -94,7 +93,6 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        git reset --hard 76a20416d715ee06f8b36a9953506876689a3bd2
         mkdir build_linux; cd build_linux
         cmake -Wno-dev ..
         make -j4
