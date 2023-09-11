@@ -85,7 +85,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/dsdcc.git
         cd dsdcc
-        git reset --hard "v1.9.3"   #20220910  latest 1.9.4 should be fine 
+        #20220910  latest 1.9.4 should be fine 
         mkdir build_linux; cd build_linux
         cmake -Wno-dev ..
         make -j4
