@@ -53,8 +53,10 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
-        cd uhd/host
+        git clone https://github.com/EttusResearch/uhd.git
+        cd uhd
+        git checkout UHD-4.5
+        cd host
         mkdir build	&& cd build
         cmake .. -Wno-dev
         sudo make install
@@ -87,8 +89,10 @@ case "$1" in
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone --single-branch --branch UHD-3.15.LTS --depth 1 https://github.com/EttusResearch/uhd.git
-        cd uhd/host
+        git clone https://github.com/EttusResearch/uhd.git
+        cd uhd
+        git checkout UHD-4.5
+        cd host
         mkdir build	&& cd build
         cmake .. -Wno-dev
         make -j4
