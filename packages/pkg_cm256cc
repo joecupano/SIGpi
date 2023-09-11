@@ -58,7 +58,6 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
-        #git reset --hard c0e92b92aca3d1d36c990b642b937c64d363c559
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -89,7 +88,6 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
-        #git reset --hard c0e92b92aca3d1d36c990b642b937c64d363c559
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
