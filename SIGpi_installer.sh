@@ -39,9 +39,9 @@ SIGPI_INSTALLBASE_TXT=$SIGPI_SCRIPTS/scr_install-base_welcome.txt
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
-# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
+# Detect architecture (x86_64, aarch64)
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
+# Detect Operating system "Debian GNU/Linux 11 (bullseye)" or "Ubuntu 20.04.3 LTS"
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
@@ -67,20 +67,7 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### 
 
 # Are we the right hardware
-if [ "$SIGPI_HWARCH" = "x86" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
 if [ "$SIGPI_HWARCH" = "x86_64" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-# Raspberry Pi 3B+ 
-if [ "$SIGPI_HWARCH" = "armv7l" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "armhf" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
@@ -89,11 +76,11 @@ if [ "$SIGPI_HWARCH" = "aarch64" ]; then
 fi
 
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
-    echo "ERROR:  100 - Incorrect Hardware"
     echo "ERROR:"
-    echo "ERROR:  Hardware must be x86, x86_64, armhf, or aarch64 hardware"
-    echo "ERROR:"
+    echo "ERROR:  Incorrect Hardware"
+    echo "ERROR:      Hardware must be x86_64 or aarch64 hardware"
     echo "ERROR:  Aborting"
+    echo "ERROR:"
     exit 1;
 fi
 
@@ -102,20 +89,16 @@ if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-if [ "$SIGPI_OSNAME" = "Ubuntu 20.04.3 LTS" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
 if [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
-    echo "ERROR:  200 - Incorrect Operating System"
     echo "ERROR:"
-    echo "ERROR:  Operating system must be Debian GNU/Linux 11 (bullseye), Ubuntu 20.04.3 LTS, or Ubuntu 22.04.1 LTS."
-    echo "ERROR:"
+    echo "ERROR:  Incorrect Operating System"
+    echo "ERROR:      Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.1 LTS."
     echo "ERROR:  Aborting"
+    echo "ERROR:"
     exit 1;
 fi
 
@@ -123,12 +106,12 @@ fi
 if [ -f /home/$USER/SIG/SIGpi/SIGpi_installer.sh ]; then
     echo
 else
-    echo "ERROR:  300 - Software install setup issue"
     echo "ERROR:"
+    echo "ERROR:  Software install setup issue"
     echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
     echo "ERROR:  and SIGpi_installer.sh run from there."
-    echo "ERROR:"
     echo "ERROR:  Aborting"
+    echo "ERROR:"
     exit 1;
 fi
 
@@ -138,7 +121,6 @@ fi
 ###
 
 calc_wt_size() {
-
   # NOTE: it's tempting to redirect stderr to /dev/null, so supress error 
   # output from tput. However in this case, tput detects neither stdout or 
   # stderr is a tty and so only gives default 80, 24 values
@@ -174,7 +156,6 @@ select_devices() {
         "limesuite" "LimeSDR " OFF \
         "plutosdr" "PlutoSDR " OFF \
         "sdrplay" "SDRPlay " OFF \
-        "rfm95w" "(RPi only) Adafruit LoRa Radio Bonnet - RFM95W @ 915 MHz " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -237,7 +218,6 @@ select_usefulapps() {
         "Choose Additional and Advanced Applications" 20 120 12 \
         "bettercap" "Swiss Army knife for 802.11, BLE, IPv4 and IPv6 reconnaissance" OFF \
         "cygnusrfi" "RFI analysis tool, based on Python and GNU Radio Companion (GRC)" OFF \
-        "HASviolet" "(RPi only) LoRa and FSK transceiver project " OFF \
 		"splat" "RF Signal Propagation, Loss, And Terrain analysis tool for 20 MHz to 20 GHz " OFF \
         "sigdigger" "SigDigger, free digital signal analyzer " OFF \
         "srsran" "srsRAN, Open-source 4G/5G software radio suite (amd64 only)" OFF \
