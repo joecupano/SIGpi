@@ -7,9 +7,11 @@
 
 Welcome to SIGpi Node
 
-This script builds a head-less SDR server on a Ubuntu 22.04 server or 
-Raspberry Pi OS Lite "Bullseye" (64bit) systems. Drivers for RTL-SDR,
-HackRF, PlutoSDR, LimeSDR, and associated SoapySDR installed by default.
+This script builds a head-less SDR server for use on the following
+
+- Raspberry Pi OS "Bullseye" 64-bit on RPi3/4 with 16GB SD Card minimum
+- Ubuntu 22.04 LTS on on RPi3/4 with 16GB SD Card minimum
+- Ubuntu 22.04 LTS on x86_64 1GB RAM, 16GB HD space minimum
 
 SIGpi Node includes the following:
 
