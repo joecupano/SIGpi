@@ -8,8 +8,11 @@
 Welcome to SIGpi
 
 This script installs drivers and applications for signals intelligence (SIGINT) 
-and Amateur Radio use on Raspberry Pi OS "Bullseye", Ubuntu 22.04 (and
-Raspberry Pi OS (64bit) systems.
+and Amateur Radio use on the following:
+
+- Raspberry Pi OS "Bullseye" 64-bit on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on x86_64 4GB RAM, 32GB HD space minimum
 
 This script installs drivers for RTL-SDR, HackRF, PlutoSDR, LimeSDR, and associated
 SoapySDR drivers by default. Installation will continue with the following steps:

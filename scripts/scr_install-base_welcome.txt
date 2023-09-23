@@ -8,6 +8,10 @@
 Welcome to SIGpi Base Install
 
 This script installs base system and drivers for RTL-SDR, HackRF, and associated
-SoapySDR drivers. 
+SoapySDR drivers use on the following:
 
-SIGpi Base includes the following RTL_433 and Dump1090 at minimum
+- Raspberry Pi OS "Bullseye" 64-bit on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on x86_64 4GB RAM, 32GB HD space minimum
+
+SIGpi Base includes the RTL_433 and Dump1090 at minimum
