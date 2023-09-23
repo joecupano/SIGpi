@@ -41,7 +41,7 @@ SIGPI_BANNER_RESET="\e[0m"
 
 # Detect architecture (x86_64, aarch64)
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system "Debian GNU/Linux 11 (bullseye)" or "Ubuntu 20.04.3 LTS"
+# Detect Operating system "Debian GNU/Linux 11 (bullseye)" or "Ubuntu 22.04.3 LTS"
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
@@ -89,14 +89,14 @@ if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-if [ "$SIGPI_OSNAME" = "Ubuntu 22.04.1 LTS" ]; then
+if [ "$SIGPI_OSNAME" =~ "Ubuntu 22.04" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:"
     echo "ERROR:  Incorrect Operating System"
-    echo "ERROR:      Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.1 LTS."
+    echo "ERROR:      Operating system must be Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS."
     echo "ERROR:  Aborting"
     echo "ERROR:"
     exit 1;
