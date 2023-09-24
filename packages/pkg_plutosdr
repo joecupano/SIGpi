@@ -49,8 +49,10 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/analogdevicesinc/libiio.git
         cd libiio
+        #20230924  need to chekcout v0.25 so SoapPlutoSDR works
+        git checkout v0.25
         mkdir build && cd build
-        #202030830 Compile error not finding ZSTD though installed. So disable for now
+        #20230830 Compile error not finding ZSTD though installed. So disable for now
         cmake .. -Wno-dev -WITH_ZSTD=OFF
         make -j4
         sudo make install
@@ -66,7 +68,7 @@ case "$1" in
         git clone https://github.com/pothosware/SoapyPlutoSDR.git
         cd SoapyPlutoSDR
         mkdir build && cd build
-        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        cmake .. -Wno-dev
         make
         sudo make install
         sudo ldconfig
@@ -91,8 +93,10 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/analogdevicesinc/libiio.git
         cd libiio
+        #20230924  need to chekcout v0.25 so SoapPlutoSDR works
+        git checkout v0.25
         mkdir build && cd build
-        #202030830 Compile error not finding ZSTD though installed. So disable for now
+        #20230830 Compile error not finding ZSTD though installed. So disable for now
         cmake .. -Wno-dev -WITH_ZSTD=OFF
         make -j4
         sudo checkinstall --install=no
