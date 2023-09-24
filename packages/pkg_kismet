@@ -54,16 +54,14 @@ case "$1" in
 
         cd $SIGPI_SOURCE
         # What operating system are we?
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-            wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | gpg --dearmor | sudo tee /usr/share/keyrings/kismet-archive-keyring.gpg >/dev/null
-            echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/jammy jammy main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
-            sudo apt update
-            sudo apt-get install -y kismet
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+        if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
             wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key | sudo apt-key add -
             echo 'deb https://www.kismetwireless.net/repos/apt/release/bullseye bullseye main' | sudo tee /etc/apt/sources.list.d/kismet.list
+            sudo apt update
+            sudo apt-get install -y kismet
+        else
+            wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | gpg --dearmor | sudo tee /usr/share/keyrings/kismet-archive-keyring.gpg >/dev/null
+            echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/jammy jammy main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
             sudo apt update
             sudo apt-get install -y kismet
         fi
