@@ -1,7 +1,8 @@
 # Release Notes
 
-## Release 6.5: 2023-09-22
+## Release 6.5: 2023-09-25
 - Develop Build-Install option for packages
+- SDRangel 7.16.0 Update (Desktop and Server)
 
 ## Release 6.4: 2023-09-04
 - Enable Swapspace for faster install
@@ -10,7 +11,7 @@
 - Moved PlutoSDR from core device install to optional
 - GNUradio cleamnup (3.9.80 for RPi, 3.10.7 for x86-64)
 - Block JS8 install if WSJTX installed due to library conflicts
-- SDRangel 7.15.4 Update (Destop and Server)
+- SDRangel 7.15.4 Update (Desktop and Server)
 - FLdigi 4.1.27 update
 - FLrig 2.0.03 update
 - Add ZeroTier network package as CMDline install
