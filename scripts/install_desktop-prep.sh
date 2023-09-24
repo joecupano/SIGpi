@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### installer_desktop-prep
+### installer_desktop-prep.sh
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
@@ -26,16 +26,14 @@ sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 
 # Copy Background images
-if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    # Change Background image
-    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
-fi
-
-if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+if [[ "$SIGPI_OSNAME" == "Debian GNU/Linux 11 (bullseye)" ]]; then
     sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
     # Change Background image
     pcmanfm --set-wallpaper=/usr/share/rpd-wallpaper/SIGpi_wallpaper.png
+else
+    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
+    # Change Background image
+    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
 fi
 
 # Copy SIGpi Menu and Directory files to XDG Dirs
@@ -46,7 +44,7 @@ sudo cp $SIGPI_DESKTOP/SIGpishell.menu $DESKTOP_XDG_MENU
 
 
 # Copy SIGpi Desktop files to XDG Dirs
-#sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
 sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
 sudo chmod 755 $HOME/Desktop/SIGpi.desktop
 sudo chown $USER $HOME/Desktop/SIGpi.desktop
