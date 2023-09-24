@@ -124,7 +124,7 @@ case "$1" in
 	    # Add to Menu
         
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB Built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   LibDAB Built. Debian package available in $SIGPI_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
