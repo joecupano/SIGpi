@@ -288,6 +288,12 @@ if [ "$1" = "node" ]; then
     sudo apt-get -y update
     sudo apt-get -y upgrade
 
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
     touch $SIGPI_CONFIG
     echo "sigpi_node" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
@@ -405,6 +411,12 @@ if [ "$1" = "base" ]; then
     sudo apt-get -y update
     sudo apt-get -y upgrade
 
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
     touch $SIGPI_CONFIG
     echo "sigpi_desktop" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
@@ -487,6 +499,12 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get -y update
 sudo apt-get -y upgrade
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
 
 touch $SIGPI_CONFIG
 echo "sigpi_desktop" >> $SIGPI_CONFIG    
