@@ -89,7 +89,7 @@ if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-if [ "$SIGPI_OSNAME" =~ "Ubuntu 22.04" ]; then
+if [[ "$SIGPI_OSNAME" = *Ubuntu 22.04* ]]; then
     SIGPI_CERTIFIED="true"
 fi
 
