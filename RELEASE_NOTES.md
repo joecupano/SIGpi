@@ -1,7 +1,9 @@
 # Release Notes
 
-## Release 6.5: 2023-09-25
-- Develop Build-Install option for packages
+## Release 6.5: 2023-09-24
+- Updates to SIGpi package management
+- SIGpi build option puts create Debian packages in /home/pi/SIG/SIGpi/debs
+- SIGpi_installer updated to include Ubuntu 22.04 on RPi4 (Pre-Release)
 - SDRangel 7.16.0 Update (Desktop and Server)
 
 ## Release 6.4: 2023-09-04
