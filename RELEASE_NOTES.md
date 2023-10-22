@@ -1,5 +1,10 @@
 # Release Notes
 
+## Release 6.5.1: 2023-10-22
+- Fix release
+- Install script bug
+- Fix SDRangel 7.16.0 packages (Desktop and Server)
+
 ## Release 6.5: 2023-09-24
 - Updates to SIGpi package management
 - SIGpi build option puts create Debian packages in /home/pi/SIG/SIGpi/debs
