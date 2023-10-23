@@ -21,7 +21,7 @@ sudo modprobe -r msi2500 msi001
 sudo cp $SIGPI_SCRIPTS/blacklist-msi.conf /etc/modprobe.d/blacklist-msi.conf
 
 cd $SIGPI_SOURCE
-git https://github.com/ericek111/libmirisdr-5
+git clone https://github.com/ericek111/libmirisdr-5
 cd libmirisdr-5
 mkdir build && cd build
 cmake .. -Wno-dev
