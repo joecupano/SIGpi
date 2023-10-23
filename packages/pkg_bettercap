@@ -76,10 +76,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build )
+    build-pkg )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build bettercap"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build bettercap pkg"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -102,7 +102,36 @@ case "$1" in
         # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap pkg built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install bettercap"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        # DEPENDENCIES
+        sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+        sudo apt-get install -y golang
+        
+        ## PACKAGE 
+        cd $SIGPI_SOURCE
+        git clone https://github.com/bettercap/bettercap
+        cd bettercap
+        make build
+        sudo checkinstall
+        sudo mv *.deb $SIGPI_DEBS
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap built and installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )

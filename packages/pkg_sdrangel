@@ -136,10 +136,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build )
+    build-pkg )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build SDRangel"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build SDRangel pkg"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -232,7 +232,106 @@ case "$1" in
 	    # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel pkg Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install SDRangel"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y libusb-dev
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y gettext
+        sudo apt-get install -y pulseaudio
+        sudo apt-get install -y libopencv-dev
+        sudo apt-get install -y libxml2-dev
+        sudo apt-get install -y bison
+        sudo apt-get install -y flex
+        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y libavcodec-dev
+        sudo apt-get install -y libavformat-dev
+        sudo apt-get install -y opus-tools
+        sudo apt-get install -y libopus-dev
+        sudo apt-get install -y graphviz
+        sudo apt-get install -y qt5-default
+        sudo apt-get install -y qt5-qmake
+        sudo apt-get install -y qtscript5-dev
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y qtbase5-dev-tool
+        sudo apt-get install -y qtchooser
+        sudo apt-get install -y qtmultimedia5-dev
+        sudo apt-get install -y qml-module-qtlocation
+        sudo apt-get install -y qml-module-qtpositioning
+        sudo apt-get install -y qml-module-qtquick-window2
+        sudo apt-get install -y qml-module-qtquick-dialogs
+        sudo apt-get install -y qml-module-qtquick-controls
+        sudo apt-get install -y qml-module-qtquick-layouts
+        sudo apt-get install -y qttools5-dev
+        sudo apt-get install -y qttools5-dev-tools
+        sudo apt-get install -y qtdeclarative5-dev
+        sudo apt-get install -y qtpositioning5-dev
+        sudo apt-get install -y qtlocation5-dev
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y libgl1-mesa-glx
+        sudo apt-get install -y libqt5opengl5-dev
+        sudo apt-get install -y libqt5quick5
+        sudo apt-get install -y libqt5charts5-dev
+        sudo apt-get install -y libqt5websockets5-dev
+        sudo apt-get install -y libqt5multimedia5-plugins
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5texttospeech5-dev
+        sudo apt-get install -y libqt5svg5-dev 
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5positioning5
+        sudo apt-get install -y libqt5positioning5-plugins
+        sudo apt-get install -y libqt5gamepad5-dev
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel     
+        #git reset --hard d67aac3  # v7.11.0
+        #git reset --hard cf0489d  # v7.12.0
+        #git reset --hard 3f9f81c  # v7.13.0
+        #git reset --hard b12e282  # v7.14.1
+        #git reset --hard b4847f1  # v7.15.0
+        #git reset --hard 8383467  # v7.15.2
+        #git reset --hard 028a44c  # v7.15.3
+        #git reset --hard 7b85db4  # v7.15.4
+        git reset --hard 513c0e5   # v7.16.0
+
+        mkdir build && cd build   
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall
+        sudo mv *.deb $SIGPI_DEBS
+
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built and Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
