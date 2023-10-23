@@ -8,42 +8,21 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay Device"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay RSPx Device"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install SDRplay API"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Install RSPx Driver"
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SCRIPTS
-sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
-sudo chmod 755 /usr/local/bin/run_SDRplay.sh
-
-cd $SIGPI_SOURCE     
-if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
-fi
-
-if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
-fi
-
-cd SDRPlay
-sudo ./install_lib.sh
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
-echo -e "${SIGPI_BANNER_RESET}"
-
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDRPlay"
-echo -e "${SIGPI_BANNER_RESET}"
+# Remove Kernel Drivers
+sudo modprobe -r msi2500 msi001
+sudo cp $SIGPI_SCRIPTS/blacklist-msi.conf /etc/modprobe.d/blacklist-msi.conf
 
 cd $SIGPI_SOURCE
-git clone https://github.com/SDRplay/SoapySDRPlay
-cd SoapySDRPlay
+git https://github.com/ericek111/libmirisdr-5
+cd libmirisdr-5
 mkdir build && cd build
 cmake .. -Wno-dev
 make -j4
@@ -51,34 +30,26 @@ sudo make install
 sudo ldconfig
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRPlay Installed"
+echo -e "${SIGPI_BANNER_COLOR} ###   - RSPx Driver Installed"
 echo -e "${SIGPI_BANNER_RESET}"
 
-
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install RSPTCPServer"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDR Driver"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
-git clone https://github.com/SDRplay/RSPTCPServer
-cd RSPTCPServer
+git clone https://github.com/ericek111/SoapyMiri
+cd SoapyMiri
 mkdir build && cd build
 cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
 
-echo " "
-echo "Finished. Current user guide can be found here..."
-echo " "
-echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
-
-
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - RSPTCPServer Installed"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR Driver Installed"
 echo -e "${SIGPI_BANNER_RESET}"
 
-
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Device Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay RSPx Device Installed"
 echo -e "${SIGPI_BANNER_RESET}"
