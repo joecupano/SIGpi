@@ -95,6 +95,29 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   LimeSDR Installed"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build VkFFT"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/DTolm/VkFFT.git
+        cd VkFFT
+        git checkout v1.3.1
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
         ;;
      build )
         echo -e "${SIGPI_BANNER_COLOR}"

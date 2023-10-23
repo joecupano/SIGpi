@@ -57,14 +57,76 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+    build-pkg )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build CubicSDR pkg"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/cjcliffe/CubicSDR
+        cd CubicSDR     
+        mkdir build && cd build   
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+	    ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Add Category
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/CubicSDR.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install CubicSDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        
+        ## DEPENDENCIES
+        
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/cjcliffe/CubicSDR
+        cd CubicSDR     
+        mkdir build && cd build   
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall
+        sudo mv *.deb $SIGPI_DEBS
+
+	    ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Add Category
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/CubicSDR.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/CubicSDR.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Built and Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
+
