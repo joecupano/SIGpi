@@ -72,10 +72,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   APTdec (NOAA APT) Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build-pkg )
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build APTdec pkg (NOAA APT)"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package APTdec pkg (NOAA APT)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -99,7 +99,7 @@ case "$1" in
         # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec pkg Built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   APTdec package built and available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )

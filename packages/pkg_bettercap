@@ -76,10 +76,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build-pkg )
+    package)
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build bettercap pkg"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package bettercap"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -102,7 +102,7 @@ case "$1" in
         # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap pkg built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   bettercap packaged and available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )

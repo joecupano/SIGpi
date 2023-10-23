@@ -136,10 +136,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build-pkg )
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build SDRangel pkg"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package SDRangel"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -232,7 +232,7 @@ case "$1" in
 	    # Add to Menu
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel pkg Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel packaged and available in $SIGPI_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )

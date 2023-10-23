@@ -85,10 +85,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build-pkg )
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build VkFFT pkg"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package VkFFT"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         
@@ -106,7 +106,7 @@ case "$1" in
         sudo mv *.deb $SIGPI_DEBS
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT pkg Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT packaged and available in $SIGPI_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )
