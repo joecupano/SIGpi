@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 6.6: 2023-11-1
+- SDRangel 7.17.0 update
+- DireWolf 1.7 update
+
 ## Release 6.5.1: 2023-10-22
 - Fix release
 - Install script bug
