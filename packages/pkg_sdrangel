@@ -103,12 +103,12 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrangel_7.16.0-1_amd64.deb
+	        sudo dpkg -i sdrangel_7.17.0-1_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrangel_7.16.0-1_arm64.deb
+	        sudo dpkg -i sdrangel_7.17.0-1_arm64.deb
         fi
         echo "sdrangel" >> $SIGPI_CONFIG 
         
@@ -207,7 +207,8 @@ case "$1" in
         #git reset --hard 8383467  # v7.15.2
         #git reset --hard 028a44c  # v7.15.3
         #git reset --hard 7b85db4  # v7.15.4
-        git reset --hard 513c0e5   # v7.16.0
+        #git reset --hard 513c0e5  # v7.16.0
+        git reset --hard c9075d4   # v7.17.0
 
         mkdir build && cd build   
         cmake -Wno-dev ..
@@ -306,7 +307,8 @@ case "$1" in
         #git reset --hard 8383467  # v7.15.2
         #git reset --hard 028a44c  # v7.15.3
         #git reset --hard 7b85db4  # v7.15.4
-        git reset --hard 513c0e5   # v7.16.0
+        #git reset --hard 513c0e5   # v7.16.0
+        git reset --hard c9075d4   # v7.17.0
 
         mkdir build && cd build   
         cmake -Wno-dev ..
