@@ -2,7 +2,7 @@ audacity,20211231
 aptdec,20211231
 cubicsdr,20211231
 cygnusrfi,20211231
-direwolf,20211231
+direwolf,20231029
 dosbox,20221227
 dump1090,20211231
 ettus,20211231
@@ -26,8 +26,9 @@ radiosonde,20211231
 rfm95w,20211231
 rtl_433,20211231
 rtltcp-server,20211231
-sdrangel,20230831
-sdrplay,20230319
+sdrangel,20231023
+sdrangelsrv,20231023
+sdrplay,20231020
 sdrpp,20211231
 sigdigger,20230319
 sigutils,20230319
