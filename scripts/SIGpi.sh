@@ -15,6 +15,8 @@
 ###                 update    check to see if new TARGET available
 ###                 upgrade   upgrade TARGET to latest release
 ###                 shell     provide SIGpi env variables around a TARGET
+###                 build     compile and install TARGET
+###                 package   compile abd build TARGET package
 ###
 ###        TARGET
 ###                 A SIGpi package or script
@@ -44,7 +46,7 @@ SIGPI_BANNER_RESET="\e[0m"
 
 # Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 20.04.3 LTS)
+# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS)
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
@@ -128,10 +130,10 @@ case "$1" in
         ;;
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
+        #sudo dpkg -i $SIGPI_DEBS/$2
         ;;
-    build-install )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT build
-        sudo dpkg -i $SIGPI_DEBS/$2
+    package )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT package
         ;;
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
