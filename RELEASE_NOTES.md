@@ -1,5 +1,9 @@
 # Release Notes
 
+## Release 6.7: 2023-11-24
+- 
+- 
+
 ## Release 6.6: 2023-11-1
 - SDRangel 7.17.0 update
 - DireWolf 1.7 update
