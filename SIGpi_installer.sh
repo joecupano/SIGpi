@@ -240,8 +240,9 @@ select_usefulapps() {
 select_nodeserver() {
     FUN=$(whiptail --title "SIGpi Node Installer" --clear --checklist --separate-output \
         "Choose which SDR server to run as a service" 20 120 12 \
+        "openwebrx" "OpenWebRX " OFF \
         "rtltcpsrv" "RTL-TCP Server " OFF \
-        "sdrangelsrv" "SDRangel Server" OFF \
+        "sdrangelsrv" "SDRangel Server " OFF \
         "soapysdrsrv" "SoapySDR Server " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
@@ -339,7 +340,7 @@ if [ "$1" = "node" ]; then
     # Install SeriaDV (AMBE3000 chip serial control)
     source $SIGPI_PACKAGES/pkg_serialdv install
     # Install DSDcc (Digital Speech Decoder)
-    source $SIGPI_PACKAGES/pkg_dsdcc install
+    source $SIGPI_PACKAGES/pkg_dsdcc installi
     # Install Codec 2
     source $SIGPI_PACKAGES/pkg_codec2 install
     # Install Radiosonde (Atmospheric Telemetry)
@@ -355,27 +356,29 @@ if [ "$1" = "node" ]; then
     # Generate FFT Wisdom file
     source $SIGPI_PACKAGES/pkg_fftw install
     
+    # Install RTL-TCP Server
     if [ "$2" = "rtltcpsrv" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi_node_rtltcp.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
-    elif [ "$2" = "sdrangelsrv" ]; then
-        source $SIGPI_PACKAGES/pkg_sdrangelsrv
+    fi
+    # Install SDRangel Server
+    if [ "$2" = "sdrangelsrv" ]; then
+        source $SIGPI_PACKAGES/pkg_sdrangelsrv install
         sudo cp $SIGPI_SOURCE/scripts/sigpi_node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
-    elif [ "$2" = "soapysdrsrv" ]; then
+    fi
+    # Install SoapySDR Server
+    if [ "$2" = "soapysdrsrv" ]; then
         sudo cp $SIGPI_SOURCE/scripts/sigpi_node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
-    else
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  "
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown Server Type"
-        echo -e "${SIGPI_BANNER_COLOR} ##  "
-        echo -e "${SIGPI_BANNER_COLOR} ##  Your choices are rtltcp, sdrangelsrv, or soapysdrsrv"
-        echo -e "${SIGPI_BANNER_COLOR} ##  "
-        echo -e "${SIGPI_BANNER_RESET}"
-        exit 0
     fi
-
+    # Install OpenWebRX
+    if [ "$2" = "openwebrx" ]; then
+        source $SIGPI_PACKAGES/pkg_openwebrx install
+        #sudo cp $SIGPI_SOURCE/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+        #echo "openwebrx" >> $SIGPI_CONFIG
+    fi
+    
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Node Installation Complete !!"
