@@ -1,0 +1,168 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_openwebrx
+###
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove OpenWebRX"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo dpkg -r openwebrx
+        sed -i /openwebrx/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge OpenWebRX"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo dpkg -P openwebrx
+        sed -i /openwebrx/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install OpenWebRX"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+        sudo apt-get install -y libfftw3-dev python3-setuptools netcat libsndfile-dev librtlsdr-dev 
+        sudo apt-get install -y libtool pkg-config libsamplerate-dev libpython3-dev
+        sudo apt-get install -y sox libprotobuf-dev protobuf-compiler libudev-dev libicu-dev
+        
+        ### csdr
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/csdr.git
+        cd csdr
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+           sudo ldconfig
+
+        ### pysdr
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/pycsdr.git
+        cd pycsdr
+        sudo python3 setup.py install install_headers
+
+        ### js8py
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/js8py.git
+        cd js8py
+        sudo python3 setup.py install
+
+        ### owrx_connector
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/owrx_connector.git
+        cd owrx_connector
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+        sudo ldconfig
+
+        ### codecserver
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/codecserver.git
+        cd codecserver
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+        sudo ldconfig
+        # Create codecserver user and set permissions for serial devices, if necessary
+        # The username "codecserver" is used for the systemd service unit, so if you
+        # want to chose another user to run codecserver as, please adapt accordingly.
+        sudo adduser --system --group --no-create-home --home /nonexistent --quiet codecserver
+        sudo usermod -aG dialout codecserver
+
+        ### digiham
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/digiham.git
+        cd digiham
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+
+        ### pydigiham
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/jketterl/pydigiham.git
+        cd pydigiham
+        sudo python3 setup.py install
+
+        ## Codec2 install as part of SIGpi
+
+        ### m17-cxx-demod
+        cd $SIGPI_SOURCE
+        sudo apt-get install libboost-program-options-dev
+        git clone https://github.com/mobilinkd/m17-cxx-demod.git
+        cd m17-cxx-demod
+        mkdir build && cd build
+        cmake ..
+        make
+        sudo make install
+
+        ## DireWolf install as part of SIGpi
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/jketterl/openwebrx.git
+        
+        ### Data Storage
+        sudo mkdir /var/lib/openwebrx
+        sudo chown pi /var/lib/openwebrx
+        touch /var/lib/openwebrx/users.json
+        touch /var/lib/openwebrx/bands.json
+        
+        ### Data Storage
+        #mkdir $SIGPI_ROOT/openwebrx-store
+        #touch $SIGPI_ROOT/openwebrx-store/users.json
+        #touch $SIGPI_ROOT/openwebrx-store/bands.json
+
+        ### Run OpenWebRX to complete setup
+        cd $SIGPI_SOURCE/openwebrx
+        ./openwebrx.py&
+        sleep 5
+        
+        ### Create initial user for WebUI
+        cd $SIGPI_SOURCE/openwebrx
+        ./openwebrx.py admin adduser pi
+
+        ### Setup and enable systemd service
+        sudo cp $SIGPI_SOURCE/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+        echo "openwebrx" >> $SIGPI_CONFIG
+        sleep 5
+        sudo systemctl enable openwebrx
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  OpenWebRX Installed. Need to reboot to start"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or action for this package not supported"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
