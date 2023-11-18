@@ -1,0 +1,10 @@
+version: "3.7"
+services:
+  rtl-server:
+    build: .
+    restart: always      
+    ports:
+     - "1234:1234"
+    privileged: true
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
