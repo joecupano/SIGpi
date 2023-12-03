@@ -79,8 +79,8 @@ sigpi_update(){
     wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
     
     if grep $3 "$HOME/Downloads/PACKAGES"; then
-        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
-        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
+        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f3'
+        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f3'
         if $SIG_PKGNEW > $SIG_PKGSTAMP; then
             echo "Update is available"
         else
