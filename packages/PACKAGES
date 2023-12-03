@@ -1,42 +1,33 @@
-audacity,20211231
-aptdec,20211231
-cubicsdr,20211231
-cygnusrfi,20211231
-direwolf,20231029
-dosbox,20221227
-dump1090,20211231
-ettus,20211231
-fldigi,20230828
-flrig,20230828
-fftw-wisdom,20230831
-gnuradio,20230201
-gpredict,20211231
-gqrx,20211231
-hamlib,20230406
-hasviolet,20211231
-js8call,20211231
-kismet,20230828
-linpac,20211231
-multimon-ng,20211231
-nrsc5,20211231
-pavucontrol,20211231
-plutosdr,20211231
-qsstv,20211231
-radiosonde,20211231
-rfm95w,20211231
-rtl_433,20211231
-rtltcp-server,20211231
-sdrangel,20231023
-sdrangelsrv,20231023
-sdrplay,20231020
-sdrpp,20211231
-sigdigger,20230319
-sigutils,20230319
-soapysdr-server,20211231
-splat,20211231
-srsran,20230319
-suscan,20230319
-ubertooth,20211231
-wireshark,20211231
-wsjtx,20211231
-xastir,20211231
+audacity,Multi-track audio editor,20211231
+aptdec,Decodes images transmitted by NOAA weather satellites,20211231
+cubicsdr,Cross-Platform Software-Defined Radio Application,20211231
+cygnusrfi,Open-source RFI analysis tool based on Python,20211231
+direwolf,Software soundcard AX25 packet and APRS encoder-decoder,20231029
+dosbox,Open Source DOS emulator to run old DOS games,20221227
+dump1090,Mode S decoder specifically designed for RTLSDR devices,20211231
+fldigi,Soundcard modem program for most of the digital modes used by radio amateurs,20230828
+flrig,Rig control program, cooperates with fldigi,20230828
+fftw-wisdom,Create wisdom pre-optimized FFTs files for SDR,20230831
+gnuradio,Software development toolkit providing signal processing blocks for SDRs,20230201
+gpredict,Real-time satellite tracking and orbit prediction application,20211231
+gqrx,SDR app powered GNU Radio and the Qt graphical toolkit,20211231
+hamlib,Radio Control Library providing programs a consistent API for controlling radios and rotators,20230406
+js8call,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20211231
+kismet,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee, 20230828
+linpac,Packet Radio terminal,20211231
+multimon-ng, decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20211231
+nrsc5,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
+qsstv,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
+radiosonde,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
+rtl_433,Generic data receiver ISM bands,20211231
+sdrangel,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20231023
+sdrpp,Cross-platform and open source SDR software,20211231
+sigdigger,Qt5 digital signal analyzer using its own DSP library,20230319
+sigutils,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
+splat,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
+srsran,Open-source 4G and 5G software radio suite,20230319
+suscan,Realtime DSP processing library. used by SigDigger,20230319
+ubertooth,Open-source wireless development platform for Bluetooth experimentation,20211231
+wireshark,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231
+wsjtx,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20211231
+xastir,APRS client program with positional data in a graphical application,20211231
