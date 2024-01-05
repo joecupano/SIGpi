@@ -3,7 +3,9 @@
 ###
 ### SIGpi
 ###
-### pkg_plutosdr
+### device_plutosdr
+###
+### 20240110-0100
 ###
 
 case "$1" in 

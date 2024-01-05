@@ -3,7 +3,9 @@
 ###
 ### SIGPI
 ###
-### pkg_sdrplay_old
+### device_sdrplay_old
+###
+### 20240110-0100
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
