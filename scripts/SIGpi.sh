@@ -3,11 +3,14 @@
 ###
 ### SIGpi_shell
 ###
+###  20240107-0100
+###
 
 ###
 ###  Usage:    sigpi [ACTION] [TARGET]
 ###
 ###        ACTION  
+###                 setup     initial setup of SIGpi environment
 ###                 install   install TARGET from current release
 ###                 remove    remove installed TARGET
 ###                 purge     remove installed TARGET and purge configs
@@ -18,7 +21,9 @@
 ###                 package   compile abd build TARGET package
 ###
 ###        TARGET
-###                 A SIGpi package or script
+###                 setup     desktop || server
+###                   *       SIGpi package
+###                 
 ###
 
 ###
@@ -106,6 +111,9 @@ SPKGSCRIPT="pkg_$2"
 SCFGSCRIPT="cfg_$2"
 
 case "$1" in 
+    setup )
+        source sigpi_setup $2
+        ;;
     remove )
         source $SIGPI_PACKAGES/$SPKGSCRIPT remove
         ;;
