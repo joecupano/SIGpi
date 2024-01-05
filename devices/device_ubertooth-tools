@@ -3,7 +3,10 @@
 ###
 ### SIGPI
 ###
-### pkg_ubertook-tools
+### device_ubertooth
+###
+###
+### 20240110-0100
 ###
 
 case "$1" in 

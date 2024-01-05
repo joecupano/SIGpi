@@ -303,8 +303,8 @@ if [ "$1" = "server" ]; then
     source $SIGPI_PACKAGES/pkg_codec2 install
     # Install Radiosonde (Atmospheric Telemetry)
     source $SIGPI_PACKAGES/pkg_radiosonde install
-    # Install Ubertooth Tools
-    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+    # Install Ubertooth
+    source $SIGPI_DEVICES/device_ubertooth install
     # Install Direwolf (AFSK APRS)
     source $SIGPI_PACKAGES/pkg_direwolf install
     # Install RTL_433
@@ -405,8 +405,8 @@ if [ "$1" = "base" ]; then
     source $SIGPI_PACKAGES/pkg_codec2 install
     # Install Radiosonde (Atmospheric Telemetry)
     source $SIGPI_PACKAGES/pkg_radiosonde install
-    # Install Ubertooth Tools
-    source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+    # Install Ubertooth
+    source $SIGPI_DEVICES/device_ubertooth install
     # Install Direwolf (AFSK APRS)
     source $SIGPI_PACKAGES/pkg_direwolf install
     # Install Linpac (AX.25 Terminal
@@ -519,8 +519,8 @@ source $SIGPI_PACKAGES/pkg_dsdcc install
 source $SIGPI_PACKAGES/pkg_codec2 install
 # Install Radiosonde (Atmospheric Telemetry)
 source $SIGPI_PACKAGES/pkg_radiosonde install
-# Install Ubertooth Tools
-source $SIGPI_PACKAGES/pkg_ubertooth-tools install
+# Install Ubertooth
+source $SIGPI_DEVICES/device_ubertooth install
 # Install Direwolf (AFSK APRS)
 source $SIGPI_PACKAGES/pkg_direwolf install
 # Install Linpac (AX.25 Terminal
