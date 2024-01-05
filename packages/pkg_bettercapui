@@ -51,6 +51,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
+        sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+        sudo apt-get install -y golang
         sudo apt-get install -y nodejs npm
         
         ## PACKAGE 

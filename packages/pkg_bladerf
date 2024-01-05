@@ -28,7 +28,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge bladeRF"
         echo -e "${SIGPI_BANNER_RESET}"
                
-	cd $SIGPI_SOURCE/bladeRF/build/host
+	    cd $SIGPI_SOURCE/bladeRF/build/host
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
@@ -51,6 +51,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
+        sudo apt-get install python3-six python3-mako python3-lxml python3-lxml python3-numpy python3-numpy python3-pip git python3-pybind11 libsndfile1-dev
 
         ## PACKAGE 
         
@@ -97,7 +98,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
-
+        sudo apt-get install python3-six python3-mako python3-lxml python3-lxml python3-numpy python3-numpy python3-pip git python3-pybind11 libsndfile1-dev
         ## PACKAGE 
         
         ### BladeRF

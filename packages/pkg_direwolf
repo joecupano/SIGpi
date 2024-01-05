@@ -33,7 +33,7 @@ case "$1" in
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/DireWolf
+    	rm -rf $SIGPI_SOURCE/DireWolf
         sed -i /direwolf/d $SIGPI_CONFIG
         sudo rm /usr/local/share/doc/direwolf/scripts/dw-start.sh 
         sudo rm /usr/local/bin/run_direwolf.sh
