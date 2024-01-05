@@ -113,7 +113,7 @@ SCFGSCRIPT="cfg_$2"
 
 case "$1" in 
     setup )
-        source sigpi_setup $2
+        source $SIGPI_SCRIPTS/sigpi_setup $2
         ;;
     remove )
         source $SIGPI_PACKAGES/$SPKGSCRIPT remove

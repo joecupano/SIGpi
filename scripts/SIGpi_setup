@@ -194,7 +194,7 @@ if [ "$1" = "server" ]; then
 
     # Copy SIGpi commands into /usr/local/bin
     sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
-    cdsudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
+    cdsudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
     # Install bladeRF
     if grep bladerf "$SIGPI_INSTALLER"; then
