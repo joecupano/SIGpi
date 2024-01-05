@@ -51,7 +51,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
-        sudo apt-get install -y libao-dev
+        sudo apt install -y libao-dev libfftw3-dev librtlsdr-dev
 
         ## PACKAGE
         cd $SIGPI_SOURCE
@@ -85,7 +85,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
-        sudo apt-get install -y libao-dev
+        sudo apt install -y libao-dev libfftw3-dev librtlsdr-dev
 
         ## PACKAGE
         cd $SIGPI_SOURCE
