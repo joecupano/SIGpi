@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove dump1090-mutability
-	sed -i /dump1090/d $SIGPI_CONFIG
+	    sed -i /dump1090/d $SIGPI_CONFIG
 	
 	# Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
@@ -31,10 +31,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Purge Dump1090"
         echo -e "${SIGPI_BANNER_RESET}"
 	
-	sudo apt-get remove --purge dump1090-mutability
-	sed -i /dump1090/d $SIGPI_CONFIG
+	    sudo apt-get remove --purge dump1090-mutability
+	    sed -i /dump1090/d $SIGPI_CONFIG
 	
-	# Remove Desktop and Icon, force menu update
+	    # Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
         rm -rf ~/.local/share/applications/dump1090.desktop
         sudo rm $DESKTOP_ICONS/dump1090.png
@@ -68,7 +68,7 @@ case "$1" in
         #echo "dump1090" >> $SIGPI_CONFIG 
 	
         ## DESKTOP
-	# Add Icon
+	    # Add Icon
         sudo cp $SIGPI_ICONS/dump1090.png $DESKTOP_ICONS
         # Add Desktop
         sudo cp $SIGPI_HOME/desktop/dump1090.desktop $DESKTOP_FILES
@@ -85,7 +85,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	;;
+	    ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
