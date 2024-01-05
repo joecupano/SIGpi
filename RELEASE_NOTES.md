@@ -1,5 +1,8 @@
 # Release Notes
 
+## Release 7.0: 2024-01-15
+- Major Release
+
 ## Release 6.7: 2023-12-30
 - Maintenance Release
 - SDRangel 7.17.2 update
