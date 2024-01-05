@@ -3,7 +3,10 @@
 ###
 ### SIGPI
 ###
-### pkg_kerberos-sdr
+### device_kerberos-sdr
+###
+###
+### 20230110-0100
 ###
 
 case "$1" in 

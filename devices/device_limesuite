@@ -3,7 +3,10 @@
 ###
 ### SIGPI
 ###
-### pkg_limesuite
+### device_limesuite
+###
+###
+### 20240110-0100
 ###
 
 case "$1" in 
