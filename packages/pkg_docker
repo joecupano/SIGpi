@@ -3,7 +3,7 @@
 ###
 ### SIGPI
 ###
-### device_ax25
+### pkg_docker
 ###
 ###
 ### 20240110-0100
@@ -12,47 +12,56 @@
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove AX.25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Docker"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt remove -y libax25 ax25-apps ax25-tools
-        sed -i /ax25/d $SIGPI_INSTALLED
-	
+        sudo apt-get remove docker
+        sed -i /docker/d $SIGPI_INSTALLED
+
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Removed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Removed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge AX.25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Docker"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt remove -y libax25 ax25-apps ax25-tools
-        sudo rm-rf /etc/ax25/axports
-        sed -i /ax25/d $SIGPI_CONFIG
+        sudo apt-get remove --purge docker
+        sed -i /docker/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Purged"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install AX.25"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install Docker"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
-        sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
-        echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
-        cat $SIGPI_PKGLIST|grep "ax25" >> $SIGPI_INSTALLED 
+        # DEPENDENCIES
+
+        # INSTALL
+        cd $SIGPI_SOURCE
+        mkdir docker && cd docker
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo bash get-docker.sh
+        # Set SUDO user to use docker
+        sudo usermod -aG docker $(whoami)
+
+        # Docker Compose
+        sudo apt install python3-pip -y
+        sudo pip3 install docker-compose
+        docker-compose version
+        cat $SIGPI_PKGLIST|grep "docker" >> $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Installed"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-     build )
+    build )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
