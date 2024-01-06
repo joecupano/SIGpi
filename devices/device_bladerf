@@ -15,12 +15,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Remove bladeRF"
         echo -e "${SIGPI_BANNER_RESET}"
         
-	cd $SIGPI_SOURCE/bladeRF/build/host
+	    cd $SIGPI_SOURCE/bladeRF/build/host
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/bladeRF
-        sed -i /bladerf/d $SIGPI_CONFIG
+        sed -i /bladerf/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bladeRF Removed"
@@ -36,7 +36,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/bladeRF
-        sed -i /bladerf/d $SIGPI_CONFIG
+        sed -i /bladerf/d $SIGPI_INSTALLED
 
         rm -rf $HOME/.config/bladerf
         sudo rm -rf $SIGPI_DESKTOP/bladerf.desktop
@@ -67,7 +67,7 @@ case "$1" in
         make
         sudo make install
         sudo ldconfig
-        echo "bladerf" >> $SIGPI_CONFIG 
+        cat $SIGPI_PKGLIST|grep "bladerf" >> $SIGPI_INSTALLED 
 	
         ### SoapyBladeRF
         echo -e "${SIGPI_BANNER_COLOR}"

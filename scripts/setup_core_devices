@@ -1,0 +1,156 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### setup_core_devices
+###
+###
+### 20240110-0100
+###
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Devices"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+# AX.25 and utilities"
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - AX.25 "
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
+echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
+
+# RTL-SDR
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - RTLSDR "
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
+#sudo apt-get install -y libusb-1.0-0-dev
+#sudo pip3 install pyrtlsdr
+
+## PACKAGE
+#cd $SIGPI_SOURCE
+#git clone https://github.com/osmocom/rtl-sdr.git
+#cd rtl-sdr
+#mkdir build	&& cd build
+#cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+#make
+#sudo make install
+#sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+#sudo ldconfig
+
+## DEPENDENCIES
+sudo apt purge ^librtlsdr
+sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
+sudo apt-get install libusb-1.0-0-dev
+        
+## PACKAGE
+cd $SIGPI_SOURCE
+git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+cd rtl-sdr-blog
+mkdir build && cd build
+cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
+make -j4
+sudo make install
+sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
+sudo ldconfig
+echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
+
+# HackRF
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - HackRF "
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
+sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/mossmann/hackrf.git
+cd hackrf/host
+mkdir build && cd build
+cmake .. -Wno-dev
+make -j4
+sudo make install
+sudo ldconfig
+
+# SoapySDR
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
+echo -e "${SIGPI_BANNER_RESET}"
+
+## DEPENDENCIES
+sudo apt-get install -y swig
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y libavahi-client-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y python-dev python3-dev
+
+## INSTALL
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapySDR.git
+cd SoapySDR
+mkdir build && cd build
+cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make -j4
+sudo make install
+sudo ldconfig
+SoapySDRUtil --info
+
+# SoapyRTLSDR
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRTLSDR "
+echo -e "${SIGPI_BANNER_RESET}"
+
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyRTLSDR.git
+cd SoapyRTLSDR
+mkdir build && cd build
+cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make
+sudo make install
+sudo ldconfig
+
+# SoapyHackRF
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyHackRF "
+echo -e "${SIGPI_BANNER_RESET}"
+
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyHackRF.git
+cd SoapyHackRF
+mkdir build && cd build
+cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make
+sudo make install
+sudo ldconfig
+
+# SoapyRemote
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRemote "
+echo -e "${SIGPI_BANNER_RESET}"
+
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyRemote.git
+cd SoapyRemote
+mkdir build && cd build
+cmake .. -Wno-dev
+make
+sudo make install
+sudo ldconfig
+
+# GPS
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - GPS (Chrony) "
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y gpsd chrony
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Core Devices Installed"
+echo -e "${SIGPI_BANNER_RESET}"

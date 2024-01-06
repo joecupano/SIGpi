@@ -20,7 +20,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/LimeSuite
-        sed -i /limesuite/d $SIGPI_CONFIG
+        sed -i /limesuite/d $SIGPI_INSTALLED
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/LimeSuite.png
@@ -41,7 +41,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/LimeSuite
-        sed -i /limesuite/d $SIGPI_CONFIG
+        sed -i /limesuite/d $SIGPI_INSTALLED
 
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/lime-suite.png
@@ -81,6 +81,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "limesuite" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
         # Add Icon
