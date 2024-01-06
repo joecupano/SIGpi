@@ -74,7 +74,7 @@ case "$1" in
         sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
         sudo mkdir /usr/local/etc/direwolf
         sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
-        echo "direwolf" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "direwolf" >> $SIGPI_INSTALLED 
 	
         ## DESKTOP
 	# Add Menu icon

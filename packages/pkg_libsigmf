@@ -58,7 +58,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "libsigmf" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "libsigmf" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
 	    # Add Icon

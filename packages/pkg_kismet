@@ -67,7 +67,7 @@ case "$1" in
         fi
 
         ### Say yes when asked about suid helpers
-        echo "kismet" >> $SIGPI_INSTALLED
+        cat $SIGPI_PKGLIST|grep "kismet" >> $SIGPI_INSTALLED
 
         ## DESKTOP
         # Add Icon

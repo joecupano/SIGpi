@@ -57,7 +57,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "multimon-ng" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "multimon-ng" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
         # Add Icon

@@ -55,7 +55,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/0xCoto/CygnusRFI.git
-        echo "cygnusrfi" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "cygnusrfi" >> $SIGPI_INSTALLED
 	
         ## DESKTOP
 	# Add Icon

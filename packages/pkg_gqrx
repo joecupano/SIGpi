@@ -44,7 +44,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y gqrx-sdr
-        echo "gqrx" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "gqrx" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
 	    # Add Icon
