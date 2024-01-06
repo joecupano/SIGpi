@@ -1,33 +1,52 @@
-audacity,Multi-track audio editor,20211231
-aptdec,Decodes images transmitted by NOAA weather satellites,20211231
-cubicsdr,Cross-Platform Software-Defined Radio Application,20211231
-cygnusrfi,Open-source RFI analysis tool based on Python,20211231
-direwolf,Software soundcard AX25 packet and APRS encoder-decoder,20231029
-dosbox,Open Source DOS emulator to run old DOS games,20221227
-dump1090,Mode S decoder specifically designed for RTLSDR devices,20211231
-fldigi,Soundcard modem program for most of the digital modes used by radio amateurs,20230828
-flrig,Rig control program, cooperates with fldigi,20230828
-fftw-wisdom,Create wisdom pre-optimized FFTs files for SDR,20230831
-gnuradio,Software development toolkit providing signal processing blocks for SDRs,20230201
-gpredict,Real-time satellite tracking and orbit prediction application,20211231
-gqrx,SDR app powered GNU Radio and the Qt graphical toolkit,20211231
-hamlib,Radio Control Library providing programs a consistent API for controlling radios and rotators,20230406
-js8call,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20211231
-kismet,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee, 20230828
-linpac,Packet Radio terminal,20211231
-multimon-ng, decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20211231
-nrsc5,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
-qsstv,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
-radiosonde,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
-rtl_433,Generic data receiver ISM bands,20211231
-sdrangel,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20231023
-sdrpp,Cross-platform and open source SDR software,20211231
-sigdigger,Qt5 digital signal analyzer using its own DSP library,20230319
-sigutils,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
-splat,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
-srsran,Open-source 4G and 5G software radio suite,20230319
-suscan,Realtime DSP processing library. used by SigDigger,20230319
-ubertooth,Open-source wireless development platform for Bluetooth experimentation,20211231
-wireshark,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231
-wsjtx,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20211231
-xastir,APRS client program with positional data in a graphical application,20211231
+audacity,3.4.2,Multi-track audio editor,20211231
+aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20211231
+bettercap,2.32.0,recon and attacking WiFi BLE HID devices and Ethernet networks,20211231
+bettercapui,1.3.0, Web UI for bettercap,20211231
+cm256cc,1.1.0,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20211231
+codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20211231
+cubicsdr,0.2.4,Cross-Platform Software-Defined Radio Application,20211231
+cygnusrfi,1.0,Open-source RFI analysis tool based on Python,20211231
+direwolf,1.7,Software soundcard AX25 packet and APRS encoder-decoder,20231029
+dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20221227
+dsdcc,1.9.5,Digital Speech Decoder rewritten as a C++ library,20211231
+dump1090,1.0,Mode S decoder specifically designed for RTLSDR devices,20211231
+fftw,3.3.10,Create wisdom pre-optimized FFTs files for SDR,20230831
+fldigi,4.1.27,Soundcard modem program for most of the digital modes used by radio amateurs,20230828
+flrig,2.0.03,Rig control program, cooperates with fldigi,20230828
+gnuradio,3.10.5,Software development toolkit providing signal processing blocks for SDRs,20230201
+gpredict,2.2.1,Real-time satellite tracking and orbit prediction application,20211231
+gqrx,2.17,SDR app powered GNU Radio and the Qt graphical toolkit,20211231
+hamlib,4.5.5,Radio Control Library providing programs a consistent API for controlling radios and rotators,20230406
+inspectrum,0.3.1,Tool for analysing captured signals primarily from SDRs,20211231
+js8call,2.2.0,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20211231
+kismet,2023-07-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee, 20230828
+libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
+libdab,1.0,DAB decoding library,20211231
+libsigmf,1.0,header-only C++ library for working with SigMF metadata,20211231
+linpac,0.2.0,Packet Radio terminal,20211231
+liquid-dsp,1.6.0,digital signal processing library for SDRs,20211231
+mbelib,1.0,P25 Phase 1 and ProVoice vocoder,20211231
+multimon-ng,1.3.0,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20211231
+nrsc5,1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
+openwebrx,1.0,Open source multi-user SDR receiver software with web interface,20211231
+pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
+qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
+radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
+rtl_433,23.11,Generic data receiver ISM bands,20211231
+sdrangel,7.17.3,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20231023
+sdrangelsrv,7.17.3,Open-source SDR server,20231023
+sdrpp,1.1.0,Cross-platform and open source SDR software,20211231
+serialdv,1.1.4,C++ interface to encode/decode audio with AMBE3000 devices in packet mode over a serial link,20211231
+sgp4,1.0,Simplified perturbations models,20211231
+sigdigger,0.3.0,Qt5 digital signal analyzer using its own DSP library,20230319
+sigutils,0.3.0,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
+splat,1.0,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
+srsran,23.11,Open-source 4G and 5G software radio suite,20230319
+suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
+ubertooth,2020-12-R1,Open-source wireless development platform for Bluetooth experimentation,20211231
+urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
+vkfft,1.3.2,GPU-accelerated multidimensional Fast Fourier Transform library,20211231
+wireshark,4.2.2,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231
+wsjtx,2.6.1,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20211231
+xastir,2.1.8,APRS client program with positional data in a graphical application,20211231
+zerotier,1.12.2,securemulti-point vpn,20211231
