@@ -17,7 +17,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         sudo python3 -m pip uninstall urh
-        sed -i /urh/d $SIGPI_CONFIG
+        sed -i /urh/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   URH Removed"
@@ -29,7 +29,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo python3 -m pip uninstall urh
-        sed -i /urh/d $SIGPI_CONFIG
+        sed -i /urh/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   URH Purged"
@@ -61,7 +61,7 @@ case "$1" in
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
             echo -e "${SIGPI_BANNER_RESET}"
-            echo "urh" >> $SIGPI_CONFIG
+            echo "urh" >> $SIGPI_INSTALLED
         else
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##   URH not stable for Raspberry Pi OS"

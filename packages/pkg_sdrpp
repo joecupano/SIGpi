@@ -14,7 +14,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -r sdrpp
-        sed -i /sdrpp/d $SIGPI_CONFIG
+        sed -i /sdrpp/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Removed"
@@ -26,7 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -P sdrpp
-        sed -i /sdrpp/d $SIGPI_CONFIG
+        sed -i /sdrpp/d $SIGPI_INSTALLED
    
         sudo rm -rf $SIGPI_DESKTOP/sdrpp.desktop
         sudo rm -rf $DESKTOP_FILES/sdrpp.desktop
@@ -64,7 +64,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i sdrpp_1.1.0-1_arm64.deb
         fi
-        echo "sdrpp" >> $SIGPI_CONFIG 
+        echo "sdrpp" >> $SIGPI_INSTALLED 
         
 	    ## DESKTOP
 	    # Add Icon

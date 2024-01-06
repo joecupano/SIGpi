@@ -16,7 +16,7 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/qsstv.desktop
         rm -rf ~/.local/share/applications/qsstv.desktop
         sudo xdg-desktop-menu forceupdate --mode system
-        sed -i /qsstv/d $SIGPI_CONFIG
+        sed -i /qsstv/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Removed"
@@ -31,7 +31,7 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/qsstv.desktop
         rm -rf ~/.local/share/applications/qsstv.desktop
         sudo xdg-desktop-menu forceupdate --mode system
-        sed -i /qsstv/d $SIGPI_CONFIG
+        sed -i /qsstv/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Purged"
@@ -49,7 +49,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y qsstv
-        echo "qsstv" >> $SIGPI_CONFIG 
+        echo "qsstv" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
 	    # Add Icon

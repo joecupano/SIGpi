@@ -14,7 +14,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -r openwebrx
-        sed -i /openwebrx/d $SIGPI_CONFIG
+        sed -i /openwebrx/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Removed"
@@ -26,7 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -P openwebrx
-        sed -i /openwebrx/d $SIGPI_CONFIG
+        sed -i /openwebrx/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Purged"
@@ -146,7 +146,7 @@ case "$1" in
 
         ### Setup and enable systemd service
         sudo cp $SIGPI_SOURCE/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
-        echo "openwebrx" >> $SIGPI_CONFIG
+        echo "openwebrx" >> $SIGPI_INSTALLED
         sleep 5
         sudo systemctl enable openwebrx
 

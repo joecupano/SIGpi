@@ -15,7 +15,7 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         sudo dpkg -r wsjtx_2.6.0
         sudo dpkg -r wsjtx_2.6.1
-        sed -i /wsjtx/d $SIGPI_CONFIG
+        sed -i /wsjtx/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Removed"
@@ -50,7 +50,7 @@ case "$1" in
         sudo apt-get install -y libqt5multimedia5-plugins libqt5sql5-sqlite autoconf automake libtool texinfo
         sudo apt-get install -y libusb-1.0-0-dev libudev-dev libboost-all-dev asciidoctor
 
-        if grep js8call "$SIGPI_CONFIG"; then
+        if grep js8call "$SIGPI_INSTALLED"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: WSJT-X cannot be installed while JS8CALL is installed due to library conflicts"
@@ -64,13 +64,13 @@ case "$1" in
             if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
                 cd $SIGPI_DEBS
                 sudo dpkg -i wsjtx_2.6.1_amd64.deb
-                echo "wsjtx" >> $SIGPI_CONFIG 
+                echo "wsjtx" >> $SIGPI_INSTALLED 
             fi
 
             if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
                 cd $SIGPI_DEBS
                 sudo dpkg -i wsjtx_2.6.1_arm64.deb
-                echo "wsjtx" >> $SIGPI_CONFIG 
+                echo "wsjtx" >> $SIGPI_INSTALLED 
             fi
        	    ## DESKTOP
 	        # Add Icon

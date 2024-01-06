@@ -17,7 +17,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/rtl_433
-        sed -i /rtl_433/d $SIGPI_CONFIG
+        sed -i /rtl_433/d $SIGPI_INSTALLED
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
@@ -38,7 +38,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/rtl_433
-        sed -i /rtl_433/d $SIGPI_CONFIG
+        sed -i /rtl_433/d $SIGPI_INSTALLED
 
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
@@ -69,7 +69,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "rtl_433" >> $SIGPI_CONFIG 
+        echo "rtl_433" >> $SIGPI_INSTALLED 
 
 	## DESKTOP
 	# Add Icon

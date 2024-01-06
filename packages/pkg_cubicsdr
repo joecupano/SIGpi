@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove cubicsdr
-        sed -i /cubicsdr/d $SIGPI_CONFIG
+        sed -i /cubicsdr/d $SIGPI_INSTALLED
            
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Removed"
@@ -25,7 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge cubicsdr
-        sed -i /cubicsdr/d $SIGPI_CONFIG
+        sed -i /cubicsdr/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   CubicSDR Purged"
@@ -45,7 +45,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y cubicsdr
-        echo "cubicsdr" >> $SIGPI_CONFIG 
+        cat $SIGPI_PKGLIST|grep "cubicsdr" >> $SIGPI_INSTALLED 
 	
 	    ## DESKTOP
         # Add Icon

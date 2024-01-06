@@ -17,13 +17,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_CONFIG
+            sed -i /hamlib/d $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_CONFIG
+            sed -i /hamlib/d $SIGPI_INSTALLED
         fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -40,7 +40,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         sudo rm -rf $SIGPI_SOURCE/hamlib*
-        sed -i /hamlib/d $SIGPI_CONFIG
+        sed -i /hamlib/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Purged"
@@ -66,7 +66,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i hamlib_4.5.5-1_arm64.deb
         fi
-        echo "sdrangel" >> $SIGPI_CONFIG
+        echo "sdrangel" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon
