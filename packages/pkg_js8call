@@ -52,7 +52,7 @@ case "$1" in
         else
             cd $SIGPI_SOURCE
             sudo apt-get install -y js8call
-            echo "js8call" >> $SIGPI_INSTALLED 
+            cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED 
        
             ## DESKTOP
 	        # Add Icon

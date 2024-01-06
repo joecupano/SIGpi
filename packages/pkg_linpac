@@ -53,7 +53,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y linpac
-        echo "linpac" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "linpac" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
 	# Add Icon

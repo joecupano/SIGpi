@@ -76,7 +76,7 @@ case "$1" in
         cmake .. -DRTLSDR=on
         sudo make install
         sudo ldconfig
-        echo "libdab" >> $SIGPI_INSTALLED
+        cat $SIGPI_PKGLIST|grep "libdab" >> $SIGPI_INSTALLED
         
         ## DESKTOP
 	    # Add Icon

@@ -51,7 +51,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i flrig_2.0.03-1_arm64.deb
         fi
-        echo "flrig" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED 
 
 	    ## DESKTOP
 	    # Add Icon

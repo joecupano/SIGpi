@@ -142,14 +142,14 @@ case "$1" in
             ### Add GNUradio repo
             sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 	        sudo apt-get install -y gnuradio   # v3.10.5
-            echo "gnuradio" >> $SIGPI_INSTALLED 
+            cat $SIGPI_PKGLIST|grep "gnuradio" >> $SIGPI_INSTALLED 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             cd $SIGPI_DEBS
             sudo dpkg -i volk_3.0.0-1_arm64.deb
             sudo dpkg -i gnuradio_3.9.8.0-1_arm64.deb
-            echo "gnuradio" >> $SIGPI_INSTALLED 
+            cat $SIGPI_PKGLIST|grep "gnuradio" >> $SIGPI_INSTALLED 
         fi
 
     	## DESKTOP

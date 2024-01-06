@@ -60,7 +60,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "mbelib" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "mbeliib" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
 	    # Add Icon

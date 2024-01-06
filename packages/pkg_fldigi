@@ -51,7 +51,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i fldigi_4.1.27-1_arm64.deb
         fi
-        echo "fldigi" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "fldigi" >> $SIGPI_INSTALLED
 
 	    ## DESKTOP
 	    # Add Icon

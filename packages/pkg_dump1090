@@ -59,7 +59,8 @@ case "$1" in
 
         ### FlightAware fork
         sudo apt-get -y install dump1090-mutability
-        
+        cat $SIGPI_PKGLIST|grep "dump1090" >> $SIGPI_INSTALLED
+
         ### Mutability Original
         #git clone https://github.com/antirez/dump1090.git
         #cd dump1090
