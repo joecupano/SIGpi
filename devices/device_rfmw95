@@ -1,0 +1,77 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### device_rfm95w
+###
+###
+### 20230110-0100
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RFM95W"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo rm -rf $SIGPI_SOURCE/rfm95w
+        sed -i /rfm95w/d $SIGPI_INSTALLED
+       
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RFM95W Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RFM95W"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo rm -rf $SIGPI_SOURCE/rfm95w
+        sed -i /rfm95w/d $SIGPI_INSTALLED
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RFM95W Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install RFM95W"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get -y install python3-pip
+        sudo apt-get -y install python3-pil
+        sudo pip3 install RPI.GPIO
+        sudo pip3 install spidev
+        sudo pip3 install adafruit-circuitpython-ssd1306
+        sudo pip3 install adafruit-circuitpython-framebuf
+        sudo pip3 install adafruit-circuitpython-rfm9x
+
+        # INSTALL
+        sudo pip3 install pyLoraRFM9x
+        cat $SIGPI_PKGLIST|grep "rtlsdr" >> $SIGPI_INSTALLED 
+    
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Add Category
+        # Add to Menu
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RFM95W Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
