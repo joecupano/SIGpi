@@ -64,13 +64,13 @@ case "$1" in
             if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
                 cd $SIGPI_DEBS
                 sudo dpkg -i wsjtx_2.6.1_amd64.deb
-                echo "wsjtx" >> $SIGPI_INSTALLED 
+                cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED 
             fi
 
             if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
                 cd $SIGPI_DEBS
                 sudo dpkg -i wsjtx_2.6.1_arm64.deb
-                echo "wsjtx" >> $SIGPI_INSTALLED 
+                cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED 
             fi
        	    ## DESKTOP
 	        # Add Icon

@@ -69,7 +69,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "rtl_433" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "rtl_433" >> $SIGPI_INSTALLED 
 
 	## DESKTOP
 	# Add Icon

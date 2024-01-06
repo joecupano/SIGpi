@@ -17,13 +17,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -r zerotier-one_1.12.1_amd64.deb
-            sed -i /zerotier-one/d $SIGPI_INSTALLED
+            sed -i /zerotier/d $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -r zerotier-one-1.1.0-1_arm64.deb
-            sed -i /zerotier-one/d $SIGPI_INSTALLED
+            sed -i /zerotier/d $SIGPI_INSTALLED
         fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -39,13 +39,13 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -P zerotier-one_1.12.1_amd64.deb
-            sed -i /zerotier-one/d $SIGPI_INSTALLED
+            sed -i /zerotier/d $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -P zerotier-one_1.12.1_arm64.deb
-            sed -i /zerotier-one/d $SIGPI_INSTALLED
+            sed -i /zerotier/d $SIGPI_INSTALLED
         fi
    
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -81,7 +81,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i zerotier-one_1.12.1_arm64.deb
         fi
-        echo "zerotier-one" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "zerotier" >> $SIGPI_INSTALLED 
         
 	    ## DESKTOP
         

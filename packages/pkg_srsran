@@ -48,6 +48,7 @@ case "$1" in
             sudo add-apt-repository ppa:softwareradiosystems/srsran
             sudo apt-get update
             sudo apt-get install srsran -y
+            cat $SIGPI_PKGLIST|grep "srsran" >> $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
