@@ -64,7 +64,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i sdrpp_1.1.0-1_arm64.deb
         fi
-        echo "sdrpp" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "sdrpp" >> $SIGPI_INSTALLED 
         
 	    ## DESKTOP
 	    # Add Icon

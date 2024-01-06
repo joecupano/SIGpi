@@ -59,7 +59,8 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        
+        cat $SIGPI_PKGLIST|grep "serialdv" >> $SIGPI_INSTALLED
+
         ## DESKTOP
 	    # Add Icon
         # Add Desktop

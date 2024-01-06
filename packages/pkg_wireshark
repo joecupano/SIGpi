@@ -59,7 +59,7 @@ case "$1" in
 
         ## PACKAGE
         sudo apt-get install -y wireshark wireshark-dev libwireshark-dev
-        echo "wireshark" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "wireshark" >> $SIGPI_INSTALLED 
        
         ## DESKTOP
 	    # Add Icon

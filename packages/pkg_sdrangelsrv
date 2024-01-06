@@ -79,7 +79,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i sdrangelsrv_current_arm64.deb
         fi
-        echo "sdrangelsrv" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "sdrangelsrv" >> $SIGPI_INSTALLED 
         
         ### FFTW-WISDOM CHECK AND LINK
         mkdir $HOME/.config/f4exb

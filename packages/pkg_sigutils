@@ -57,7 +57,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "sigutils" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "sigutils" >> $SIGPI_INSTALLED 
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGutils Installed"

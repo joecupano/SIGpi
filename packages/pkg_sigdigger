@@ -85,7 +85,7 @@ case "$1" in
         qmake SigDigger.pro
         make -j4
         sudo make install
-        echo "sigdigger" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "sigdigger" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
         # Add Icon      
