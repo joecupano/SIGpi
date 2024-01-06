@@ -16,7 +16,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
-        sed -i /hasviolet/d $SIGPI_CONFIG
+        sed -i /hasviolet/d $SIGPI_INSTALLED
 
         ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/hasviolet.png
@@ -33,7 +33,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo rm -rf $SIGPI_SOURCE/hasviolet
-        sed -i /hasviolet/d $SIGPI_CONFIG
+        sed -i /hasviolet/d $SIGPI_INSTALLED
 
         ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/hasviolet.png
@@ -87,7 +87,7 @@ case "$1" in
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.key >/dev/null 2>&1
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.crt >/dev/null 2>&1
 
-        echo "hasviolet" >> $SIGPI_CONFIG 
+        cat $SIGPI_PKGLIST|grep "hasviolet" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
         # Add Icon

@@ -16,7 +16,7 @@ case "$1" in
 
         sudo dpkg -r libiio
         sudo dpkg -r SoapyPlutoSDR
-        sed -i /libiio/d $SIGPI_CONFIG
+        sed -i /libiio/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Removed"
@@ -29,7 +29,7 @@ case "$1" in
 
         sudo dpkg -P libiio
         sudo dpkg -P SoapyPlutoSDR
-        sed -i /libiio/d $SIGPI_CONFIG
+        sed -i /libiio/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Purged"
@@ -74,6 +74,7 @@ case "$1" in
         make
         sudo make install
         sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "plutosdr" >> $SIGPI_INSTALLED 
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Installed"

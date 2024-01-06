@@ -31,6 +31,7 @@ cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
+cat $SIGPI_PKGLIST|grep "libmirisdr" >> $SIGPI_INSTALLED 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - RSPx Driver Installed"
@@ -48,6 +49,7 @@ cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
+cat $SIGPI_PKGLIST|grep "soapymiri" >> $SIGPI_INSTALLED 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR Driver Installed"

@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/bashdevice_kerberosSIGPI
 
 ###
 ### SIGPI
 ###
-### device_kerberos-sdr
+### device_kerberos
 ###
 ###
 ### 20230110-0100
@@ -21,7 +21,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         rm -rf rtl-sdr-kerberos
         rm -rf SoapyRTLSDR
-        sed -i /kerberos-sdr/d $SIGPI_CONFIG
+        sed -i /kerberos/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Removed"
@@ -38,7 +38,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         rm -rf rtl-sdr-kerberos
         rm -rf SoapyRTLSDR
-        sed -i /kerberos-sdr/d $SIGPI_CONFIG
+        sed -i /kerberos/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Kerberos SDR Purged"
@@ -76,7 +76,7 @@ case "$1" in
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
-        echo "kerberos-sdr" >> $SIGPI_CONFIG
+        cat $SIGPI_PKGLIST|grep "kerberos" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
 	    # Add Icon

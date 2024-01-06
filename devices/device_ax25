@@ -1,0 +1,65 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### device_ax25
+###
+###
+### 20240110-0100
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove AX.25"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt remove -y libax25 ax25-apps ax25-tools
+        sed -i /ax25/d $SIGPI_INSTALLED
+	
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge AX.25"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt remove -y libax25 ax25-apps ax25-tools
+        sudo rm-rf /etc/ax25/axports
+        sed -i /ax25/d $SIGPI_CONFIG
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install AX.25"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
+        echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
+        cat $SIGPI_PKGLIST|grep "ax25" >> $SIGPI_INSTALLED 
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   AX.25 Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+     build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
