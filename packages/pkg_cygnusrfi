@@ -14,7 +14,7 @@ case "$1" in
         
 	cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/CygnusRFI
-        sed -i /cygnusrfi/d $SIGPI_CONFIG
+        sed -i /cygnusrfi/d $SIGPI_INSTALLED
 	
 	# Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/cygnusrfi.png
@@ -32,7 +32,7 @@ case "$1" in
         
 	cd $SIGPI_SOURCE
 	rm -rf $SIGPI_SOURCE/CygnusRFI
-        sed -i /cygnusrfi/d $SIGPI_CONFIG
+        sed -i /cygnusrfi/d $SIGPI_INSTALLED
 	
 	# Remove Menu icon
         sudo rm $SIGPI_$DESKTOP_ICONS/cygnusrfi.png
@@ -55,7 +55,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/0xCoto/CygnusRFI.git
-        echo "cygnusrfi" >> $SIGPI_CONFIG 
+        echo "cygnusrfi" >> $SIGPI_INSTALLED 
 	
         ## DESKTOP
 	# Add Icon

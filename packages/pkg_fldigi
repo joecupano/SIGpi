@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -r fldigi
-        sed -i /fldigi/d $SIGPI_CONFIG
+        sed -i /fldigi/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Removed"
@@ -25,7 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -P fldigi
-        sed -i /fldigi/d $SIGPI_CONFIG
+        sed -i /fldigi/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLdigi Purged"
@@ -51,7 +51,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i fldigi_4.1.27-1_arm64.deb
         fi
-        echo "fldigi" >> $SIGPI_CONFIG 
+        echo "fldigi" >> $SIGPI_INSTALLED 
 
 	    ## DESKTOP
 	    # Add Icon

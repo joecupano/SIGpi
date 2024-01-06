@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove dump1090-mutability
-	    sed -i /dump1090/d $SIGPI_CONFIG
+	    sed -i /dump1090/d $SIGPI_INSTALLED
 	
 	# Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
@@ -32,7 +32,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 	
 	    sudo apt-get remove --purge dump1090-mutability
-	    sed -i /dump1090/d $SIGPI_CONFIG
+	    sed -i /dump1090/d $SIGPI_INSTALLED
 	
 	    # Remove Desktop and Icon, force menu update
         sudo rm $DESKTOP_FILES/dump1090.desktop
@@ -65,7 +65,7 @@ case "$1" in
         #cd dump1090
         #make -j4
         #sudo cp dump1090 /usr/local/bin/dump1090
-        #echo "dump1090" >> $SIGPI_CONFIG 
+        #echo "dump1090" >> $SIGPI_INSTALLED 
 	
         ## DESKTOP
 	    # Add Icon

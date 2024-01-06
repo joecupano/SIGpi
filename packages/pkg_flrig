@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -r flrig
-        sed -i /flrig/d $SIGPI_CONFIG
+        sed -i /flrig/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Removed"
@@ -25,7 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo dpkg -P flrig
-        sed -i /flrig/d $SIGPI_CONFIG
+        sed -i /flrig/d $SIGPI_INSTALLED
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Purged"
@@ -51,7 +51,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i flrig_2.0.03-1_arm64.deb
         fi
-        echo "flrig" >> $SIGPI_CONFIG 
+        echo "flrig" >> $SIGPI_INSTALLED 
 
 	    ## DESKTOP
 	    # Add Icon

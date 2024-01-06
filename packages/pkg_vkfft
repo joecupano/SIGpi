@@ -22,15 +22,15 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r vkfft
-            sed -i /vkfft/d $SIGPI_CONFIG
+            sed -i /vkfft/d $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r vkfft
-            sed -i /vkfft/d $SIGPI_CONFIG
+            sed -i /vkfft/d $SIGPI_INSTALLED
         fi
-        sed -i /vkfft/d $SIGPI_CONFIG
+        sed -i /vkfft/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Removed"
@@ -45,15 +45,15 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -P vkfft
-            sed -i /vkfft/d $SIGPI_CONFIG
+            sed -i /vkfft/d $SIGPI_INSTALLED
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -P vkfft
-            sed -i /vkfft/d $SIGPI_CONFIG
+            sed -i /vkfft/d $SIGPI_INSTALLED
         fi
-        sed -i /vkfft/d $SIGPI_CONFIG
+        sed -i /vkfft/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Purged"
@@ -79,7 +79,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i vkfft_1.3.1-1_arm64.deb
         fi
-        echo "vkfft" >> $SIGPI_CONFIG
+        echo "vkfft" >> $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Installed"

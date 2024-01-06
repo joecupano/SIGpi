@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove audacity
-        sed -i /audacity/d $SIGPI_CONFIG
+        sed -i /audacity/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Removed"
@@ -25,7 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge audacity
-        sed -i /audacity/d $SIGPI_CONFIG
+        sed -i /audacity/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Audacity Purged"
@@ -43,7 +43,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y audacity
-        echo "audacity" >> $SIGPI_CONFIG
+        cat $SIGPI_PKGLIST|grep "audacity" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon

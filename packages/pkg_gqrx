@@ -14,7 +14,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove gqrx-sdr
-        sed -i /gqrx/d $SIGPI_CONFIG
+        sed -i /gqrx/d $SIGPI_INSTALLED
            
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Removed"
@@ -26,7 +26,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge gqrx-sdr
-        sed -i /gqrx/d $SIGPI_CONFIG
+        sed -i /gqrx/d $SIGPI_INSTALLED
     
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   GQRX Purged"
@@ -44,7 +44,7 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         sudo apt-get install -y gqrx-sdr
-        echo "gqrx" >> $SIGPI_CONFIG 
+        echo "gqrx" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
 	    # Add Icon

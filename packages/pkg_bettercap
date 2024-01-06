@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         
         sudo dpkg -r bettercap
-        sed -i /bettercap/d $SIGPI_CONFIG
+        sed -i /bettercap/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Removed"
@@ -29,7 +29,7 @@ case "$1" in
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/bettercap
-        sed -i /bettercap/d $SIGPI_CONFIG
+        sed -i /bettercap/d $SIGPI_INSTALLED
 
         rm -rf $HOME/.config/bettercap
         sudo rm -rf $SIGPI_DESKTOP/bettercap.desktop
@@ -61,7 +61,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i bettercap_2.32.0-1_arm64.deb
         fi
-        echo "sdrangel" >> $SIGPI_CONFIG 
+        cat $SIGPI_PKGLIST|grep "bettercap" >> $SIGPI_INSTALLED 
 	
 	    ## DESKTOP
 	    # Add Icon

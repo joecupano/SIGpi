@@ -22,7 +22,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_CONFIG
+        sed -i /liquid-dsp/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Removed"
@@ -37,7 +37,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_CONFIG
+        sed -i /liquid-dsp/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Purged"
@@ -61,7 +61,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "liquid-dsp" >> $SIGPI_CONFIG 
+        echo "liquid-dsp" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
 	    # Add Icon

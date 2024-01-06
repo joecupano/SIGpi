@@ -17,7 +17,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/libbtbb
-        sed -i /libbtbb/d $SIGPI_CONFIG
+        sed -i /libbtbb/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Removed"
@@ -32,7 +32,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/libbtbb
-        sed -i /libbtbb/d $SIGPI_CONFIG
+        sed -i /libbtbb/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Purged"
@@ -56,7 +56,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "libbtbb" >> $SIGPI_CONFIG 
+        echo "libbtbb" >> $SIGPI_INSTALLED 
 
         ### BTBR Plugin
         git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git

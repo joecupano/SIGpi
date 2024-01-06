@@ -16,7 +16,7 @@ case "$1" in
         sudo make uninstall
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/multimon-ng
-        sed -i /multimon-ng/d $SIGPI_CONFIG
+        sed -i /multimon-ng/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Removed"
@@ -31,7 +31,7 @@ case "$1" in
         sudo make uninstall
         cd $SIGPI_SOURCE
         rm -rf $SIGPI_SOURCE/multimon-ng
-        sed -i /multimon-ng/d $SIGPI_CONFIG
+        sed -i /multimon-ng/d $SIGPI_INSTALLED
         sudo rm -rf $SIGPI_DESKTOP/multimon-ng.desktop
         sudo rm -rf $DESKTOP_FILES/multimon-ng.desktop
                 
@@ -57,7 +57,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "multimon-ng" >> $SIGPI_CONFIG 
+        echo "multimon-ng" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
         # Add Icon

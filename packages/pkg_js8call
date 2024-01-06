@@ -13,7 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove js8call
-        sed -i /js8call/d $SIGPI_CONFIG
+        sed -i /js8call/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Removed"
@@ -25,7 +25,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove --purge js8call
-        sed -i /js8call/d $SIGPI_CONFIG
+        sed -i /js8call/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Purged"
@@ -41,7 +41,7 @@ case "$1" in
         ## DEPENDENCIES
 
         ## PACKAGE
-        if grep wsjtx "$SIGPI_CONFIG"; then
+        if grep wsjtx "$SIGPI_INSTALLED"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
@@ -52,7 +52,7 @@ case "$1" in
         else
             cd $SIGPI_SOURCE
             sudo apt-get install -y js8call
-            echo "js8call" >> $SIGPI_CONFIG 
+            echo "js8call" >> $SIGPI_INSTALLED 
        
             ## DESKTOP
 	        # Add Icon

@@ -14,7 +14,7 @@ case "$1" in
 
         sudo apt-get remove dosbox
         rm -rf $SIGPI_SOURCE/dosbox-radio
-        sed -i /dosbox/d $SIGPI_CONFIG
+        sed -i /dosbox/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DOSbox Removed"
@@ -27,7 +27,7 @@ case "$1" in
 
         sudo apt-get remove --purge dosbox
         rm -rf $SIGPI_SOURCE/dosbox-radio
-        sed -i /dosbox/d $SIGPI_CONFIG
+        sed -i /dosbox/d $SIGPI_INSTALLED
         rm $SIGPI_ETC/sigpi_dosbox.conf
 
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -47,7 +47,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         sudo apt-get install -y dosbox
         cp $SIGPI_SCRIPTS/config_dosbox-TEMPLATE $SIGPI_ETC/sigpi_dosbox.conf
-        echo "dosbox" >> $SIGPI_CONFIG
+        echo "dosbox" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon

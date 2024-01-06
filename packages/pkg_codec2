@@ -29,7 +29,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_CONFIG
+        sed -i /codec2/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Removed"
@@ -44,7 +44,7 @@ case "$1" in
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_CONFIG
+        sed -i /codec2/d $SIGPI_INSTALLED
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Purged"
@@ -68,7 +68,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        echo "codec2" >> $SIGPI_CONFIG 
+        cat $SIGPI_PKGLIST|grep "codec2" >> $SIGPI_INSTALLED 
 
 	    ## DESKTOP
 	    # Add Icon
