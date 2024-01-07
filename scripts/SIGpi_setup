@@ -211,7 +211,7 @@ if [ "$1" = "server" ]; then
     fi
     # Install SDRPlay
     if grep sdrplay "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_sdrplay install
+        source $SIGPI_DEVICES/device_libmirisdr install
     fi
     
     # Install RTL-TCP Server
@@ -309,7 +309,7 @@ if [ "$1" = "desktop" ]; then
     fi
     # Install SDRPlay
     if grep sdrplay "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_sdrplay install
+        source $SIGPI_DEVICES/device_libmirisdr install
     fi
 
     echo -e "${SIGPI_BANNER_COLOR}"
