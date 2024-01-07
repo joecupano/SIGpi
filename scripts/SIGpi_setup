@@ -67,7 +67,7 @@ else
     echo "ERROR:"
     echo "ERROR:  Software install setup issue"
     echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
-    echo "ERROR:  and SIGpi_installer.sh run from there."
+    echo "ERROR:  and SIGpi_setup.sh run from there."
     echo "ERROR:  Aborting"
     echo "ERROR:"
     exit 1;
@@ -95,19 +95,15 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SIGpi Installer" --clear --textbox $SIGPI_INSTALL_TXT 34 100 16
+    TERM=ansi whiptail --title "SIGpi Setup" --clear --textbox $SIGPI_INSTALL_TXT 34 100 16
 }
 
 select_startsrvscreen(){
-    TERM=ansi whiptail --title "SIGpi Node Installer" --clear --textbox $SIGPI_INSTALLSRV_TXT 34 100 16
-}
-
-select_startbasescreen(){
-    TERM=ansi whiptail --title "SIGpi Base Installer" --clear --textbox $SIGPI_INSTALLBASE_TXT 34 100 16
+    TERM=ansi whiptail --title "SIGpi Server Setup" --clear --textbox $SIGPI_INSTALLSRV_TXT 34 100 16
 }
 
 select_devices() {
-    FUN=$(whiptail --title "SIGpi Installer" --clear --checklist --separate-output \
+    FUN=$(whiptail --title "Devices Setup" --clear --checklist --separate-output \
         "Choose additional SDR devices " 20 80 12 \
         "bladerf" "bladeRF " OFF \
         "ettus" "Ettus Research USRP UHD " OFF \
@@ -127,13 +123,15 @@ select_devices() {
     done
 }
 
-select_nodeserver() {
-    FUN=$(whiptail --title "SIGpi Node Installer" --clear --checklist --separate-output \
-        "Choose which SDR server to run as a service" 20 120 12 \
+select_server() {
+    FUN=$(whiptail --title "Server Setup" --clear --checklist --separate-output \
+        "Choose which server to run as a service" 20 120 12 \
         "openwebrx" "OpenWebRX " OFF \
         "rtltcpsrv" "RTL-TCP Server " OFF \
         "sdrangelsrv" "SDRangel Server " OFF \
         "soapysdrsrv" "SoapySDR Server " OFF \
+        "dump1090" "Dump1090 Server " OFF \
+        "radiosonde" "RadioSonde AutoRX " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -154,7 +152,7 @@ select_nodeserver() {
 
 # Setup directories
 mkdir $SIGPI_ETC
-touch $SIGPI_CONFIG
+touch $SIGPI_INSTALLED
 mkdir $SIGPI_SOURCE
 cd $SIGPI_SOURCE
 
@@ -167,7 +165,7 @@ if [ "$1" = "server" ]; then
     calc_wt_size
     select_startsrvscreen
     select_devices
-    select_nodeserver
+    select_server
     TERM=ansi whiptail --title "SIGpi Server Setup" --clear --msgbox "Ready to continue" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
@@ -185,16 +183,15 @@ if [ "$1" = "server" ]; then
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    touch $SIGPI_CONFIG
-    echo "sigpi_server" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/install_server_dependencies.sh
-    source $SIGPI_SCRIPTS/install_core_devices.sh
+    source $SIGPI_SCRIPTS/setup_server_dependencies.sh
+    source $SIGPI_SCRIPTS/setup_core_devices.sh
+    source $SIGPI_SCRIPTS/setup_core_signals
 
     # Copy SIGpi commands into /usr/local/bin
     sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
-    cdsudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
+    sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
     # Install bladeRF
     if grep bladerf "$SIGPI_INSTALLER"; then
@@ -216,44 +213,21 @@ if [ "$1" = "server" ]; then
     if grep sdrplay "$SIGPI_INSTALLER"; then
         source $SIGPI_DEVICES/device_sdrplay install
     fi
-
-    # Install APTdec (NOAA APT)
-    source $SIGPI_PACKAGES/pkg_aptdec install
-    # Install cm256cc
-    source $SIGPI_PACKAGES/pkg_cm256cc install
-    # Install mbelib (P25 Phase)
-    source $SIGPI_PACKAGES/pkg_mbelib install
-    # Install SeriaDV (AMBE3000 chip serial control)
-    source $SIGPI_PACKAGES/pkg_serialdv install
-    # Install DSDcc (Digital Speech Decoder)
-    source $SIGPI_PACKAGES/pkg_dsdcc installi
-    # Install Codec 2
-    source $SIGPI_PACKAGES/pkg_codec2 install
-    # Install Radiosonde (Atmospheric Telemetry)
-    source $SIGPI_PACKAGES/pkg_radiosonde install
-    # Install Ubertooth
-    source $SIGPI_DEVICES/device_ubertooth install
-    # Install Direwolf (AFSK APRS)
-    source $SIGPI_PACKAGES/pkg_direwolf install
-    # Install RTL_433
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    # Generate FFT Wisdom file
-    source $SIGPI_PACKAGES/pkg_fftw install
     
     # Install RTL-TCP Server
     if [ "$2" = "rtltcpsrv" ]; then
-        sudo cp $SIGPI_SCRIPTS/sigpi_node_rtltcp.service /etc/systemd/system/sigpi-node.service
+        sudo cp $SIGPI_SCRIPTS/rtltcp.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
     fi
     # Install SDRangel Server
     if [ "$2" = "sdrangelsrv" ]; then
         source $SIGPI_PACKAGES/pkg_sdrangelsrv install
-        sudo cp $SIGPI_SCRIPTS/sigpi_node_sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+        sudo cp $SIGPI_SCRIPTS/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
     fi
     # Install SoapySDR Server
     if [ "$2" = "soapysdrsrv" ]; then
-        sudo cp $SIGPI_SCRIPTS/sigpi_node_soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+        sudo cp $SIGPI_SCRIPTS/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
         echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
     fi
     # Install OpenWebRX
@@ -280,12 +254,14 @@ fi
 
 
 ##
-## Base Install
+## Desktop Install
 ##
 
 if [ "$1" = "desktop" ]; then
     calc_wt_size
-    select_startbasescreen
+    select_startscreen
+    select_devices
+    select_desktop
 
     TERM=ansi whiptail --title "SIGpi desktop setup" --clear --msgbox "Ready to continuer" 12 120
 
@@ -304,45 +280,38 @@ if [ "$1" = "desktop" ]; then
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
-    touch $SIGPI_CONFIG
-    echo "sigpi_desktop" >> $SIGPI_CONFIG
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/install_core_dependencies.sh
+    source $SIGPI_SCRIPTS/setup_core_desktop_dependencies
+    source $SIGPI_SCRIPTS/setup_core_devices
+    source $SIGPI_SCRIPTS/setup_core_signals
     source $SIGPI_SCRIPTS/install_desktop-prep.sh
 
-    # Install Core Devices
-    source $SIGPI_SCRIPTS/install_core_devices.sh
-    # Install Libraries
-    source $SIGPI_SCRIPTS/install_libraries.sh   
-    # Install APTdec (NOAA APT)
-    source $SIGPI_PACKAGES/pkg_aptdec install
-    # Install NRSC5 (HD Radio)
-    source $SIGPI_PACKAGES/pkg_nrsc5 install
-    # Install cm256cc
-    source $SIGPI_PACKAGES/pkg_cm256cc install
-    # Install mbelib (P25 Phase)
-    source $SIGPI_PACKAGES/pkg_mbelib install
-    # Install SeriaDV (AMBE3000 chip serial control)
-    source $SIGPI_PACKAGES/pkg_serialdv install
-    # Install DSDcc (Digital Speech Decoder)
-    source $SIGPI_PACKAGES/pkg_dsdcc install
-    # Install Codec 2
-    source $SIGPI_PACKAGES/pkg_codec2 install
-    # Install Radiosonde (Atmospheric Telemetry)
-    source $SIGPI_PACKAGES/pkg_radiosonde install
-    # Install Ubertooth
-    source $SIGPI_DEVICES/device_ubertooth install
-    # Install Direwolf (AFSK APRS)
-    source $SIGPI_PACKAGES/pkg_direwolf install
-    # Install Linpac (AX.25 Terminal
-    source $SIGPI_PACKAGES/pkg_linpac install
-    # Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-    source $SIGPI_PACKAGES/pkg_multimon-ng install
-    # Install RTL_433
-    source $SIGPI_PACKAGES/pkg_rtl_433 install
-    # Install Dump1090
-    source $SIGPI_PACKAGES/pkg_dump1090 install
+    # Copy SIGpi commands into /usr/local/bin
+    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
+    sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
+
+    # Install bladeRF
+    if grep bladerf "$SIGPI_INSTALLER"; then
+        source $SIGPI_DEVICES/device_bladerf install
+    fi
+    # Install LimeSDR
+    if grep limesuite "$SIGPI_INSTALLER"; then
+        source $SIGPI_DEVICES/device_limesuite install
+    fi
+    # Install Ettus UHD
+    if grep ettus "$SIGPI_INSTALLER"; then
+        source $SIGPI_DEVICES/device_ettus install
+    fi
+    # Install PlutoSDR
+    if grep plutosdr "$SIGPI_INSTALLER"; then
+        source $SIGPI_DEVICES/device_plutosdr install
+    fi
+    # Install SDRPlay
+    if grep sdrplay "$SIGPI_INSTALLER"; then
+        source $SIGPI_DEVICES/device_sdrplay install
+    fi
+
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR}"

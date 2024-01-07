@@ -1,0 +1,52 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### setup_core_signals
+###
+###
+### 20240110-0100
+###
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Signals"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+# Install APTdec (NOAA APT)
+source $SIGPI_PACKAGES/pkg_aptdec install
+# Install cm256cc
+source $SIGPI_PACKAGES/pkg_cm256cc install
+# Install mbelib (P25 Phase)
+source $SIGPI_PACKAGES/pkg_mbelib install
+# Install SeriaDV (AMBE3000 chip serial control)
+source $SIGPI_PACKAGES/pkg_serialdv install
+# Install DSDcc (Digital Speech Decoder)
+source $SIGPI_PACKAGES/pkg_dsdcc installi
+# Install Codec 2
+source $SIGPI_PACKAGES/pkg_codec2 install
+# Install Radiosonde (Atmospheric Telemetry)
+source $SIGPI_PACKAGES/pkg_radiosonde install
+# Install Ubertooth
+source $SIGPI_DEVICES/device_ubertooth install
+# Install Direwolf (AFSK APRS)
+source $SIGPI_PACKAGES/pkg_direwolf install
+# Install RTL_433
+source $SIGPI_PACKAGES/pkg_rtl_433 install
+# Generate FFT Wisdom file
+source $SIGPI_PACKAGES/pkg_fftw install
+# Install NRSC5 (HD Radio)
+source $SIGPI_PACKAGES/pkg_nrsc5 install
+# Install Linpac (AX.25 Terminal
+source $SIGPI_PACKAGES/pkg_linpac install
+# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+source $SIGPI_PACKAGES/pkg_multimon-ng install
+# Install Dump1090
+source $SIGPI_PACKAGES/pkg_dump1090 install
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Core Signals Installed"
+echo -e "${SIGPI_BANNER_RESET}"
