@@ -1,5 +1,5 @@
 [Unit]
-Description=SigPi Node (SoapySDRServer)
+Description=SigPi SoapySDRServer
 
 Wants=network-online.target
 After=network-online.target
