@@ -5,8 +5,6 @@
 /____/___/\____/ .___/_/   \____(_)_/   
               /_/                       
 
-Welcome to SIGpi Node
-
 This script builds a head-less SDR server for use on the following
 
 - Raspberry Pi OS "Bullseye" 64-bit on RPi3/4 with 16GB SD Card minimum

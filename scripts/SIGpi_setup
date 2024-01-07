@@ -95,11 +95,11 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SIGpi Setup" --clear --textbox $SIGPI_INSTALL_TXT 34 100 16
+    TERM=ansi whiptail --title "SIGpi Setup" --clear --textbox $SIGPI_SCREEN_DESKTOP 34 100 16
 }
 
 select_startsrvscreen(){
-    TERM=ansi whiptail --title "SIGpi Server Setup" --clear --textbox $SIGPI_INSTALLSRV_TXT 34 100 16
+    TERM=ansi whiptail --title "SIGpi Server Setup" --clear --textbox $SIGPI_SCREEN_SERVER 34 100 16
 }
 
 select_devices() {
