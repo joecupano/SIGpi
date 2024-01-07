@@ -74,7 +74,7 @@ case "$1" in
         make
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "plutosdr" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "plutosdr" >> $SIGPI_INSTALDEV 
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Installed"

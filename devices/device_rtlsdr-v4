@@ -65,7 +65,7 @@ case "$1" in
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
         echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
-        cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALDEV 
 
         
         echo -e "${SIGPI_BANNER_COLOR}"
