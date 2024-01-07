@@ -282,10 +282,10 @@ if [ "$1" = "desktop" ]; then
 
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/setup_core_desktop_dependencies
+    source $SIGPI_SCRIPTS/setup_core_desktop
     source $SIGPI_SCRIPTS/setup_core_devices
     source $SIGPI_SCRIPTS/setup_core_signals
-    source $SIGPI_SCRIPTS/install_desktop-prep.sh
+    source $SIGPI_SCRIPTS/setup_env_desktop
 
     # Copy SIGpi commands into /usr/local/bin
     sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
