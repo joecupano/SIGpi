@@ -67,7 +67,7 @@ case "$1" in
         make
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "bladerf" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "bladerf" >> $SIGPI_INSTALDEV 
 	
         ### SoapyBladeRF
         echo -e "${SIGPI_BANNER_COLOR}"

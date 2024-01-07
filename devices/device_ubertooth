@@ -75,7 +75,7 @@ case "$1" in
         cmake .. -Wno-dev
         make -j4
         sudo make install
-        cat $SIGPI_PKGLIST|grep "ubertooth" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "ubertooth" >> $SIGPI_INSTALDEV  
 
         ## Desktop
         # Add icon

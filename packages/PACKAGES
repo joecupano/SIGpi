@@ -43,7 +43,6 @@ sigutils,0.3.0,DSP library written in C designed for blind signal analysis and a
 splat,1.0,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
 srsran,23.11,Open-source 4G and 5G software radio suite,20230319
 suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
-ubertooth,2020-12-R1,Open-source wireless development platform for Bluetooth experimentation,20211231
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
 vkfft,1.3.2,GPU-accelerated multidimensional Fast Fourier Transform library,20211231
 wireshark,4.2.2,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231

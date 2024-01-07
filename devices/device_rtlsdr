@@ -63,8 +63,8 @@ case "$1" in
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "rtlsdr" >> $SIGPI_INSTALLED 
-        
+        cat $SIGPI_DEVLIST|grep "rtlsdr" >> $SIGPI_INSTALDEV 
+
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR Installed"

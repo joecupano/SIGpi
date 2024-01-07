@@ -76,7 +76,7 @@ case "$1" in
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "kerberos" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "kerberos" >> $SIGPI_INSTALDEV 
 
         ## DESKTOP
 	    # Add Icon

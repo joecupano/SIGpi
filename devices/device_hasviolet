@@ -87,7 +87,7 @@ case "$1" in
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.key >/dev/null 2>&1
         sudo chown pi:pi $HASVIOLET_HOME/HASVIOLET_api.crt >/dev/null 2>&1
 
-        cat $SIGPI_PKGLIST|grep "hasviolet" >> $SIGPI_INSTALLED 
+        cat $SIGPI_DEVLIST|grep "hasviolet" >> $SIGPI_INSTALDEV 
 
         ## DESKTOP
         # Add Icon

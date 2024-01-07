@@ -1,0 +1,12 @@
+bladerf,1.0,BladeRF,20240101
+ettus,Ettus Research UHD,20240101
+hasviolet,1.0,HASviolet,20240101
+kerberos,1.0,Kerberos SDR,20240101
+libmirisdr,1.0,SDRplay RSP Devices,20240101
+limesuite,1.0,LimeSDR,20240101
+plutosdr,1.0,PlutoSDR,20240101
+rfm95w,1.0,Adafruit EFM95W Bonnet,20240101
+rtlsdr,1.0,RTLSDR v3,20240101
+rtlsdrv4,1.0,RTLSDR v4,20240101
+ubertooth,2020-12-R1,Ubertooth platform,20211231
+
