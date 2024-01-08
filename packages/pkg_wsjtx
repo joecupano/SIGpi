@@ -98,3 +98,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
+
+# 20240108-0500
+#
+# xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
+# xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
