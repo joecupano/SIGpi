@@ -61,7 +61,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i bettercap_2.32.0-1_arm64.deb
         fi
-        cat $SIGPI_PKGLIST|grep "bettercap" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "bettercap," >> $SIGPI_INSTALLED 
 	
 	    ## DESKTOP
 	    # Add Icon
