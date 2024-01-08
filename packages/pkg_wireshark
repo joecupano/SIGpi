@@ -84,3 +84,8 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
+
+# 20240108-0500
+#
+# sed: can't read /usr/share/applications/wireshark.desktop: No such file or directory
+# xdg-desktop-menu: file '/usr/share/applications/wireshark.desktop' does not exist

@@ -78,3 +78,9 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
+
+### 20240108-0500
+### sed: can't read /usr/share/applications/fldigi.desktop: No such file or directory
+### sed: can't read /usr/share/applications/flarq.desktop: No such file or directory
+### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
+### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
