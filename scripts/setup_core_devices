@@ -173,5 +173,5 @@ if grep sdrplay "$SIGPI_INSTALDEV"; then
 fi
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Devices Complete"
 echo -e "${SIGPI_BANNER_RESET}"

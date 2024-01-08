@@ -150,6 +150,6 @@ sudo apt install -y mesa-vulkan-drivers vulkan-tools
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Dekstop Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop Complete"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
