@@ -24,7 +24,7 @@ source $SIGPI_PACKAGES/pkg_mbelib install
 # Install SeriaDV (AMBE3000 chip serial control)
 source $SIGPI_PACKAGES/pkg_serialdv install
 # Install DSDcc (Digital Speech Decoder)
-source $SIGPI_PACKAGES/pkg_dsdcc installi
+source $SIGPI_PACKAGES/pkg_dsdcc install
 # Install Codec 2
 source $SIGPI_PACKAGES/pkg_codec2 install
 # Install Radiosonde (Atmospheric Telemetry)

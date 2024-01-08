@@ -11,7 +11,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Setup"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Desktop Environment"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -23,7 +23,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 # Copy SIGpi commands into /usr/local/bin
 sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
-sudo cp $SIGPI_HOME/scripts/SIGpi.sh /usr/local/bin/SIGpi
+sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
 # Copy icons
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
@@ -60,5 +60,5 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.director
 xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigpi_home.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Desktop Setup Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Desktop Environment Complete"
 echo -e "${SIGPI_BANNER_RESET}"
