@@ -12,7 +12,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Devices"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Devices"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -151,6 +151,27 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y gpsd chrony
 
+# Install bladeRF
+if grep bladerf "$SIGPI_INSTALDEV"; then
+    source $SIGPI_DEVICES/device_bladerf install
+fi
+# Install LimeSDR
+if grep limesuite "$SIGPI_INSTALDEV"; then
+    source $SIGPI_DEVICES/device_limesuite install
+fi
+# Install Ettus UHD
+if grep ettus "$SIGPI_INSTALDEV"; then
+    source $SIGPI_DEVICES/device_ettus install
+fi
+# Install PlutoSDR
+if grep plutosdr "$SIGPI_INSTALDEV"; then
+    source $SIGPI_DEVICES/device_plutosdr install
+fi
+# Install SDRPlay
+if grep sdrplay "$SIGPI_INSTALDEV"; then
+    source $SIGPI_DEVICES/device_libmirisdr install
+fi
+
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Core Devices Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices Complete"
 echo -e "${SIGPI_BANNER_RESET}"

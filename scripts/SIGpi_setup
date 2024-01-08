@@ -32,8 +32,8 @@ fi
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:"
     echo "ERROR:  Incorrect Hardware"
-    echo "ERROR:      Hardware must be x86_64 or aarch64 hardware"
-    echo "ERROR:  Aborting"
+    echo "ERROR:"
+    echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
     echo "ERROR:"
     exit 1;
 fi
@@ -53,22 +53,9 @@ fi
 
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:"
-    echo "ERROR:  Incorrect Operating System"
-    echo "ERROR:      Operating system must be Debian bullseye/bookworm or Ubuntu 22.04 LTS."
-    echo "ERROR:  Aborting"
+    echo "ERROR:  Incorrect Operating System Release"
     echo "ERROR:"
-    exit 1;
-fi
-
-# Are we where we should be
-if [ -f /home/$USER/SIG/SIGpi ]; then
-    echo
-else
-    echo "ERROR:"
-    echo "ERROR:  Software install setup issue"
-    echo "ERROR:  Repo must be cloned from within /home/$USER/SIG directory"
-    echo "ERROR:  and SIGpi_setup.sh run from there."
-    echo "ERROR:  Aborting"
+    echo "ERROR:  Operating system incorrect - Aborting"
     echo "ERROR:"
     exit 1;
 fi
@@ -119,7 +106,7 @@ select_devices() {
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_INSTALLER
+        echo $FUN >> $SIGPI_INSTALDEV
     done
 }
 
@@ -186,34 +173,13 @@ if [ "$1" = "server" ]; then
     cd $SIGPI_SOURCE
 
     source $SIGPI_SCRIPTS/setup_server_dependencies.sh
-    source $SIGPI_SCRIPTS/setup_core_devices.sh
+    source $SIGPI_SCRIPTS/setup_core_devices
     source $SIGPI_SCRIPTS/setup_core_signals
 
     # Copy SIGpi commands into /usr/local/bin
     sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
     sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
-
-    # Install bladeRF
-    if grep bladerf "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_bladerf install
-    fi
-    # Install LimeSDR
-    if grep limesuite "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_limesuite install
-    fi
-    # Install Ettus UHD
-    if grep ettus "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_ettus install
-    fi
-    # Install PlutoSDR
-    if grep plutosdr "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_plutosdr install
-    fi
-    # Install SDRPlay
-    if grep sdrplay "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_libmirisdr install
-    fi
-    
+  
     # Install RTL-TCP Server
     if [ "$2" = "rtltcpsrv" ]; then
         sudo cp $SIGPI_SCRIPTS/rtltcp.service /etc/systemd/system/sigpi-node.service
@@ -290,27 +256,6 @@ if [ "$1" = "desktop" ]; then
     # Copy SIGpi commands into /usr/local/bin
     sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
     sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
-
-    # Install bladeRF
-    if grep bladerf "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_bladerf install
-    fi
-    # Install LimeSDR
-    if grep limesuite "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_limesuite install
-    fi
-    # Install Ettus UHD
-    if grep ettus "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_ettus install
-    fi
-    # Install PlutoSDR
-    if grep plutosdr "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_plutosdr install
-    fi
-    # Install SDRPlay
-    if grep sdrplay "$SIGPI_INSTALLER"; then
-        source $SIGPI_DEVICES/device_libmirisdr install
-    fi
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
