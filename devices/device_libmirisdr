@@ -38,7 +38,7 @@ echo -e "${SIGPI_BANNER_COLOR} ###   - RSPx Driver Installed"
 echo -e "${SIGPI_BANNER_RESET}"
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDR Driver"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDRplay Driver"
 echo -e "${SIGPI_BANNER_RESET}"
 
 cd $SIGPI_SOURCE
@@ -51,7 +51,7 @@ sudo make install
 sudo ldconfig
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR Driver Installed"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRplay Driver Installed"
 echo -e "${SIGPI_BANNER_RESET}"
 
 echo -e "${SIGPI_BANNER_COLOR}"
