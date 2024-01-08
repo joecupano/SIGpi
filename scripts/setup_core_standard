@@ -12,7 +12,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop "
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Standard "
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -61,7 +61,6 @@ sudo apt-get install -y python3-numpy
 sudo apt-get install -y python3-opengl
 sudo apt-get install -y python3-pydot
 sudo apt-get install -y python3-pygraphviz
-sudo apt-get install -y qt5-default
 sudo apt-get install -y python3-pyqt5
 sudo apt-get install -y python3-pyqt5.qtopengl
 sudo apt-get install -y python3-pyqtgraph
@@ -199,6 +198,6 @@ xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.director
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Standard Complete"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"

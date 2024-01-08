@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### setup_core_libraries
+### setup_core_packages
 ###
 ###
 ### 20240110-0100
@@ -11,7 +11,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Signals"
+echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Packages"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -50,5 +50,5 @@ source $SIGPI_PACKAGES/pkg_dump1090 install
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Core Signals Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##   Core Packages Installed"
 echo -e "${SIGPI_BANNER_RESET}"
