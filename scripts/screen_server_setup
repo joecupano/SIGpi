@@ -5,15 +5,13 @@
 /____/___/\____/ .___/_/     /_/(_)____/  
               /_/                         
 
-This script builds a head-less SDR server for use on the following
+Server Setup
 
-- Raspberry Pi OS "Bullseye" 64-bit on RPi3/4 with 16GB SD Card minimum
-- Ubuntu 22.04 LTS on on RPi3/4 with 16GB SD Card minimum
-- Ubuntu 22.04 LTS on x86_64 1GB RAM, 16GB HD space minimum
+This script installs drivers and applications for signals intelligence (SIGINT) 
+use on the following:
 
-SIGpi Node includes the following:
+- Raspberry Pi OS "Bullseye" or "Bookworm" 64-bit on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on RPi4 4GB RAM, 32GB SD Card minimum
+- Ubuntu 22.04 LTS on x86_64 4GB RAM, 32GB HD space minimum
 
-- RTL_433, Dump1090, mulitmonitor-ng, and radiosonde, sdrangelsrv
-- Given the option to run RTL_TCP, SoapySDR, or SDRangel servers on startup.
-
-Let's begin.
+Hit any key to continue
