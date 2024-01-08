@@ -27,7 +27,7 @@
 ###
 ###       ACTION
 ###
-###          SIGpi setup desktop    First time setup for desktop
+###          SIGpi setup standard   First time setup for desktop
 ###          SIGpi setup server     First time setup for server
 ###          SIGpi shell            provide SIGpi env variables around a TARGET
 ###
@@ -186,7 +186,7 @@ Usage:  SIGpi [ACTION] [TARGET]
 
        ACTION
 
-          SIGpi setup desktop    First time setup for desktop
+          SIGpi setup standard   First time setup for desktop
           SIGpi setup server     First time setup for server
           SIGpi shell            provide SIGpi env variables around a TARGET
 EOF

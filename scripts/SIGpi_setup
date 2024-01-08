@@ -220,10 +220,10 @@ fi
 
 
 ##
-## Desktop Install
+## Standard Install
 ##
 
-if [ "$1" = "desktop" ]; then
+if [ "$1" = "standard" ]; then
     calc_wt_size
     select_startscreen
     select_devices
