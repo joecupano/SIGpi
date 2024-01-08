@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-### setup_core_signals
+### setup_core_libraries
 ###
 ###
 ### 20240110-0100
@@ -31,6 +31,8 @@ source $SIGPI_PACKAGES/pkg_codec2 install
 source $SIGPI_PACKAGES/pkg_radiosonde install
 # Install Ubertooth
 source $SIGPI_DEVICES/device_ubertooth install
+# Install HamLib
+source $SIGPI_PACKAGES/pkg_hamlib install
 # Install Direwolf (AFSK APRS)
 source $SIGPI_PACKAGES/pkg_direwolf install
 # Install RTL_433
