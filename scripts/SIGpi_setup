@@ -248,7 +248,7 @@ if [ "$1" = "desktop" ]; then
 
     cd $SIGPI_SOURCE
 
-    source $SIGPI_SCRIPTS/setup_core_desktop
+    source $SIGPI_SCRIPTS/setup_core_standard
     source $SIGPI_SCRIPTS/setup_core_devices
     source $SIGPI_SCRIPTS/setup_core_libraries
 
