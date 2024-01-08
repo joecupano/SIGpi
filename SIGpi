@@ -7,24 +7,31 @@
 ###
 
 ###
-###  Usage:    sigpi [ACTION] [TARGET]
+###  Usage:  SIGpi [ACTION] [TARGET]
 ###
-###        ACTION  
-###                 setup     initial setup of SIGpi environment
-###                 shell     provide SIGpi env variables around a TARGET
-###                 install   install TARGET from current release
-###                 build     compile and install TARGET
-###                 package   compile abd build TARGET package
-###                 remove    remove installed TARGET
-###                 purge     remove installed TARGET and purge configs
-###                 update    check to see if new TARGET available
-###                 upgrade   upgrade TARGET to latest release
+###       ACTION
+###  
+###          install                install TARGET from current release
+###          remove                 remove installed TARGET
+###          purge                  remove installed TARGET and purge configs
+###          build                  compile and install TARGET (option may not be available)
+###          update                 check for update of TARGET
+###          upgrade                upgrade TARGET to latest release
 ###
-###        TARGET
-###                 setup     desktop || server
-###                   *       SIGpi package
+###       TARGET
+###
+###          A SIGpi package
 ###                 
 ###
+###  Usage:  SIGpi [ACTION]
+###
+###       ACTION
+###
+###          SIGpi setup desktop    First time setup for desktop
+###          SIGpi setup server     First time setup for server
+###          SIGpi shell            provide SIGpi env variables around a TARGET
+###
+
 
 ###
 ### INIT VARIABLES AND DIRECTORIES
@@ -157,10 +164,33 @@ case "$1" in
         source $2
         ;;
     * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi: Unkown action or package"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        cat <<EOF
+
+Usage:  SIGpi [ACTION] [TARGET]
+
+       ACTION
+  
+          install                install TARGET from current release
+          remove                 remove installed TARGET
+          purge                  remove installed TARGET and purge configs
+          build                  compile and install TARGET (option may not be available)
+          update                 check for update of TARGET
+          upgrade                upgrade TARGET to latest release
+
+       TARGET
+
+          A SIGpi package
+                 
+
+  Usage:  SIGpi [ACTION]
+
+       ACTION
+
+          SIGpi setup desktop    First time setup for desktop
+          SIGpi setup server     First time setup for server
+          SIGpi shell            provide SIGpi env variables around a TARGET
+EOF
+;;
 esac
 
 exit 0
