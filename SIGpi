@@ -11,14 +11,14 @@
 ###
 ###        ACTION  
 ###                 setup     initial setup of SIGpi environment
+###                 shell     provide SIGpi env variables around a TARGET
 ###                 install   install TARGET from current release
+###                 build     compile and install TARGET
+###                 package   compile abd build TARGET package
 ###                 remove    remove installed TARGET
 ###                 purge     remove installed TARGET and purge configs
 ###                 update    check to see if new TARGET available
 ###                 upgrade   upgrade TARGET to latest release
-###                 shell     provide SIGpi env variables around a TARGET
-###                 build     compile and install TARGET
-###                 package   compile abd build TARGET package
 ###
 ###        TARGET
 ###                 setup     desktop || server
@@ -80,6 +80,15 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### FUNCTIONS
 ###
 
+sigpi_list(){
+    if [ "$2" = "installed" ]; {  
+        awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_INSTALLED
+    }
+    if [ "$2" = "packages" ]; {  
+        awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_PACKAGES
+    }
+}
+
 sigpi_update(){
     # Check for available updates to package
     wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
@@ -116,6 +125,16 @@ case "$1" in
     setup )
         source $SIGPI_SCRIPTS/sigpi_setup $2
         ;;
+    list )
+        sigpi_list $2
+        ;;
+    build )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT build
+        #sudo dpkg -i $SIGPI_DEBS/$2
+        ;;
+    package )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT package
+        ;;
     remove )
         source $SIGPI_PACKAGES/$SPKGSCRIPT remove
         ;;
@@ -124,13 +143,6 @@ case "$1" in
         ;;
     install )
         source $SIGPI_PACKAGES/$SPKGSCRIPT install
-        ;;
-    build )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT build
-        #sudo dpkg -i $SIGPI_DEBS/$2
-        ;;
-    package )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT package
         ;;
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
