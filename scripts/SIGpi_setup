@@ -229,7 +229,7 @@ if [ "$1" = "standard" ]; then
     select_devices
     select_desktop
 
-    TERM=ansi whiptail --title "SIGpi desktop setup" --clear --msgbox "Ready to continuer" 12 120
+    TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continuer" 12 120
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -253,14 +253,14 @@ if [ "$1" = "standard" ]; then
     source $SIGPI_SCRIPTS/setup_core_libraries
 
     # Copy SIGpi commands into /usr/local/bin
-    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell.sh /usr/local/bin/SIGpi_exec-in-shell 
+    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
     sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Setup Desktop Complete !!"
+    echo -e "${SIGPI_BANNER_COLOR} ##   Setup Complete !!"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
