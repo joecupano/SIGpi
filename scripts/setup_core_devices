@@ -144,6 +144,12 @@ make
 sudo make install
 sudo ldconfig
 
+# Ubertooth
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - Ubertooth "
+echo -e "${SIGPI_BANNER_RESET}"
+source $SIGPI_DEVICES/device_ubertooth install
+
 # GPS
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - GPS (Chrony) "

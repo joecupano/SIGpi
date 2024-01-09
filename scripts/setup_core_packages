@@ -29,10 +29,6 @@ source $SIGPI_PACKAGES/pkg_dsdcc install
 source $SIGPI_PACKAGES/pkg_codec2 install
 # Install Radiosonde (Atmospheric Telemetry)
 source $SIGPI_PACKAGES/pkg_radiosonde install
-# Install LibBTBB
-source $SIGPI_DEVICES/pkg_libbtbb install
-# Install Ubertooth
-source $SIGPI_DEVICES/device_ubertooth install
 # Install HamLib
 source $SIGPI_PACKAGES/pkg_hamlib install
 # Install Direwolf (AFSK APRS)
