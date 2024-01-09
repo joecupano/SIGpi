@@ -67,8 +67,28 @@ case "$1" in
         sudo apt-get install -y python3-distutils 
         sudo apt-get install -y python3-setuptools
 
-        ## PACKAGE
+        ### LibBTBB Library
         cd $SIGPI_SOURCE
+        git clone https://github.com/greatscottgadgets/libbtbb.git
+        cd libbtbb
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED 
+
+        ### BTBR Plugin
+        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
+        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
+        mkdir build && cd build
+        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        
+        ### Ubertooth
         git clone https://github.com/greatscottgadgets/ubertooth.git
         cd ubertooth/host
         mkdir build && cd build

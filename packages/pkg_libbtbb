@@ -56,7 +56,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "libbbtbb" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED 
 
         ### BTBR Plugin
         git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
