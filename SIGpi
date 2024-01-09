@@ -87,15 +87,6 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 ### FUNCTIONS
 ###
 
-sigpi_list(){
-    if [ "$2" = "installed" ]; then 
-        awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_INSTALLED
-    fi
-    if [ "$2" = "packages" ]; then  
-        awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_PACKAGES
-    fi
-}
-
 sigpi_update(){
     # Check for available updates to package
     wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
@@ -133,7 +124,12 @@ case "$1" in
         source $SIGPI_SCRIPTS/SIGpi_setup $2
         ;;
     list )
-        sigpi_list $2
+        if [ "$2" = "installed" ]; then
+            awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_INSTALLED
+        fi
+        if [ "$2" = "packages" ]; then
+            awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_PKGLIST
+        fi
         ;;
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
