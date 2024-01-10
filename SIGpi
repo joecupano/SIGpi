@@ -1,9 +1,9 @@
 #!/bin/bash
 
 ###
-### SIGpi_shell
+### SIGpi
 ###
-###  20240107-0100
+###  20240110-0100
 ###
 
 ###
@@ -29,6 +29,9 @@
 ###
 ###          SIGpi setup standard   First time setup for desktop
 ###          SIGpi setup server     First time setup for server
+###          SIGpi list packages    List all packages included with SIGpi
+###          SIGpi list installed   List installed SIGpi packages
+###          SIGpi list compare     List all packages included with SIGpi with installed ones marked with an *
 ###          SIGpi shell            provide SIGpi env variables around a TARGET
 ###
 
@@ -125,10 +128,45 @@ case "$1" in
         ;;
     list )
         if [ "$2" = "installed" ]; then
-            awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_INSTALLED
+            echo " "
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list installed"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_RESET}"
+            echo " "
+            echo -e "INSTALLED\t PACKAGE\t VERSION\t DESCRIPTION"
+            echo " "
+            awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_INSTALLED|more
         fi
         if [ "$2" = "packages" ]; then
-            awk -F ',' '{print $1, $2, $3, $4}' $SIGPI_PKGLIST
+            echo " "
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list packages"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_RESET}"
+            echo " "
+            echo -e "PACKAGE\t VERSION\t DESCRIPTION"
+            echo " "
+            awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_PKGLIST|more
+        fi
+        if [ "$2" = "compare" ]; then
+                file1=$SIGPI_PKGLIST
+                file2=$SIGPI_INSTALLED
+                echo " "
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list compare"
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+                echo -e "${SIGPI_BANNER_RESET}"
+                echo " "
+                echo -e "\tINSTALLED\t PACKAGE\t VERSION\t DESCRIPTION"
+                while IFS= read -r line_file1
+                do
+                        if grep -qF "$line_file1" "$file2"; then
+                                echo -e "*\t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
+                        else
+                                echo -e " \t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
+                        fi
+                done < "$file1"
         fi
         ;;
     build )
