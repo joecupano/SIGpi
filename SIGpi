@@ -31,7 +31,7 @@
 ###          SIGpi setup server     First time setup for server
 ###          SIGpi list packages    List all packages included with SIGpi
 ###          SIGpi list installed   List installed SIGpi packages
-###          SIGpi list compare     List all packages included with SIGpi with installed ones marked with an *
+###          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
 ###          SIGpi shell            provide SIGpi env variables around a TARGET
 ###
 
@@ -149,12 +149,12 @@ case "$1" in
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_PKGLIST|more
         fi
-        if [ "$2" = "compare" ]; then
+        if [ "$2" = "library" ]; then
                 file1=$SIGPI_PKGLIST
                 file2=$SIGPI_INSTALLED
                 echo " "
                 echo -e "${SIGPI_BANNER_COLOR} ##"
-                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list compare"
+                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list library"
                 echo -e "${SIGPI_BANNER_COLOR} ##"
                 echo -e "${SIGPI_BANNER_RESET}"
                 echo " "
@@ -200,7 +200,7 @@ case "$1" in
     * )
         cat <<EOF
 
-Usage:  SIGpi [ACTION] [TARGET]
+  Usage:  SIGpi [ACTION] [TARGET]
 
        ACTION
   
@@ -222,7 +222,11 @@ Usage:  SIGpi [ACTION] [TARGET]
 
           SIGpi setup standard   First time setup for desktop
           SIGpi setup server     First time setup for server
+          SIGpi list packages    List all packages included with SIGpi
+          SIGpi list installed   List installed SIGpi packages
+          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
           SIGpi shell            provide SIGpi env variables around a TARGET
+
 EOF
 ;;
 esac
