@@ -362,38 +362,6 @@ Features enabled in RPi4 build
 
 ```
 
-
-## APRS and Packet using a VHF/UHF Transceiver
-SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
-
-In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
-
-If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
-
-
-### AX.25
-If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
-
-```
-sudo nano /etc/ax25/axports
-```
-
-- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
-
-```
-# /etc/ax25/axports
-#
-# The format of this file is:
-#
-# name callsign speed paclen window description
-#
-ax0     N0CALL-3      1200    255     4       APRS / Packet
-#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
-#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
-```
-
-- Save and exit
-
 ## Advanced Topics
 
 ### Server Setup
@@ -421,6 +389,37 @@ The build option will clone the source code into a new directory under /home/pi/
 ```
 sudo dpkg -i <PACKAGE>
 ```
+
+### APRS and Packet using a VHF/UHF Transceiver
+SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
+
+In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
+
+If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
+
+#### AX.25
+If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
+
+```
+sudo nano /etc/ax25/axports
+```
+
+- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
+
+```
+# /etc/ax25/axports
+#
+# The format of this file is:
+#
+# name callsign speed paclen window description
+#
+ax0     N0CALL-3      1200    255     4       APRS / Packet
+#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
+#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
+```
+
+- Save and exit
+
 
 ## Developer Notes
 
