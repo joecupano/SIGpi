@@ -100,15 +100,12 @@ SIGpi upgrade sdrangel
 You can add/remove Packages anytime
 
 ```
-Example
-```
 SIGpi install audacity
 SIGpi remove audacity
 ```
 
 ### Frequent Updates
 Best efforts made to update releases when significant releases (X.Y) are made available for component packages with special attention to popular SDR packages like SDRangel and SDR++ and made available as Debian packages.
-
 
 
 ## Advanced Topics
