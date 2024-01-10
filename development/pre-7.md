@@ -9,6 +9,9 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabiliti
 
 A headless **Server Install** can be built on a minimum of a **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Lite (64-bit)** or **Ubuntu 22.04 LTS Server**
 
+## Release Notes
+* [over here](RELEASE_NOTES.md)
+
 ## Quick Setup
 
 - Login as pi or sudo user on supported platform
@@ -34,7 +37,7 @@ Run the following command from $HOME/SIG/SIGpi to install the framework and pack
 
 After setup system will reboot.
 
-## Adding Packages
+### Add a Package
 
 Once setup, you can list the inventory of packages SIGpi includes as well as those already installed
 with the following command (note that ./ is no longer required for thr SIGpi command after setup)
@@ -50,23 +53,12 @@ have not been installed. For example, you will see SDRangel has not been install
 SIGpi install sdrangel
 ```
 
-## Server Setup
-
-An SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
-
-```
-./SIGpi setup server
-```
-
-During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
+Go back and list again to install other packages of interest
 
 ## Overview of Commands
 
 Typing SIGpi by itself will give you the list of commands available.
 
-
-### Upgrade with modules, not fresh images
 SIGpi includes it's own package management platform to update applications to their latest releases using familiar syntax from package management systems. Here is an overview of available commands.
 
 ```
@@ -105,29 +97,32 @@ SIGpi update sdrangel
 SIGpi upgrade sdrangel
 ```
 
-### Add/Remove Packages anytime
-**SIGpi** includes its own application management system akin to OS package management systems like APT. The difference is SIGpi manages applications whether they are from the distro releases or compiled from other repos such as Github. This enables you to just install what you want and go back and add individual applications. SIGpi can periodically be run to check on availability of new applications and upgrade them.
-```
- Usage:    SIGpi [ACTION] [TARGET]
+You can add/remove Packages anytime
 
-        ACTION  
-                 install   install TARGET application from current release
-                 remove    remove installed TARGET application
-                 purge     remove installed TARGET application and purge configs
-                 update    check to see if new TARGET application available
-                 upgrade   upgrade TARGET application to latest release
-                 shell     wrap SIGpi environment variables around a TARGET script
-
-        TARGET
-                 A SIGpi package or script
 ```
 Example
 ```
-SIGpi install kismet
+SIGpi install audacity
+SIGpi remove audacity
 ```
 
 ### Frequent Updates
 Best efforts made to update releases when significant releases (X.Y) are made available for component packages with special attention to popular SDR packages like SDRangel and SDR++ and made available as Debian packages.
+
+
+
+## Advanced Topics
+
+### Server Setup
+
+An SDR connected to a headless server running software accessed/managed by command line or a network accessible
+API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
+
+```
+./SIGpi setup server
+```
+
+During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
 
 ### SIGpi Build
 
@@ -144,22 +139,8 @@ The build option will clone the source code into a new directory under /home/pi/
 sudo dpkg -i <PACKAGE>
 ```
 
-### Multi-Architecture
-Supported platforms include
-- **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full Bullseye (64-bit)** or **Ubuntu 22.04 LTS** 
-- **Ubuntu 22.04 LTS** on amd64 or aarch64 platforms
-
-### Amateur Radio
-While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
-
-
-
-## Release Notes
-* [over here](RELEASE_NOTES.md)
-
 
 ## Packages
-Total install time will take over an hour - be patient. Below is a list of software included.
 
 Device Drivers
 * [bladeRF](https://github.com/Nuand/bladeRF)
