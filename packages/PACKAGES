@@ -1,7 +1,7 @@
 audacity,3.4.2,Multi-track audio editor,20211231
 aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20211231
 bettercap,2.32.0,recon and attacking WiFi BLE HID devices and Ethernet networks,20211231
-bettercapui,1.3.0, Web UI for bettercap,20211231
+bettercapui,1.3.0,Web UI for bettercap,20211231
 cm256cc,1.1.0,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20211231
 codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20211231
 cubicsdr,0.2.4,Cross-Platform Software-Defined Radio Application,20211231
