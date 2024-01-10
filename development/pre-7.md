@@ -26,8 +26,6 @@ git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ```
 
-### Standard Setup
-
 Run the following command from $HOME/SIG/SIGpi to install the framework and package management
 
 ```
@@ -35,17 +33,6 @@ Run the following command from $HOME/SIG/SIGpi to install the framework and pack
 ```
 
 After setup system will reboot.
-
-### Server Setup
-
-An SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
-
-```
-./SIGpi setup server
-```
-
-During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
 
 ## Adding Packages
 
@@ -63,9 +50,21 @@ have not been installed. For example, you will see SDRangel has not been install
 SIGpi install sdrangel
 ```
 
-Typing SIGpi by itself will give you the list of commands available.
+## Server Setup
+
+An SDR connected to a headless server running software accessed/managed by command line or a network accessible
+API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
+
+```
+./SIGpi setup server
+```
+
+During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
 
 ## Overview of Commands
+
+Typing SIGpi by itself will give you the list of commands available.
+
 
 ### Upgrade with modules, not fresh images
 SIGpi includes it's own package management platform to update applications to their latest releases using familiar syntax from package management systems. Here is an overview of available commands.
