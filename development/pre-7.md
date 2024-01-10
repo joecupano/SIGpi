@@ -104,39 +104,6 @@ SIGpi install audacity
 SIGpi remove audacity
 ```
 
-### Frequent Updates
-Best efforts made to update releases when significant releases (X.Y) are made available for component packages with special attention to popular SDR packages like SDRangel and SDR++ and made available as Debian packages.
-
-
-## Advanced Topics
-
-### Server Setup
-
-An SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
-
-```
-./SIGpi setup server
-```
-
-During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
-
-### SIGpi Build
-
-Users skilled at compiling applications have the option of building and installing some packages from source. If you already
-installed the application you need to remove it first. For example:
-
-```
-SIGpi purge [PACKAGE]
-SIGpi build [PACKAGE]
-```
-The build option will clone the source code into a new directory under /home/pi/SIG/source and build a Debian package (.deb) in the build directory within that cloned directory. From there you can install the Debian pacakge
-
-```
-sudo dpkg -i <PACKAGE>
-```
-
-
 ## Packages
 
 Device Drivers
@@ -427,6 +394,33 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 
 - Save and exit
 
+## Advanced Topics
+
+### Server Setup
+
+An SDR connected to a headless server running software accessed/managed by command line or a network accessible
+API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
+
+```
+./SIGpi setup server
+```
+
+During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
+
+### SIGpi Build
+
+Users skilled at compiling applications have the option of building and installing some packages from source. If you already
+installed the application you need to remove it first. For example:
+
+```
+SIGpi purge [PACKAGE]
+SIGpi build [PACKAGE]
+```
+The build option will clone the source code into a new directory under /home/pi/SIG/source and build a Debian package (.deb) in the build directory within that cloned directory. From there you can install the Debian pacakge
+
+```
+sudo dpkg -i <PACKAGE>
+```
 
 ## Developer Notes
 
