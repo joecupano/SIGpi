@@ -88,10 +88,13 @@ SIGpi includes it's own package management platform to update applications to th
           SIGpi shell            provide SIGpi env variables around a TARGET
 ```
 
-You can update packages in your existing SIGpi install with the following commands using **SDRangel** and **SDR++** as examples:
+You can update packages in your existing SIGpi install. For example, Is there a  **SDRangel** update. If so install it:
 
 ```
 SIGpi update sdrangel
+
+Update 7.17.4 is available
+
 SIGpi upgrade sdrangel
 ```
 
