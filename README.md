@@ -1,75 +1,16 @@
 # SIGpi
 
-DEVELOP 7.0
-
 ## Introduction
 
-SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with emphasis on capabilities in the VHF, UHF, and SHF spectrum. For completeness, HF spectrum related software is included for optional install. This (bash) shell script builds SIGINT tools on the following platforms:
+SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
 
-- **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" Full (64-bit)**
-- **Ubuntu 22.04 LTS** on amd64 or aarch64 (latter in pre-lease)
+- **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Full (64-bit)**
+- ARM64 or AMD64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
 
-A headless server aka **Node Install** can be built on a minimum of a **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" Lite (64-bit)** or **Ubuntu 22.04 LTS Server**
+## Release Notes
+* [over here](RELEASE_NOTES.md)
 
-
-## Features
-
-### Upgrade with modules, not fresh images
-SIGpi includes it's own package manager to update applications to their latest releases using familiar syntax from package management systems
-
-```
-Usage: sigpi [ACTION] [TARGET]
-          ACTION  
-                 install   install TARGET from current release
-                 remove    remove installed TARGET
-                 purge     remove installed TARGET and purge configs
-                 update    check to see if new TARGET available
-                 upgrade   upgrade TARGET to latest release
-
-          TARGET
-                 A SIGpi package
-```
-
-You can update packages in your existing SIGpi install with the following commands using **SDRangel** and **SDR++** as examples:
-
-```
-SIGpi upgrade sdrangel
-SIGpi upgrade sdrpp
-```
-
-### Add/Remove Packages anytime
-Perhaps you forgot to add an application during your initial run of SIGpi_installer or there is a new software release available of SDRangel. **SIGpi** includes its own application management system akin to OS package management systems like APT. The difference is sigpi manages
-applications whether they are from the distro releases or compiled from other repos such as Github. This enables you to just install the **base** system and go back and add inidividual applications. sigpi can periodically be run to check on availability of new applications and upgrade them.
-```
- Usage:    SIGpi [ACTION] [TARGET]
-
-        ACTION  
-                 install   install TARGET application from current release
-                 remove    remove installed TARGET application
-                 purge     remove installed TARGET application and purge configs
-                 update    check to see if new TARGET application available
-                 upgrade   upgrade TARGET application to latest release
-                 shell     wrap SIGpi environment variables around a TARGET script
-
-        TARGET
-                 A SIGpi package or script
-```
-Example
-```
-SIGpi install kismet
-```
-
-### Package Updates
-Best efforts made to update releases when significant releases (X.Y) are made available for component packages with speciall attention to popular SDR packages like SDRangel and SDR++
-
-### Multi-Architecture
-Though our first priority of support platforms is the **Raspberry Pi4 4GB RAM** running **Raspberry Pi OS Full (64-bit)**, this build will install and run on **Ubuntu 22.04 LTS** (amd64 and aarch64)
-
-### Amateur Radio
-While tools are included for Amateur Radio, it is not this builds focus. We are focused on the ability to detect and decipher the range of RF signals around us from consumer IoT to critical infrastructure for educational purposes and provide tools to assist those with spectrum planning responsibiity to better visualize spectrum utilization around them.
-
-
-## Installation
+## Quick Setup
 
 - Login as pi or sudo user on supported platform
 - Update and install pre-requisite packages to install SIGpi
@@ -86,39 +27,83 @@ git clone https://github.com/joecupano/SIGpi.git
 cd SIGpi
 ```
 
-### Full Installation
-
-This is the full desktop installation. Run the following command:
+Run the following command from $HOME/SIG/SIGpi to install the framework and package management
 
 ```
-./SIGpi_installer.sh
+./SIGpi setup standard
 ```
 
-### Node Installation
+After setup system will reboot.
 
-A node is an SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface. **Node Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS LiteFull (64-bit)**
-SIGpi Node install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a node
+### Add a Package
 
-```
-./SIGpi_installer.sh node
-```
-
-During installation you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start 
-any of them. 
-
-### Base Installation
-
-This is a minimal desktop installation that includes RTLSDR and HackRF support and command line tools. No SDR GUI apps.
+Once setup, you can list the inventory of packages SIGpi includes as well as those already installed
+with the following command (note that ./ is no longer required for thr SIGpi command after setup)
 
 ```
-./SIGpi_installer.sh base
+SIGpi list library
 ```
 
-## Release Notes
-* [over here](RELEASE_NOTES.md)
+An asterisk in the INSTALLED column indicates that package is already installed while those withou asterisks 
+have not been installed. For example, you will see SDRangel has not been installed. You can do so with the following command.
 
+```
+SIGpi install sdrangel
+```
 
+Go back and list again to install other packages of interest
+
+## Overview of Commands
+
+Typing SIGpi by itself will give you the list of commands available.
+
+SIGpi includes it's own package management platform to update applications to their latest releases using familiar syntax from package management systems. Here is an overview of available commands.
+
+```
+  Usage:  SIGpi [ACTION] [TARGET]
+
+       ACTION
+  
+          install                install TARGET from current release
+          remove                 remove installed TARGET
+          purge                  remove installed TARGET and purge configs
+          build                  compile and install TARGET (option may not be available)
+          update                 check for update of TARGET
+          upgrade                upgrade TARGET to latest release
+
+       TARGET
+
+          A SIGpi package
+                 
+
+  Usage:  SIGpi [ACTION]
+
+       ACTION
+
+          SIGpi setup standard   First time setup for desktop
+          SIGpi setup server     First time setup for server
+          SIGpi list packages    List all packages included with SIGpi
+          SIGpi list installed   List installed SIGpi packages
+          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
+          SIGpi shell            provide SIGpi env variables around a TARGET
+```
+
+You can update packages in your existing SIGpi install. For example, Is there a  **SDRangel** update. If so install it:
+
+```
+SIGpi update sdrangel
+
+Update 7.17.4 is available
+
+SIGpi upgrade sdrangel
+```
+
+You can add/remove Packages anytime
+
+```
+SIGpi install audacity
+SIGpi remove audacity
+```
 
 ## Example Hardware Setup
 ![alt-test](https://github.com/joecupano/SIGpi/blob/main/backgrounds/SIGpi_architecture.png)
@@ -133,4 +118,4 @@ Since this is a SIGINT platform we do not want to be generating any RF so onboar
 Only three USB devices requiring power should be enabled at a time. The range of devices depicted is only to demonstrate what you could potentially connect to it.
 
 ## What Else
-Yes, I know there are more apps installed. There is no short-cut and must defer you to the documentation on their respective sites
+Check out the [wiki](https://github.com/joecupano/SIGpi/wiki)
