@@ -1,5 +1,7 @@
 # SIGpi
 
+RELEASE 7.0
+
 ## Introduction
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
