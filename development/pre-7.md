@@ -5,9 +5,7 @@
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
 
 - **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Full (64-bit)**
-- **Ubuntu 22.04 LTS** on arm64 or amd64 platforms with 4GB RAM and 32GB storage minimum
-
-A headless **Server Install** can be built on a minimum of a **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Lite (64-bit)** or **Ubuntu 22.04 LTS Server**
+- ARM64 or AMD64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
@@ -175,7 +173,7 @@ Other SIGINT tools
 * [Wireshark](https://www.wireshark.org/) - Network Traffic Analyzer
 
 For Raspberry Pi OS, most of the GUI applications you will find via the **SIGpi**,**Hamradio** or other menus. Many of the command line applications are accessible via the **SIGpi shell** menu. Each menu option opens up a terminal window for that application and invokes its included help info. If a command line tool does not appear in the SIGpi shell menu, not it is in located in /usr/local/bin and in PATH.
-For Ubuntu, all apps will be available via Applications icon
+For Ubuntu, all apps will be available via the Applications icon
 
 
 ## Package Notes
@@ -367,7 +365,11 @@ Features enabled in RPi4 build
 ### Server Setup
 
 An SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface. **Server Install** can be performed on **Raspberry Pi3/4 B+** with 32GB microSD card running **Raspberry Pi OS Lite (Bullseye or Bookworm) (64-bit)**. Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
+API interface us the following hardware as minimum:
+
+- **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Lite (64-bit)**
+
+Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
 
 ```
 ./SIGpi setup server
