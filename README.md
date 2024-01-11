@@ -7,7 +7,7 @@ RELEASE 7.0
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
 
 - **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Full (64-bit)**
-- ARM64 or AMD64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
+- arm64 or amd64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
 
 ## Release Notes
 * [over here](RELEASE_NOTES.md)
