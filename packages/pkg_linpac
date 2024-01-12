@@ -13,8 +13,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 
         sudo apt-get remove linpac
-        
-	### Remove Menu icon
+        ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/linpac.png
         ### Remove Desktop links
         sudo rm $SIGPI_DESKTOP_FILES/linpac.desktop
@@ -31,8 +30,7 @@ case "$1" in
 
         sudo apt-get remove --purge linpac
         sed -i /linpac/d $SIGPI_INSTALLED
-
-	### Remove Menu icon
+        ### Remove Menu icon
         sudo rm $SIGPI_DESKTOP_ICONS/linpac.png
         ### Remove Desktop links
         sudo rm $SIGPI_DESKTOP_FILES/linpac.desktop
@@ -56,11 +54,11 @@ case "$1" in
         cat $SIGPI_PKGLIST|grep "linpac" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
-	# Add Icon
+        # Add Icon
         sudo cp $SIGPI_ICONS/linpac.png $DESKTOP_ICONS
         # Add Desktop
         sudo cp $SIGPI_HOME/desktop/linpac.desktop $DESKTOP_FILES
-	# Change Category
+        # Change Category
         sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/linpac.desktop
         # Add to menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/linpac.desktop
@@ -69,11 +67,16 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Linpac Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	;;
+	    ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
