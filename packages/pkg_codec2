@@ -109,6 +109,16 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 built. Debian package available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

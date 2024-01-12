@@ -39,13 +39,11 @@ case "$1" in
         sudo rm /usr/local/bin/run_direwolf.sh
         sudo rm -rf /usr/local/share/doc/direwolf/conf/* 
         sudo rm -rf /usr/local/etc/direwolf
-        
-	### Remove Menu icon
+        ### Remove Menu icon
         sudo rm $DESKTOP_ICONS/direwolf.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/direwolf.desktop
-	
-	echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
@@ -77,7 +75,7 @@ case "$1" in
         cat $SIGPI_PKGLIST|grep "direwolf" >> $SIGPI_INSTALLED 
 	
         ## DESKTOP
-	# Add Menu icon
+        # Add Menu icon
         # Add Desktop links
         sudo cp $SIGPI_SOURCE/direwolf/build/direwolf.desktop $DESKTOP_FILES/direwolf.desktop
         # Change Category
@@ -89,10 +87,10 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    build )
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build DireWolf (AFSK APRS)"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package DireWolf (AFSK APRS)"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
 
@@ -119,7 +117,48 @@ case "$1" in
         # Add to Menu
                 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf package built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build DireWolf (AFSK APRS)"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libudev-dev
+        sudo apt-get install -y libgps-dev
+        sudo apt-get install -y libhamlib-dev
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://www.github.com/wb2osz/direwolf.git
+        cd direwolf
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall
+        sudo mv *.deb $SIGPI_DEBS
+
+        sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
+        sudo mkdir /usr/local/etc/direwolf
+        sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
+        cat $SIGPI_PKGLIST|grep "direwolf" >> $SIGPI_INSTALLED 
+	
+        ## DESKTOP
+        # Add Menu icon
+        # Add Desktop links
+        sudo cp $SIGPI_SOURCE/direwolf/build/direwolf.desktop $DESKTOP_FILES/direwolf.desktop
+        # Change Category
+        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/direwolf.desktop
+                
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf built and installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     config )
