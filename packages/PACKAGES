@@ -19,7 +19,7 @@ gqrx,2.17,SDR app powered GNU Radio and the Qt graphical toolkit,20211231
 hamlib,4.5.5,Radio Control Library providing programs a consistent API for controlling radios and rotators,20230406
 inspectrum,0.3.1,Tool for analysing captured signals primarily from SDRs,20211231
 js8call,2.2.0,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20211231
-kismet,2023-07-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee, 20230828
+kismet,2023-07-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,20230828
 libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
 libdab,1.0,DAB decoding library,20211231
 libsigmf,1.0,header-only C++ library for working with SigMF metadata,20211231
