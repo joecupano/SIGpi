@@ -166,37 +166,6 @@ SIGpi remove audacity
 
 ## Advanced Topics
 
-### APRS and Packet using a VHF/UHF Transceiver
-SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
-
-In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
-
-If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
-
-#### AX.25
-If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
-
-```
-sudo nano /etc/ax25/axports
-```
-
-- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
-
-```
-# /etc/ax25/axports
-#
-# The format of this file is:
-#
-# name callsign speed paclen window description
-#
-ax0     N0CALL-3      1200    255     4       APRS / Packet
-#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
-#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
-```
-
-- Save and exit
-
-
 ### Debian Packages
 To speed up installation, beginning in SIGpi 6.X we started building our own aarch64 and amd64 Debian packages for select software when the latest packages are not available from Ubuntu or Raspberry Pi OS.
 
@@ -226,6 +195,36 @@ appears missing you should be able to run from the terminal windows as pi user. 
 
 ### Streaming Audio
 Perhaps you want to remotely connect to your SIGpi box and listen from a more comfortable location. VNC which is included will let you remotely see and touch but not hear audio. For audio we configure via **Preferences > PulseAudio Preferences** in the Network Access and Network Server tabs. In Network Access check the first box and in Network Server check the first four boxes.
+
+### APRS and Packet using a VHF/UHF Transceiver
+SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
+
+In the past dedicated hardware known as TNCs (terminal node controllers) was used between a computer and transceiver. But the signals themselves are audio so TNCs were replaced with software and soundcards connected to the transceiver. For this build DireWolf is the software replacing the TNC and AX.25 software providing the data-link layer above it that provides sockets to it.
+
+If you are planning to operate APRS and Packet Radio with a transceiver then configuring DireWolf and AX.25 is necessary. Otherwise you can skip the subsections. 
+
+#### AX.25
+If you intend to transmit, you will need to edit **axports** and change to your licensed Amateur Radio callsign
+
+```
+sudo nano /etc/ax25/axports
+```
+
+- Change **N0CALL** to your callsign followed by a hyphen and a number 1 to 15. (For Example  N0CALL-3)
+
+```
+# /etc/ax25/axports
+#
+# The format of this file is:
+#
+# name callsign speed paclen window description
+#
+ax0     N0CALL-3      1200    255     4       APRS / Packet
+#1      OH2BNS-1      1200    255     2       144.675 MHz (1200  bps)
+#2      OH2BNS-9      38400   255     7       TNOS/Linux  (38400 bps)
+```
+
+- Save and exit
 
 
 ## Packages
