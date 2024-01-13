@@ -53,6 +53,64 @@ SIGpi install sdrangel
 
 Go back and list again to install other packages of interest
 
+
+## Server Setup
+
+An SDR connected to a headless server running software accessed/managed by command line or a network accessible
+API interface us the following hardware as minimum:
+
+- **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Lite (64-bit)**
+
+Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
+
+```
+./SIGpi setup server
+```
+
+During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
+
+## SIGpi Package and Build Options
+
+While SIGpi is focused on simplifying the installation and removal of applications, we've included the ability
+to download the source and build the latest versions of some application. Additionaly, we've included the ability to build and create a Debian package without installing. 
+
+### To build and install an application
+
+```
+SIGpi build [PACKAGE]
+```
+The build option will clone the source code into a new directory under /home/pi/SIG/source, build the application, and install it.
+
+### To build and create a Debian package without installation
+
+```
+SIGpi package [PACKAGE]
+```
+The package option will clone the source code into a new directory under /home/pi/SIG/source and build a Debian package (.deb) in the build directory within that cloned directory. It will then move the created Debian package to /hoe/pi/SIG/SIGpi/debs. From that location you can install the Debian package.
+
+```
+sudo dpkg -i <PACKAGE>
+```
+Know if the application is already installed, you need to purge it first
+
+```
+SIGpi purge [PACKAGE]
+```
+
+## New Applications
+Periodically new applications will be added to SIGpiand notifications sent to those watching the repo.
+To add applcations available for install into your SIGpi instance simple run run the following from within your /home/pi/SIG/SIGpi directory
+
+```
+git pull
+```
+
+You will see the new applications as available running the list library command
+
+```
+SIGpi list library
+```
+
 ## Overview of Commands
 
 Typing SIGpi by itself will give you the list of commands available.
@@ -108,64 +166,6 @@ SIGpi remove audacity
 
 ## Advanced Topics
 
-### Server Setup
-
-An SDR connected to a headless server running software accessed/managed by command line or a network accessible
-API interface us the following hardware as minimum:
-
-- **Raspberry Pi3 B+** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Lite (64-bit)**
-
-Server install gives the option to run RTL_TCP, SoapySDR, or SDRangel-server on startup. Run the following command to create a server
-
-```
-./SIGpi setup server
-```
-
-During setup you will have the option to run either RTL-TCP, SDRangel Server, or SoapySDR server on startup or choose not to start any of them. After setup system will reboot.
-
-### SIGpi Package and Build Options
-
-While SIGpi is focused on simplifying the installation and removal of applications, we've included the ability
-to download the source and build the latest versions of some application. Additionaly, we've included the ability to build and create a Debian package without installing. 
-
-#### To build and install an application
-
-```
-SIGpi build [PACKAGE]
-```
-The build option will clone the source code into a new directory under /home/pi/SIG/source, build the application, and install it.
-
-#### To build and create a Debian package without installation
-
-```
-SIGpi package [PACKAGE]
-```
-The package option will clone the source code into a new directory under /home/pi/SIG/source and build a Debian package (.deb) in the build directory within that cloned directory. It will then move the created Debian package to /hoe/pi/SIG/SIGpi/debs. From that location you can install the Debian package.
-
-```
-sudo dpkg -i <PACKAGE>
-```
-Know if the application is already installed, you need to purge it first
-
-```
-SIGpi purge [PACKAGE]
-```
-
-### New Applications
-Periodically new applications will be added to SIGpiand notifications sent to those watching the repo.
-To add applcations available for install into your SIGpi instance simple run run the following from within your /home/pi/SIG/SIGpi directory
-
-```
-git pull
-```
-
-You will see the new applications as available running the list library command
-
-```
-SIGpi list library
-```
-
-
 ### APRS and Packet using a VHF/UHF Transceiver
 SDRangel and other SDR applications have the capability to decode APRS and Packet Radio signals and transmit at given TX capable supported and attached devices. If you have an Amateur Radio license and aspire to operate serious distance including satellites then you will need VHF/UHF transceiver capable of 5 watts for the latter interfacing to the transceiver through audio and radio control via Hamlib.
 
@@ -197,22 +197,16 @@ ax0     N0CALL-3      1200    255     4       APRS / Packet
 - Save and exit
 
 
-
-
-## Developer Notes
-
 ### Debian Packages
 To speed up installation, beginning in SIGpi 6.X we started building our own aarch64 and amd64 Debian packages for select software when the latest packages are not available from Ubuntu or Raspberry Pi OS.
 
-We began with SDRangel for aarch64 (RPi) and slowly adding packages alopng the was. The debian packages we install can be found in **~/SIG/SIGpi/debs**. They are built to be SIGpi independent so as long as your particualr build has the dependencies installed, these packages should install normally with **sudo dpkg -i <package-name>**. 
-
-For SDR software we only compile the packages to support RTL-SDR, HackRF, PlutoSDR, LimeSuite and SDRplay. For other SDR you can recompile - see next section.
+We began with SDRangel for aarch64 (RPi) and slowly adding packages along the way. The debian packages we install can be found in **~/SIG/SIGpi/debs**. They are built to be SIGpi independent so as long as your particualr build has the dependencies installed, these packages should install normally with **sudo dpkg -i <package-name>**. 
 
 ### Building and/or Installing Packeges
-If our packages do not support your SDR device, you can install SDR drivers per your device's instructions and comile a new version. Using SDRangel as an example you would first remove SDRangel if already installed and then compile and install a new SDRangel build as follows:
+If our packages do not support your SDR device, you can install SDR drivers per your device's instructions and compile a new version. Using SDRangel as an example you would first purge SDRangel if already installed and then compile and install a new SDRangel build as follows:
 
 ```
-SIGpi remove sdrangel
+SIGpi purge sdrangel
 SIGpi build sdrangel
 ```
 
