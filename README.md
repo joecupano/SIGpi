@@ -9,9 +9,6 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabiliti
 - **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Full (64-bit)**
 - arm64 or amd64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
 
-## Release Notes
-* [over here](RELEASE_NOTES.md)
-
 ## Quick Setup
 
 - Login as pi or sudo user on supported platform
