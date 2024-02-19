@@ -27,6 +27,8 @@ source $SIGPI_PACKAGES/pkg_serialdv install
 source $SIGPI_PACKAGES/pkg_dsdcc install
 # Install Codec 2
 source $SIGPI_PACKAGES/pkg_codec2 install
+# Install SGP4
+source $SIGPI_PACKAGES/pkg_sgp4 install
 # Install Radiosonde (Atmospheric Telemetry)
 source $SIGPI_PACKAGES/pkg_radiosonde install
 # Install HamLib
