@@ -58,15 +58,15 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/EttusResearch/uhd.git
         cd uhd
-        git checkout UHD-4.5
+        git checkout UHD-4.6
         cd host
         mkdir build	&& cd build
         cmake .. -Wno-dev
         sudo make install
         sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
         sudo ldconfig
-        uhd_images_downloader
-        cat $SIGPI_DEVLIST|grep "ettus" >> $SIGPI_INSTALDEV 
+        sudo uhd_images_downloader
+        cat $SIGPI_DEVLIST|grep "ettus,4.6.0.0,USRP SDR Driver,20231113" >> $SIGPI_INSTALDEV 
 
         ## DESKTOP
         # Add Icon
