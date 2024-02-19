@@ -60,7 +60,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "sgp4" >> $SIGPI_INSTALLED
+        cat $SIGPI_PKGLIST|grep "sgp4,1.0,SGP4 Library,20170101" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon
