@@ -47,7 +47,7 @@ echo -e "${SIGPI_BANNER_RESET}"
 ## DEPENDENCIES
 sudo apt purge ^librtlsdr
 sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
-sudo apt-get install libusb-1.0-0-dev
+sudo apt-get install -y libusb-1.0-0-dev
         
 ## PACKAGE
 cd $SIGPI_SOURCE
