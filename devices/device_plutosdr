@@ -71,10 +71,10 @@ case "$1" in
         cd SoapyPlutoSDR
         mkdir build && cd build
         cmake .. -Wno-dev
-        make
+        make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "plutosdr" >> $SIGPI_INSTALDEV 
+        cat $SIGPI_DEVLIST|grep "plutosdr,0.25,PlutoSDR Device,20230811" >> $SIGPI_INSTALDEV 
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Installed"

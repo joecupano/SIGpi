@@ -81,7 +81,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "limesuite" >> $SIGPI_INSTALDEV  
+        cat $SIGPI_DEVLIST|grep "limesuite,23.11.0,LimeSuite SDR,20231119" >> $SIGPI_INSTALDEV  
 
         ## DESKTOP
         # Add Icon

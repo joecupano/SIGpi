@@ -31,7 +31,6 @@ cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
-cat $SIGPI_DEVLIST|grep "libmirisdr" >> $SIGPI_INSTALDEV 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - RSPx Driver Installed"
@@ -49,6 +48,7 @@ cmake .. -Wno-dev
 make -j4
 sudo make install
 sudo ldconfig
+cat $SIGPI_DEVLIST|grep "libmirisdr,1.0,SDRplay libmiri5 SDR,20240212" >> $SIGPI_INSTALDEV 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRplay Driver Installed"

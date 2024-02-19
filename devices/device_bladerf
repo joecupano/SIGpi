@@ -64,10 +64,10 @@ case "$1" in
         cd bladeRF
         mkdir build && cd build
         cmake .. -Wno-dev
-        make
+        make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "bladerf" >> $SIGPI_INSTALDEV 
+        cat $SIGPI_DEVLIST|grep "bladerf,2023.02,bladeRF SDR,20230215" >> $SIGPI_INSTALDEV 
 	
         ### SoapyBladeRF
         echo -e "${SIGPI_BANNER_COLOR}"
