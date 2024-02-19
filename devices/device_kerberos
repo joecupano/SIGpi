@@ -56,27 +56,27 @@ case "$1" in
         libatlas-base-dev python3-dev python3-setuptools libffi6 libffi-dev python3-tk pkg-config libfreetype6-dev php7.2-cli
         sudo apt-get install -y libusb-1.0-0-dev
         sudo pip3 install numpy
-        sudopip3 install matplotlib
-        sudopip3 install scipy
-        sudopip3 install cairocffi
-        sudopip3 install pyapril
-        sudopip3 install pyargus
-        sudopip3 install pyqtgraph
-        sudopip3 install peakutils
-        sudopip3 install bottle
-        sudopip3 install paste
+        sudo pip3 install matplotlib
+        sudo pip3 install scipy
+        sudo pip3 install cairocffi
+        sudo pip3 install pyapril
+        sudo pip3 install pyargus
+        sudo pip3 install pyqtgraph
+        sudo pip3 install peakutils
+        sudo pip3 install bottle
+        sudo pip3 install paste
 
         # PACKAGE
         cd $SIGPI_SOURCE
-        ggit clone https://github.com/rtlsdrblog/rtl-sdr-kerberos
+        git clone https://github.com/rtlsdrblog/rtl-sdr-kerberos
         cd $SIGPI_SOURCE/rtl-sdr-kerberos
         mkdir build	&& cd build
-        cmake ../ -DINSTALL_UDEV_RULES=ON
+        cmake ../ -Wno-dev -DINSTALL_UDEV_RULES=ON
         make -j4
         sudo make install
         sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "kerberos" >> $SIGPI_INSTALDEV 
+        cat $SIGPI_DEVLIST|grep "kerberos,1.0,Kerberos SDR,20190101" >> $SIGPI_INSTALDEV 
 
         ## DESKTOP
 	    # Add Icon
