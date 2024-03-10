@@ -1,4 +1,7 @@
-# Development Notes
+# Compilation Notes
+
+Compile output for various applications and libraries. This includes reference
+for capturing known issues.
 
 ## SoapySDR 
 ```
