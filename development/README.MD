@@ -1,6 +1,7 @@
 # Development Notes
 
 ## SoapySDR 
+```
 #############################################
 Begin configuration for Python 3 support...
 #############################################
@@ -62,8 +63,10 @@ Available converters...
  -    S8 -> [F32, S16, S8, U16, U8]
  -   U16 -> [F32, S16, S8]
  -    U8 -> [F32, S16, S8]
+```
 
 ## Ubertooth Tools
+```
 fatal: repository 'https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git/' not found
 CMake Error at cmake/FindWireshark.cmake:26 (MESSAGE):
 Could NOT find the wireshark library and headers
@@ -72,8 +75,10 @@ See also "/home/pi/SIG/source/libbtbb/wireshark/plugins/btbredr/build/CMakeFiles
 See also "/home/pi/SIG/source/libbtbb/wireshark/plugins/btbredr/build/CMakeFiles/CMakeError.log".
 make: *** No targets specified and no makefile found.  Stop.
 make: *** No rule to make target 'install'.  Stop.
+```
 
 ## LimeSDR
+```
 ######################################################
 LimeSuite enabled features
 ######################################################
@@ -119,4 +124,4 @@ UHD disabled components
 -- Set runtime path of "/usr/local/bin/miri_sdr" to "/usr/local/lib"
 -- Installing: /usr/local/bin/miri_fm
 -- Set runtime path of "/usr/local/bin/miri_fm" to "/usr/local/lib"
-
+```
