@@ -8,79 +8,116 @@
 ### 20240110-0100
 ###
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay Device"
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_RESET}"
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRplay"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+	    cd $SIGPI_SOURCE/SDRplay/build/host
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/SDRplay
+        sed -i /SDRplay/d $SIGPI_INSTALLED
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install SDRplay API"
-echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRplay"
+        echo -e "${SIGPI_BANNER_RESET}"
+               
+	    cd $SIGPI_SOURCE/SDRplay/build/host
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/SDRplay
+        sed -i /SDRplay/d $SIGPI_INSTALLED
 
-cd $SIGPI_SCRIPTS
-sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
-sudo chmod 755 /usr/local/bin/run_SDRplay.sh
+        rm -rf $HOME/.config/SDRplay
+        sudo rm -rf $SIGPI_DESKTOP/SDRplay.desktop
+        sudo rm -rf $DESKTOP_FILES/SDRplay.desktop
 
-cd $SIGPI_SOURCE     
-if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
-fi
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-    tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
-fi
+        cd $SIGPI_SCRIPTS
+        sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
+        sudo chmod 755 /usr/local/bin/run_SDRplay.sh
 
-cd SDRPlay
-sudo ./install_lib.sh
+        cd $SIGPI_SOURCE     
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
+        fi
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
-echo -e "${SIGPI_BANNER_RESET}"
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
+        fi
 
+        cd SDRPlay
+        sudo ./install_lib.sh
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDRPlay"
-echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - SDRplay API Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
-git clone https://github.com/SDRplay/SoapySDRPlay
-cd SoapySDRPlay
-mkdir build && cd build
-cmake .. -Wno-dev
-make -j4
-sudo make install
-sudo ldconfig
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Install SoapySDRPlay"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRPlay Installed"
-echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_SOURCE
+        git clone https://github.com/SDRplay/SoapySDRPlay
+        cd SoapySDRPlay
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
 
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDRPlay Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - Install RSPTCPServer"
-echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Install RSPTCPServer"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
-git clone https://github.com/SDRplay/RSPTCPServer
-cd RSPTCPServer
-mkdir build && cd build
-cmake .. -Wno-dev
-make -j4
-sudo make install
-sudo ldconfig
+        cd $SIGPI_SOURCE
+        git clone https://github.com/SDRplay/RSPTCPServer
+        cd RSPTCPServer
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
 
-echo " "
-echo "Finished. Current user guide can be found here..."
-echo " "
-echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
+        echo " "
+        echo "Finished. Current user guide can be found here..."
+        echo " "
+        echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
 
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - RSPTCPServer Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
 
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - RSPTCPServer Installed"
-echo -e "${SIGPI_BANNER_RESET}"
-
-
-echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Device Installed"
-echo -e "${SIGPI_BANNER_RESET}"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Device Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esace
