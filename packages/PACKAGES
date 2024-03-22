@@ -33,13 +33,14 @@ pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
 qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
 radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
 rtl_433,23.11,Generic data receiver ISM bands,20211231
-sdrangel,7.17.3,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20231023
-sdrangelsrv,7.17.3,Open-source SDR server,20231023
+sdrangel,7.19.1,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20240318
+sdrangelsrv,7.19.0,Open-source SDR server,20240309
 sdrpp,1.1.0,Cross-platform and open source SDR software,20211231
 serialdv,1.1.4,C++ interface to encode/decode audio with AMBE3000 devices in packet mode over a serial link,20211231
 sgp4,1.0,Simplified perturbations models,20211231
 sigdigger,0.3.0,Qt5 digital signal analyzer using its own DSP library,20230319
 sigutils,0.3.0,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
+sigpi,7.0.1,SIGpi cmdline tool,20240321
 splat,1.0,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
 srsran,23.11,Open-source 4G and 5G software radio suite,20230319
 suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319

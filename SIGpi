@@ -21,7 +21,23 @@
 ###       TARGET
 ###
 ###          A SIGpi package
-###                 
+###
+###
+###  Usage:  SIGpi device [ACTION] [TARGET]
+###
+###       ACTION
+###  
+###          install                install TARGET from current release
+###          remove                 remove installed TARGET
+###          purge                  remove installed TARGET and purge configs
+###          build                  compile and install TARGET (option may not be available)
+###          update                 check for update of TARGET
+###          upgrade                upgrade TARGET to latest release
+###
+###       TARGET
+###
+###          A SDR device
+###
 ###
 ###  Usage:  SIGpi [ACTION]
 ###
@@ -169,6 +185,24 @@ case "$1" in
                 done < "$file1"
         fi
         ;;
+    device )
+        SDEVSCRIPT="device_$4"
+        if [ "$3" = "build" ]; then
+            source $SIGPI_DEVICES/$SDEVSCRIPT build
+        fi
+        if [ "$3" = "package" ]; then
+            source $SIGPI_DEVICES/$SDEVSCRIPT package
+        fi
+        if [ "$3" = "remove" ]; then
+            source $SIGPI_DEVICES/$SDEVSCRIPT remove
+        fi
+        if [ "$3" = "purge" ]; then
+            source $SIGPI_DEVICES/$SDEVSCRIPT purge
+        fi
+        if [ "$3" = "install" ]; then
+            source $SIGPI_DEVICES/$SDEVSCRIPT install
+        fi
+        ;;
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
         #sudo dpkg -i $SIGPI_DEBS/$2
@@ -215,6 +249,20 @@ case "$1" in
 
           A SIGpi package
                  
+  Usage:  SIGpi device [ACTION] [TARGET]
+
+       ACTION
+  
+          install                install TARGET from current release
+          remove                 remove installed TARGET
+          purge                  remove installed TARGET and purge configs
+          build                  compile and install TARGET (option may not be available)
+          update                 check for update of TARGET
+          upgrade                upgrade TARGET to latest release
+
+       TARGET
+
+          A SDR device
 
   Usage:  SIGpi [ACTION]
 
