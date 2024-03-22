@@ -70,7 +70,7 @@ case "$1" in
         sudo apt-get install -y qt5-qmake
         sudo apt-get install -y qtscript5-dev
         sudo apt-get install -y qtbase5-dev
-        sudo apt-get install -y qtbase5-dev-tool
+        #sudo apt-get install -y qtbase5-dev-tool
         sudo apt-get install -y qtchooser
         sudo apt-get install -y qtmultimedia5-dev
         sudo apt-get install -y qml-module-qtlocation
@@ -166,7 +166,7 @@ case "$1" in
         sudo apt-get install -y qt5-qmake
         sudo apt-get install -y qtscript5-dev
         sudo apt-get install -y qtbase5-dev
-        sudo apt-get install -y qtbase5-dev-tool
+        #sudo apt-get install -y qtbase5-dev-tool
         sudo apt-get install -y qtchooser
         sudo apt-get install -y qtmultimedia5-dev
         sudo apt-get install -y qml-module-qtlocation
@@ -211,7 +211,11 @@ case "$1" in
         #git reset --hard c9075d4  # v7.17.0
         #git reset --hard cdcb73f  # v7.17.1
         #git reset --hard 78068fd  # v7.17.2
-        git reset --hard 5dcf7f7   # v7.17.3
+        #git reset --hard 5dcf7f7  # v7.17.3
+        #git reset --hard ac651ff  # v7.18.0
+        #git reset --hard 99b3c72  # v7.18.1
+        #git reset --hard 2550f73  # v7.19.0
+        git reset --hard cb89392   # v7.19.1
 
         mkdir build && cd build   
         cmake -Wno-dev ..
@@ -314,7 +318,11 @@ case "$1" in
         #git reset --hard c9075d4  # v7.17.0
         #git reset --hard cdcb73f  # v7.17.1
         #git reset --hard 78068fd  # v7.17.2
-        git reset --hard 5dcf7f7   # v7.17.3
+        #git reset --hard 5dcf7f7  # v7.17.3
+        #git reset --hard ac651ff  # v7.18.0
+        #git reset --hard 99b3c72  # v7.18.1
+        #git reset --hard 2550f73  # v7.19.0
+        git reset --hard cb89392   # v7.19.1
 
         mkdir build && cd build   
         cmake -Wno-dev ..
