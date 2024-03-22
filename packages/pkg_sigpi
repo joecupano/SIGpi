@@ -1,0 +1,52 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_audacity
+###
+
+case "$1" in 
+    remove )
+        sed -i /sigpi/d $SIGPI_INSTALLED
+        ;;
+    purge )
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Update SIGpi"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
+        cat $SIGPI_PKGLIST|grep "sigpi" >> $SIGPI_INSTALLED
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Add Category
+        # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Updated"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
