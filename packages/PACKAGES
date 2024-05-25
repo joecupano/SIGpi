@@ -33,8 +33,8 @@ pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
 qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
 radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
 rtl_433,23.11,Generic data receiver ISM bands,20211231
-sdrangel,7.21.0,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20240523
-sdrangelsrv,7.21.0,Open-source SDR server,20240523
+sdrangel,7.21.1,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20240524
+sdrangelsrv,7.21.1,Open-source SDR server,20240524
 sdrpp,1.1.0,Cross-platform and open source SDR software,20211231
 serialdv,1.1.4,C++ interface to encode/decode audio with AMBE3000 devices in packet mode over a serial link,20211231
 sgp4,1.0,Simplified perturbations models,20211231
