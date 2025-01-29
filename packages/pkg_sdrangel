@@ -199,27 +199,10 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel     
-        #git reset --hard d67aac3  # v7.11.0
-        #git reset --hard cf0489d  # v7.12.0
-        #git reset --hard 3f9f81c  # v7.13.0
-        #git reset --hard b12e282  # v7.14.1
-        #git reset --hard b4847f1  # v7.15.0
-        #git reset --hard 8383467  # v7.15.2
-        #git reset --hard 028a44c  # v7.15.3
-        #git reset --hard 7b85db4  # v7.15.4
-        #git reset --hard 513c0e5  # v7.16.0
-        #git reset --hard c9075d4  # v7.17.0
-        #git reset --hard cdcb73f  # v7.17.1
-        #git reset --hard 78068fd  # v7.17.2
-        #git reset --hard 5dcf7f7  # v7.17.3
-        #git reset --hard ac651ff  # v7.18.0
-        #git reset --hard 99b3c72  # v7.18.1
-        #git reset --hard 2550f73  # v7.19.0
-        #git reset --hard cb89392  # v7.19.1
         #git reset --hard cdae5ca  # v7.20.0
         #git reset --hard 1836ae3  # v7.20.1
-        #git reset --hard 1d87e1e  # v7.21.0
-        git reset --hard 4538d46   # v7.21.1
+        #git reset --hard 4538d46  # v7.21.1 
+        git reset --hard c4e57a1   # v7.22.5 
 
         mkdir build && cd build   
         cmake -Wno-dev ..
@@ -310,27 +293,11 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel     
-        #git reset --hard d67aac3  # v7.11.0
-        #git reset --hard cf0489d  # v7.12.0
-        #git reset --hard 3f9f81c  # v7.13.0
-        #git reset --hard b12e282  # v7.14.1
-        #git reset --hard b4847f1  # v7.15.0
-        #git reset --hard 8383467  # v7.15.2
-        #git reset --hard 028a44c  # v7.15.3
-        #git reset --hard 7b85db4  # v7.15.4
-        #git reset --hard 513c0e5  # v7.16.0
-        #git reset --hard c9075d4  # v7.17.0
-        #git reset --hard cdcb73f  # v7.17.1
-        #git reset --hard 78068fd  # v7.17.2
-        #git reset --hard 5dcf7f7  # v7.17.3
-        #git reset --hard ac651ff  # v7.18.0
-        #git reset --hard 99b3c72  # v7.18.1
-        #git reset --hard 2550f73  # v7.19.0
-        #git reset --hard cb89392  # v7.19.1
         #git reset --hard cdae5ca  # v7.20.0
         #git reset --hard 1836ae3  # v7.20.1
         #git reset --hard 1d87e1e  # v7.21.0
-        git reset --hard 4538d46   # v7.21.1
+        #git reset --hard 4538d46  # v7.21.1 
+        git reset --hard c4e57a1   # v7.22.5  
 
         mkdir build && cd build   
         cmake -Wno-dev ..
