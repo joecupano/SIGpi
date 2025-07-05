@@ -298,7 +298,7 @@ case "$1" in
         #git reset --hard 1836ae3  # v7.20.1
         #git reset --hard 1d87e1e  # v7.21.0
         #git reset --hard c4e57a1  # v7.22.5
-	git reset --hard 115922c   # v7.22.8 
+	git reset --hard 89d7fe7   # v7.22.7
 
         mkdir build && cd build   
         cmake -Wno-dev ..
