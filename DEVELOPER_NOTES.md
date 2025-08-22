@@ -22,13 +22,10 @@ release model to keep with our toolkit approach.
 
 
 ## Hardware
-SIGpi started with RPi3 and over time has focused on RPi3 as server-only and RPi4 for full
-install. This does not negates using other ARM-based SBCs, it's just no full testing as been
-done on them. AMD64 architecture support was added when RPi3 was deprecated to server-only duties.
-
+SIGpi started with RPi3 and over time has focused on RPi4 and Ubuntu 24.04 arm64/amd64 64-bit platforms.
 
 ## Operating Systems
-SIGpi moved to 64-bit OS support only on Raspberry Pi OS or Ubuntu 22.04
+SIGpi moved to 64-bit OS support only on Raspberry Pi OS or Ubuntu 24.04
 
 
 ### Desktop Prep
@@ -208,7 +205,3 @@ The following packages have unmet dependencies:
 
 ### GNURadio
 
-```
-sed: can't read /usr/share/applications/gnuradio-grc.desktop: No such file or directory
-xdg-desktop-menu: file '/usr/share/applications/gnuradio-grc.desktop' does not exist
-```

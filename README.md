@@ -1,21 +1,21 @@
 # SIGpi
 
-RELEASE 7.0
+RELEASE 7.1
 
 ## Introduction
 
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
 
-- **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bullseye" or "Bookworm" Full (64-bit)**
-- arm64 or amd64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 22.04 LTS**
+- **Raspberry Pi4 4GB RAM** or **Raspberry Pi 400** with 32GB microSD card running **Raspberry Pi OS "Bookworm" Full (64-bit)**
+- arm64 or amd64 platforms with 4GB RAM and 32GB storage minimum runniing **Ubuntu 24.04 LTS**
 
 ## Quick Setup
 
-- Login as pi or sudo user on supported platform
-- Update and install pre-requisite packages to install SIGpi
+- Login as user with sudo privilege user on supported platform (pi for RPi)
 - From your home directory, create a directory called SIG and switch into it
 - Clone the SIGpi repo 
 - Change directory into SIGpi
+- Run the setup command
 
 ```
 sudo apt update && sudo apt upgrade
@@ -43,8 +43,9 @@ with the following command (note that ./ is no longer required for thr SIGpi com
 SIGpi list library
 ```
 
-An asterisk in the INSTALLED column indicates that package is already installed while those withou asterisks 
-have not been installed. For example, you will see SDRangel has not been installed. You can do so with the following command.
+An asterisk in the INSTALLED column indicates that package is already installed
+Those without asterisks have not been installed.
+For example, you will see SDRangel has not been installed. You can do so with the following command.
 
 ```
 SIGpi install sdrangel
