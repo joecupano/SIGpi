@@ -1,5 +1,6 @@
 bladerf,2023.02,BladeRF,20230215
 ettus,Ettus Research UHD,20240101
+hackrf,1.0,HackRF,20240101
 hasviolet,1.0,HASviolet,20240101
 kerberos,1.0,Kerberos SDR,20190101
 libmirisdr,1.0,SDRplay RSP Devices,20240101
