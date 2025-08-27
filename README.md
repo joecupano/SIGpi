@@ -1,6 +1,6 @@
 # SIGpi
 
-RELEASE 7.1
+RELEASE 8.0
 
 ## Introduction
 

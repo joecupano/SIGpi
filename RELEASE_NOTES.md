@@ -1,7 +1,8 @@
 # Release Notes
 
-## Release 7.1: 2025-08-30
-- Maintenance Release
+## Release 8.0: 2025-08-30
+- Major Release
+- Bullseye and Ubuntu 22.04 LTS amd64 deprecated, rebuild on bookworm and Ubuntu 24.04 LTS amd64
 
 ## Release 7.0: 2024-01-15
 - Major Release. See [wiki](https://github.com/joecupano/SIGpi/wiki)
