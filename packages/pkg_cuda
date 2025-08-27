@@ -7,8 +7,9 @@
 ### pkg_cuda
 ###
 ###
-### CUDA Toolkit 12.3 Update 2
+### 20250830-0100
 ###
+### CUDA Toolkit 12.3 Update 2
 ###
 
 case "$1" in 

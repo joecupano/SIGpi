@@ -5,6 +5,9 @@
 ###
 ### pkg_cubicsdr
 ###
+###
+### 20250830-0100
+###
 
 case "$1" in 
     remove )
