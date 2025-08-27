@@ -5,6 +5,9 @@
 ###
 ### pkg_aptdec
 ###
+###
+### 202508030-0100
+###
 
 case "$1" in 
     remove )
@@ -119,8 +122,9 @@ case "$1" in
         cmake --build build
         cd build
         make -j4
-        sudo checkinstall
-        sudo mv *.deb $SIGPI_DEBS
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "aptdec" >> $SIGPI_INSTALLED 
 
         ## DESKTOP
         # Add Icon

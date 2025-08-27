@@ -6,6 +6,8 @@
 ### pkg_cm256cc  
 ###
 ###
+### 20250830-0100
+###
 ### cm256cc is a simple library for erasure codes. From given data it generates redundant data that can be used to recover the originals.
 ###
 ### The erasure code is parameterized by three values (OriginalCount, RecoveryCount, BlockBytes). These are:
@@ -107,11 +109,6 @@ case "$1" in
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
     * )
