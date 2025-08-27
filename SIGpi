@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-###  20240110-0100
+###  20250830-0100
 ###
 
 ###
@@ -15,6 +15,7 @@
 ###          remove                 remove installed TARGET
 ###          purge                  remove installed TARGET and purge configs
 ###          build                  compile and install TARGET (option may not be available)
+###          package                compile, do not install, copy package to SIG/debs directory (option may not be available)
 ###          update                 check for update of TARGET
 ###          upgrade                upgrade TARGET to latest release
 ###
