@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-###  20240110-0100
+###  20260109-2300
 ###
 
 ###
@@ -15,40 +15,25 @@
 ###          remove                 remove installed TARGET
 ###          purge                  remove installed TARGET and purge configs
 ###          build                  compile and install TARGET (option may not be available)
-###          update                 check for update of TARGET
+###          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+###          update                 check for TARGET updates
 ###          upgrade                upgrade TARGET to latest release
+###          install                install TARGET from current release
+###
+###          setup
+###                 standard        First time setup for desktop
+###                 server          First time setup for server
+###
+###         list
+###                 packages        List all packages included with SIGpi
+###                 installed       List installed SIGpi packages
+###                 library         List all packages included with SIGpi with installed ones marked with an *  
+###
+###          shell           provide SIGpi env variables around a TARGET
 ###
 ###       TARGET
 ###
 ###          A SIGpi package
-###
-###
-###  Usage:  SIGpi device [ACTION] [TARGET]
-###
-###       ACTION
-###  
-###          install                install TARGET from current release
-###          remove                 remove installed TARGET
-###          purge                  remove installed TARGET and purge configs
-###          build                  compile and install TARGET (option may not be available)
-###          update                 check for update of TARGET
-###          upgrade                upgrade TARGET to latest release
-###
-###       TARGET
-###
-###          A SDR device
-###
-###
-###  Usage:  SIGpi [ACTION]
-###
-###       ACTION
-###
-###          SIGpi setup standard   First time setup for desktop
-###          SIGpi setup server     First time setup for server
-###          SIGpi list packages    List all packages included with SIGpi
-###          SIGpi list installed   List installed SIGpi packages
-###          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
-###          SIGpi shell            provide SIGpi env variables around a TARGET
 ###
 
 
@@ -68,9 +53,7 @@ SIGPI_DEBS=$SIGPI_HOME/debs
 
 # SIGpi Install Support files
 SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
-SIGPI_INSTALDEV=$SIGPI_ETC/INSTALLED_DEVS
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
-SIGPI_DEVLIST=$SIGPI_DEVICES/DEVICES
 SIGPI_SCREEN_STANDARD=$SIGPI_SCRIPTS/screen_standard_setup
 SIGPI_SCREEN_SERVER=$SIGPI_SCRIPTS/screen_server_setup
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
@@ -164,77 +147,7 @@ case "$1" in
             echo -e "PACKAGE\t VERSION\t DESCRIPTION"
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_PKGLIST|more
-        fi
-        if [ "$2" = "library" ]; then
-                file1=$SIGPI_PKGLIST
-                file2=$SIGPI_INSTALLED
-                echo " "
-                echo -e "${SIGPI_BANNER_COLOR} ##"
-                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list library"
-                echo -e "${SIGPI_BANNER_COLOR} ##"
-                echo -e "${SIGPI_BANNER_RESET}"
-                echo " "
-                echo -e "\tINSTALLED\t PACKAGE\t VERSION\t DESCRIPTION"
-                while IFS= read -r line_file1
-                do
-                        if grep -qF "$line_file1" "$file2"; then
-                                echo -e "*\t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
-                        else
-                                echo -e " \t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
-                        fi
-                done < "$file1"
-        fi
-        ;;
-    device )
-        SDEVSCRIPT="device_$4"
-        if [ "$3" = "build" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT build
-        fi
-        if [ "$3" = "package" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT package
-        fi
-        if [ "$3" = "remove" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT remove
-        fi
-        if [ "$3" = "purge" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT purge
-        fi
-        if [ "$3" = "install" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT install
-        fi
-        ;;
-    build )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT build
-        #sudo dpkg -i $SIGPI_DEBS/$2
-        ;;
-    package )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT package
-        ;;
-    remove )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT remove
-        ;;
-    purge )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT purge
-        ;;
-    install )
-        source $SIGPI_PACKAGES/$SPKGSCRIPT install
-        ;;
-    config )
-        source $SIGPI_PACKAGES/$SCFGSCRIPT $3
-        ;;
-    update )
-        sigpi_update $3
-        ;;
-    upgrade)
-        sigpi_upgrade $3
-        ;;
-    shell )
-        source $2
-        ;;
-    * )
-        cat <<EOF
-
-  Usage:  SIGpi [ACTION] [TARGET]
+        fi  Usage:  SIGpi [ACTION] [TARGET]
 
        ACTION
   
@@ -274,6 +187,86 @@ case "$1" in
           SIGpi list installed   List installed SIGpi packages
           SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
           SIGpi shell            provide SIGpi env variables around a TARGET
+
+        if [ "$2" = "library" ]; then
+                file1=$SIGPI_PKGLIST
+                file2=$SIGPI_INSTALLED
+                echo " "
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list library"
+                echo -e "${SIGPI_BANNER_COLOR} ##"
+                echo -e "${SIGPI_BANNER_RESET}"
+                echo " "
+                echo -e "\tINSTALLED\t PACKAGE\t VERSION\t DESCRIPTION"
+                while IFS= read -r line_file1
+                do
+                        if grep -qF "$line_file1" "$file2"; then
+                                echo -e "*\t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
+                        else
+                                echo -e " \t $line_file1"|awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s %-15s\n", " ", $1, $2, $3}'
+                        fi
+                done < "$file1"
+        fi
+        ;;
+    build )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT build
+        #sudo dpkg -i $SIGPI_DEBS/$2
+        ;;
+    package )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT package
+        ;;
+    remove )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT remove
+        ;;
+    purge )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT purge
+        ;;
+    install )
+        source $SIGPI_PACKAGES/$SPKGSCRIPT install
+        ;;
+    config )
+        source $SIGPI_PACKAGES/$SCFGSCRIPT $3
+        ;;
+    update )
+        sigpi_update $3
+        ;;###
+
+    upgrade)
+        sigpi_upgrade $3
+        ;;
+    shell )
+        source $2
+        ;;
+    * )
+        cat <<EOF
+
+  Usage:  SIGpi [ACTION] [TARGET]
+
+       ACTION
+  
+          install                install TARGET from current release
+          remove                 remove installed TARGET
+          purge                  remove installed TARGET and purge configs
+          build                  compile and install TARGET (option may not be available)
+          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+          update                 check for TARGET updates
+          upgrade                upgrade TARGET to latest release
+          install                install TARGET from current release
+
+          setup
+                 standard        First time setup for desktop
+                 server          First time setup for server
+
+         list
+                 packages        List all packages included with SIGpi
+                 installed       List installed SIGpi packages
+                 library         List all packages included with SIGpi with installed ones marked with an *  
+
+          shell           provide SIGpi env variables around a TARGET
+
+       TARGET
+
+          A SIGpi package
 
 EOF
 ;;

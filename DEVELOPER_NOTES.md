@@ -22,13 +22,13 @@ release model to keep with our toolkit approach.
 
 
 ## Hardware
-SIGpi started with RPi3 and over time has focused on RPi3 as server-only and RPi4 for full
+SIGpi started with RPi3 and over time has focused on RPi3 as server-only and RPi4 and RPi5 for full
 install. This does not negates using other ARM-based SBCs, it's just no full testing as been
 done on them. AMD64 architecture support was added when RPi3 was deprecated to server-only duties.
 
 
 ## Operating Systems
-SIGpi moved to 64-bit OS support only on Raspberry Pi OS or Ubuntu 22.04
+SIGpi moved to 64-bit OS support only for Raspberry Pi OS and Ubuntu 22.04
 
 
 ### Desktop Prep
