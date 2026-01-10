@@ -1,0 +1,16 @@
+[Unit]
+Description=SigPi SDRangel Server
+
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStartPre=/bin/sleep 15
+ExecStart=/bin/sh -c "sdrangelsrv"
+WorkingDirectory=/home/pi
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
