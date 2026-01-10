@@ -6,6 +6,8 @@
 ### pkg_codec2
 ###
 ###
+### 20260110-2300
+###
 ### Codec 2 is an open source (LGPL 2.1) low bit rate speech codec: http://rowetel.com/codec2.html
 ###
 ### Also included:
@@ -112,11 +114,6 @@ case "$1" in
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
     * )

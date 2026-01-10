@@ -6,7 +6,7 @@
 ### pkg_docker
 ###
 ###
-### 20240110-0100
+### 2026110-2300
 ###
 
 case "$1" in 
@@ -61,14 +61,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   Docker Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
     * )

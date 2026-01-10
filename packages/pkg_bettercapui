@@ -5,6 +5,9 @@
 ###
 ### pkg_bettercapui
 ###
+###
+### 20260110-2300
+###
 
 case "$1" in 
     remove )
@@ -76,6 +79,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -102,12 +111,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap ui packaged and available in $SIG_DEBS"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

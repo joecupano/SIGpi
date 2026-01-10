@@ -6,6 +6,8 @@
 ### pkg_dsdcc
 ###
 ###
+### 20260110-2300
+###
 ### DSD is able to decode several digital voice formats from discriminator tap audio
 ### and synthesize the decoded speech. Speech synthesis requires mbelib, which is a separate package.
 ###
@@ -72,11 +74,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -105,6 +102,11 @@ case "$1" in
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
     * )
