@@ -1,0 +1,85 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_ettus
+###
+###
+### 20260110-2300
+###
+### Ettus Research USRP Devices
+###
+
+case "$1" in 
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Ettus Research USRP Devices"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y python3-mako
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/EttusResearch/uhd.git
+        cd uhd
+        git checkout UHD-4.6
+        cd host
+        mkdir build	&& cd build
+        cmake .. -Wno-dev
+        make -j4
+        ;;&
+
+    install )
+        sudo make install
+        sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
+        sudo ldconfig
+        sudo uhd_images_downloader
+        cat $SIGPI_PKGLIST|grep "ettus" >> $SIGPI_INSTALLED
+        ;;&
+    
+    build )
+        sudo checkinstall
+        cat $SIGPI_PKGLIST|grep "ettus" >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove )
+        cd $SIGPI_SOURCE/uhd/host/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/uhd
+        sed -i /ettus/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        cd $SIGPI_SOURCE/uhd/host/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/uhd
+        sed -i /ettus/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Ettus Research USRP Devices completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

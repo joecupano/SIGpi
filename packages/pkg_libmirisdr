@@ -1,0 +1,95 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_libmirisdr
+###
+###
+### 20260110-2300
+###
+### SDRplay RSPx Device
+###
+
+case "$1" in 
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : SDRplay and SoapySDRplay"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    install|build|package )
+        # Remove Kernel Drivers
+        sudo modprobe -r msi2500 msi001
+        sudo cp $SIGPI_CONFIG/blacklist-msi.conf /etc/modprobe.d/blacklist-msi.conf
+
+        ## SDRplay driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/ericek111/libmirisdr-5
+        cd libmirisdr-5
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+
+        ## SoapySDRplay Driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/ericek111/SoapyMiri
+        cd SoapyMiri
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        ;;&
+
+    install )
+        cd $SIGPI_SOURCE/libmirisdr-5/build
+        sudo make install
+        sudo ldconfig
+
+        cd $SIGPI_SOURCE/SoapyMiri/build    
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKG_LIST|grep "libmirisdr" >> $SIGPI_INSTALLED
+        ;;&
+    
+    build)
+        cd $SIGPI_SOURCE/libmirisdr-5/build
+        sudo checkinstall
+
+        cd $SIGPI_SOURCE/SoapyMiri/build     
+        sudo checkinstall
+        ;;&
+
+    package)
+        cd $SIGPI_SOURCE/libmirisdr-5/build
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        cd $SIGPI_SOURCE/SoapyMiri/build
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove )
+        sudo dpkg -r libmirisdr
+        sudo dpkg -r SoapyMiri
+        sed -i /libmirisdr/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo dpkg -P libmirisdr
+        sudo dpkg -P SoapyMiri
+        sed -i /libmirisdr/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : SDRplay and SoapySDRplay completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

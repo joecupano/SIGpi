@@ -1,0 +1,92 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_fobos
+###
+###
+### 20260110-2300
+###
+### RigExpert Fobos Device
+###
+
+case "$1" in 
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Fobos and SoapyFobosSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    install|build|package )
+
+        ## Fobos driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/libfobos
+        cd libfobos
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+
+        ## SoapyFobosSDR Driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/SoapyFobosSDR
+        cd SoapyFobosSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        ;;&
+
+    install )
+        cd $SIGPI_SOURCE/libfobos/build
+        sudo make install
+        sudo ldconfig
+
+        cd $SIGPI_SOURCE/SoapyFobosSDR/build    
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKG_LIST|grep "libfobos" >> $SIGPI_INSTALLED
+        ;;&
+    
+    build)
+        cd $SIGPI_SOURCE/libfobos/build
+        sudo checkinstall
+
+        cd $SIGPI_SOURCE/SoapyFobosSDR/build     
+        sudo checkinstall
+        ;;&
+
+    package)
+        cd $SIGPI_SOURCE/libfobos/build
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        cd $SIGPI_SOURCE/SoapyFobosSDR/build
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove )
+        sudo dpkg -r libfobos
+        sudo dpkg -r SoapyMiri
+        sed -i /libfobos/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo dpkg -P libfobos
+        sudo dpkg -P SoapyFobosSDR
+        sed -i /libfobos/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Fobos and SoapyFobosSDR completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
