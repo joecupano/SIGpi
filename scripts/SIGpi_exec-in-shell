@@ -1,5 +1,15 @@
 #!/usr/bin/env sh
 
+###
+### SIGpi
+###
+### SIGpi_exec-in-shell
+###
+
+###
+###  REVISION: 20260110-2300
+###
+
 echo "$ $@"
 eval $@
 
