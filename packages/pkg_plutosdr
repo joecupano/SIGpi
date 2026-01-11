@@ -29,11 +29,9 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/analogdevicesinc/libiio.git
         cd libiio
-        #20230924  need to chekcout v0.25 so SoapPlutoSDR works
-        git checkout v0.25
+        git checkout v0.26
         mkdir build && cd build
-        #20230830 Compile error not finding ZSTD though installed. So disable for now
-        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        cmake .. -Wno-dev
         make -j4
         
         # SoapyPlutoSDR
