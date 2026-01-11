@@ -154,7 +154,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 
         source $SIGPI_SCRIPTS/setup_core_server
-        source $SIGPI_SCRIPTS/setup_core_devices
+        source $SIGPI_SCRIPTS/setup_devices
         source $SIGPI_SCRIPTS/setup_core_packages
 
         # Copy SIGpi commands into /usr/local/bin
@@ -244,7 +244,7 @@ case "$1" in
 
         cd $SIGPI_SOURCE
         source $SIGPI_SCRIPTS/setup_core_standard
-        source $SIGPI_SCRIPTS/setup_core_devices
+        source $SIGPI_SCRIPTS/setup_devices
         
         # Deactivate sigpi_env 
         deactivate
@@ -270,7 +270,7 @@ case "$1" in
         cd $SIGPI_SOURCE
 
         source $SIGPI_SCRIPTS/setup_core_standard
-        source $SIGPI_SCRIPTS/setup_core_devices
+        source $SIGPI_SCRIPTS/setup_devices
         source $SIGPI_SCRIPTS/setup_core_packages
         source $SIGPI_SCRIPTS/setup_core_desktop
 

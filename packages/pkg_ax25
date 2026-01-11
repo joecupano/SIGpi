@@ -1,0 +1,54 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_ax25
+###
+### 20260111-2300
+###
+### Packet Radio AX.25
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove AX.25"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove -y libncurses5 libax25 ax25-apps ax25-tools
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge AX"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove -y libncurses5 libax25 ax25-apps ax25-tools
+        sudo rm -rf /etc/ax25/axports
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install AX.25s"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
+        echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
+        ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

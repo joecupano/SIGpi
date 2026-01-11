@@ -1,0 +1,103 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### setup_devices
+###
+###
+### 20260111-2300
+###
+### Devices installed by default include RTLSDR, HackRF, and Ubertooth
+### Related software includes SoapySDR, SoapyRemote, SoapyRTLSDR, SoapyHackRF, and GPS
+###
+
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+# SoapySDR
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y swig
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y libavahi-client-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y python3-dev
+
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapySDR.git
+cd SoapySDR
+mkdir build && cd build
+cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
+make -j4
+sudo make install
+sudo ldconfig
+SoapySDRUtil --info
+
+# SoapyRemote
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRemote "
+echo -e "${SIGPI_BANNER_RESET}"
+
+cd $SIGPI_SOURCE
+git clone https://github.com/pothosware/SoapyRemote.git
+cd SoapyRemote
+mkdir build && cd build
+cmake .. -Wno-dev
+make
+sudo make install
+sudo ldconfig
+
+# Install AX.25
+source $SIGPI_PACKAGES/pkg_ax25 install
+
+# Install RTLSDR
+source $SIGPI_PACKAGES/pkg_rtlsdr-v4 install
+
+# Install HackRf
+source $SIGPI_PACKAGES/pkg_hackrf install
+
+# GPS
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ###   - GPS (Chrony) "
+echo -e "${SIGPI_BANNER_RESET}"
+
+sudo apt-get install -y gpsd chrony
+
+# Install bladeRF
+if grep bladerf "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_bladerf install
+fi
+# Install LimeSDR
+if grep limesuite "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_limesuite install
+fi
+# Install Ettus UHD
+if grep ettus "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_ettus install
+fi
+# Install PlutoSDR
+if grep plutosdr "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_plutosdr install
+fi
+# Install SDRPlay
+if grep sdrplay "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_sdrplay install
+fi
+# Install RigExpert Fobos
+if grep fobos "$SIGPI_INSTALLED"; then
+    source $SIGPI_PACKAGES/pkg_fobos install
+fi
+# Install Ubertooth One
+if grep ubertooth "$SIGPI_INSTALLED"; then
+#    source $SIGPI_PACKAGES/pkg_ubertooth install
+fi
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices Complete"
+echo -e "${SIGPI_BANNER_RESET}"

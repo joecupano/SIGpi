@@ -1,0 +1,135 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_hackrf
+###
+###
+### 20260111-2300
+###
+### HackRF
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove HackRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/hackrf/host/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/hackrf
+        sed -i /hackrf/d $SIGPI_CONFIG
+	
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   HackRF Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge HackRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/hackrf/host/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/hackrf
+        sed -i /hackrf/d $SIGPI_INSTALLED
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   HackRF Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install HackRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+
+        ## INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/mossmann/hackrf.git
+        cd hackrf/host
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        ## SOAPYSDR INSTALLATION if required
+        if command -v SoapySDRUtil &> /dev/null && dpkg -l | grep -q "libsoapysdr"; then
+            cd $SIGPI_SOURCE
+            git clone https://github.com/pothosware/SoapyHackRF.git
+            cd SoapyHackRF
+            mkdir build && cd build
+            cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+            make -j4        
+            sudo make install
+            sudo ldconfig
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   WARNING: SoapySDR missing - SoapyHackRF not installed"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 1
+        fi
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   HackRF Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install RTLSDR v4"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+
+        ## INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/mossmann/hackrf.git
+        cd hackrf/host
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   HackRF Built and Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+     package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package HackRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
+
+        ## INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/mossmann/hackrf.git
+        cd hackrf/host
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   HackRF packaged. Package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

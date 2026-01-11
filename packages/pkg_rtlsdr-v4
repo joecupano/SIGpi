@@ -12,6 +12,38 @@
 ###
 
 case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTLSDR v4"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/rtl-sdr-blog/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
+        sed -i /rtlsdr-v4/d $SIGPI_CONFIG
+	
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTLSDR v4"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        cd $SIGPI_SOURCE/rtl-sdr-blog/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
+        sed -i /rtlsdr-v4/d $SIGPI_INSTALLED
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Install RTLSDR v4"
@@ -35,6 +67,23 @@ case "$1" in
         echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
         cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
 
+        ## SOAPYSDR INSTALLATION if required
+        if command -v SoapySDRUtil &> /dev/null && dpkg -l | grep -q "libsoapysdr"; then
+            cd $SIGPI_SOURCE
+            git clone https://github.com/pothosware/SoapyRTLSDR.git
+            cd SoapyRTLSDR
+            mkdir build && cd build
+            cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+            make
+            sudo make install
+            sudo ldconfig
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   WARNING: SoapySDR missing - SoapyRTLSDR not installed"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 1
+        fi
+        
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Installed"
         echo -e "${SIGPI_BANNER_RESET}"
@@ -85,38 +134,6 @@ case "$1" in
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 packaged. Package available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        cd $SIGPI_SOURCE/rtl-sdr-blog/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl-sdr-blog
-        sed -i /rtlsdr-v4/d $SIGPI_CONFIG
-	
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        cd $SIGPI_SOURCE/rtl-sdr-blog/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	rm -rf $SIGPI_SOURCE/rtl-sdr-blog
-        sed -i /rtlsdr-v4/d $SIGPI_INSTALLED
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Purged"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     * )
