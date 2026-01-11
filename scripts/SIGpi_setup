@@ -115,6 +115,17 @@ select_server() {
     done
 }
 
+system_current() {
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
+}
+
 
 ###
 ###  MAIN
@@ -138,21 +149,7 @@ case "$1" in
         select_devices
         select_server
         TERM=ansi whiptail --title "SIGpi Server Setup" --clear --msgbox "Ready to continue" 12 120
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        sudo apt-get -y update
-        sudo apt-get -y upgrade
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        system_current
 
         cd $SIGPI_SOURCE
 
@@ -174,7 +171,20 @@ case "$1" in
             source $SIGPI_PACKAGES/pkg_sdrangelsrv install
             sudo cp $SIGPI_CONFIG/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
             echo "sigpi-node_sdrangelsrv" >> $SIGPI_INSTALLED
-        fi
+        fi        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get -y update
+        sudo apt-get -y upgrade
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
         # Install SoapySDR Server
         if [ "$2" = "soapysdrsrv" ]; then
             sudo cp $SIGPI_CONFIG/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
@@ -182,11 +192,38 @@ case "$1" in
         fi
         # Install OpenWebRX
         if [ "$2" = "openwebrx" ]; then
-            source $SIGPI_PACKAGES/pkg_openwebrx install
+            source $SIGPI_PACKAGES/pkg_openwebrx insta        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get -y update
+        sudo apt-get -y upgrade
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
             sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
             echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
         fi
-    
+
+         echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get -y update
+        sudo apt-get -y upgrade
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   Server Setup Complete !!"
@@ -203,24 +240,7 @@ case "$1" in
         exit 0
         ;;
     framework)
-        ## Framework Install
-        ## Standard Install
-        ##
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        sudo apt-get -y update
-        sudo apt-get -y upgrade
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        system_current
 
         cd $SIGPI_SOURCE
         source $SIGPI_SCRIPTS/setup_core_standard
@@ -240,31 +260,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     standard )
-        ##
-        ## Standard Install
-        ##
-
         calc_wt_size
         select_startscreen
         select_devices
         select_desktop
-
         TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continuer" 12 120
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        sudo apt-get -y update
-        sudo apt-get -y upgrade
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        system_current
 
         cd $SIGPI_SOURCE
 
