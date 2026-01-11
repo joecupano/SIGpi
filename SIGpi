@@ -147,46 +147,7 @@ case "$1" in
             echo -e "PACKAGE\t VERSION\t DESCRIPTION"
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_PKGLIST|more
-        fi  Usage:  SIGpi [ACTION] [TARGET]
-
-       ACTION
-  
-          install                install TARGET from current release
-          remove                 remove installed TARGET
-          purge                  remove installed TARGET and purge configs
-          build                  compile and install TARGET (option may not be available)
-          update                 check for update of TARGET
-          upgrade                upgrade TARGET to latest release
-
-       TARGET
-
-          A SIGpi package
-                 
-  Usage:  SIGpi device [ACTION] [TARGET]
-
-       ACTION
-  
-          install                install TARGET from current release
-          remove                 remove installed TARGET
-          purge                  remove installed TARGET and purge configs
-          build                  compile and install TARGET (option may not be available)
-          update                 check for update of TARGET
-          upgrade                upgrade TARGET to latest release
-
-       TARGET
-
-          A SDR device
-
-  Usage:  SIGpi [ACTION]
-
-       ACTION
-
-          SIGpi setup standard   First time setup for desktop
-          SIGpi setup server     First time setup for server
-          SIGpi list packages    List all packages included with SIGpi
-          SIGpi list installed   List installed SIGpi packages
-          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
-          SIGpi shell            provide SIGpi env variables around a TARGET
+        fi
 
         if [ "$2" = "library" ]; then
                 file1=$SIGPI_PKGLIST
