@@ -67,7 +67,7 @@ case "$1" in
         cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
 
         ## SOAPYSDR Check
-        if ! command -v SoapySDRUtil &> /dev/null && dpkg -l | ! grep -q "libsoapysdr"; then
+        if ! command -v SoapySDRUtil &> /dev/null && ! dpkg -l | grep -q "libsoapysdr"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##   WARNING: SoapySDR missing - SoapyRTLSDR not installed"
             echo -e "${SIGPI_BANNER_RESET}"
