@@ -37,7 +37,6 @@ case "$1" in
 
         ## PACKAGE
         sudo apt-get install -y limesuite liblimesuite-dev limesuite-udev limesuite-images 
-        sudo apt-get install -y soapysdr-tools soapysdr-module-lms7
 
         ## DESKTOP
         # Add Icon
