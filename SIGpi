@@ -3,7 +3,7 @@
 ###
 ### SIGpi
 ###
-###  20260109-2300
+###  20260111-2300
 ###
 
 ###
@@ -24,7 +24,7 @@
 ###                 standard        First time setup for desktop
 ###                 server          First time setup for server
 ###
-###         list
+###          list
 ###                 packages        List all packages included with SIGpi
 ###                 installed       List installed SIGpi packages
 ###                 library         List all packages included with SIGpi with installed ones marked with an *  
