@@ -19,40 +19,19 @@ echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
-# SoapySDR
+# SoapySDR 0.8
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
-sudo apt-get install -y swig
-sudo apt-get install -y avahi-daemon
-sudo apt-get install -y libavahi-client-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python3-dev
-
-cd $SIGPI_SOURCE
-git clone https://github.com/pothosware/SoapySDR.git
-cd SoapySDR
-mkdir build && cd build
-cmake ../ -Wno-dev -DCMAKE_BUILD_TYPE=Release
-make -j4
-sudo make install
-sudo ldconfig
-SoapySDRUtil --info
+sudo apt-get install -y libusb-1.0-0-dev soapysdr-tools libsoapysdr-dev
 
 # SoapyRemote
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRemote "
+echo -e "${SIGPI_BANNER_COLOR} ###   - SoyRemote "
 echo -e "${SIGPI_BANNER_RESET}"
 
-cd $SIGPI_SOURCE
-git clone https://github.com/pothosware/SoapyRemote.git
-cd SoapyRemote
-mkdir build && cd build
-cmake .. -Wno-dev
-make
-sudo make install
-sudo ldconfig
+sudo apt-get install -y soapyremote-server soapysdr-module-remote
 
 # Install AX.25
 source $SIGPI_PACKAGES/pkg_ax25 install

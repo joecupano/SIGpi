@@ -59,25 +59,15 @@ case "$1" in
         git clone https://github.com/rtlsdrblog/rtl-sdr-blog
         cd rtl-sdr-blog
         mkdir build && cd build
-        cmake ../ -DINSTALL_UDEV_RULES=ON
+        cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON
         make -j4
         sudo make install
-        sudo cp ../rtl-sdr.rules /etc/udev/rules.d/
         sudo ldconfig
-        echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-dvb_usb_rtl28xxu.conf
+        echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-rtl.conf
         cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
 
-        ## SOAPYSDR INSTALLATION if required
-        if command -v SoapySDRUtil &> /dev/null && dpkg -l | grep -q "libsoapysdr"; then
-            cd $SIGPI_SOURCE
-            git clone https://github.com/pothosware/SoapyRTLSDR.git
-            cd SoapyRTLSDR
-            mkdir build && cd build
-            cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-            make
-            sudo make install
-            sudo ldconfig
-        else
+        ## SOAPYSDR Check
+        if ! command -v SoapySDRUtil &> /dev/null && dpkg -l | ! grep -q "libsoapysdr"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##   WARNING: SoapySDR missing - SoapyRTLSDR not installed"
             echo -e "${SIGPI_BANNER_RESET}"
