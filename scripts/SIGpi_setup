@@ -78,7 +78,6 @@ select_devices() {
         "limesuite" "LimeSDR " OFF \
         "plutosdr" "PlutoSDR " OFF \
         "sdrplay" "SDRPlay " OFF \
-        "fobos" "RigExpert Fobos " OFF \
         "ubertooth" "Ubertooth One " OFF \
         3>&1 1>&2 2>&3)
     RET=$?
@@ -229,7 +228,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   Server Setup Complete !!"
-        echo -e "${SIGPI_BANNER_COLOR} ##"uPDATE
+        echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"

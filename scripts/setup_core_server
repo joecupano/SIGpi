@@ -67,6 +67,13 @@ sudo apt-get install -y python3-dbg
 sudo pip3 install pyinstaller
 sudo pip3 install pygccxml
 
+## SoapySDR 
+sudo apt-get install -y swig
+sudo apt-get install -y avahi-daemon
+sudo apt-get install -y libavahi-client-dev
+sudo apt-get install -y libusb-1.0-0-dev
+sudo apt-get install -y python-dev
+sudo apt-get install -y python3-dev
 
 # SDRdevice Baseline
 
@@ -107,13 +114,6 @@ sudo apt-get -y install libasound2-dev pulseaudio libopencv-dev libxml2-dev biso
 sudo apt-get -y install libspeexdsp-dev libsamplerate0-dev
 sudo apt-get -y install xxd
 sudo apt-get -y install python3 python3-cheetah python3-mako
-## SoapySDR 
-sudo apt-get install -y swig
-sudo apt-get install -y avahi-daemon
-sudo apt-get install -y libavahi-client-dev
-sudo apt-get install -y libusb-1.0-0-dev
-sudo apt-get install -y python-dev
-sudo apt-get install -y python3-dev
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Server complete"
