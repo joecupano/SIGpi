@@ -266,7 +266,7 @@ case "$1" in
         select_startscreen
         select_devices
         select_desktop
-        TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continuer" 12 120
+        TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continue" 12 120
         system_current
 
         cd $SIGPI_SOURCE
