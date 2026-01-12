@@ -6,8 +6,8 @@
 ### package_gnuradio
 ###
 ###
-
-###  20230831
+###  2026-0111-2300
+###
 ###  For x86_64 we add GNUradio repo and install 3.10.5 package
 ###  For aarm64 we use previously compiled 3.9.8.0 for now
 ###
