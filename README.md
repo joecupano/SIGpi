@@ -10,10 +10,10 @@ SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabiliti
 -- 4GB RAM, 32GB storage, Ubuntu 22.04 LTS
 
 - Raspberry Pi 4/5
--- 4G RAM, 32GB storage, Raspberry Pi OS "Bookworm" (64-bit)
+-- 4GB RAM, 32GB storage, "Bookworm" (64-bit)
 
 - Raspberry Pi 3
--- Server-only, Raspberry Pi OS "Bookworm" (64-bit)
+-- Server-only, "Bookworm" (64-bit)
 
 
 ## Quick Setup
