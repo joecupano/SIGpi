@@ -14,7 +14,7 @@
 case "$1" in 
     install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install BladeRF and SoapyBladeRF"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install BladeRF"
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES
@@ -42,12 +42,12 @@ case "$1" in
         sudo ldconfig
 
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF and SoapyBladeRF Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install BladeRF and SoapyBladeRF"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install BladeRF"
         echo -e "${SIGPI_BANNER_RESET}"
 
         ## DEPENDENCIES

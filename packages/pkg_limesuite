@@ -40,14 +40,14 @@ case "$1" in
 
         ## DESKTOP
         # Add Icon
-        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/*png $DESKTOP_ICONS
-        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite-32.png $DESKTOP_ICONS/lime-suite.png
+        #sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/*png $DESKTOP_ICONS
+        #sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite-32.png $DESKTOP_ICONS/lime-suite.png
         # Add Desktop
-        sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
+        #sudo cp $SIGPI_SOURCE/LimeSuite/Desktop/lime-suite.desktop $DESKTOP_FILES
         # Change Category
-        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
+        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/lime-suite.desktop
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/lime-suite.desktop
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/lime-suite.desktop
 
         cat $SIGPI_PKGLIST|grep "limesuite" >> $SIGPI_INSTALLED
         ;;&
