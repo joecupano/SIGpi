@@ -31,30 +31,24 @@ source $SIGPI_PACKAGES/pkg_dsdcc install
 source $SIGPI_PACKAGES/pkg_codec2 install
 # Install SGP4
 source $SIGPI_PACKAGES/pkg_sgp4 install
-# Install Radiosonde (Atmospheric Telemetry)
-source $SIGPI_PACKAGES/pkg_radiosonde install
 # Generate FFT Wisdom file
 source $SIGPI_PACKAGES/pkg_fftw install
-# Install NRSC5 (HD Radio)
-source $SIGPI_PACKAGES/pkg_nrsc5 install
 # Install RTL_433
 source $SIGPI_PACKAGES/pkg_rtl_433 install
-# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-source $SIGPI_PACKAGES/pkg_multimon-ng install
 # Install HamLib
 source $SIGPI_PACKAGES/pkg_hamlib install
-# Install AX.25 and utilities"
-sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
-echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
 # Install Direwolf (AFSK APRS)
 source $SIGPI_PACKAGES/pkg_direwolf install
-
 # Install Linpac (AX.25 Terminal
 source $SIGPI_PACKAGES/pkg_linpac install
-# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-source $SIGPI_PACKAGES/pkg_multimon-ng install
 # Install Dump1090
-source $SIGPI_PACKAGES/pkg_dump1090 install
+#source $SIGPI_PACKAGES/pkg_dump1090 install
+# Install Radiosonde (Atmospheric Telemetry)
+#source $SIGPI_PACKAGES/pkg_radiosonde install
+# Install NRSC5 (HD Radio)
+#source $SIGPI_PACKAGES/pkg_nrsc5 install
+# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+#source $SIGPI_PACKAGES/pkg_multimon-ng install
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
