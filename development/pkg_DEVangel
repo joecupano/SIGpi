@@ -1,0 +1,534 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_DEVangel
+###
+###
+
+# FUNCTIONS
+
+install_compiled_deps() {
+        ## DEPENDENCIES
+        sudo apt-get update && sudo apt-get -y install \
+        vim \
+        iputils-ping \
+        traceroute \
+        iproute2 \
+        nmap \
+        net-tools \
+        python3-requests \
+        python3-flask
+
+        ### Install base build packages dependencies
+        sudo apt-get update && sudo apt-get -y install \
+        git \
+        cmake \
+        g++ \
+        pkg-config \
+        autoconf \
+        automake \
+        libtool \
+        libfftw3-dev \
+        wget \
+        libusb-1.0-0-dev \
+        libusb-dev \
+        libhidapi-dev \
+        checkinstall
+
+        ### Install base build packages dependencies - Qt5
+        sudo apt-get update && sudo apt-get -y install \
+        qtbase5-dev
+        sudo apt-get update && sudo apt-get -y install \
+        qtchooser \
+        libqt5multimedia5-plugins \
+        qtmultimedia5-dev \
+        libqt5websockets5-dev
+        sudo apt-get update && sudo apt-get -y install \
+        libqt5opengl5-dev \
+        libqt5quick5 \
+        qml-module-qtlocation \
+        qml-module-qtlocation \
+        qml-module-qtpositioning \
+        qml-module-qtquick-window2 \
+        qml-module-qtquick-dialogs \
+        qml-module-qtquick-controls \
+        qml-module-qtquick-controls2 \
+        qml-module-qtquick-layouts \
+        libqt5serialport5-dev \
+        libqt5charts5-dev \
+        qtdeclarative5-dev \
+        qtpositioning5-dev \
+        qtlocation5-dev \
+        libqt5texttospeech5-dev \
+        libqt5gamepad5-dev \
+        qtwebengine5-dev \
+        qtbase5-private-dev \
+        libqt5svg5-dev
+
+        ### Install base build packages dependencies - Boost
+        sudo apt-get update && sudo apt-get -y install \
+        libpython3-dev
+        sudo apt-get update && sudo apt-get -y install \
+        librdmacm1
+        sudo apt-get update && sudo apt-get -y install \
+        libboost-all-dev
+
+        ### Install base build packages dependencies - the rest
+        sudo apt-get update && sudo apt-get -y install \
+        libasound2-dev \
+        pulseaudio \
+        libopencv-dev \
+        libxml2-dev \
+        bison \
+        flex \
+        ffmpeg \
+        libavcodec-dev \
+        libavformat-dev \
+        libopus-dev \
+        libfaad-dev \
+        zlib1g-dev \
+        libhamlib-dev
+
+        ### Install compiled libraries dependencies
+        ##### Codec2
+        sudo apt-get update && sudo apt-get -y install libspeexdsp-dev \
+        libsamplerate0-dev
+        ##### Perseus
+        sudo apt-get update && sudo apt-get -y install xxd
+        ##### XTRX (f4exb), UHD
+        sudo apt-get update && sudo apt-get -y install \
+        python3 python3-cheetah \
+        python3-mako
+}
+
+install_compiled_deps_org(){
+        ## DEPENDENCIES
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y libusb-dev
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y gettext
+        sudo apt-get install -y pulseaudio
+        sudo apt-get install -y libopencv-dev
+        sudo apt-get install -y libxml2-dev
+        sudo apt-get install -y bison
+        sudo apt-get install -y flex
+        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y libavcodec-dev
+        sudo apt-get install -y libavformat-dev
+        sudo apt-get install -y opus-tools
+        sudo apt-get install -y libopus-dev
+        sudo apt-get install -y graphviz
+        sudo apt-get install -y qt5-default
+        sudo apt-get install -y qt5-qmake
+        sudo apt-get install -y qtscript5-dev
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y qtbase5-dev-tool
+        sudo apt-get install -y qtchooser
+        sudo apt-get install -y qtmultimedia5-dev
+        sudo apt-get install -y qml-module-qtlocation
+        sudo apt-get install -y qml-module-qtpositioning
+        sudo apt-get install -y qml-module-qtquick-window2
+        sudo apt-get install -y qml-module-qtquick-dialogs
+        sudo apt-get install -y qml-module-qtquick-controls
+        sudo apt-get install -y qml-module-qtquick-layouts
+        sudo apt-get install -y qttools5-dev
+        sudo apt-get install -y qttools5-dev-tools
+        sudo apt-get install -y qtdeclarative5-dev
+        sudo apt-get install -y qtpositioning5-dev
+        sudo apt-get install -y qtlocation5-dev
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y libgl1-mesa-glx
+        sudo apt-get install -y libqt5opengl5-dev
+        sudo apt-get install -y libqt5quick5
+        sudo apt-get install -y libqt5charts5-dev
+        sudo apt-get install -y libqt5websockets5-dev
+        sudo apt-get install -y libqt5multimedia5-plugins
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5texttospeech5-dev
+        sudo apt-get install -y libqt5svg5-dev 
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5positioning5
+        sudo apt-get install -y libqt5positioning5-plugins
+        sudo apt-get install -y libqt5gamepad5-dev
+        sudo apt-get install -y checkinstall
+}
+
+case "$1" in 
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package SDRangel"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ## DEPENDENCIES
+        install_compiled_deps_org
+        cd $SIGPI_SOURCE
+        
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel     
+        #git reset --hard c9075d4  # v7.17.0
+        #git reset --hard cdcb73f  # v7.17.1
+        #git reset --hard 78068fd  # v7.17.2
+        #git reset --hard 5dcf7f7  # v7.17.3
+        #git reset --hard ac651ff  # v7.18.0
+        #git reset --hard 99b3c72  # v7.18.1
+        git reset --hard 2550f73   # v7.19.0
+
+        mkdir build && cd build   
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel packaged and available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install SDRangel"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Install Dependencies"
+        echo -e "${SIGPI_BANNER_RESET}"
+        install_compiled_deps
+        cd $SIGPI_SOURCE
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Clone Repo Dependencies"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ### Clone repositories sequentially
+        ####   APTdec
+        git clone --depth 1 -b libaptdec https://github.com/srcejon/aptdec.git
+        ####   CM256cc
+        git clone --depth 1 -b v1.1.0 https://github.com/f4exb/cm256cc.git
+        ####   LibDAB
+        git clone --depth 1 -b msvc https://github.com/srcejon/dab-cmdline
+        ####   MBElib
+        git clone --depth 1 https://github.com/szechyjs/mbelib.git
+        ####   SerialDV
+        git clone --depth 1 -b v1.1.4 https://github.com/f4exb/serialDV.git
+        ####   DSDcc
+        git clone --depth 1 -b v1.9.3 https://github.com/f4exb/dsdcc.git
+        ####   Codec2
+        git clone --depth 1 -b v1.0.3 https://github.com/drowe67/codec2-dev.git codec2
+        ####   libsigmf
+        git clone --depth 1 -b new-namespaces https://github.com/f4exb/libsigmf.git
+        cd libsigmf
+        git submodule init
+        git submodule update --depth 1 
+        
+        cd $SIGPI_SOURCE
+
+        ####   SGP4
+        git clone --depth 1 https://github.com/dnwrnr/sgp4.git
+        ####   Airspy
+        git clone --depth 1 https://github.com/airspy/airspyone_host.git libairspy
+        ####   RTL-SDR
+        git clone --depth 1 -b v2.0.1 https://github.com/osmocom/rtl-sdr.git librtlsdr
+        ####   PlutoSDR (libiio)
+        git clone --depth 1 -b v0.21 https://github.com/analogdevicesinc/libiio.git
+        ####   BladeRF
+        git clone --depth 1 -b 2023.02 https://github.com/Nuand/bladeRF.git
+        cd bladeRF
+        git submodule init
+        git submodule update --depth 1
+        
+        cd $SIGPI_SOURCE
+
+        ####   HackRF
+        git clone --depth 1 -b v2022.09.1 https://github.com/greatscottgadgets/hackrf.git
+        ####   LimeSDR
+        mkdir LimeSuiteSource && cd LimeSuiteSource
+        wget https://github.com/myriadrf/LimeSuite/archive/refs/tags/v22.09.0.tar.gz
+        tar -xf v22.09.0.tar.gz
+        ln -s LimeSuite-22.09.0 LimeSuite
+        cd LimeSuite
+        mkdir builddir
+        
+        cd $SIGPI_SOURCE
+
+        ####   Airspy HF
+        git clone --depth 1 https://github.com/airspy/airspyhf
+        ####   Perseus
+        git clone --depth 1 -b fixes https://github.com/f4exb/libperseus-sdr.git
+        ####   XTRX
+        git clone --depth 1 https://github.com/f4exb/images.git xtrx-images
+        cd xtrx-images
+        git submodule init
+        git submodule update --depth 1
+        
+        cd $SIGPI_SOURCE
+
+        ####   UHD
+        git clone --depth 1 -b v4.3.0.0 https://github.com/EttusResearch/uhd.git
+        ####   SDRPlay RSP1
+        git clone https://github.com/f4exb/libmirisdr-4.git
+        ####   SDRangel
+        mkdir sdrangel && cd sdrangel
+        git init
+        git remote add origin https://github.com/f4exb/sdrangel.git 
+        git fetch --depth 1 origin ${sdrangel_tag} 
+        git checkout FETCH_HEAD
+        
+        cd $SIGPI_SOURCE
+
+        ## PACKAGE
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Compile Repo Dependencies"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        ### Compile...
+        
+        #### APTdec
+        cd aptdec
+        mkdir build; cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+        
+        #### CM256cc
+        cd cm256cc
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4 install
+        cd $SIGPI_SOURCE
+    
+        #### LibDAB
+        cd dab-cmdline/library
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### MBElib
+        cd mbelib 
+        mkdir build; cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### SerialDV
+        cd serialDV 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### DSDcc
+        cd dsdcc 
+        mkdir build && cd build 
+        cmake -Wno-dev -DUSE_MBELIB=ON .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### Codec2
+        cd codec2 
+        mkdir build_linux && cd build_linux 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### libsigmf
+        cd libsigmf 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### SGP4
+        cd sgp4 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### SDRplay special
+        cd $SIGPI_SCRIPTS
+        sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
+        sudo chmod 755 /usr/local/bin/run_SDRplay.sh
+        cd $SIGPI_SOURCE     
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
+        fi
+        cd SDRPlay
+        sudo ./install_lib.sh
+        cd $SIGPI_SOURCE
+
+        #### Airspy
+        cd libairspy 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### RTL-SDR
+        cd librtlsdr 
+        mkdir build && cd build 
+        cmake -Wno-dev -DDETACH_KERNEL_DRIVER=ON .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### PlutoSDR
+        cd libiio 
+        mkdir build && cd build 
+        cmake -Wno-dev -DINSTALL_UDEV_RULE=OFF .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### BladeRF
+        cd bladeRF/host 
+        mkdir build && cd build 
+        cmake -Wno-dev -DINSTALL_UDEV_RULES=OFF .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+        mkdir libbladeRF && cd libbladeRF
+        mkdir fpga && cd fpga
+        wget https://www.nuand.com/fpga/v0.11.0/hostedxA4.rbf 
+        wget https://www.nuand.com/fpga/v0.11.0/hostedxA9.rbf 
+        wget https://www.nuand.com/fpga/v0.11.0/hostedx40.rbf 
+        wget https://www.nuand.com/fpga/v0.11.0/hostedx115.rbf
+        cd $SIGPI_SOURCE
+
+        #### HackRF
+        cd hackrf/host 
+        mkdir build && cd build 
+        cmake -Wno-dev -DINSTALL_UDEV_RULES=OFF .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### LimeSDR
+        cd /LimeSuite/builddir 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### Airspy HF
+        cd airspyhf
+        mkdir build && cd build
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### Perseus
+        cd libperseus-sdr 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make 
+        make install
+        cd $SIGPI_SOURCE
+
+        #### XTRX
+        cd xtrx-images
+        cd sources
+        mkdir build && cd build
+        cmake -Wno-dev -DENABLE_SOAPY=NO ..
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        #### UHD
+        cd uhd/host
+        mkdir build && cd build
+        cmake -Wno-dev \
+        -DENABLE_PYTHON_API=OFF \
+        -DENABLE_EXAMPLES=OFF \
+        -DENABLE_TESTS=OFF \
+        -DENABLE_E320=OFF \
+        -DENABLE_E300=OFF \
+        -DINSTALL_UDEV_RULES=OFF .. 
+        make -j4 install
+        # Download firmware images for models requiring them at run time (see https://files.ettus.com/manual/page_images.html)
+        uhd_images_downloader.py -t usrp1
+        uhd_images_downloader.py -t b2xx
+        # RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t e3xx_e310 - too big
+        # RUN /opt/install/uhd/lib/uhd/utils/uhd_images_downloader.py -t e3xx_e320_fpga - too big
+        cd $SIGPI_SOURCE
+
+        #### SDRPlay RSP1
+        cd libmirisdr-4 
+        mkdir build && cd build 
+        cmake -Wno-dev .. 
+        make -j4 install
+        cd $SIGPI_SOURCE
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ###   - Build & Compile SDRangel"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        #### Create a base image plus dependencies
+        cd sdrangel
+        mkdir build && cd build
+
+        #### Create a base image for all GUIs
+        cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON -DBUILD_SERVER=OFF ..
+        sudo checkinstall
+        sudo mv *.deb $SIGPI_DEBS
+        cd $SIGPI_SOURCE
+
+        #### The final server version
+        # cd sdrangel
+        # mkdir build && cd build
+        # cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=${rx_24bits} -DBUILD_GUI=OFF .. 
+        # sudo checkinstall
+        # sudo mv *.deb $SIGPI_DEBS
+
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built and Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
