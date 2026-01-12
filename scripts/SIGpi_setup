@@ -74,10 +74,7 @@ select_devices() {
     FUN=$(whiptail --title "Devices Setup" --clear --checklist --separate-output \
         "Choose additional SDR devices " 20 80 12 \
         "bladerf" "bladeRF " OFF \
-        "ettus" "Ettus Research USRP UHD " OFF \
         "limesuite" "LimeSDR " OFF \
-        "plutosdr" "PlutoSDR " OFF \
-        "sdrplay" "SDRPlay " OFF \
         "ubertooth" "Ubertooth One " OFF \
         3>&1 1>&2 2>&3)
     RET=$?

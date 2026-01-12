@@ -58,21 +58,21 @@ if grep limesuite "$SIGPI_INSTALLED"; then
     source $SIGPI_PACKAGES/pkg_limesuite install
 fi
 # Install Ettus UHD
-if grep ettus "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_ettus install
+#if grep ettus "$SIGPI_INSTALLED"; then
+#    source $SIGPI_PACKAGES/pkg_ettus install
 fi
-# Install PlutoSDR
-if grep plutosdr "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_plutosdr install
-fi
+## Install PlutoSDR
+#if grep plutosdr "$SIGPI_INSTALLED"; then
+#    source $SIGPI_PACKAGES/pkg_plutosdr install
+#fi
 # Install SDRPlay
-if grep sdrplay "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_sdrplay install
-fi
+#if grep sdrplay "$SIGPI_INSTALLED"; then
+#    source $SIGPI_PACKAGES/pkg_sdrplay install
+#fi
 # Install RigExpert Fobos
-if grep fobos "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_fobos install
-fi
+#if grep fobos "$SIGPI_INSTALLED"; then
+#    source $SIGPI_PACKAGES/pkg_fobos install
+#fi
 # Install Ubertooth One
 if grep ubertooth "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_ubertooth install
