@@ -60,7 +60,7 @@ fi
 # Install Ettus UHD
 #if grep ettus "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_ettus install
-fi
+#fi
 ## Install PlutoSDR
 #if grep plutosdr "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_plutosdr install
