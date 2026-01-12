@@ -57,12 +57,12 @@ sudo apt-get install -y python3-tk-dbg
 sudo apt-get install -y python3-tornado
 sudo apt-get install -y python3-yaml
 sudo apt-get install -y python3-zmq
-sudo apt-get install -y python3-cycler-doc 
+sudo apt-get install -y python-cycler-doc 
 sudo apt-get install -y python3-docutils
 sudo apt-get install -y python3-gobject
-sudo apt-get install -y python3-matplotlib-data
-sudo apt-get install -y python3-matplotlib-doc
-sudo apt-get install -y python3-networkx-doc 
+sudo apt-get install -y python-matplotlib-data
+sudo apt-get install -y python-matplotlib-doc
+sudo apt-get install -y python-networkx-doc 
 sudo apt-get install -y python3-dbg
 sudo pip3 install pyinstaller
 sudo pip3 install pygccxml
