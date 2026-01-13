@@ -1,0 +1,109 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_TEMPLATE
+###
+###
+### 20260112-2300
+###
+### Package installer template
+###
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : TEMPLATE"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+    remove )
+        cd $SIGPI_SOURCE/template/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/template
+        sed -i /template/d $SIGPI_INSTALLED
+        ;;&
+    purge )
+        cd $SIGPI_SOURCE/template/build
+        sudo make uninstall
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/template
+        sed -i /template/d $SIGPI_INSTALLED
+        sudo rm -rf $SIGPI_DESKTOP/template.desktop
+        sudo rm -rf $DESKTOP_FILES/template.desktop
+        ;;&
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y libsndfile-dev libpng-dev
+        ;;&    
+    install )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone --recursive https://github.com/Xerbo/TEMPLATE.git
+        cd TEMPLATE
+        cmake -B build
+        cmake --build build
+        cd build
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "template" >> $SIGPI_INSTALLED 
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/TEMPLATE.desktop $DESKTOP_FILES
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/TEMPLATE.desktop
+        ;;&
+    build )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone --recursive https://github.com/Xerbo/TEMPLATE.git
+        cd TEMPLATE
+        cmake -B build
+        cmake --build build
+        cd build
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "TEMPLATE" >> $SIGPI_INSTALLED 
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_HOME/desktop/TEMPLATE.desktop $DESKTOP_FILES
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/TEMPLATE.desktop
+        ;;&
+    package )       
+        ## PACKAGE
+        git clone --recursive https://github.com/Xerbo/TEMPLATE.git
+        cd TEMPLATE
+        cmake -B build
+        cmake --build build
+        cd build
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+        ;;&
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : TEMPLATE - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
