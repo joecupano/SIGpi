@@ -6,39 +6,29 @@
 ### pkg_fftw
 ###
 ###
+### 20260113-2300
+###
+### FFTW Package Script
+###
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FFTW"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove FFTW"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         rm $SIGPI_ETC/fftw-wisdom
         sed -i /fftw/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FFTW Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge FFTW"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         rm $SIGPI_ETC/fftw-wisdom
         sed -i /fftw/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FFTW Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install FFTW"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
         sudo apt-get install -y libfftw3-dev
         sudo apt-get install -y libboost-all-dev
@@ -64,21 +54,26 @@ case "$1" in
         # Add Run script
         # Change Category
         # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FFTW Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        ;;&
+    
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+	    ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FFTW - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

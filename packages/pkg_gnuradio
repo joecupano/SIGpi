@@ -3,21 +3,23 @@
 ###
 ### SIGpi
 ###
-### package_gnuradio
+### pkg_gnuradio
 ###
 ###
-###  2026-0111-2300
+### 20260113-2300
 ###
-###  For x86_64 we add GNUradio repo and install 3.10.5 package
-###  For aarm64 we use previously compiled 3.9.8.0 for now
+### For x86_64 we add GNUradio repo and install 3.10.5 package
+### For aarm64 we use previously compiled 3.9.8.0 for now
 ###
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove GNUradio"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GNUradio"
         echo -e "${SIGPI_BANNER_RESET}"
-
+        ;;&
+        
+    remove )
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -35,17 +37,9 @@ case "$1" in
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
 
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge GNUradio"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -64,19 +58,9 @@ case "$1" in
         sudo rm $DESKTOP_ICONS/gnuradio-grc.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install GNUradio"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
+    install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y libglew-dev
         sudo apt-get install -y libglfw3-dev
@@ -123,22 +107,10 @@ case "$1" in
         sudo apt-get install -y python3-pip
         sudo apt-get install -y python3-gi-cairo
         sudo pip3 install "pybind11[global]"      # GNUradio 3.9.8.0 on RPi
-        
-        ## PACKAGE
-        
-        ### Install VOLK
+        ;;&
+    
+    install )
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-            cd $SIGPI_SOURCE 
-            git clone https://github.com/gnuradio/volk.git
-            cd volk
-            mkdir build && cd build
-            git submodule update --init
-            cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
-            make -j4
-            make test
-            sudo make install
-            sudo ldconfig
-            cd $SIGPI_PACKAGES        
             ### Add GNUradio repo
             sudo add-apt-repository ppa:gnuradio/gnuradio-releases
 	        sudo apt-get install -y gnuradio   # v3.10.5
@@ -147,8 +119,8 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             cd $SIGPI_DEBS
-            sudo dpkg -i volk_3.0.0-1_arm64.deb
-            sudo dpkg -i gnuradio_3.9.8.0-1_arm64.deb
+            sudo dpkg -i volk_current_arm64.deb
+            sudo dpkg -i gnuradio_current_arm64.deb
             cat $SIGPI_PKGLIST|grep "gnuradio" >> $SIGPI_INSTALLED 
         fi
 
@@ -159,83 +131,9 @@ case "$1" in
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/gnuradio-grc.desktop
-        
-	    echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build GNUradio"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
-        ## DEPENDENCIES
-        sudo apt-get install -y libglew-dev
-        sudo apt-get install -y libglfw3-dev
-        sudo apt-get install -y libsoapysdr-dev
-        sudo apt-get install -y libad9361-dev 
-        sudo apt-get install -y libairspyhf-dev 
-        sudo apt-get install -y librtaudio-dev
-        sudo apt-get install -y libcodec2-dev
-        sudo apt-get install -y libvolk2-bin libvolk2-dev
-        sudo apt-get install -y libzstd-dev
-        sudo apt-get install -y libboost-all-dev
-        sudo apt-get install -y swig
-        sudo apt-get install -y libzmq3-dev
-        sudo apt-get install -y libfftw3-dev
-        sudo apt-get install -y libgsl-dev
-        sudo apt-get install -y libcppunit-dev
-        sudo apt-get install -y libcomedi-dev
-        sudo apt-get install -y libqt4-opengl-dev
-        sudo apt-get install -y libqwt-dev
-        sudo apt-get install -y libsdl1.2-dev
-        sudo apt-get install -y libusb-1.0-0-dev
-        sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y portaudio19-dev
-        sudo apt-get install -y libportaudio2
-        sudo apt-get install -y pulseaudio
-        sudo apt-get install -y libjack-dev
-        sudo apt-get install -y libgmp-dev
-        sudo apt-get install -y libsdl1.2-dev
-        sudo apt-get install -y liblog4cpp5-dev
-        sudo apt-get install -y libqwt-qt5-dev
-        sudo apt-get install -y libqt5opengl5-dev
-        sudo apt-get install -y liborc-0.4-0 
-        sudo apt-get install -y liborc-0.4-dev
-        sudo apt-get install -y python3-numpy
-        sudo apt-get install -y python3-mako
-        sudo apt-get install -y python3-sphinx
-        sudo apt-get install -y python3-lxml
-        sudo apt-get install -y python3-pyqt5
-        sudo apt-get install -y python3-yaml
-        sudo apt-get install -y python3-click
-        sudo apt-get install -y python3-click-plugins
-        sudo apt-get install -y python3-zmq
-        sudo apt-get install -y python3-scipy
-        sudo apt-get install -y python3-pip
-        sudo apt-get install -y python3-gi-cairo
-        sudo pip3 install "pybind11[global]"      # GNUradio 3.9.8.0 on RPi
-        
-        ## PACKAGE
-        
-        ### Build VOLK
-        cd $SIGPI_SOURCE 
-        git clone https://github.com/gnuradio/volk.git
-        cd volk
-        mkdir build && cd build
-        git submodule update --init
-        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-        
+    package )
         cd $SIGPI_SOURCE
         git clone https://github.com/gnuradio/gnuradio.git
 	    cd gnuradio
@@ -260,11 +158,42 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
+        ;;&
+
+    package )
+        package )
+        cd $SIGPI_SOURCE
+        git clone https://github.com/gnuradio/gnuradio.git
+	    cd gnuradio
         
-	    echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   GNUradio Built. Debian package available in $SIG_DEBS""
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            git checkout 3.10.5
+        fi
+        
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            git checkout maint-3.9   # v3.9.8.0
+        fi
+        
+        mkdir build && cd build
+        # add this if want dox gen off   -DENABLE_DOXYGEN=ON/OFF
+        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+    	## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GNUradio - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR}" ##  ERROR: Unkown action or package"
