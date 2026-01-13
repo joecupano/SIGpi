@@ -6,6 +6,8 @@
 ### pkg_suscan
 ###
 ###
+### 20260113-2300
+###
 ### Suscan is a realtime DSP processing library. It provides a set of useful abstractions to perform
 ### dynamic digital signal analysis and demodulation. Suscan offers features like:
 ###
@@ -17,45 +19,31 @@
 ###
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : suscan"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Suscan"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
         cd $SIGPI_SOURCE/suscan
         cd build
         sudo make uninstall
         sudo ldconfig
         sudo rm -rf $SIGPI_SOURCE/suscan*
         sed -i /suscan/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Suscan"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         cd $SIGPI_SOURCE/suscan
         cd build
         sudo make uninstall
         sudo ldconfig
         sudo rm -rf $SIGPI_SOURCE/suscan*
         sed -i /suscan/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Suscan"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
+    install|build )
         ## DEPEDENCIES
 
         ## PACKAGE
@@ -74,19 +62,9 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
 
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build Suscan"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    package )
         ## DEPEDENCIES
 
         ## PACKAGE
@@ -104,11 +82,14 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Suscan built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : suscan - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

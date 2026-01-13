@@ -12,12 +12,14 @@
 ### Vulkan, CUDA, HIP, OpenCL, Level Zero and Metal as backends. (https://github.com/DTolm/VkFFT)
 ###
 
-case "$1" in 
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : VkFFT"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove VkFFT"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -31,16 +33,9 @@ case "$1" in
             sed -i /vkfft/d $SIGPI_INSTALLED
         fi
         sed -i /vkfft/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge VkFFT"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
@@ -54,68 +49,26 @@ case "$1" in
             sed -i /vkfft/d $SIGPI_INSTALLED
         fi
         sed -i /vkfft/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install VkFFT"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i vkfft_1.3.1-1_amd64.deb
+	        sudo dpkg -i vkfft_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i vkfft_1.3.1-1_arm64.deb
+	        sudo dpkg -i vkfft_current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "vkfft" >> $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package VkFFT"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        ## DEPENDENCIES
-
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/DTolm/VkFFT.git
-        cd VkFFT
-        git checkout v1.3.1
-        mkdir build; cd build
-        cmake -Wno-dev ..
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT packaged and available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install VkFFT"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -128,11 +81,29 @@ case "$1" in
         make -j4
         sudo checkinstall
         sudo mv *.deb $SIGPI_DEBS
+        ;;&
 
+    package )
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/DTolm/VkFFT.git
+        cd VkFFT
+        git checkout v1.3.1
+        mkdir build; cd build
+        cmake -Wno-dev ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   VkFFT Built and Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : VkFFT - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+                
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

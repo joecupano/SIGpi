@@ -5,40 +5,31 @@
 ###
 ### pkg_xastir
 ###
+###
+### 20260113-2300
+###
+### Xastir Package Script
+###
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Xastir"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Xastir"
         echo -e "${SIGPI_BANNER_RESET}"
-       
+        ;;&
+
+    remove )
         sudo apt-get remove xastir
         sed -i /xastir/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+    
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Xastir"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         sudo apt-get remove --purge xastir
         sed -i /xastir/d $SIGPI_INSTALLED
-
-	echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+    
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Xastir"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-	## DEPENDENCIES
+        ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
@@ -46,22 +37,32 @@ case "$1" in
         cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
-	# Add Icon
+	    # Add Icon
         # Add Desktop
         # Change Category
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/xastir.desktop
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	;;
+	    ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Xastir - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

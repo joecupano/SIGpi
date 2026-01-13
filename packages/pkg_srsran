@@ -5,40 +5,28 @@
 ###
 ### pkg_srsran
 ###
+###
+### 20260113-2300
+###
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove srsRAN"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : srsRAN"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove )
         sudo apt-get remove srsran
         sed -i /srsran/d $SIGPI_INSTALLED
+        ;;&
 
-       
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge srsRAN"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo apt-get remove --purge srsran
         sed -i /srsran/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install srsRAN"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -55,16 +43,26 @@ case "$1" in
 	        cd $SIGPI_PACKAGES
 	        echo -e "Not available for ARM64"
         fi
-	    
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   srsRAN Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+	    ;;&
+
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+	    ;;&
+    
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : srsRAN - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
