@@ -6,16 +6,18 @@
 ### pkg_direwolf
 ###
 ###
-### 20260110-2300
+### 20260112-2300
 ###
 ### DireWolf AFSK APRS TNC
 ###
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove DireWolf"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DireWolf (AFSK APRS)"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+    remove )
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
@@ -26,15 +28,9 @@ case "$1" in
         sudo rm $DESKTOP_ICONS/direwolf.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/direwolf.desktop
-	
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge DireWolf"
-        echo -e "${SIGPI_BANNER_RESET}"
         cd $SIGPI_SOURCE/direwolf/build
         sudo make uninstall
         cd $SIGPI_SOURCE
@@ -48,23 +44,17 @@ case "$1" in
         sudo rm $DESKTOP_ICONS/direwolf.png
         ### Remove Desktop links
         sudo rm $DESKTOP_FILES/direwolf.desktop
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install DireWolf (AFSK APRS)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y libasound2-dev
         sudo apt-get install -y libudev-dev
         sudo apt-get install -y libgps-dev
         sudo apt-get install -y libhamlib-dev
+        ;;&
 
+    install )
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
@@ -94,18 +84,6 @@ case "$1" in
         ;;
     
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build DireWolf (AFSK APRS)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        ## DEPENDENCIES
-        sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y libudev-dev
-        sudo apt-get install -y libgps-dev
-        sudo apt-get install -y libhamlib-dev
-
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
@@ -129,24 +107,9 @@ case "$1" in
         sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/direwolf.desktop
-                
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf built and installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package DireWolf (AFSK APRS)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        ## DEPENDENCIES
-        sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y libudev-dev
-        sudo apt-get install -y libgps-dev
-        sudo apt-get install -y libhamlib-dev
-
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
@@ -162,11 +125,8 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
-                
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf package built. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     config )
         if [ !${2} ]; then
             echo "missing callsign"
@@ -177,7 +137,14 @@ case "$1" in
         sed -i "s/N0CALL/${3}/" "$SIGPI_ETC/direwolf.conf"
         sed -i "s/# ADEVICE  plughw:1,0/ADEVICE  plughw:2,0/" $SIGPI_ETC/direwolf.conf
         sed -i "/#PTT\ \/dev\/ttyUSB0\ RTS/a #Uncomment line below for PTT with sabrent sound card\n#PTT RIG 2 localhost:4532" $SIGPI_ETC/direwolf.conf
-        ;;
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : CygnusRFI - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+        
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

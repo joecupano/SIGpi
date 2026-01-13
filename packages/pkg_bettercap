@@ -79,7 +79,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap Installed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-            build )
+    build )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install bettercap"

@@ -6,7 +6,7 @@
 ### pkg_cm256cc  
 ###
 ###
-### 20260110-2300
+### 20260112-2300
 ###
 ### cm256cc is a simple library for erasure codes. From given data it generates redundant data that can be used to recover the originals.
 ###
@@ -16,44 +16,30 @@
 ###    The number of blocks of redundant data (RecoveryCount), which must be no more than 256 - OriginalCount.
 ###
 
-case "$1" in 
-    remove )
+case "$1" in
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove cm256cc"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : cm256cc"
         echo -e "${SIGPI_BANNER_RESET}"
-	    
+        ;;&
+
+    remove )	    
         cd $SIGPI_SOURCE/cm256cc/build
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/cm256cc
         sed -i /cm256cc/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge cm256cc"
-        echo -e "${SIGPI_BANNER_RESET}"
-                
+    purge )        
         cd $SIGPI_SOURCE/cm256cc/build
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/cm256cc
         sed -i /cm256cc/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install cm256cc"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -72,18 +58,9 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build cm256cc"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    package )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -101,16 +78,14 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
+        ;;&
 
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc built. Debian package available in $SIG_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : cm256cc - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
