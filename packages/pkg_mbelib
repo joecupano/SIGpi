@@ -6,48 +6,36 @@
 ### pkg_mbelib
 ###
 ###
+### 20240113-2300
+###
 ### mbelib supports the 7200x4400 bit/s codec used in P25 Phase 1, the 7100x4400 bit/s codec used in
 ### ProVoice and the "Half Rate 3600x2250 bit/s vocoder used in various radio systems.
 ###
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : mbelib (P25 Phase)"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove mbelib (P25 Phase)"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
         cd $SIGPI_SOURCE/mbelib/build
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/mbe
         sed -i /mbelib/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge mbelib (P25 Phase)"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         cd $SIGPI_SOURCE/mbelib/build
         sudo make uninstall
         sudo ldconfig
         rm -rf $SIGPI_SOURCE/mbe
         sed -i /mbelib/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install mbelib (P25 Phase)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -67,23 +55,9 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build mbelib (P25 Phase)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -101,11 +75,14 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   mbelib (P25 Phase) built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : mbelib (P25 Phase) - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

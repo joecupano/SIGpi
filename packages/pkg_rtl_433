@@ -3,15 +3,23 @@
 ###
 ### SIGPI
 ###
-### pkg_limesd
+### pkg_rtl_433
+###
+###
+### 20260113-2300
+###
+### RTL_433 - RTL-SDR based 433.92MHz ISM band signal decoder
 ###
 
+case "$1" in
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTL_433"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl_433"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove )
         cd $SIGPI_SOURCE/rtl_433/build
         sudo make uninstall
         sudo ldconfig
@@ -23,16 +31,8 @@ case "$1" in
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
         # Remove Desktop links
         sudo rm $SIGPI_DESKTOP_FILES/rtl_433.desktop
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTL_433"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         cd $SIGPI_SOURCE/rtl_433/build
         sudo make uninstall
         sudo ldconfig
@@ -44,18 +44,9 @@ case "$1" in
         sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
         # Remove Desktop links
         sudo rm $SIGPI_DESKTOP_FILES/rtl_433.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install RTL_433"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build )
         ## DEPENDENCIES
         #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
         sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
@@ -91,17 +82,20 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   RTL_433 Installed"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
+	;;&
+
+    remove|purge|install|build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl_433 - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

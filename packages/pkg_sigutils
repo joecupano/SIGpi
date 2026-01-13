@@ -6,49 +6,37 @@
 ### pkg_sigutils
 ###
 ###
+### 20260113-2300
+###
 ### Digital signal processing library written in C, designed for blind signal analysis and automatic demodulation
 ###
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SigUtils"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SIGutils"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
         cd $SIGPI_SOURCE/sigutils
         cd build
         sudo make uninstall
         sudo ldconfig
         sudo rm -rf $SIGPI_SOURCE/sigutils*
         sed -i /sigutils/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGutils Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SIGutils"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         cd $SIGPI_SOURCE/sigutils
         cd build
         sudo make uninstall
         sudo ldconfig
         sudo rm -rf $SIGPI_SOURCE/sigutils*
         sed -i /sigutils/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGutils Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SIGutils"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build )
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/sigutils.git
         cd sigutils
@@ -58,16 +46,20 @@ case "$1" in
         sudo make install
         sudo ldconfig
         cat $SIGPI_PKGLIST|grep "sigutils" >> $SIGPI_INSTALLED 
-        
+        ;;&
+
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGutils Installed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
+	    ;;&
+
+    remove|purge|install|build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SigUtils - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

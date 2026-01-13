@@ -6,43 +6,33 @@
 ### pkg_sdrangelsrv
 ###
 ###
+### 20260113-2300
+###
+### SDRangel Server package management script
+###
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRangel Server"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel Server"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove )
         sudo dpkg -r sdrangelsrv
         sed -i /sdrangelsrv/d $SIGPI_INSTALLED
         rm $HOME/.config/f4exb/fftw-wisdom
         rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRangel Server"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo dpkg -P sdrangelsrv
         sed -i /sdrangelsrv/d $SIGPI_INSTALLED
         rm $HOME/.config/f4exb/fftw-wisdom
         rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRangel Server"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y libfftw3-dev
         sudo apt-get install -y libusb-1.0-0-dev
@@ -67,7 +57,9 @@ case "$1" in
         sudo apt-get install -y qml-module-qtquick-dialogs
         sudo apt-get install -y qml-module-qtquick-controls
         sudo apt-get install -y qml-module-qtquick-layouts
-        
+        ;;&
+
+    install )
         ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
@@ -96,43 +88,30 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
-      
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
+    build )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel
+        #git reset --hard c4e57a1  # v7.22.5
+        git reset --hard 502e751   # v7.22.10
+        
+        mkdir build && cd build
+        cmake .. -Wno-dev -DBUILD_GUI=off
+        make -j4
+        sudo make install
+        sudo ldconfig
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package SDRangel Server"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        ## DEPENDENCIES
-        sudo apt-get install -y libfftw3-dev
-        sudo apt-get install -y libusb-1.0-0-dev
-        sudo apt-get install -y libusb-dev
-        sudo apt-get install -y libboost-all-dev
-        sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y libgl1-mesa-dev 
-        sudo apt-get install -y gettext
-        sudo apt-get install -y pulseaudio
-        sudo apt-get install -y libopencv-dev
-        sudo apt-get install -y libxml2-dev
-        sudo apt-get install -y bison
-        sudo apt-get install -y flex
-        sudo apt-get install -y ffmpeg
-        sudo apt-get install -y libavcodec-dev
-        sudo apt-get install -y libavformat-dev
-        sudo apt-get install -y opus-tools
-        sudo apt-get install -y libopus-dev
-        sudo apt-get install -y qml-module-qtlocation
-        sudo apt-get install -y qml-module-qtpositioning
-        sudo apt-get install -y qml-module-qtquick-window2
-        sudo apt-get install -y qml-module-qtquick-dialogs
-        sudo apt-get install -y qml-module-qtquick-controls
-        sudo apt-get install -y qml-module-qtquick-layouts
-        
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
@@ -151,11 +130,14 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-      
+        ;;&
+    
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Server Packaged. Debian package available in $SIGPI_DEBS""
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel Server - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"

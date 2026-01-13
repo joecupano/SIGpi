@@ -5,41 +5,30 @@
 ###
 ### pkg_pavucontrol
 ###
+###
+### 20230113-2300
+###
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : PAVUcontrol"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove PAVU and PAprefs"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo apt-get remove pavucontrol
-	sudo apt-get remove paprefs
+        sudo apt-get remove paprefs
         sed -i /pavu/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge PAVU and PAprefs"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo apt-get remove --purge pavucontrol
-	sudo apt-get remove --purge paprefs
+        sudo apt-get remove --purge paprefs
         sed -i /pavu/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install PAVU and PAprefs"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -56,21 +45,27 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PAVU and PAprefs Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+	    ;;&
+    
+    
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : PAVUcontrol - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     * )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
