@@ -49,7 +49,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/dsdcc.git
         cd dsdcc
-        git reset --hard "v1.9.3"   #20220910  latest 1.9.4 should be fine 
+        git reset --hard f27b32d   # v1.9.6 
         mkdir build; cd build
         cmake -Wno-dev -DUSE_MBELIB=ON ..
         make -j4
@@ -71,8 +71,8 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/dsdcc.git
         cd dsdcc
-        #20220910  latest 1.9.4 should be fine 
-        mkdir build_linux; cd build_linux
+        git reset --hard f27b32d   # v1.9.6 
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no
