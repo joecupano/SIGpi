@@ -11,6 +11,13 @@
 ### DireWolf AFSK APRS TNC
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -81,7 +88,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
     
     build )
         ## PACKAGE
@@ -141,13 +148,7 @@ case "$1" in
 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : CygnusRFI - Completed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;&
-        
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DireWolf (AFSK APRS) - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

@@ -11,7 +11,13 @@
 ### RTL_433 - RTL-SDR based 433.92MHz ISM band signal decoder
 ###
 
-case "$1" in
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -94,11 +100,5 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl_433 - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;&
-
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+    ;;
 esac

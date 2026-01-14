@@ -13,6 +13,13 @@
 ### in packet mode over a serial link.
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -41,7 +48,13 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/serialDV.git
         cd serialDV
-        git reset --hard "v1.1.4"
+               ;;&
+
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+ git reset --hard "v1.1.4"
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -79,12 +92,6 @@ case "$1" in
      remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SerialDV - Completed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;&
-
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
