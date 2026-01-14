@@ -58,7 +58,8 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        mkdir build_linux; cd build_linux
+        git hard reset --hard 06d4c11 # v1.20
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo make install
@@ -79,7 +80,8 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        mkdir build_linux; cd build_linux
+        git hard reset --hard 06d4c11 # v1.20
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no

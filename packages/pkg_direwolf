@@ -11,7 +11,7 @@
 ### DireWolf AFSK APRS TNC
 ###
 
-if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+if [[ ! "$1" =~ ^(remove|purge|install|build|package|config)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
@@ -63,43 +63,30 @@ case "$1" in
 
     install )
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://www.github.com/wb2osz/direwolf.git
-        cd direwolf
-        mkdir build && cd build
-        cmake .. -Wno-dev
-        make -j4
-        sudo make install
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i direwolf_current_amd64.deb
+        fi
 
-        sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
-        sudo mkdir /usr/local/etc/direwolf
-        sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
-        cat $SIGPI_PKGLIST|grep "direwolf" >> $SIGPI_INSTALLED 
-	
-        ## DESKTOP
-        # Add Menu icon
-        # Add Desktop links
-        sudo cp $SIGPI_SOURCE/direwolf/build/direwolf.desktop $DESKTOP_FILES/direwolf.desktop
-        # Change Category
-        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/direwolf.desktop
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/direwolf.desktop
-                
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DireWolf Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i direwolf_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "direwolf," >> $SIGPI_INSTALLED 
         ;;&
-    
+
     build )
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
         cd direwolf
+        git reset --hard a231971 #v 1.8.1
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall
-        sudo mv *.deb $SIGPI_DEBS
+        sudo make install
+        make install-conf
 
         sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
         sudo mkdir /usr/local/etc/direwolf
@@ -115,12 +102,13 @@ case "$1" in
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/direwolf.desktop
         ;;&
-
+    
     package )
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
         cd direwolf
+        git reset --hard a231971 #v 1.8.1
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
@@ -146,7 +134,7 @@ case "$1" in
         sed -i "/#PTT\ \/dev\/ttyUSB0\ RTS/a #Uncomment line below for PTT with sabrent sound card\n#PTT RIG 2 localhost:4532" $SIGPI_ETC/direwolf.conf
         ;;&
 
-    remove|purge|install|build|package )
+    remove|purge|install|build|package|config )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DireWolf (AFSK APRS) - Completed"
         echo -e "${SIGPI_BANNER_RESET}"

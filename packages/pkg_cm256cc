@@ -53,6 +53,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
+        git reset --hard da87adb  #v1.1.2
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -74,6 +75,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
+        git reset --hard da87adb  #v1.1.2
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4

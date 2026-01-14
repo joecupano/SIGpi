@@ -9,6 +9,13 @@
 ### 20260110-2300
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -51,18 +58,18 @@ case "$1" in
 
         # DEPENDENCIES
         sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
-        sudo apt-get install -y golang
+        sudo apt-get install -y golang-1.23-go
         
         ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i bettercap_2.32.0-1_amd64.deb
+	        sudo dpkg -i bettercap_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i bettercap_2.32.0-1_arm64.deb
+	        sudo dpkg -i bettercap_current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "bettercap," >> $SIGPI_INSTALLED 
 	
@@ -88,12 +95,14 @@ case "$1" in
 
         # DEPENDENCIES
         sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
-        sudo apt-get install -y golang
+        sudo apt-get install -y golang-1.23-go
         
         ## PACKAGE 
         cd $SIGPI_SOURCE
         git clone https://github.com/bettercap/bettercap
         cd bettercap
+        #git reset --hard 74e3303  # v2.32.0
+        git reset --hard e711403   # v2.41.5
         make build
         sudo checkinstall
         sudo mv *.deb $SIGPI_DEBS
@@ -117,12 +126,14 @@ case "$1" in
 
         # DEPENDENCIES
         sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
-        sudo apt-get install -y golang
+        sudo apt-get install -y golang-1.23-go
         
         ## PACKAGE 
         cd $SIGPI_SOURCE
         git clone https://github.com/bettercap/bettercap
         cd bettercap
+        #git reset --hard 74e3303  # v2.32.0
+        git reset --hard e711403   # v2.41.5
         make build
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
@@ -135,11 +146,6 @@ case "$1" in
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   bettercap packaged and available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

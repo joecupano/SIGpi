@@ -11,6 +11,13 @@
 ### Audacity is a free, open source, cross-platform audio software for multi-track recording and editing.
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -49,18 +56,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR}"        #git reset --hard 74e3303  # v2.32.0
+        git reset --hard e711403   # v2.41.5
         echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
     remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Audacity - Completed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;&
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
