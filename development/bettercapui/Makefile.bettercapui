@@ -1,0 +1,12 @@
+all: build
+
+deps:
+	@echo "installing dependencies ..."	
+
+build: deps
+	@echo "building ui ..."
+install:
+	@echo "installing to /usr/local/share/bettercap/ui ..."
+	@cp -rf dist/ui /usr/local/share/bettercap/ui
+
+
