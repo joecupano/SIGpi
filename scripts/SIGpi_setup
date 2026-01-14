@@ -96,7 +96,6 @@ select_server() {
         "rtltcpsrv" "RTL-TCP Server " OFF \
         "sdrangelsrv" "SDRangel Server " OFF \
         "soapysdrsrv" "SoapySDR Server " OFF \
-        "dump1090" "Dump1090 Server " OFF \
         "radiosonde" "RadioSonde AutoRX " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
@@ -208,7 +207,7 @@ case "$1" in
             echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
         fi
 
-         echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
         echo -e "${SIGPI_BANNER_COLOR} ##"
