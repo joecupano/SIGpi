@@ -6,7 +6,7 @@
 ### pkg_wsjtx
 ###
 ###
-### 20260113-2300
+### 20260114-2300
 ###
 ### WSJT-X Package Management Script
 ###
@@ -27,16 +27,14 @@ case "$1" in
 
     remove )
         cd $SIGPI_PACKAGES        
-        sudo dpkg -r wsjtx_2.6.0
-        sudo dpkg -r wsjtx_2.6.1
+        sudo dpkg -r wsjtx_2.7.0
         sed -i /wsjtx/d $SIGPI_INSTALLED
         ;;&
 
     purge )
         cd $SIGPI_PACKAGES        
-        sudo dpkg -P wsjtx_2.6.0
-        sudo dpkg -P wsjtx_2.6.1 
-	    rm -rf $HOME/.config/WSJT-X.INI
+        sudo dpkg -P wsjtx_2.7.0
+        rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop
         sudo rm -rf $DESKTOP_FILES/wsjtx.desktop
         ;;&
