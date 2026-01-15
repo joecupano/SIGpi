@@ -23,10 +23,18 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
+    remove|purge )
+        cd $SIGPI_SOURCE/volk/build
+        sudo make uninstall
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/volk
+        ;;&
+
     install|build )
         cd $SIGPI_SOURCE 
         git clone https://github.com/gnuradio/volk.git
         cd volk
+        git checkout v3.2.0
         mkdir build && cd build
         git submodule update --init
         cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
@@ -40,6 +48,7 @@ case "$1" in
         cd $SIGPI_SOURCE 
         git clone https://github.com/gnuradio/volk.git
         cd volk
+        git checkout v3.2.0
         mkdir build && cd build
         git submodule update --init
         cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
