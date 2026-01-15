@@ -21,9 +21,9 @@ libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
 libdab,1.0,DAB decoding library,20211231
 libsigmf,1.0,header-only C++ library for working with SigMF metadata,20211231
 linpac,0.2.0,Packet Radio terminal,20211231
-liquid-dsp,1.6.0,digital signal processing library for SDRs,20211231
+liquid-dsp,1.7.0,digital signal processing library for SDRs,20250201
 mbelib,1.0,P25 Phase 1 and ProVoice vocoder,20211231
-multimon-ng,1.3.0,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20211231
+multimon-ng,1.4.1,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20250222
 nrsc5,1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
 openwebrx,1.0,Open source multi-user SDR receiver software with web interface,20211231
 pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
