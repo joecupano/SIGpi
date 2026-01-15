@@ -87,10 +87,6 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
     package )
