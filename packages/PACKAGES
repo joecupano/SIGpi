@@ -24,7 +24,7 @@ linpac,0.2.0,Packet Radio terminal,20211231
 liquid-dsp,1.7.0,digital signal processing library for SDRs,20250201
 mbelib,1.0,P25 Phase 1 and ProVoice vocoder,20211231
 multimon-ng,1.4.1,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20250222
-nrsc5,1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
+nrsc5,3.1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20251221
 openwebrx,1.0,Open source multi-user SDR receiver software with web interface,20211231
 pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
 qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
