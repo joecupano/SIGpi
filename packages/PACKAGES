@@ -14,7 +14,6 @@ gnuradio,3.10.12,Software development toolkit providing signal processing blocks
 gpredict,2.4,Real-time satellite tracking and orbit prediction application,20251227
 gqrx,2.15.8,SDR app powered GNU Radio and the Qt graphical toolkit,20220125
 hamlib,4.6.5,Radio Control Library providing programs a consistent API for controlling radios and rotators,20250905
-inspectrum,0.3.1,Tool for analysing captured signals primarily from SDRs,20211231
 js8call,2.3.1,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20250628
 kismet,2025-09-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,20250901
 libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
@@ -38,8 +37,7 @@ sgp4,1.0,Simplified perturbations models,20211231
 sigdigger,0.3.0,Qt5 digital signal analyzer using its own DSP library,20230319
 sigutils,0.3.0,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
 sigpi,7.0.1,SIGpi cmdline tool,20240321
-splat,1.0,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
-srsran,23.11,Open-source 4G and 5G software radio suite,20230319
+srsran-4g,25.10,end-to-end 4G network implementation with full-stack applications,20251111
 suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
 vkfft,1.3.2,GPU-accelerated multidimensional Fast Fourier Transform library,20211231
