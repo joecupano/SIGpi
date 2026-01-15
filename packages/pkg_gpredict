@@ -36,16 +36,27 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/gpredict.desktop
         ;;&
 
-    install )
+    install|build|package )
         ## DEPENDENCIES
-        sudo apt-get install -y intltool
+        sudo apt-get install -y libtool intltool autoconf automake 
         sudo apt-get install -y libcurl4-openssl-dev
+        sudo apt-get install -y pkg-config libglib2.0-dev libgtk-3-dev
         sudo apt-get install -y libgoocanvas-2.0-dev
+        ;;&
 
+    install )
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        sudo apt-get install -y gpredict
-        cat $SIGPI_PKGLIST|grep "gpredict" >> $SIGPI_INSTALLED 
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i gpredict_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i gpredict_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "gpredict" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon
@@ -54,25 +65,29 @@ case "$1" in
 	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gpredict.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/gpredict.desktop
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Gpredict Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_SOURCE
+        git clone https://github.com/csete/gpredict.git   
+        cd gpredict-2.4
+        ./configure
+        make -j4
+        sudo make install
+        cat $SIGPI_PKGLIST|grep "gpredict" >> $SIGPI_INSTALLED
 	    ;;&
 
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;&
+        cd $SIGPI_SOURCE
+        git clone https://github.com/csete/gpredict.git   
+        cd gpredict-2.4
+        ./configure
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
 
-    remove|purge|install )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Gpredict - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
