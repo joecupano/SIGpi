@@ -1,0 +1,89 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_urh
+###
+###
+### 20260113-2300
+###
+### Universal Radio hacker install 
+###
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Universal Radio Hacker (URH)"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo python3 -m pip uninstall urh
+        sed -i /urh/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo python3 -m pip uninstall urh
+        sed -i /urh/d $SIGPI_INSTALLED
+        ;;&
+
+    install )
+        ## DEPENDENCIES
+        sudo python3 -m pip install setuptools
+        sudo python3 -m pip install cython
+
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_SOURCE
+            git clone https://github.com/jopohl/urh.git
+            cd urh
+            python setup.py install
+            
+            ## DESKTOP
+	        # Add Icon
+            #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
+            # Add Desktop
+            sudo cp $SIGPI_HOME/desktop/urh.desktop $DESKTOP_FILES
+            # Change Category
+	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/urh.desktop
+            # Add to Menu
+            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/urh.desktop
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
+            echo -e "${SIGPI_BANNER_RESET}"
+            cat $SIGPI_PKGLIST|grep "urh" >> $SIGPI_INSTALLED
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   URH not stable for Raspberry Pi OS"
+            echo -e "${SIGPI_BANNER_RESET}"
+        fi
+        ;;&
+
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+        
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Universal Radio Hacker (URH) - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
