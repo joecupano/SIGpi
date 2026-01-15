@@ -4,7 +4,7 @@ RELEASE 8.0
 
 ## Introduction
 
-SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT appliucations and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
+SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT applications and devices made mostly from bash scripts building/installing SIGINT tools on the following platforms:
 
 - AMD64
 -- 4GB RAM, 32GB storage, Ubuntu 22.04 LTS
