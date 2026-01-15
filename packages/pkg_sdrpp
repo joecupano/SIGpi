@@ -61,7 +61,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrpp_cxurrent_arm64.deb
+	        sudo dpkg -i sdrpp_current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "sdrpp" >> $SIGPI_INSTALLED 
         
@@ -75,56 +75,18 @@ case "$1" in
         ;;&
 
     build )
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/AlexandreRouma/SDRPlusPlus
-        cd SDRPlusPlus
-        mkdir build && cd build
-        cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
-        -DOPT_BUILD_BLADERF_SOURCE=OFF \
-        -DOPT_BUILD_M17_DECODER=ON \
-        -DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_PLUTOSDR_SOURCE=ON \
-        -DOPT_BUILD_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_SOAPY_SOURCE=ON \
-        -DOPT_BUILD_AIRSPY_SOURCE=OFF
-        make -j4
-        sudo checkinstall 
-        sudo mv *.deb $SIGPI_DEBS
-
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
-        ;;&
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
 
     package )
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/AlexandreRouma/SDRPlusPlus
-        cd SDRPlusPlus
-        mkdir build && cd build
-        cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
-        -DOPT_BUILD_BLADERF_SOURCE=OFF \
-        -DOPT_BUILD_M17_DECODER=ON \
-        -DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_PLUTOSDR_SOURCE=ON \
-        -DOPT_BUILD_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_SOAPY_SOURCE=ON \
-        -DOPT_BUILD_AIRSPY_SOURCE=OFF
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
 
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
-        ;;&
-
-    remove|purge|install|build|package )
+    remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDR++ - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
