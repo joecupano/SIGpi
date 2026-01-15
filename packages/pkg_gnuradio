@@ -55,7 +55,7 @@ case "$1" in
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            sufo dpkg -P volk
+            #sudo dpkg -P volk
             sudo dpkg -P gnuradio
 	        sed -i /volk/d $SIGPI_INSTALLED
             sed -i /gnuradio/d $SIGPI_INSTALLED
@@ -67,7 +67,7 @@ case "$1" in
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
-    install|build|package )
+    install )
         ## DEPENDENCIES
         sudo apt-get install -y libglew-dev
         sudo apt-get install -y libglfw3-dev
@@ -113,21 +113,20 @@ case "$1" in
         sudo apt-get install -y python3-scipy
         sudo apt-get install -y python3-pip
         sudo apt-get install -y python3-gi-cairo
-        sudo pip3 install "pybind11[global]"      # GNUradio 3.9.8.0 on RPi
-        ;;&
-    
-    install )
+        sudo pip3 install "pybind11[global]"
+        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
             ### Add GNUradio repo
             sudo add-apt-repository ppa:gnuradio/gnuradio-releases
-	        sudo apt-get install -y gnuradio   # v3.10.5
+	        sudo apt-get install -y gnuradio   # v3.10.12
             cat $SIGPI_PKGLIST|grep "gnuradio" >> $SIGPI_INSTALLED 
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            ### v3.10.5.1 from standard install
             cd $SIGPI_DEBS
-            sudo dpkg -i volk_current_arm64.deb
-            sudo dpkg -i gnuradio_current_arm64.deb
+            #sudo dpkg -i volk_current_arm64.deb
+	        sudo apt-get install -y gnuradio   # v3.10.6.1
             cat $SIGPI_PKGLIST|grep "gnuradio" >> $SIGPI_INSTALLED 
         fi
 
@@ -140,64 +139,21 @@ case "$1" in
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
-    package )
-        cd $SIGPI_SOURCE
-        git clone https://github.com/gnuradio/gnuradio.git
-	    cd gnuradio
-        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-            git checkout 3.10.5
-        fi
-        
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            git checkout maint-3.9   # v3.9.8.0
-        fi
-        
-        mkdir build && cd build
-        # add this if want dox gen off   -DENABLE_DOXYGEN=ON/OFF
-        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
-    	## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
-        ;;&
-
-    package )
-        package )
-        cd $SIGPI_SOURCE
-        git clone https://github.com/gnuradio/gnuradio.git
-	    cd gnuradio
-        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-            git checkout 3.10.5
-        fi
-        
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            git checkout maint-3.9   # v3.9.8.0
-        fi
-        
-        mkdir build && cd build
-        # add this if want dox gen off   -DENABLE_DOXYGEN=ON/OFF
-        cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
-        make -j4
-        sudo make install
-        sudo ldconfig
-
-    	## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
-        ;;&
-
-    remove|purge|install|build|package )
+    build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GNUradio - Completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLdigi - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
