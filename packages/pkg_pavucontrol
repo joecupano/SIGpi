@@ -60,7 +60,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
     
-    
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
