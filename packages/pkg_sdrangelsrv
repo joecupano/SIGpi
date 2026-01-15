@@ -26,14 +26,14 @@ case "$1" in
         ;;&
 
     remove )
-        sudo dpkg -r sdrangelsrv
+        sudo dpkg -r sdrangel
         sed -i /sdrangelsrv/d $SIGPI_INSTALLED
         rm $HOME/.config/f4exb/fftw-wisdom
         rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
         ;;&
 
     purge )
-        sudo dpkg -P sdrangelsrv
+        sudo dpkg -P sdrangel
         sed -i /sdrangelsrv/d $SIGPI_INSTALLED
         rm $HOME/.config/f4exb/fftw-wisdom
         rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
