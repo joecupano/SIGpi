@@ -41,20 +41,29 @@ case "$1" in
         rm -rf $SIGPI_SOURCE/serialDV
         ;;&
 
-    install|build )
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i serialdv_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i serialdv_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "serialdv" >> $SIGPI_INSTALLED
+        ;;&
+
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/serialDV.git
         cd serialDV
-               ;;&
-
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
-        echo -e "${SIGPI_BANNER_RESET}"
- git reset --hard "v1.1.4"
+        git reset --hard "v1.1.5"
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -76,11 +85,12 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/serialDV.git
         cd serialDV
-        git reset --hard "v1.1.4"
+        git reset --hard "v1.1.5"
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
         
         ## DESKTOP
 	    # Add Icon
