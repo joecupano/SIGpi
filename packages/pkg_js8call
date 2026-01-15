@@ -46,10 +46,19 @@ case "$1" in
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
         else
-            cd $SIGPI_SOURCE
-            sudo apt-get install -y js8call
-            cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED 
-       
+            ## PACKAGE
+            cd $SIGPI_PACKAGES        
+            if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	            cd $SIGPI_DEBS
+	            sudo dpkg -i js8call_current_amd64.deb
+            fi
+
+            if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	            cd $SIGPI_DEBS
+	            sudo dpkg -i js8call_current_arm64.deb
+            fi
+            
+            cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED
             ## DESKTOP
 	        # Add Icon
             #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
@@ -76,7 +85,7 @@ case "$1" in
 
     remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Inspectrum - Completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : JS8CALL - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
