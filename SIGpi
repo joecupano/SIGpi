@@ -23,6 +23,7 @@
 ###          setup
 ###                 standard        First time setup for desktop
 ###                 server          First time setup for server
+###                 apps            Manage applications (install/remove)
 ###
 ###          list
 ###                 packages        List all packages included with SIGpi
@@ -123,8 +124,13 @@ SCFGSCRIPT="cfg_$2"
 
 case "$1" in 
     setup )
-        source $SIGPI_SCRIPTS/SIGpi_setup $2
+        if [ "$2" = "apps" ]; then
+            source $SIGPI_SCRIPTS/setup_apps
+        elif [ "$2" = "standard" ]; then
+            source $SIGPI_SCRIPTS/SIGpi_setup $2
+        fi
         ;;
+
     list )
         if [ "$2" = "installed" ]; then
             echo " "
@@ -169,25 +175,32 @@ case "$1" in
                 done < "$file1"
         fi
         ;;
+
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
         #sudo dpkg -i $SIGPI_DEBS/$2
         ;;
+
     package )
         source $SIGPI_PACKAGES/$SPKGSCRIPT package
         ;;
+
     remove )
         source $SIGPI_PACKAGES/$SPKGSCRIPT remove
         ;;
+
     purge )
         source $SIGPI_PACKAGES/$SPKGSCRIPT purge
         ;;
+
     install )
         source $SIGPI_PACKAGES/$SPKGSCRIPT install
         ;;
+
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
         ;;
+
     update )
         sigpi_update $3
         ;;###
@@ -195,6 +208,7 @@ case "$1" in
     upgrade)
         sigpi_upgrade $3
         ;;
+
     shell )
         source $2
         ;;
