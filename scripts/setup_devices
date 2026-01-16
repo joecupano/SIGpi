@@ -53,30 +53,37 @@ sudo apt-get install -y gpsd chrony
 if grep bladerf "$SIGPI_INSTALLED"; then
     source $SIGPI_PACKAGES/pkg_bladerf install
 fi
+
 # Install LimeSDR
 if grep limesuite "$SIGPI_INSTALLED"; then
     source $SIGPI_PACKAGES/pkg_limesuite install
 fi
+
 # Install Ettus UHD
 #if grep ettus "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_ettus install
 #fi
-## Install PlutoSDR
+
+# Install PlutoSDR
 #if grep plutosdr "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_plutosdr install
 #fi
+
 # Install SDRPlay
 #if grep sdrplay "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_sdrplay install
 #fi
+
 # Install RigExpert Fobos
 #if grep fobos "$SIGPI_INSTALLED"; then
 #    source $SIGPI_PACKAGES/pkg_fobos install
 #fi
+
 # Install Ubertooth One
 if grep ubertooth "$SIGPI_INSTALLED"; then
-#    source $SIGPI_PACKAGES/pkg_ubertooth install
+    source $SIGPI_PACKAGES/pkg_ubertooth install
 fi
+
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices Complete"
 echo -e "${SIGPI_BANNER_RESET}"
