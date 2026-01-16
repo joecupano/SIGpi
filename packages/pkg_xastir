@@ -35,6 +35,16 @@ case "$1" in
         sed -i /xastir/d $SIGPI_INSTALLED
         ;;&
     
+    install|build|package )
+        sudo apt update
+        sudo apt install build-essential git autoconf automake \
+        libmotif-dev libxext-dev libxpm-dev libxt-dev \
+        libcurl4-openssl-dev shapelib libshp-dev \
+        libgeotiff-dev libpcre3-dev libdb-dev \
+        graphicsmagick libgraphicsmagick1-dev \
+        gv festival festival-dev
+        ;;&
+        
     install )
         ## DEPENDENCIES
 
@@ -53,18 +63,29 @@ case "$1" in
         ;;&
 
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;&
+        cd $SIGPI_SOURCE
+        git clone https://github.com/Xastir/Xastir.git
+        cd Xastir
+        ./bootstrap.sh
+        mkdir build && cd build   
+        ../configure
+        make -j4
+        sudo make install
+        ;;&
 
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_SOURCE
+        git clone https://github.com/Xastir/Xastir.git
+        cd Xastir
+        ./bootstrap.sh
+        mkdir build && cd build   
+        ../configure
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
 	    ;;&
 
-    remove|purge|install )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Xastir - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
