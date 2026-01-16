@@ -36,7 +36,7 @@ case "$1" in
         sudo apt-get update
 
         ## PACKAGE
-        sudo apt-get install -y limesuite liblimesuite-dev limesuite-udev limesuite-images 
+        sudo apt-get install -y limesuite liblimesuite-dev limesuite-udev limesuite
 
         ## DESKTOP
         # Add Icon
