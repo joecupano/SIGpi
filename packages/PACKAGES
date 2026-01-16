@@ -4,7 +4,7 @@ ax25,AX.25 Packet protocol Tools,20260113
 bettercap,2.41.5,recon and attacking WiFi BLE HID devices and Ethernet networks,20251231
 cm256cc,1.1.2,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20250920
 codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20230724
-direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,2021113
+direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,20251113
 dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20221227
 dsdcc,1.9.6,Digital Speech Decoder rewritten as a C++ library,20250920
 fftw-wisdom,3.3.8,Create wisdom pre-optimized FFTs files for SDR,20230831
