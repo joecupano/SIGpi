@@ -46,12 +46,12 @@ case "$1" in
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i serialdv_amd64.deb
+	        sudo dpkg -i serialdv__current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i serialdv_arm64.deb
+	        sudo dpkg -i serialdv__current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "serialdv" >> $SIGPI_INSTALLED
         ;;&
