@@ -281,15 +281,7 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   Standard Setup Complete !!"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconds unless CTRL-C hit"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-        sleep 15
-        sudo sync
-        sudo reboot
         exit 0
         ;;
     * )

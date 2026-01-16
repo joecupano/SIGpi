@@ -39,9 +39,13 @@ Run the following command from $HOME/SIG/SIGpi to install the framework and pack
 ./SIGpi setup standard
 ```
 
-After setup system will reboot.
+After setup system you can pick and choose additonal applications by running
 
-### Add a Package
+```
+./SIGpi setup apps
+```
+
+### Package
 
 Once setup, you can list the inventory of packages SIGpi includes as well as those already installed
 with the following command (note that ./ is no longer required for thr SIGpi command after setup)
