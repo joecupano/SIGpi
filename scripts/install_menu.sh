@@ -6,14 +6,15 @@
 ### Interactive whiptail menu for selecting and installing packages
 ###
 
-# Set the packages directory
-PACKAGES_DIR="/home/joe/source/SIGpi/packages"
-PACKAGES_FILE="$PACKAGES_DIR/PACKAGES"
-
 # SIGpi Configuration
 SIGPI_ROOT=$HOME/SIG
+SIGPI_HOME=$SIGPI_ROOT/SIGpi
 SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
+
+# Set the packages directory
+PACKAGES_DIR="$SIGPI_HOME/packages"
+PACKAGES_FILE="$PACKAGES_DIR/PACKAGES"
 
 # Colors for terminal output
 RED='\033[0;31m'
@@ -59,43 +60,62 @@ is_package_installed() {
 build_menu_items() {
     menu_items=()
     local counter=0
+    local max_name_length=0
+    local pkg_names=()
     
-    # Read the PACKAGES file if it exists
+    # First pass: collect all package names and find the longest
     if [ -f "$PACKAGES_FILE" ]; then
         while IFS=',' read -r name version description date; do
-            # Skip empty lines
             [ -z "$name" ] && continue
-            
-            # Check if the corresponding pkg file exists
             if [ -f "$PACKAGES_DIR/pkg_$name" ]; then
-                local status=""
+                pkg_names+=("$name")
+                [ ${#name} -gt $max_name_length ] && max_name_length=${#name}
+            fi
+        done < "$PACKAGES_FILE"
+    else
+        for pkg_file in "$PACKAGES_DIR"/pkg_*; do
+            [ -f "$pkg_file" ] || continue
+            [ "$(basename "$pkg_file")" = "pkg_TEMPLATE" ] && continue
+            pkg_name=$(basename "$pkg_file" | sed 's/^pkg_//')
+            pkg_names+=("$pkg_name")
+            [ ${#pkg_name} -gt $max_name_length ] && max_name_length=${#pkg_name}
+        done
+    fi
+    
+    # Second pass: build menu items with aligned symbols
+    if [ -f "$PACKAGES_FILE" ]; then
+        while IFS=',' read -r name version description date; do
+            [ -z "$name" ] && continue
+            if [ -f "$PACKAGES_DIR/pkg_$name" ]; then
+                local status_text=""
                 if is_package_installed "$name"; then
-                    status=" [INSTALLED]"
+                    status_text="✓"
+                else
+                    status_text="○"
                 fi
-                menu_items+=("$name" "$description (v$version)$status" "OFF")
+                # Pad the name with spaces for alignment
+                local padded_name=$(printf "%-${max_name_length}s" "$name")
+                menu_items+=("$padded_name $status_text" "(v$version) $description" "OFF")
                 ((counter++))
             fi
         done < "$PACKAGES_FILE"
     else
-        # If PACKAGES file doesn't exist, scan directory for pkg_* files
         for pkg_file in "$PACKAGES_DIR"/pkg_*; do
             [ -f "$pkg_file" ] || continue
-            
-            # Skip the TEMPLATE file
             [ "$(basename "$pkg_file")" = "pkg_TEMPLATE" ] && continue
-            
-            # Extract package name
             pkg_name=$(basename "$pkg_file" | sed 's/^pkg_//')
-            
-            # Try to extract description from the package file (look for comment lines)
             description=$(grep -m 1 "^###" "$pkg_file" | tail -n 1 | sed 's/^### //' | sed 's/^##*//')
             [ -z "$description" ] && description="Package: $pkg_name"
             
-            local status=""
+            local status_text=""
             if is_package_installed "$pkg_name"; then
-                status=" [INSTALLED]"
+                status_text="✓"
+            else
+                status_text="○"
             fi
-            menu_items+=("$pkg_name" "$description$status" "OFF")
+            # Pad the name with spaces for alignment
+            local padded_name=$(printf "%-${max_name_length}s" "$pkg_name")
+            menu_items+=("$padded_name $status_text" "$description" "OFF")
             ((counter++))
         done
     fi
