@@ -11,10 +11,18 @@
 ### RigExpert Fobos Device
 ###
 
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
-    install|build|package|remove|purge )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Fobos and SoapyFobosSDR"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : RigExpert Fobos"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
@@ -65,7 +73,7 @@ case "$1" in
 
     install|build|package|remove|purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Fobos and SoapyFobosSDR completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : RigExpert Fobos completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 

@@ -50,7 +50,7 @@ case "$1" in
     install )
         ## PACKAGE
         cd "$SIGPI_SOURCE"
-        git clone --recursive https://github.com/joelsernamoreno/evilcrowrf.git
+        git clone https://github.com/joelsernamoreno/evilcrowrf.git
         cd evilcrowrf
         mkdir -p build
         cd build
@@ -72,7 +72,7 @@ case "$1" in
     build )
         ## PACKAGE
         cd "$SIGPI_SOURCE"
-        git clone --recursive https://github.com/joelsernamoreno/evilcrowrf.git
+        git clone https://github.com/joelsernamoreno/evilcrowrf.git
         cd evilcrowrf
         mkdir -p build
         cd build
@@ -94,7 +94,7 @@ case "$1" in
     package )       
         ## PACKAGE
         cd "$SIGPI_SOURCE"
-        git clone --recursive https://github.com/joelsernamoreno/evilcrowrf.git
+        git clone https://github.com/joelsernamoreno/evilcrowrf.git
         cd evilcrowrf
         mkdir -p build
         cd build
