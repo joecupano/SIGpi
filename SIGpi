@@ -3,11 +3,10 @@
 ###
 ### SIGpi
 ###
-###  20260111-2300
+###  20260117-2300
 ###
-
 ###
-###  Usage:  SIGpi [ACTION] [TARGET]
+###  Usage:  SIGpi [ACTION] [TARGET|DEVICE]
 ###
 ###       ACTION
 ###  
@@ -18,7 +17,13 @@
 ###          package                compile only and copy packaged to SIG/debs directory (option may not be available)
 ###          update                 check for TARGET updates
 ###          upgrade                upgrade TARGET to latest release
-###          install                install TARGET from current release
+###
+###          device
+###                 install         install DEVICE
+###                 remove          remove DEVICE
+###                 purge           purge DEVICE
+###                 build           compile and install DEVICE (option may not be available)
+###                 package         compile only and copy package to SIG/debs directory (option may not be available)
 ###
 ###          setup
 ###                 standard        First time setup for desktop
@@ -35,6 +40,10 @@
 ###       TARGET
 ###
 ###          A SIGpi package
+###
+###       DEVICE
+###
+###          A support SDR device
 ###
 
 
@@ -122,6 +131,10 @@ SPACKAGE=$2
 SPKGSCRIPT="pkg_$2"
 SCFGSCRIPT="cfg_$2"
 
+if [ "$2" = "device" ]; then
+    SPKGSCRIPT="pkg_$3"
+fi
+
 case "$1" in 
     setup )
         if [ "$2" = "apps" ]; then
@@ -134,7 +147,7 @@ case "$1" in
     list )
         if [ "$2" = "installed" ]; then
             echo " "
-                echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list installed"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
@@ -143,9 +156,10 @@ case "$1" in
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_INSTALLED|more
         fi
+
         if [ "$2" = "packages" ]; then
             echo " "
-                echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list packages"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
@@ -209,13 +223,36 @@ case "$1" in
         sigpi_upgrade $3
         ;;
 
+    device )
+        case "$2" in
+            build )
+                source $SIGPI_DEVICES/$SPKGSCRIPT $3 build
+                ;;
+        
+            package )
+                source $SIGPI_DEVICES/$SPKGSCRIPT $3 package
+                ;;
+
+            remove )
+                source $SIGPI_DEVICES/$SPKGSCRIPT $3 remove
+                ;;
+
+            purge )
+                source $SIGPI_DEVICES/$SPKGSCRIPT $3 purge
+                ;;
+
+            install )
+                source $SIGPI_DEVICES/$SPKGSCRIPT $3 install
+                ;;
+        esac
+
     shell )
         source $2
         ;;
     * )
         cat <<EOF
 
-  Usage:  SIGpi [ACTION] [TARGET]
+       Usage:  SIGpi [ACTION] [TARGET|DEVICE]
 
        ACTION
   
@@ -226,13 +263,20 @@ case "$1" in
           package                compile only and copy packaged to SIG/debs directory (option may not be available)
           update                 check for TARGET updates
           upgrade                upgrade TARGET to latest release
-          install                install TARGET from current release
+
+          device
+                 install         install DEVICE
+                 remove          remove DEVICE
+                 purge           purge DEVICE
+                 build           compile and install DEVICE (option may not be available)
+                 package         compile only and copy package to SIG/debs directory (option may not be available)
 
           setup
                  standard        First time setup for desktop
                  server          First time setup for server
+                 apps            Manage applications (install/remove)
 
-         list
+          list
                  packages        List all packages included with SIGpi
                  installed       List installed SIGpi packages
                  library         List all packages included with SIGpi with installed ones marked with an *  
@@ -242,6 +286,10 @@ case "$1" in
        TARGET
 
           A SIGpi package
+
+       DEVICE
+
+          A support SDR device
 
 EOF
 ;;

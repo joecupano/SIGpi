@@ -42,47 +42,47 @@ echo -e "${SIGPI_BANNER_COLOR} ##  install : SoapyRemote - Completed"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # Install AX.25
-source $SIGPI_PACKAGES/pkg_ax25 install
+#source $SIGPI_PACKAGES/pkg_ax25 install
 
 # Install RTLSDR
-source $SIGPI_PACKAGES/pkg_rtlsdr-v4 install
+source $SIGPI_DEVICES/pkg_rtlsdr-v4 install
 
 # Install HackRf
-source $SIGPI_PACKAGES/pkg_hackrf install
+source $SIGPI_DEVICES/pkg_hackrf install
 
 # Install bladeRF
 if grep bladerf "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_bladerf install
+    source $SIGPI_DEVICES/pkg_bladerf install
 fi
 
 # Install LimeSDR
 if grep limesuite "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_limesuite install
+    source $SIGPI_DEVICES/pkg_limesuite install
 fi
 
 # Install Ettus UHD
 if grep ettus "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_ettus install
+    source $SIGPI_DEVICES/pkg_ettus install
 fi
 
 # Install PlutoSDR
 if grep plutosdr "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_plutosdr install
+    source $SIGPI_DEVICES/pkg_plutosdr install
 fi
 
 # Install SDRPlay
 if grep sdrplay "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_sdrplay install
+    source $SIGPI_DEVICES/pkg_sdrplay install
 fi
 
 # Install RigExpert Fobos
 if grep fobos "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_fobos install
+    source $SIGPI_DEVICES/pkg_fobos install
 fi
 
 # Install Ubertooth One
 if grep ubertooth "$SIGPI_INSTALLED"; then
-    source $SIGPI_PACKAGES/pkg_ubertooth install
+    source $SIGPI_DEVICES/pkg_ubertooth install
 fi
 
 echo -e "${SIGPI_BANNER_COLOR}"
