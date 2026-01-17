@@ -60,13 +60,6 @@ SIGPI_SCREEN_SERVER=$SIGPI_SCRIPTS/screen_server_setup
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
-# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
-SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS)
-SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
-# Is Platform good for install- true or false - we start with false
-SIGPI_CERTIFIED="false"
-
 # Desktop Source directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
 SIGPI_ICONS=$SIGPI_HOME/icons
@@ -83,7 +76,12 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SIGpi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
-# If we reached this point our hardware and operating system are certified for SIGpi
+# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
+SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
+# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS)
+SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
+# Is Platform good for install- true or false - we start with false
+SIGPI_CERTIFIED="false"
 
 
 ###
