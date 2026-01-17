@@ -38,7 +38,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/EttusResearch/uhd.git
         cd uhd
-        git checkout UHD-4.6
+        git checkout v4.9.0.1
         cd host
         mkdir build	&& cd build
         cmake .. -Wno-dev
