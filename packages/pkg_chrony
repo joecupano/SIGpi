@@ -1,0 +1,70 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_chrony
+###
+###
+### 20260117-2300
+###
+### Chrony
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Chrony"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo apt-get remove chrony
+        sed -i /chrony/d $SIGPI_INSTALLED
+        ;;&
+        
+    purge )
+        sudo apt-get remove --purge chrony
+        sed -i /chrony/d $SIGPI_INSTALLED
+        ;;&
+
+    install )
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        sudo apt-get install -y chrony
+        cat $SIGPI_PKGLIST|grep "chrony" >> $SIGPI_INSTALLED
+
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Add Category
+        # Add to Menu
+        ;;&
+
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Chrony - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

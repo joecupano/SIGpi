@@ -2,6 +2,7 @@ aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20230122
 audacity,2.4.2,Multi-track audio editor,20260114
 ax25,AX.25 Packet protocol Tools,20260113
 bettercap,2.41.5,recon and attacking WiFi BLE HID devices and Ethernet networks,20251231
+chrony,4.8.2,NTP implementation,20260117
 cm256cc,1.1.2,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20250920
 codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20230724
 direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,20251113
@@ -12,6 +13,7 @@ fldigi,4.2.11,Soundcard modem program for most of the digital modes used by radi
 flrig,2.0.10,Rig control program, cooperates with fldigi,20251005
 gnuradio,3.10.12,Software development toolkit providing signal processing blocks for SDRs,20251201
 gpredict,2.4,Real-time satellite tracking and orbit prediction application,20251227
+gpsd,3.2.2,interface daemon for GPS receivers,20260113
 gqrx,2.15.8,SDR app powered GNU Radio and the Qt graphical toolkit,20220125
 hamlib,4.6.5,Radio Control Library providing programs a consistent API for controlling radios and rotators,20250905
 js8call,2.3.1,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20250628
