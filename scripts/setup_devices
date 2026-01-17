@@ -21,14 +21,14 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 # SoapySDR 0.8
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapySDR "
+echo -e "${SIGPI_BANNER_COLOR} ##  install : SoapySDR "
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y libusb-1.0-0-dev soapysdr-tools libsoapysdr-dev
 
 # SoapyRemote
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - SoapyRemote "
+echo -e "${SIGPI_BANNER_COLOR} ##  install : SoapyRemote "
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y soapyremote-server soapysdr-module-remote
@@ -44,7 +44,7 @@ source $SIGPI_PACKAGES/pkg_hackrf install
 
 # GPS
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ###   - GPS (Chrony) "
+echo -e "${SIGPI_BANNER_COLOR} ##  install : GPS (Chrony) "
 echo -e "${SIGPI_BANNER_RESET}"
 
 sudo apt-get install -y gpsd chrony
@@ -85,5 +85,7 @@ if grep ubertooth "$SIGPI_INSTALLED"; then
 fi
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##   Setup Devices: Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
