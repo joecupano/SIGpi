@@ -269,7 +269,6 @@ case "$1" in
         source $SIGPI_SCRIPTS/setup_devices
         source $SIGPI_SCRIPTS/setup_core_packages
         source $SIGPI_SCRIPTS/setup_core_desktop
-        source $SIGPI_SCRIPTS/setup_apps
 
         # Copy SIGpi commands into /usr/local/bin
         sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
