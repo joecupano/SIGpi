@@ -6,54 +6,51 @@
 ### pkg_rtlsdr-v4
 ###
 ###
-### 20260110-2300
+### 20260117-2300
 ###
 ### RTLSDR v4
 ###
 
-case "$1" in 
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtlsdr-v4"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
         cd $SIGPI_SOURCE/rtl-sdr-blog/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
         sed -i /rtlsdr-v4/d $SIGPI_CONFIG
-	
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    purge )
         cd $SIGPI_SOURCE/rtl-sdr-blog/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
         sed -i /rtlsdr-v4/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
-
+    install|build|package )
         ## DEPENDENCIES
         sudo apt purge -y ^librtlsdr
         sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
         sudo apt-get install -y libusb-1.0-0-dev
-        
+        ;;&
+
+    install|build )    
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/rtlsdrblog/rtl-sdr-blog
@@ -65,53 +62,18 @@ case "$1" in
         sudo ldconfig
         echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-rtl.conf
         cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
-
-        ## SOAPYSDR Check
-        if ! command -v SoapySDRUtil &> /dev/null && ! dpkg -l | grep -q "libsoapysdr"; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##   WARNING: SoapySDR missing - SoapyRTLSDR not installed"
-            echo -e "${SIGPI_BANNER_RESET}"
-            exit 1
-        fi
         
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        ## DEPENDENCIES
-        sudo apt purge ^librtlsdr
-        sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
-        sudo apt-get install libusb-1.0-0-dev
-        
-        ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone https://github.com/rtlsdrblog/rtl-sdr-blog
-        cd rtl-sdr-blog
+        git clone https://github.com/pothosware/SoapyRTLSDR.git
+        cd SoapyRTLSDR
         mkdir build && cd build
-        cmake ../ -DINSTALL_UDEV_RULES=ON
-        make -j4
+        cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+        make -j4        
         sudo make install
-        cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 Built and Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package RTLSDR v4"
-        echo -e "${SIGPI_BANNER_RESET}"
+        sudo ldconfig
+        ;;&
 
-        ## DEPENDENCIES
-        sudo apt purge ^librtlsdr
-        sudo rm -rvf /usr/lib/librtlsdr* /usr/include/rtl-sdr* /usr/local/lib/librtlsdr* /usr/local/include/rtl-sdr* /usr/local/include/rtl_* /usr/local/bin/rtl_* 
-        sudo apt-get install libusb-1.0-0-dev
-        
+     package )
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/rtlsdrblog/rtl-sdr-blog
@@ -121,14 +83,20 @@ case "$1" in
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
-        
+
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyRTLSDR.git
+        cd SoapyRTLSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RTLSDR v4 packaged. Package available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtlsdr-v4 - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
