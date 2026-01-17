@@ -131,7 +131,7 @@ SPACKAGE=$2
 SPKGSCRIPT="pkg_$2"
 SCFGSCRIPT="cfg_$2"
 
-if [ "$2" = "device" ]; then
+if [ "$1" = "device" ]; then
     SPKGSCRIPT="pkg_$3"
 fi
 
@@ -226,29 +226,31 @@ case "$1" in
     device )
         case "$2" in
             build )
-                source $SIGPI_DEVICES/$SPKGSCRIPT $3 build
+                source $SIGPI_DEVICES/$SPKGSCRIPT build
                 ;;
         
             package )
-                source $SIGPI_DEVICES/$SPKGSCRIPT $3 package
+                source $SIGPI_DEVICES/$SPKGSCRIPT package
                 ;;
 
             remove )
-                source $SIGPI_DEVICES/$SPKGSCRIPT $3 remove
+                source $SIGPI_DEVICES/$SPKGSCRIPT remove
                 ;;
 
             purge )
-                source $SIGPI_DEVICES/$SPKGSCRIPT $3 purge
+                source $SIGPI_DEVICES/$SPKGSCRIPT purge
                 ;;
 
             install )
-                source $SIGPI_DEVICES/$SPKGSCRIPT $3 install
+                source $SIGPI_DEVICES/$SPKGSCRIPT install
                 ;;
         esac
+        ;;
 
     shell )
         source $2
         ;;
+
     * )
         cat <<EOF
 
