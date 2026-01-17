@@ -260,7 +260,6 @@ case "$1" in
         calc_wt_size
         select_startscreen
         select_devices
-        select_desktop
         TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continue" 12 120
         system_current
 
@@ -270,6 +269,7 @@ case "$1" in
         source $SIGPI_SCRIPTS/setup_devices
         source $SIGPI_SCRIPTS/setup_core_packages
         source $SIGPI_SCRIPTS/setup_core_desktop
+        source $SIGPI_SCRIPTS/setup_apps
 
         # Copy SIGpi commands into /usr/local/bin
         sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
