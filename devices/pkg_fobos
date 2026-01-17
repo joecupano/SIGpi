@@ -6,7 +6,7 @@
 ### pkg_fobos
 ###
 ###
-### 20260110-2300
+### 20260117-2300
 ###
 ### RigExpert Fobos Device
 ###
@@ -18,8 +18,13 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
-    install|build|package )
+    remove|purge )
+        sudo dpkg -r libfobos
+        sudo dpkg -r SoapyMiri
+        sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
+        ;;&
 
+    install|build|package )
         ## Fobos driver
         cd $SIGPI_SOURCE
         git clone https://github.com/rigexpert/libfobos
@@ -37,7 +42,7 @@ case "$1" in
         make -j4
         ;;&
 
-    install )
+    install|build )
         cd $SIGPI_SOURCE/libfobos/build
         sudo make install
         sudo ldconfig
@@ -45,15 +50,7 @@ case "$1" in
         cd $SIGPI_SOURCE/SoapyFobosSDR/build    
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKG_LIST|grep "libfobos" >> $SIGPI_INSTALLED
-        ;;&
-    
-    build)
-        cd $SIGPI_SOURCE/libfobos/build
-        sudo checkinstall
-
-        cd $SIGPI_SOURCE/SoapyFobosSDR/build     
-        sudo checkinstall
+        cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     package)
@@ -64,18 +61,6 @@ case "$1" in
         cd $SIGPI_SOURCE/SoapyFobosSDR/build
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
-        ;;&
-
-    remove )
-        sudo dpkg -r libfobos
-        sudo dpkg -r SoapyMiri
-        sed -i /libfobos/d $SIGPI_INSTALLED
-        ;;&
-
-    purge )
-        sudo dpkg -P libfobos
-        sudo dpkg -P SoapyFobosSDR
-        sed -i /libfobos/d $SIGPI_INSTALLED
         ;;&
 
     install|build|package|remove|purge )

@@ -11,13 +11,34 @@
 ### LimeSDR Devices
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
-    install|build|package|remove|purge )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : LimeSDR Devices"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : LimeSDR Devices"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
+    remove|purge )
+        cd $SIGPI_SOURCE/LimeSuite/build-dir
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/LimeSuite
+        sed -i /limesuite/d $SIGPI_INSTALLED_DEVICES
+	
+	    # Remove Menu icon
+        sudo rm $SIGPI_DESKTOP_ICONS/LimeSuite.png
+        # Remove Desktop links
+        sudo rm $SIGPI_DESKTOP_FILES/LimeSuite.desktop
+        ;;&
+    
     install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y swig
@@ -49,7 +70,7 @@ case "$1" in
         # Add to Menu
         #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/lime-suite.desktop
 
-        cat $SIGPI_PKGLIST|grep "limesuite" >> $SIGPI_INSTALLED
+        cat $SIGPI_DEVLIST|grep "limesuite" >> $SIGPI_INSTALLED_DEVICES
         ;;&
     
     build|package)
@@ -65,26 +86,12 @@ case "$1" in
 
     build )
         sudo make install
-        cat $SIGPI_PKGLIST|grep "limesuite" >> $SIGPI_INSTALLED
+        cat $SIGPI_DEVLIST|grep "limesuite" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     package)
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
-        ;;&
-
-    remove|purge )
-        cd $SIGPI_SOURCE/LimeSuite/build-dir
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/LimeSuite
-        sed -i /limesuite/d $SIGPI_INSTALLED
-	
-	    # Remove Menu icon
-        sudo rm $SIGPI_DESKTOP_ICONS/LimeSuite.png
-        # Remove Desktop links
-        sudo rm $SIGPI_DESKTOP_FILES/LimeSuite.desktop
         ;;&
 
     install|build|package|remove|purge )

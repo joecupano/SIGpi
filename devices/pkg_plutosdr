@@ -5,42 +5,24 @@
 ###
 ### pkg_plutosdr
 ###
-### 20260111-2300
+### 20260117-2300
 ###
 
-case "$1" in 
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove PlutoSDR"
-        echo -e "${SIGPI_BANNER_RESET}"
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
+case "$1" in 
+    remove|purge )
         sudo dpkg -r libiio
         sudo dpkg -r SoapyPlutoSDR
-        sed -i /libiio/d $SIGPI_INSTALLED
+        sed -i /libiio/d $SIGPI_INSTALLED_DEVICES
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge PlutoSDR"
-        echo -e "${SIGPI_BANNER_RESET}"
-
-        sudo dpkg -P libiio
-        sudo dpkg -P SoapyPlutoSDR
-        sed -i /libiio/d $SIGPI_INSTALLED
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   PlutoSDR Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        # PlutoSDR
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ###   Install PlutoSDR "
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
         sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
         sudo apt-get install -y libserialport-dev libavahi-client-dev 

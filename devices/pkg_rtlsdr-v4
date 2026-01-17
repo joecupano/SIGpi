@@ -25,22 +25,13 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
-    remove )
+    remove|purge )
         cd $SIGPI_SOURCE/rtl-sdr-blog/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
-        sed -i /rtlsdr-v4/d $SIGPI_CONFIG
-        ;;&
-
-    purge )
-        cd $SIGPI_SOURCE/rtl-sdr-blog/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/rtl-sdr-blog
-        sed -i /rtlsdr-v4/d $SIGPI_INSTALLED
+        sed -i /rtlsdr-v4/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install|build|package )
@@ -61,7 +52,7 @@ case "$1" in
         sudo make install
         sudo ldconfig
         echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-rtl.conf
-        cat $SIGPI_PKGLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED
+        cat $SIGPI_DEVLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED_DEVICES
         
         cd $SIGPI_SOURCE
         git clone https://github.com/pothosware/SoapyRTLSDR.git

@@ -1,5 +1,8 @@
 bladerf,2023.02,BladeRF,20230215
 ettus,Ettus Research UHD,20240101
+evilcrowrf,1.0,Evil Crow RF,20251017
+fobos,2.4.0,RigExpert Fobos,202601117
+hackrf,2026.01.02,HackRF,20260102
 hasviolet,1.0,HASviolet,20240101
 kerberos,1.0,Kerberos SDR,20190101
 libmirisdr,1.0,SDRplay RSP Devices,20240101
@@ -8,4 +11,5 @@ plutosdr,0.25,PlutoSDR device,20230811
 rfm95w,1.0,Adafruit EFM95W Bonnet,20240101
 rtlsdr,1.0,RTLSDR v3,20240101
 rtlsdrv4,1.0,RTLSDR v4,20240101
+sdrplay,1.0,SDRplay,20250716
 ubertooth,2020-12-R1,Ubertooth platform,20211231

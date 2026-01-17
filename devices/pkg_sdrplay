@@ -5,17 +5,38 @@
 ###
 ### pkg_sdrplay
 ###
-### 20260110-2300
+### 20260117-2300
 ###
 ###
 ###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
-    install )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDRplay and SoapySDRplay"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRplay"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove|purge )
+	    cd $SIGPI_SOURCE/SDRplay/build/host
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/SDRplay
+        rm -rf $HOME/.config/SDRplay
+        sudo rm -rf $SIGPI_DESKTOP/SDRplay.desktop
+        sudo rm -rf $DESKTOP_FILES/SDRplay.desktop
+        sed -i /SDRplay/d $SIGPI_INSTALLED_DEVICES
+        ;;&
+
+    install )
         cd $SIGPI_SCRIPTS
         sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
         sudo chmod 755 /usr/local/bin/run_SDRplay.sh
@@ -52,6 +73,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
+        cat $SIGPI_DEVLIST|grep "sdrplay" >> $SIGPI_INSTALLED_DEVICES
 
         echo " "
         echo "Finished. Current user guide can be found here..."
@@ -61,46 +83,11 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Device Installed"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDRplay"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-	    cd $SIGPI_SOURCE/SDRplay/build/host
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/SDRplay
-        sed -i /SDRplay/d $SIGPI_INSTALLED
+        ;;&
 
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDRplay"
-        echo -e "${SIGPI_BANNER_RESET}"
-               
-	    cd $SIGPI_SOURCE/SDRplay/build/host
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/SDRplay
-        sed -i /SDRplay/d $SIGPI_INSTALLED
-
-        rm -rf $HOME/.config/SDRplay
-        sudo rm -rf $SIGPI_DESKTOP/SDRplay.desktop
-        sudo rm -rf $DESKTOP_FILES/SDRplay.desktop
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRplay - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esace

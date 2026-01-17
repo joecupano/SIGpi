@@ -25,23 +25,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
-    remove )
+    remove|purge )
        cd $SIGPI_SOURCE/hackrf/host/build
         sudo make uninstall
         sudo ldconfig
         cd $SIGPI_SOURCE
 	    rm -rf $SIGPI_SOURCE/hackrf
-        sed -i /hackrf/d $SIGPI_CONFIG
+        sed -i /hackrf/d $SIGPI_INSTALLED_DEVICES
 	    ;;&
-
-    purge )
-        cd $SIGPI_SOURCE/hackrf/host/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/hackrf
-        sed -i /hackrf/d $SIGPI_INSTALLED
-        ;;&
 
     install|build|package)
         ## DEPENDENCIES
@@ -67,6 +58,7 @@ case "$1" in
         make -j4        
         sudo make install
         sudo ldconfig
+        cat $SIGPI_DEVLIST|grep "hackrf" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
      package )
