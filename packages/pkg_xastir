@@ -37,7 +37,7 @@ case "$1" in
     
     install|build|package )
         sudo apt update
-        sudo apt install build-essential git autoconf automake \
+        sudo apt install -y build-essential git autoconf automake \
         libmotif-dev libxext-dev libxpm-dev libxt-dev \
         libcurl4-openssl-dev shapelib libshp-dev \
         libgeotiff-dev libpcre3-dev libdb-dev \

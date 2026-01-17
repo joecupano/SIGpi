@@ -63,7 +63,6 @@ case "$1" in
         sudo apt-get install -y opus-tools
         sudo apt-get install -y libopus-dev
         sudo apt-get install -y graphviz
-        sudo apt-get install -y qt5-default
         sudo apt-get install -y qt5-qmake
         sudo apt-get install -y qtscript5-dev
         sudo apt-get install -y qtbase5-dev

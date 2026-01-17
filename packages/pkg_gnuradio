@@ -86,7 +86,6 @@ case "$1" in
         sudo apt-get install -y libcppunit-dev
         sudo apt-get install -y libcomedi-dev
         sudo apt-get install -y libqt4-opengl-dev
-        sudo apt-get install -y libqwt-dev
         sudo apt-get install -y libsdl1.2-dev
         sudo apt-get install -y libusb-1.0-0-dev
         sudo apt-get install -y libasound2-dev
