@@ -14,7 +14,7 @@
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknocase "$1" in wn action or package"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown case "$1" in wn action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
 fi

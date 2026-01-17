@@ -6,29 +6,82 @@
 ### pkg_bladerf
 ###
 ###
-### 20260110-2300
+### 20260117-2300
 ###
 ### Nuand bladeRF and SoapyBladeRF
 ###
 
-case "$1" in 
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install BladeRF"
-        echo -e "${SIGPI_BANNER_RESET}"
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : BladeRF"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo apt-get remove -y bladerf bladerf-firmware bladerf-fpga
+        
+        cd $SIGPI_SOURCE/bladeRF/build/host
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/bladeRF
+        
+	    cd $SIGPI_SOURCE/SoapyBladeRF/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/SoapyBladeRF
+
+        sed -i /bladerf/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo apt-get remove -y bladerf bladerf-firmware bladerf-fpga
+               
+	    cd $SIGPI_SOURCE/bladeRF/build/host
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+	    rm -rf $SIGPI_SOURCE/bladeRF
+        
+        cd $SIGPI_SOURCE/SoapyBladeRF/build
+        sudo make uninstall
+        sudo ldconfig
+        cd $SIGPI_SOURCE
+        rm -rf $SIGPI_SOURCE/SoapyBladeRF
+
+        sed -i /bladerf/d $SIGPI_INSTALLED
+
+        rm -rf $HOME/.config/bladerf
+        sudo rm -rf $SIGPI_DESKTOP/bladerf.desktop
+        sudo rm -rf $DESKTOP_FILES/bladerf.desktop
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y python3-six python3-mako python3-lxml 
         sudo apt-get install -y python3-numpy python3-numpy python3-pip python3-pybind11 libsndfile1-dev
+        ;;&
 
+    install )
         ## REPO
-        sudo add-apt-repository ppa:nuandllc/bladerf
+        sudo add-apt-repository -y ppa:nuandllc/bladerf
         sudo apt update
 
         ## PACKAGE
         sudo apt-get install -y bladerf libbladerf-dev
-        #sudo apt-get install -y bladerf bladerf-firmware bladerf-fpga libbladerf-dev
-        #sudo bladeRF-cli --flash-firmware /usr/share/Nuand/bladeRF/bladeRF_fw.img
         cat $SIGPI_PKGLIST|grep "bladerf" >> $SIGPI_INSTALLED
 
         ### SoapyBladeRF
@@ -40,16 +93,8 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build and Install BladeRF"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
         sudo apt-get install -y python3-six python3-mako python3-lxml python3-numpy 
         sudo apt-get install -y python3-pip git python3-pybind11 libsndfile1-dev
@@ -74,107 +119,35 @@ case "$1" in
         make -j4
         sudo make install
         cat $SIGPI_PKGLIST|grep "bladerf" >> $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SoapyBladeRF Built and Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available for this PACKAGE"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        #echo -e "${SIGPI_BANNER_COLOR}"
-        #echo -e "${SIGPI_BANNER_COLOR} ##   Package BladeRF and SoapyBladeRF"
-        #echo -e "${SIGPI_BANNER_RESET}"
-
-        ## DEPENDENCIES
-        #sudo apt-get install -y python3-six python3-mako python3-lxml python3-numpy 
-        #sudo apt-get install -y python3-pip git python3-pybind11 libsndfile1-dev
-        
         ## PACKAGE
 
         ### BladeRF
-        #cd $SIGPI_SOURCE
-        #git clone --depth 1 https://github.com/Nuand/bladeRF.git
-        #cd bladeRF/host
-        #mkdir build && cd build
-        #cmake .. -Wno-dev
-        #make -j4
-        #sudo checkinstall --install=no
-        #sudo mv *.deb $SIGPI_DEBS
+        cd $SIGPI_SOURCE
+        git clone --depth 1 https://github.com/Nuand/bladeRF.git
+        cd bladeRF/host
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
 
         ### SoapyBladeRF
-        #cd $SIGPI_SOURCE
-        #git clone https://github.com/pothosware/SoapyBladeRF.git
-        #cd SoapyBladeRF
-        #mkdir build && cd build
-        #cmake .. -Wno-dev
-        #make -j4
-        #sudo checkinstall --install=no
-	    #sudo mv *.deb $SIGPI_DEBS
-
-        #echo -e "${SIGPI_BANNER_COLOR}"
-        #echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF and SoapyBladeRF packaged. Package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove BladeRF"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        sudo apt-get remove -y bladerf bladerf-firmware bladerf-fpga
-        
-        cd $SIGPI_SOURCE/bladeRF/build/host
-        sudo make uninstall
-        sudo ldconfig
         cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/bladeRF
-        
-	    cd $SIGPI_SOURCE/SoapyBladeRF/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/SoapyBladeRF
+        git clone https://github.com/pothosware/SoapyBladeRF.git
+        cd SoapyBladeRF
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+	    sudo mv *.deb $SIGPI_DEBS
+        ;;&
 
-        sed -i /bladerf/d $SIGPI_INSTALLED
-
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge BladeRF"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        sudo apt-get remove -y bladerf bladerf-firmware bladerf-fpga
-               
-	    cd $SIGPI_SOURCE/bladeRF/build/host
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/bladeRF
-        
-        cd $SIGPI_SOURCE/SoapyBladeRF/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/SoapyBladeRF
-
-        sed -i /bladerf/d $SIGPI_INSTALLED
-
-        rm -rf $HOME/.config/bladerf
-        sudo rm -rf $SIGPI_DESKTOP/bladerf.desktop
-        sudo rm -rf $DESKTOP_FILES/bladerf.desktop
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   BladeRF Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : BladeRF - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
