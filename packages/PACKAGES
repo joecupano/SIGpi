@@ -1,6 +1,6 @@
 aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20230122
 audacity,2.4.2,Multi-track audio editor,20260114
-ax25,AX.25 Packet protocol Tools,20260113
+ax25,1.0.0,AX.25 Packet protocol Tools,20260113
 bettercap,2.41.5,recon and attacking WiFi BLE HID devices and Ethernet networks,20251231
 chrony,4.8.2,NTP implementation,20260117
 cm256cc,1.1.2,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20250920
