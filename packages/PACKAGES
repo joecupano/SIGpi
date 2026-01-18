@@ -10,7 +10,7 @@ dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20221227
 dsdcc,1.9.6,Digital Speech Decoder rewritten as a C++ library,20250920
 fftw-wisdom,3.3.8,Create wisdom pre-optimized FFTs files for SDR,20230831
 fldigi,4.2.11,Soundcard modem program for most of the digital modes used by radio amateurs,20250904
-flrig,2.0.10,Rig control program, cooperates with fldigi,20251005
+flrig,2.0.10,Rig control program cooperates with fldigi,20251005
 gnuradio,3.10.12,Software development toolkit providing signal processing blocks for SDRs,20251201
 gpredict,2.4,Real-time satellite tracking and orbit prediction application,20251227
 gpsd,3.2.2,interface daemon for GPS receivers,20260113
