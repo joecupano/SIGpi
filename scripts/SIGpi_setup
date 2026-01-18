@@ -83,7 +83,7 @@ select_devices() {
         "plutosdr" "PlutoSDR " OFF \
         "rtlsdr-v4" "RTLSDR v4 " ON\
         "sdrplay" "SDRPlay " OFF \
-        "ubertooth" Ubertooth One " OFF\
+        "ubertooth" "Ubertooth One" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -197,7 +197,12 @@ case "$1" in
         fi
         # Install OpenWebRX
         if [ "$2" = "openwebrx" ]; then
-            source $SIGPI_PACKAGES/pkg_openwebrx insta        echo -e "${SIGPI_BANNER_COLOR}"
+            source $SIGPI_PACKAGES/pkg_openwebrx install
+            sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+            echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
+        fi
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
         echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -211,9 +216,6 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
-            sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
-            echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
-        fi
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
