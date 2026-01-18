@@ -47,6 +47,14 @@ DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
 SIGPI_MENU_CATEGORY=SIGpi
 HAMRADIO_MENU_CATEGORY=HamRadio
 
+# Export environment variables so package scripts can access them
+export SIGPI_ROOT SIGPI_SOURCE SIGPI_HOME SIGPI_ETC SIGPI_DEVICES SIGPI_SCRIPTS SIGPI_PACKAGES SIGPI_DEBS
+export SIGPI_INSTALLED SIGPI_PKGLIST SIGPI_INSTALLED_DEVICES SIGPI_DEVLIST
+export SIGPI_SCREEN_STANDARD SIGPI_SCREEN_SERVER SIGPI_BANNER_COLOR SIGPI_BANNER_RESET
+export SIGPI_BACKGROUNDS SIGPI_ICONS SIGPI_LOGO SIGPI_DESKTOP
+export DESKTOP_DIRECTORY DESKTOP_FILES DESKTOP_ICONS DESKTOP_XDG_MENU
+export SIGPI_MENU_CATEGORY HAMRADIO_MENU_CATEGORY
+
 # Colors for terminal output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -59,27 +67,6 @@ if ! command -v whiptail &> /dev/null; then
     echo -e "${RED}Error: whiptail is not installed.${NC}"
     echo "Please install it with: sudo apt-get install whiptail"
     exit 1
-fi
-
-# Check if packages directory exists
-if [ ! -d "$PACKAGES_DIR" ]; then
-    echo -e "${RED}Error: Packages directory not found at $PACKAGES_DIR${NC}"
-    exit 1
-fi
-
-# Create SIGpi directories if they don't exist
-if [ ! -d "$SIGPI_ETC" ]; then
-    mkdir -p "$SIGPI_ETC"
-fi
-
-# Create INSTALLED_PKGS file if it doesn't exist
-if [ ! -f "$SIGPI_INSTALLED" ]; then
-    touch "$SIGPI_INSTALLED"
-fi
-
-# Create INSTALLED_DEVICES file if it doesn't exist
-if [ ! -f "$SIGPI_INSTALLED_DEVICES" ]; then
-    touch "$SIGPI_INSTALLED_DEVICES"
 fi
 
 # Function to check if a package is installed
@@ -100,16 +87,16 @@ build_menu_items() {
     local pkg_names=()
     
     # First pass: collect all package names and find the longest
-    if [ -f "$PACKAGES_FILE" ]; then
+    if [ -f "$SIGPI_PKGLIST" ]; then
         while IFS=',' read -r name version description date; do
             [ -z "$name" ] && continue
-            if [ -f "$PACKAGES_DIR/pkg_$name" ]; then
+            if [ -f "$SIGPI_PACKAGES/pkg_$name" ]; then
                 pkg_names+=("$name")
                 [ ${#name} -gt $max_name_length ] && max_name_length=${#name}
             fi
-        done < "$PACKAGES_FILE"
+        done < "$SIGPI_PKGLIST"
     else
-        for pkg_file in "$PACKAGES_DIR"/pkg_*; do
+        for pkg_file in "$SIGPI_PACKAGES"/pkg_*; do
             [ -f "$pkg_file" ] || continue
             [ "$(basename "$pkg_file")" = "pkg_TEMPLATE" ] && continue
             pkg_name=$(basename "$pkg_file" | sed 's/^pkg_//')
@@ -119,10 +106,10 @@ build_menu_items() {
     fi
     
     # Second pass: build menu items with aligned symbols
-    if [ -f "$PACKAGES_FILE" ]; then
+    if [ -f "$SIGPI_PKGLIST" ]; then
         while IFS=',' read -r name version description date; do
             [ -z "$name" ] && continue
-            if [ -f "$PACKAGES_DIR/pkg_$name" ]; then
+            if [ -f "$SIGPI_PACKAGES/pkg_$name" ]; then
                 local status_text=""
                 if is_package_installed "$name"; then
                     status_text="✓"
@@ -134,9 +121,9 @@ build_menu_items() {
                 menu_items+=("$padded_name $status_text" "(v$version) $description" "OFF")
                 ((counter++))
             fi
-        done < "$PACKAGES_FILE"
+        done < "$SIGPI_PKGLIST"
     else
-        for pkg_file in "$PACKAGES_DIR"/pkg_*; do
+        for pkg_file in "$SIGPI_PACKAGES"/pkg_*; do
             [ -f "$pkg_file" ] || continue
             [ "$(basename "$pkg_file")" = "pkg_TEMPLATE" ] && continue
             pkg_name=$(basename "$pkg_file" | sed 's/^pkg_//')
@@ -157,7 +144,7 @@ build_menu_items() {
     fi
     
     if [ $counter -eq 0 ]; then
-        echo -e "${RED}Error: No packages found in $PACKAGES_DIR${NC}"
+        echo -e "${RED}Error: No packages found in $SIGPI_PACKAGES${NC}"
         exit 1
     fi
 }
@@ -165,7 +152,7 @@ build_menu_items() {
 # Function to install a package
 install_package() {
     local pkg_name="$1"
-    local pkg_script="$PACKAGES_DIR/pkg_$pkg_name"
+    local pkg_script="$SIGPI_PACKAGES/pkg_$pkg_name"
     
     echo -e "${YELLOW}Installing $pkg_name...${NC}"
     
@@ -190,7 +177,7 @@ install_package() {
 # Function to remove a package
 remove_package() {
     local pkg_name="$1"
-    local pkg_script="$PACKAGES_DIR/pkg_$pkg_name"
+    local pkg_script="$SIGPI_PACKAGES/pkg_$pkg_name"
     
     echo -e "${YELLOW}Removing $pkg_name...${NC}"
     
@@ -215,7 +202,7 @@ remove_package() {
 # Function to purge a package
 purge_package() {
     local pkg_name="$1"
-    local pkg_script="$PACKAGES_DIR/pkg_$pkg_name"
+    local pkg_script="$SIGPI_PACKAGES/pkg_$pkg_name"
     
     echo -e "${YELLOW}Purging $pkg_name...${NC}"
     
@@ -240,9 +227,35 @@ purge_package() {
 # Main menu loop
 main_menu() {
     while true; do
-        # Build menu items array
-        menu_items=()
-        build_menu_items
+        # Initialize action tracking arrays
+        declare -A pkg_actions
+        
+        while true; do
+            # Build menu items array
+            menu_items=()
+            build_menu_items
+        
+        # Add action indicators to menu items based on selected actions
+        local display_items=()
+        for ((i=0; i<${#menu_items[@]}; i+=3)); do
+            local item="${menu_items[i]}"
+            local desc="${menu_items[i+1]}"
+            local default="${menu_items[i+2]}"
+            
+            # Extract package name from item (remove padding and status)
+            local pkg_name=$(echo "$item" | sed 's/[[:space:]]*[✓○][[:space:]]*$//' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+            
+            # Add action indicator if an action is set for this package
+            if [ -n "${pkg_actions[$pkg_name]}" ]; then
+                case "${pkg_actions[$pkg_name]}" in
+                    install) item="$item [→INSTALL]" ;;
+                    remove)  item="$item [→REMOVE]" ;;
+                    purge)   item="$item [→PURGE]" ;;
+                esac
+            fi
+            
+            display_items+=("$item" "$desc" "$default")
+        done
         
         # Get terminal dimensions
         term_height=$(tput lines)
@@ -259,16 +272,25 @@ main_menu() {
         list_height=$((menu_height - 8))
         [ $list_height -lt 5 ] && list_height=5
         
-        # Display the checklist menu
+        # Display the checklist menu with updated items
         selected=$(whiptail --title "SIGpi Package Management Menu" \
-            --checklist "Select packages (use SPACE to select, ENTER to confirm):" \
+            --checklist "Select packages (SPACE to select, ENTER when done):" \
             $menu_height $menu_width $list_height \
-            "${menu_items[@]}" \
+            "${display_items[@]}" \
             3>&1 1>&2 2>&3)
         
         # Check if user canceled
         exit_status=$?
         if [ $exit_status != 0 ]; then
+            # Ask if user wants to proceed with scheduled actions or exit
+            if [ ${#pkg_actions[@]} -gt 0 ]; then
+                if whiptail --title "Actions Scheduled" \
+                    --yesno "You have ${#pkg_actions[@]} package action(s) scheduled.\n\nDo you want to proceed with these actions?" \
+                    10 60 \
+                    3>&1 1>&2 2>&3; then
+                    break  # Exit selection loop and proceed to confirmation
+                fi
+            fi
             echo "Operation canceled."
             exit 0
         fi
@@ -278,172 +300,242 @@ main_menu() {
         
         # Check if anything was selected
         if [ -z "$selected" ]; then
+            # If no new selections but have scheduled actions, ask to proceed
+            if [ ${#pkg_actions[@]} -gt 0 ]; then
+                if whiptail --title "Actions Scheduled" \
+                    --yesno "You have ${#pkg_actions[@]} package action(s) scheduled.\n\nDo you want to proceed with these actions?" \
+                    10 60 \
+                    3>&1 1>&2 2>&3; then
+                    break  # Exit selection loop and proceed to confirmation
+                else
+                    continue
+                fi
+            fi
             whiptail --title "No Selection" --msgbox "No packages were selected." 8 45
             continue
         fi
         
-        # Check if any selected packages are installed
-        has_installed=false
-        has_uninstalled=false
-        for pkg in $selected; do
-            if is_package_installed "$pkg"; then
-                has_installed=true
-            else
-                has_uninstalled=true
-            fi
+        # Extract package names from selected items
+        selected_pkgs=""
+        for item in $selected; do
+            # Remove action indicators, trailing status symbols and whitespace
+            pkg_name=$(echo "$item" | sed 's/\[→[A-Z]*\]//' | sed 's/[[:space:]]*[✓○][[:space:]]*$//' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+            selected_pkgs="$selected_pkgs $pkg_name"
         done
         
-        # Build action menu based on package status
-        action_menu=()
-        if [ "$has_uninstalled" = true ]; then
-            action_menu+=("install" "Install selected packages")
-        fi
-        if [ "$has_installed" = true ]; then
-            action_menu+=("remove" "Remove selected packages (keep configs)")
-            action_menu+=("purge" "Purge selected packages (remove all)")
-        fi
-        
-        # If we have both installed and uninstalled, allow both actions
-        if [ "$has_installed" = true ] && [ "$has_uninstalled" = true ]; then
-            action=$(whiptail --title "Select Action" \
-                --menu "Some packages are installed, some are not. Choose action:" \
+        # For each selected package, ask for action
+        for pkg in $selected_pkgs; do
+            [ -z "$pkg" ] && continue
+            
+            # Check current package status
+            if is_package_installed "$pkg"; then
+                pkg_status="[INSTALLED]"
+                action_menu=("remove" "Remove package (keep configs)" \
+                            "purge" "Purge package (remove all)" \
+                            "cancel" "Don't change this package")
+            else
+                pkg_status="[NOT INSTALLED]"
+                action_menu=("install" "Install package" \
+                            "cancel" "Don't change this package")
+            fi
+            
+            # If package already has an action, show current action
+            current_action=""
+            if [ -n "${pkg_actions[$pkg]}" ]; then
+                current_action=" (Currently: ${pkg_actions[$pkg]})"
+            fi
+            
+            action=$(whiptail --title "Select Action for: $pkg" \
+                --menu "$pkg $pkg_status$current_action\n\nChoose action:" \
                 16 70 4 \
                 "${action_menu[@]}" \
                 3>&1 1>&2 2>&3)
-        else
-            action=$(whiptail --title "Select Action" \
-                --menu "Choose action for selected packages:" \
-                15 70 3 \
-                "${action_menu[@]}" \
-                3>&1 1>&2 2>&3)
-        fi
-        
-        if [ $? != 0 ]; then
-            continue
-        fi
-        
-        # Build confirmation message
-        confirm_msg="$action the following packages?\n\n"
-        for pkg in $selected; do
-            if is_package_installed "$pkg"; then
-                confirm_msg="${confirm_msg}  - $pkg [INSTALLED]\n"
-            else
-                confirm_msg="${confirm_msg}  - $pkg\n"
+            
+            if [ $? = 0 ]; then
+                if [ "$action" = "cancel" ]; then
+                    # Remove any scheduled action for this package
+                    unset pkg_actions[$pkg]
+                else
+                    # Store the action for this package
+                    pkg_actions[$pkg]="$action"
+                fi
             fi
         done
         
-        # Confirm action
-        if ! whiptail --title "Confirm Action" \
+        # Ask if user wants to select more packages or proceed
+        if [ ${#pkg_actions[@]} -gt 0 ]; then
+            if whiptail --title "Continue?" \
+                --yesno "You have ${#pkg_actions[@]} package action(s) scheduled.\n\nSelect more packages or proceed with actions?" \
+                10 60 \
+                --yes-button "Select More" \
+                --no-button "Proceed" \
+                3>&1 1>&2 2>&3; then
+                continue  # Select more packages
+            else
+                break  # Proceed to confirmation
+            fi
+        fi
+    done
+    
+    # If no actions scheduled, exit
+    if [ ${#pkg_actions[@]} -eq 0 ]; then
+        whiptail --title "No Actions" --msgbox "No actions were scheduled." 8 45
+        return
+    fi
+    
+    # Separate packages by action type
+    to_install=""
+    to_remove=""
+    to_purge=""
+    
+    for pkg in "${!pkg_actions[@]}"; do
+        case "${pkg_actions[$pkg]}" in
+            install) to_install="$to_install $pkg" ;;
+            remove)  to_remove="$to_remove $pkg" ;;
+            purge)   to_purge="$to_purge $pkg" ;;
+        esac
+    done
+    
+    # Trim leading spaces
+    to_install=$(echo "$to_install" | sed 's/^[[:space:]]*//')
+    to_remove=$(echo "$to_remove" | sed 's/^[[:space:]]*//')
+    to_purge=$(echo "$to_purge" | sed 's/^[[:space:]]*//')
+    
+    # Confirm installations
+    will_install=false
+    if [ -n "$to_install" ]; then
+        confirm_msg="Install the following packages?\n\n"
+        for pkg in $to_install; do
+            confirm_msg="${confirm_msg}  - $pkg\n"
+        done
+        
+        if whiptail --title "Confirm Installation" \
             --yesno "$confirm_msg" \
             18 70 \
             3>&1 1>&2 2>&3; then
-            continue
+            will_install=true
+        else
+            to_install=""
         fi
+    fi
+    
+    # Confirm removals
+    will_remove=false
+    if [ -n "$to_remove" ]; then
+        confirm_msg="Remove the following packages?\n(Configuration files will be kept)\n\n"
+        for pkg in $to_remove; do
+            confirm_msg="${confirm_msg}  - $pkg\n"
+        done
         
-        # Clear screen and show progress
-        clear
-        echo -e "${GREEN}======================================${NC}"
-        echo -e "${GREEN}  SIGpi Package Management${NC}"
-        echo -e "${GREEN}======================================${NC}"
-        echo -e "${BLUE}  Action: ${action^^}${NC}"
-        echo -e "${GREEN}======================================${NC}"
+        if whiptail --title "Confirm Removal" \
+            --yesno "$confirm_msg" \
+            18 70 \
+            3>&1 1>&2 2>&3; then
+            will_remove=true
+        else
+            to_remove=""
+        fi
+    fi
+    
+    # Confirm purges
+    will_purge=false
+    if [ -n "$to_purge" ]; then
+        confirm_msg="Purge the following packages?\n(All files and configs will be removed)\n\n"
+        for pkg in $to_purge; do
+            confirm_msg="${confirm_msg}  - $pkg\n"
+        done
+        
+        if whiptail --title "Confirm Purge" \
+            --yesno "$confirm_msg" \
+            18 70 \
+            3>&1 1>&2 2>&3; then
+            will_purge=true
+        else
+            to_purge=""
+        fi
+    fi
+    
+    # Check if any actions were confirmed
+    if [ "$will_install" = false ] && [ "$will_remove" = false ] && [ "$will_purge" = false ]; then
+        whiptail --title "No Actions" --msgbox "No actions were confirmed." 8 45
+        return
+    fi
+    
+    # Clear screen and show progress
+    clear
+    echo -e "${GREEN}======================================${NC}"
+    echo -e "${GREEN}  SIGpi Package Management${NC}"
+    echo -e "${GREEN}======================================${NC}"
+    echo ""
+    
+    # Process packages
+    success_count=0
+    fail_count=0
+    failed_packages=""
+    
+    # Process installations
+    if [ "$will_install" = true ] && [ -n "$to_install" ]; then
+        echo -e "${BLUE}Installing packages...${NC}"
         echo ""
-        
-        # Process each selected package
-        success_count=0
-        fail_count=0
-        skipped_count=0
-        failed_packages=""
-        skipped_packages=""
-        
-        for pkg in $selected; do
-            # Check if action is appropriate for package status
-            if [ "$action" = "install" ]; then
-                if is_package_installed "$pkg"; then
-                    echo -e "${YELLOW}Skipping $pkg (already installed)${NC}"
-                    ((skipped_count++))
-                    skipped_packages="$skipped_packages\n  - $pkg (already installed)"
-                    echo ""
-                    continue
-                fi
-                if install_package "$pkg"; then
-                    ((success_count++))
-                else
-                    ((fail_count++))
-                    failed_packages="$failed_packages\n  - $pkg"
-                fi
-            elif [ "$action" = "remove" ]; then
-                if ! is_package_installed "$pkg"; then
-                    echo -e "${YELLOW}Skipping $pkg (not installed)${NC}"
-                    ((skipped_count++))
-                    skipped_packages="$skipped_packages\n  - $pkg (not installed)"
-                    echo ""
-                    continue
-                fi
-                if remove_package "$pkg"; then
-                    ((success_count++))
-                else
-                    ((fail_count++))
-                    failed_packages="$failed_packages\n  - $pkg"
-                fi
-            elif [ "$action" = "purge" ]; then
-                if ! is_package_installed "$pkg"; then
-                    echo -e "${YELLOW}Skipping $pkg (not installed)${NC}"
-                    ((skipped_count++))
-                    skipped_packages="$skipped_packages\n  - $pkg (not installed)"
-                    echo ""
-                    continue
-                fi
-                if purge_package "$pkg"; then
-                    ((success_count++))
-                else
-                    ((fail_count++))
-                    failed_packages="$failed_packages\n  - $pkg"
-                fi
+        for pkg in $to_install; do
+            [ -z "$pkg" ] && continue
+            if install_package "$pkg"; then
+                ((success_count++))
+            else
+                ((fail_count++))
+                failed_packages="$failed_packages\n  - $pkg (install)"
             fi
             echo ""
         done
-        
-        # Show summary
-        echo -e "${GREEN}======================================${NC}"
-        echo -e "${GREEN}  Operation Summary${NC}"
-        echo -e "${GREEN}======================================${NC}"
-        echo -e "Action performed: ${BLUE}${action^^}${NC}"
-        echo -e "Successful: ${GREEN}$success_count${NC}"
-        
-        if [ $skipped_count -gt 0 ]; then
-            echo -e "Skipped: ${YELLOW}$skipped_count${NC}"
-            echo -e "${YELLOW}Skipped packages:${NC}"
-            echo -e "$skipped_packages"
-        fi
-        
-        if [ $fail_count -gt 0 ]; then
-            echo -e "Failed: ${RED}$fail_count${NC}"
-            echo -e "${RED}Failed packages:${NC}"
-            echo -e "$failed_packages"
-        fi
-        
+    fi
+    
+    # Process removals
+    if [ "$will_remove" = true ] && [ -n "$to_remove" ]; then
+        echo -e "${BLUE}Removing packages...${NC}"
         echo ""
-        read -p "Press ENTER to return to menu or Ctrl+C to exit..."
-    done
+        for pkg in $to_remove; do
+            [ -z "$pkg" ] && continue
+            if remove_package "$pkg"; then
+                ((success_count++))
+            else
+                ((fail_count++))
+                failed_packages="$failed_packages\n  - $pkg (remove)"
+            fi
+            echo ""
+        done
+    fi
+    
+    # Process purges
+    if [ "$will_purge" = true ] && [ -n "$to_purge" ]; then
+        echo -e "${BLUE}Purging packages...${NC}"
+        echo ""
+        for pkg in $to_purge; do
+            [ -z "$pkg" ] && continue
+            if purge_package "$pkg"; then
+                ((success_count++))
+            else
+                ((fail_count++))
+                failed_packages="$failed_packages\n  - $pkg (purge)"
+            fi
+            echo ""
+        done
+    fi
+    
+    # Show summary
+    echo -e "${GREEN}======================================${NC}"
+    echo -e "${GREEN}  Operation Summary${NC}"
+    echo -e "${GREEN}======================================${NC}"
+    echo -e "Successful: ${GREEN}$success_count${NC}"
+    
+    if [ $fail_count -gt 0 ]; then
+        echo -e "Failed: ${RED}$fail_count${NC}"
+        echo -e "${RED}Failed packages:${NC}"
+        echo -e "$failed_packages"
+    fi
+    
+    echo ""
+    read -p "Press ENTER to return to menu or Ctrl+C to exit..."
+    done  # End outer while true loop
 }
-
-# Show welcome message
-clear
-echo -e "${GREEN}======================================${NC}"
-echo -e "${GREEN}  SIGpi Package Management Menu${NC}"
-echo -e "${GREEN}======================================${NC}"
-echo ""
-echo "This script will help you install, remove, or purge packages"
-echo "from the SIGpi collection."
-echo ""
-echo "Packages marked with [INSTALLED] are already installed."
-echo "You can choose to:"
-echo "  - Install new packages"
-echo "  - Remove installed packages (keep configuration)"
-echo "  - Purge installed packages (remove everything)"
-echo ""
-read -p "Press ENTER to continue..."
-
 # Run main menu
 main_menu
