@@ -96,6 +96,7 @@ This document describes the major changes and improvements between the develop a
 - Fixed Python version compatibility issues
 - Improved error checking in installation scripts
 - Cleaner code organization in setup utilities
+- **Fixed SIGpi_setup Script Syntax Errors**: Corrected bash syntax issues including missing quotes and incomplete command statements
 
 ## Deprecations
 
