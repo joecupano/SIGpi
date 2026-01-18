@@ -90,4 +90,4 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRplay - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
-esace
+esac
