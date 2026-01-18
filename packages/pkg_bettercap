@@ -29,11 +29,8 @@ case "$1" in
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/bettercap/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/bettercap
+        sudo dpkg -P bettercap
+        rm -rf $SIGPI_SOURCE/bettercap
         sed -i /bettercap/d $SIGPI_INSTALLED
 
         rm -rf $HOME/.config/bettercap
