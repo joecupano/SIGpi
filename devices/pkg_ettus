@@ -19,13 +19,26 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
-    remove|purge )
-        cd $SIGPI_SOURCE/uhd/host/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/uhd
-        sed -i /ettus/d $SIGPI_INSTALLED_DEVICES
+    remove )
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r uhd
+            sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r uhd
+            sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
+        fi
+        ;;&
+
+    purge )
+        sudo dpkg -r uhd
+        sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
+        sudo rm -rf $SIGPI_SOURCE/uhd*
+        sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install|build|package )
@@ -33,7 +46,24 @@ case "$1" in
         sudo apt-get install -y libboost-all-dev
         sudo apt-get install -y libusb-1.0-0-dev
         sudo apt-get install -y python3-mako
+        ;;&
 
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i uhd_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i uhd_current_arm64.deb
+        fi
+        cat $SIGPI_DEVLIST|grep "ettus" >> $SIGPI_INSTALLED_DEVICES
+        ;;&
+    
+    build|package )
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/EttusResearch/uhd.git
