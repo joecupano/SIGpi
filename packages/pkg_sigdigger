@@ -55,7 +55,34 @@ case "$1" in
         sudo rm -rf $DESKTOP_FILES/sigdigger.desktop
         ;;&
 
-    install|build )
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sigdigger_current_amd64.deb
+            sudo dpkg -i suwidgets_current_amd64.deb
+            sudo dpkg -i suscan_current_amd64.deb
+            sudo dpkg -i sigutils_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sigdigger_current_arm64.deb
+            sudo dpkg -i suwidgets_current_arm64.deb
+            sudo dpkg -i suscan_current_arm64.deb
+            sudo dpkg -i sigutils_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "sigdigger" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/sigutils
         cd sigutils 
@@ -102,7 +129,7 @@ case "$1" in
 
     package )
         git clone --recursive https://github.com/BatchDrake/sigutils
-        cd sigutils sudo apt-get install -y qt5-qmake
+        cd sigutils
         mkdir -p build && cd build 
         cmake .. 
         make 
