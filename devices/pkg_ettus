@@ -75,7 +75,7 @@ case "$1" in
         make -j4
         ;;&
 
-    install|build )
+    build )
         sudo make install
         sudo cp /usr/local/lib/uhd/utils/uhd-usrp.rules /etc/udev/rules.d/
         sudo ldconfig
