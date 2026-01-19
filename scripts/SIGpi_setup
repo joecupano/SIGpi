@@ -93,7 +93,7 @@ select_devices() {
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_INSTALLED
+        echo $FUN >> $SIGPI_INSTALLED_DEVICES
     done
 }
 

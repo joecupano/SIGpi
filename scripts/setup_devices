@@ -44,44 +44,59 @@ echo -e "${SIGPI_BANNER_RESET}"
 # Install AX.25
 #source $SIGPI_PACKAGES/pkg_ax25 install
 
-# Install RTLSDR
-source $SIGPI_DEVICES/pkg_rtlsdr-v4 install
+# Install bladeRF
+if grep bladerf "$SIGPI_INSTALLED_DEVICES"; then
+    source $SIGPI_DEVICES/pkg_bladerf install
+fi
+
+# Install Ettus UHD
+if grep ettus "$SIGPI_INSTALLED_DEVICES"; then
+    source $SIGPI_DEVICES/pkg_ettus install
+fi
+
+# Install EvilCrow RF V2
+if grep evilcrowrf "$SIGPI_INSTALLED_DEVICES"; then
+    source $SIGPI_DEVICES/pkg_evilcrowrf install
+fi
+
+# Install RigExpert Fobos
+if grep fobos "$SIGPI_INSTALLED_DEVICES"; then
+    source $SIGPI_DEVICES/pkg_fobos install
+fi
 
 # Install HackRf
 source $SIGPI_DEVICES/pkg_hackrf install
 
-# Install bladeRF
-if grep bladerf "$SIGPI_INSTALLED"; then
-    source $SIGPI_DEVICES/pkg_bladerf install
+# Install KerberosSDR
+if grep kerberos "$SIGPI_INSTALLED_DEVICES"; then
+    source $SIGPI_DEVICES/pkg_kerberos install
 fi
 
 # Install LimeSDR
-if grep limesuite "$SIGPI_INSTALLED"; then
+if grep limesuite "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_limesuite install
 fi
 
-# Install Ettus UHD
-if grep ettus "$SIGPI_INSTALLED"; then
-    source $SIGPI_DEVICES/pkg_ettus install
-fi
-
 # Install PlutoSDR
-if grep plutosdr "$SIGPI_INSTALLED"; then
+if grep plutosdr "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_plutosdr install
 fi
 
+# Install RTLSDR
+source $SIGPI_DEVICES/pkg_rtlsdr-v4 install
+
 # Install SDRPlay
-if grep sdrplay "$SIGPI_INSTALLED"; then
+if grep sdrplay "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_sdrplay install
 fi
 
 # Install RigExpert Fobos
-if grep fobos "$SIGPI_INSTALLED"; then
+if grep fobos "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_fobos install
 fi
 
 # Install Ubertooth One
-if grep ubertooth "$SIGPI_INSTALLED"; then
+if grep ubertooth "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_ubertooth install
 fi
 
