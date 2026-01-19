@@ -24,33 +24,34 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DireWolf (AFSK APRS)"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
-    remove )
-        cd $SIGPI_SOURCE/direwolf/build
-        sudo make uninstall
-        cd $SIGPI_SOURCE
-    	rm -rf $SIGPI_SOURCE/DireWolf
-        sed -i /direwolf/d $SIGPI_INSTALLED
-	
-	    ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/direwolf.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/direwolf.desktop
+        remove )
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r direwolf
+            sed -i /direwolf/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r direwolf
+            sed -i /direwolf/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/direwolf/build
-        sudo make uninstall
-        cd $SIGPI_SOURCE
-    	rm -rf $SIGPI_SOURCE/DireWolf
-        sed -i /direwolf/d $SIGPI_INSTALLED
-        sudo rm /usr/local/share/doc/direwolf/scripts/dw-start.sh 
-        sudo rm /usr/local/bin/run_direwolf.sh
-        sudo rm -rf /usr/local/share/doc/direwolf/conf/* 
-        sudo rm -rf /usr/local/etc/direwolf
-        ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/direwolf.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/direwolf.desktop
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P direwolf
+            sed -i /direwolf/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P direwolf
+            sed -i /direwolf/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     install|build|package )

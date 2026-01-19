@@ -27,22 +27,57 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_SOURCE/dsdcc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/dsdcc
-        sed -i /dsdcc/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r dsdcc
+            sed -i /dsdcc/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r dsdcc
+            sed -i /dsdcc/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/dsdcc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/dsdcc
-        sed -i /dsdcc/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P dsdcc
+            sed -i /dsdcc/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P dsdcc
+            sed -i /dsdcc/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i dsdcc_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i dsdcc_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "dsdcc" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE

@@ -6,7 +6,7 @@
 ### pkg_codec2
 ###
 ###
-### 20260112-2300
+### 20260117-2300
 ###
 ### Codec 2 is an open source (LGPL 2.1) low bit rate speech codec: http://rowetel.com/codec2.html
 ###
@@ -36,22 +36,57 @@ case "$1" in
         ;;& 
 
     remove )
-        cd $SIGPI_SOURCE/codec2/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/codec2/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i codec2_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i codec2_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "codec2" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE

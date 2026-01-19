@@ -6,7 +6,7 @@
 ### pkg_cm256cc  
 ###
 ###
-### 20260112-2300
+### 20260117-2300
 ###
 ### cm256cc is a simple library for erasure codes. From given data it generates redundant data that can be used to recover the originals.
 ###
@@ -30,23 +30,60 @@ case "$1" in
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
-    remove )	    
-        cd $SIGPI_SOURCE/cm256cc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/cm256cc
-        sed -i /cm256cc/d $SIGPI_INSTALLED
+    remove )
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    purge )        
-        cd $SIGPI_SOURCE/cm256cc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/cm256cc
-        sed -i /cm256cc/d $SIGPI_INSTALLED
+    purge )
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install )
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i cm256cc_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i cm256cc_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "cm256cc" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
