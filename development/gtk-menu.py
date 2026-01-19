@@ -8,7 +8,7 @@ import subprocess
 import os
 from pathlib import Path
 
-PACKAGE_FILE = "PACKAGES"
+PACKAGE_FILE = os.path.expanduser("~/SIG/SIGpi/packages/PACKAGES")
 
 
 class Package:
@@ -26,7 +26,8 @@ def check_installed(pkg_name: str) -> bool:
     """
     try:
         subprocess.run(
-            ["dpkg", "-s", pkg_name],
+        #    ["dpkg", "-s", pkg_name],
+            ["egrep", "status", pkg_name, os.path.expanduser("~/SIG/etc/INSTALLED_PKGS")],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             check=True,
@@ -97,7 +98,7 @@ class ModuleManagerWindow(Gtk.Window):
             ("Name", 0),
             ("Version", 1),
             ("Description", 2),
-            ("Expiry", 3),
+            ("Date", 3),
             ("Status", 4),
         ]
 
