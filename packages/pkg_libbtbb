@@ -38,7 +38,43 @@ case "$1" in
         fi
         ;;&
 
-    install|build )
+    purge )
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i libbtbb_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i libbtbb_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDNCIES
 
         ## PACKAGE
@@ -51,15 +87,6 @@ case "$1" in
         sudo make install
         sudo ldconfig
         cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED 
-
-        ### BTBR Plugin
-        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-        make -j4
-        sudo make install
-        sudo ldconfig
 
         ## DESKTOP
 	    # Add Icon
@@ -77,15 +104,6 @@ case "$1" in
         cd libbtbb
         mkdir build && cd build
         cmake .. -Wno-dev
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
-        ### BTBR Plugin
-        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS

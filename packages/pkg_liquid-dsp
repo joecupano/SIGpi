@@ -29,22 +29,57 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_SOURCE/liquid-dsp
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/liquid-dsp
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i liquid-dsp_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i liquid-dsp_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "liquid-dsp" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE

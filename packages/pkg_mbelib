@@ -25,24 +25,58 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : mbelib (P25 Phase)"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
-
     remove )
-        cd $SIGPI_SOURCE/mbelib/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/mbe
-        sed -i /mbelib/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r mbelib
+            sed -i /mbelib/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r mbelib
+            sed -i /mbelib/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/mbelib/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/mbe
-        sed -i /mbelib/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P mbelib
+            sed -i /mbelib/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P mbelib
+            sed -i /mbelib/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i mbelib_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i mbelib_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "mbelib" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
