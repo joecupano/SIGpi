@@ -76,9 +76,10 @@ case "$1" in
 	    # Add to Menu
         ;;&
     
-    |build )
+    build )
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/sigutils.git
+        git submodule update --init --recursive
         cd sigutils
         mkdir build && cd build
         cmake ..
@@ -91,6 +92,7 @@ case "$1" in
     package )
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/sigutils.git
+        git submodule update --init --recursive
         cd sigutils
         mkdir build && cd build
         cmake ..
