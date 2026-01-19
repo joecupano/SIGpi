@@ -6,39 +6,40 @@
 ### pkg_openwebrx
 ###
 ###
+### 20260118-2300
+###
+### OpenWebRX is a software-defined radio receiver application with a web-based
+### user interface that allows multiple users to listen to and control a remote
+### SDR receiver over the internet.
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : OpenWebRX"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove OpenWebRX"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove option not available"
         echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
 
-        sudo dpkg -r openwebrx
-        sed -i /openwebrx/d $SIGPI_INSTALLED
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge OpenWebRX"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge option not available"
         echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
 
-        sudo dpkg -P openwebrx
-        sed -i /openwebrx/d $SIGPI_INSTALLED
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   OpenWebRX Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install OpenWebRX"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build )
         ## DEPENDENCIES
         sudo apt-get install -y libfftw3-dev python3-setuptools netcat libsndfile-dev librtlsdr-dev 
         sudo apt-get install -y libtool pkg-config libsamplerate-dev libpython3-dev
@@ -52,7 +53,7 @@ case "$1" in
         cmake ..
         make
         sudo make install
-           sudo ldconfig
+        sudo ldconfig
 
         ### pysdr
         cd $SIGPI_SOURCE
@@ -155,24 +156,17 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  OpenWebRX Installed. Need to reboot to start"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
-    build )
+
+    install|build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or action for this package not supported"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : OpenWebRX - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

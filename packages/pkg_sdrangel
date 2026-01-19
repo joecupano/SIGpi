@@ -26,21 +26,33 @@ case "$1" in
         ;;&
 
     remove )
-        sudo dpkg -r sdrangel
-        sed -i /sdrangel/d $SIGPI_INSTALLED
-        rm $HOME/.config/f4exb/fftw-wisdom
-        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r sdrangel
+            sed -i /sdrangel/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r sdrangel
+            sed -i /sdrangel/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        sudo dpkg -P sdrangel
-        sed -i /sdrangel/d $SIGPI_INSTALLED
-        rm $HOME/.config/f4exb/fftw-wisdom
-        rm $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
-        sudo rm $DESKTOP_FILES/sdrangel.desktop
-        # Add Run script
-        sudo rm /usr/local/bin/run_sdrangel.sh
-        xdg-desktop-menu uninstall --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P sdrangel
+            sed -i /sdrangel/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P sdrangel
+            sed -i /sdrangel/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     install|build|package )
@@ -159,10 +171,6 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRangel Built and Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;&
     
     package )

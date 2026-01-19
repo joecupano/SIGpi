@@ -26,34 +26,57 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_SOURCE/rtl_433/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/rtl_433
-        sed -i /rtl_433/d $SIGPI_INSTALLED
-	
-	    # Remove Menu icon
-        sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
-        # Remove Desktop links
-        sudo rm $SIGPI_DESKTOP_FILES/rtl_433.desktop
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r rtl_433
+            sed -i /rtl_433/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r rtl_433
+            sed -i /rtl_433/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd $SIGPI_SOURCE/rtl_433/build
-        sudo make uninstall
-        sudo ldconfig
-        cd $SIGPI_SOURCE
-	    rm -rf $SIGPI_SOURCE/rtl_433
-        sed -i /rtl_433/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P rtl_433
+            sed -i /rtl_433/d $SIGPI_INSTALLED
+        fi
 
-	    # Remove Menu icon
-        sudo rm $SIGPI_DESKTOP_ICONS/rtl_433.png
-        # Remove Desktop links
-        sudo rm $SIGPI_DESKTOP_FILES/rtl_433.desktop
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P rtl_433
+            sed -i /rtl_433/d $SIGPI_INSTALLED
+        fi
         ;;&
 
-    install|build )
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i rtl_433_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i rtl_433_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "rtl_433" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDENCIES
         #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
         sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
