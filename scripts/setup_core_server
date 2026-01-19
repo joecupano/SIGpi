@@ -25,7 +25,7 @@ sudo apt-get install -y libsamplerate-dev libcurl4-openssl-dev
 #
 # Following need to occur earlier in build
 sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac-dev faac faad pulseaudio pcmanfm
-sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev
+sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev net-tools
 sudo apt-get install -y libgps-dev
 
 # Python Baseline

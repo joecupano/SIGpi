@@ -23,7 +23,7 @@ sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libai
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
 sudo apt-get install -y libsamplerate0-dev 
 sudo apt-get install -y libboost-all-dev
-sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+sudo apt-get install -y libpcap-dev libnetfilter-queue-dev net-tools
 sudo apt-get install -y libcurl4-openssl-dev
 
 # Install Dynamic Kernel Module Support 
