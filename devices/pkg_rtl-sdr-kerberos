@@ -21,7 +21,7 @@ fi
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : kerberos"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl-sdr-kerberos"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
@@ -102,9 +102,9 @@ case "$1" in
         sudo mv *.deb $SIGPI_DEBS
         ;;&
 
-    * )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl-sdr-kerberos - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
