@@ -12,6 +12,8 @@
 ### user interface that allows multiple users to listen to and control a remote
 ### SDR receiver over the internet.
 ###
+### openwebrx,1.0,Open source multi-user SDR receiver software with web interface,20211231
+###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR}"

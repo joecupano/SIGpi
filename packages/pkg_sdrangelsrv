@@ -10,6 +10,8 @@
 ###
 ### SDRangel Server package management script
 ###
+### sdrangelsrv,7.22.10,Open-source SDR server,20251225
+###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR}"
