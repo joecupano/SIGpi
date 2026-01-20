@@ -93,7 +93,8 @@ case "$1" in
         sudo make install
         sudo udevadm control --reload-rules
         sudo udevadm trigger
-
+        cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
+    
         ## SoapyFobosSDR Driver
         cd $SIGPI_SOURCE
         git clone https://github.com/rigexpert/SoapyFobosSDR
@@ -103,7 +104,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
+        cat $SIGPI_DEVLIST|grep "soapyfobos" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     package)
