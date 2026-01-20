@@ -6,7 +6,7 @@
 ### pkg_xastir
 ###
 ###
-### 20260113-2300
+### 20260119-2300
 ###
 ### Xastir Package Script
 ###
@@ -26,13 +26,33 @@ case "$1" in
         ;;&
 
     remove )
-        sudo apt-get remove xastir
-        sed -i /xastir/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
         ;;&
-    
+
     purge )
-        sudo apt-get remove --purge xastir
-        sed -i /xastir/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
         ;;&
     
     install|build|package )
@@ -45,21 +65,25 @@ case "$1" in
         gv festival festival-dev
         ;;&
         
-    install )
-        ## DEPENDENCIES
-
+    install)
         ## PACKAGE
-        cd $SIGPI_SOURCE
-        sudo apt-get install -y xastir
-        cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED 
-        
-        ## DESKTOP
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i xastir_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i xastir_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
         # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/xastir.desktop
+	    # Add to Menu
         ;;&
 
     build )
@@ -71,6 +95,15 @@ case "$1" in
         ../configure
         make -j4
         sudo make install
+        cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED 
+        
+        ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/xastir.desktop
         ;;&
 
     package )
