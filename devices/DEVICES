@@ -1,10 +1,10 @@
 bladerf,2023.02,BladeRF,20230215
 ettus,4.9.0.1,Ettus Research UHD,20251013
 evilcrowrf,1.0,Evil Crow RF,20251017
-fobos,2.4.0,RigExpert Fobos,202601117
+libfobos,2.4.0,RigExpert Fobos,202601117
 hackrf,2026.01.02,HackRF,20260102
 hasviolet,1.0,HASviolet,20240101
-kerberos,1.0,Kerberos SDR,20190101
+rtl-sdr-kerberos,1.0,Kerberos SDR,20190101
 libmirisdr,1.0,SDRplay RSP Devices,20240101
 limesuite,23.11.0,LimeSuite SDR,20231119
 plutosdr,0.25,PlutoSDR device,20230811
