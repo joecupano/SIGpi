@@ -99,6 +99,7 @@ case "$1" in
         cmake .. -DINSTALL_UDEV_RULES=ON
         make -j4
         sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
         ;;&
 
     * )
