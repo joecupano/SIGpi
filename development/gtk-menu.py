@@ -8,8 +8,40 @@ import subprocess
 import os
 from pathlib import Path
 
-PACKAGE_FILE = os.path.expanduser("~/SIG/SIGpi/packages/PACKAGES")
+# SIGpi Directory tree
+SIGPI_ROOT = os.path.expanduser('~/SIG')
+SIGPI_SOURCE = os.path.join(SIGPI_ROOT, 'source')
+SIGPI_HOME = os.path.join(SIGPI_ROOT, 'SIGpi')
+SIGPI_ETC = os.path.join(SIGPI_ROOT, 'etc')
+SIGPI_DEVICES = os.path.join(SIGPI_HOME, 'devices')
+SIGPI_SCRIPTS = os.path.join(SIGPI_HOME, 'scripts')
+SIGPI_PACKAGES = os.path.join(SIGPI_HOME, 'packages')
+SIGPI_DEBS = os.path.join(SIGPI_HOME, 'debs')
 
+# SIGpi Install Support files
+SIGPI_INSTALLED = os.path.join(SIGPI_ETC, 'INSTALLED_PKGS')
+SIGPI_PKGLIST = os.path.join(SIGPI_PACKAGES, 'PACKAGES')
+SIGPI_INSTALLED_DEVICES = os.path.join(SIGPI_ETC, 'INSTALLED_DEVICES')
+SIGPI_DEVLIST = os.path.join(SIGPI_DEVICES, 'DEVICES')
+SIGPI_SCREEN_STANDARD = os.path.join(SIGPI_SCRIPTS, 'screen_standard_setup')
+SIGPI_SCREEN_SERVER = os.path.join(SIGPI_SCRIPTS, 'screen_server_setup')
+SIGPI_BANNER_COLOR = "\033[0;104m\033[K"  # blue
+SIGPI_BANNER_RESET = "\033[0m"
+
+# Desktop Source directories
+SIGPI_BACKGROUNDS = os.path.join(SIGPI_HOME, 'backgrounds')
+SIGPI_ICONS = os.path.join(SIGPI_HOME, 'icons')
+SIGPI_LOGO = os.path.join(SIGPI_HOME, 'logo')
+SIGPI_DESKTOP = os.path.join(SIGPI_HOME, 'desktop')
+
+# Desktop Destination Directories
+DESKTOP_DIRECTORY = '/usr/share/desktop-directories'
+DESKTOP_FILES = '/usr/share/applications'
+DESKTOP_ICONS = '/usr/share/icons'
+DESKTOP_XDG_MENU = '/usr/share/extra-xdg-menus'
+
+# gtk-menu specific
+PACKAGE_FILE = os.path.join(SIGPI_PACKAGES, 'PACKAGES')
 
 class Package:
     def __init__(self, name, version, description, expiry):
@@ -26,8 +58,7 @@ def check_installed(pkg_name: str) -> bool:
     """
     try:
         subprocess.run(
-        #    ["dpkg", "-s", pkg_name],
-            ["egrep", "status", pkg_name, os.path.expanduser("~/SIG/etc/INSTALLED_PKGS")],
+            ["dpkg", "-s", pkg_name],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL,
             check=True,
