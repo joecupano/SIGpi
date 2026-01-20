@@ -64,7 +64,7 @@ source $SIGPI_DEVICES/pkg_hackrf install
 
 # Install KerberosSDR
 if grep kerberos "$SIGPI_INSTALLED_DEVICES"; then
-    source $SIGPI_DEVICES/pkg_kerberos install
+    source $SIGPI_DEVICES/pkg_rtl-sdr-kerberos install
 fi
 
 # Install LimeSDR
