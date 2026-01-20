@@ -11,7 +11,15 @@
 ### Evil Crow RF V2 driver installer
 ###
 
-case "$1" in
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Evil Crow RF V2"
@@ -19,21 +27,33 @@ case "$1" in
         ;;&
 
     remove )
-        cd "$SIGPI_SOURCE"/evilcrowrf/build
-        sudo make uninstall
-        cd "$SIGPI_SOURCE"
-        rm -rf "$SIGPI_SOURCE"/evilcrowrf
-        sed -i /evilcrowrf/d "$SIGPI_INSTALLED_DEVICES"
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r evilcrowrf
+            sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r evilcrowrf
+            sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     purge )
-        cd "$SIGPI_SOURCE"/evilcrowrf/build
-        sudo make uninstall
-        cd "$SIGPI_SOURCE"
-        rm -rf "$SIGPI_SOURCE"/evilcrowrf
-        sed -i /evilcrowrf/d "$SIGPI_INSTALLED_DEVICES"
-        sudo rm -rf "$SIGPI_DESKTOP"/evilcrowrf.desktop
-        sudo rm -rf "$DESKTOP_FILES"/evilcrowrf.desktop
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P evilcrowrf
+            sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P nrsc5
+            sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        fi
         ;;&
 
     install|build|package )
@@ -49,15 +69,16 @@ case "$1" in
 
     install )
         ## PACKAGE
-        cd "$SIGPI_SOURCE"
-        git clone https://github.com/joelsernamoreno/evilcrowrf.git
-        cd evilcrowrf
-        mkdir -p build
-        cd build
-        cmake ..
-        make -j4
-        sudo make install
-        sudo ldconfig
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i evilcrowrf_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i evilcrowrf_current_arm64.deb
+        fi
         cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_INSTALLED_DEVICES"
 
         ## DESKTOP
@@ -72,8 +93,8 @@ case "$1" in
     build )
         ## PACKAGE
         cd "$SIGPI_SOURCE"
-        git clone https://github.com/joelsernamoreno/evilcrowrf.git
-        cd evilcrowrf
+        git clone https://github.com/joelsernamoreno/evilcrowrf-v2.git
+        cd evilcrowrf-v2
         mkdir -p build
         cd build
         cmake ..
@@ -94,8 +115,8 @@ case "$1" in
     package )       
         ## PACKAGE
         cd "$SIGPI_SOURCE"
-        git clone https://github.com/joelsernamoreno/evilcrowrf.git
-        cd evilcrowrf
+        git clone https://github.com/joelsernamoreno/evilcrowrf-v2.git
+        cd evilcrowrf-v2
         mkdir -p build
         cd build
         cmake ..
