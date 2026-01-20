@@ -54,11 +54,6 @@ if grep ettus "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_ettus install
 fi
 
-# Install EvilCrow RF V2
-if grep evilcrowrf "$SIGPI_INSTALLED_DEVICES"; then
-    source $SIGPI_DEVICES/pkg_evilcrowrf install
-fi
-
 # Install RigExpert Fobos
 if grep fobos "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_fobos install
