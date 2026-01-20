@@ -152,7 +152,7 @@ case "$1" in
 
     remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLdigi - Completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GNUradio - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

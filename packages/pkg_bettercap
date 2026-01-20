@@ -51,7 +51,7 @@ case "$1" in
         # PACKAGE
         sudo apt-get install -y bettercap
         # Bettercap uses its own internal command to download modules
-        bettercap -eval "caplets.update; q"
+        sudo bettercap -eval "caplets.update; q"
         cat $SIGPI_PKGLIST|grep "bettercap" >> $SIGPI_INSTALLED 
 	
 	    ## DESKTOP
