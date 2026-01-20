@@ -79,10 +79,6 @@ case "$1" in
         echo "Finished. Current user guide can be found here..."
         echo " "
         echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDRplay Device Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
     remove|purge|install|build|package )
