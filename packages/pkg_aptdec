@@ -107,6 +107,7 @@ case "$1" in
 
     package )       
         ## PACKAGE
+		cd $SIGPI_SOURCE
         git clone --recursive https://github.com/Xerbo/aptdec.git
         cd aptdec
         cmake -B build
