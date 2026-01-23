@@ -27,33 +27,13 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r evilcrowrf
-            sed -i /evilcrowrf/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r evilcrowrf
-            sed -i /evilcrowrf/d $SIGPI_INSTALLED
-        fi
+        sudo dpkg -r evilcrowrf
+        sed -i /evilcrowrf/d $SIGPI_INSTALLED
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P evilcrowrf
-            sed -i /evilcrowrf/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P nrsc5
-            sed -i /evilcrowrf/d $SIGPI_INSTALLED
-        fi
+        sudo dpkg -P evilcrowrf
+        sed -i /evilcrowrf/d $SIGPI_INSTALLED
         ;;&
 
     install|build|package )
@@ -102,14 +82,6 @@ case "$1" in
         sudo make install
         sudo ldconfig
         cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_DEVICES"
-
-        ## DESKTOP
-        # Add Icon
-        # Add Desktop
-        sudo cp "$SIGPI_HOME"/desktop/evilcrowrf.desktop "$DESKTOP_FILES"
-        # Change Category
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate "$DESKTOP_DIRECTORY"/SIGpishell.directory "$DESKTOP_FILES"/evilcrowrf.desktop
         ;;&
 
     package )       
@@ -123,12 +95,6 @@ case "$1" in
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb "$SIGPI_DEBS"
-
-        ## DESKTOP
-        # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
         ;;&
 
     remove|purge|install|build|package )
