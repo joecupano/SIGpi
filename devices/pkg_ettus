@@ -20,25 +20,14 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r uhd
-            sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r uhd
-            sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
-        fi
+        sudo dpkg -r uhd
+        sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     purge )
-        sudo dpkg -r uhd
+        sudo dpkg -P uhd
         sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
         sudo rm -rf $SIGPI_SOURCE/uhd*
-        sed -i /uhd/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install|build|package )
