@@ -201,7 +201,7 @@ case "$1" in
         sudo reboot
         exit 0
         ;;
-    framework)
+    framework )
         calc_wt_size
         select_startscreen
         select_devices
