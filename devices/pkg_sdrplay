@@ -39,7 +39,7 @@ case "$1" in
     install )
         cd $SIGPI_SOURCE
         unzip $SIGPI_DEBS/SDRplay_API_Linux-3.15.2.zip
-        cd SDRplay_API_Linux-3.15.2
+        cd SDRplay_RSP_API_Linux-3-1-5
         sudo ./install_lib.sh
         sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
         sudo chmod 755 /usr/local/bin/run_SDRplay.sh
