@@ -59,7 +59,7 @@ case "$1" in
         ;;&
 
     build|package )
-        curl -L "https://www.w1hkj.org/files/fldigi/fldigi-4.2.11.tar.gz" | tar -xz -C $SIGPI_SOURCE
+        wget -qO- "https://www.w1hkj.org/files/fldigi/fldigi-4.2.11.tar.gz" | tar -xz -C $SIGPI_SOURCE
         cd $SIGPI_SOURCE
         cd fldigi-4.2.11
         ./configure
