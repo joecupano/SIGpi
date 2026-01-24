@@ -21,7 +21,7 @@ fi
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GGmorrse"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GGmorse"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
