@@ -5,7 +5,7 @@
 ###
 ### pkg_sdrplay
 ###
-### 20260117-2300
+### 20260124-2300
 ###
 ###
 ###
@@ -33,52 +33,17 @@ case "$1" in
         rm -rf $HOME/.config/SDRplay
         sudo rm -rf $SIGPI_DESKTOP/SDRplay.desktop
         sudo rm -rf $DESKTOP_FILES/SDRplay.desktop
-        sed -i /SDRplay/d $SIGPI_INSTALLED_DEVICES
+        sed -i /sdrplay/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install )
-        cd $SIGPI_SCRIPTS
+        cd $SIGPI_SOURCE
+        unzip $SIG_DEBS/SDRplay_API_Linux-3.15.2.zip
+        cd SDRplay_API_Linux-3.15.2
+        sudo ./install_lib.sh
         sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
         sudo chmod 755 /usr/local/bin/run_SDRplay.sh
-
-        cd $SIGPI_SOURCE     
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-x86_64-3.0.7.tar.gz
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            tar -xvf $SIGPI_DEBS/SDRPlay_RSP_API-ARM64-3.0.7.tar.gz
-        fi
-        
-        # SDRplay API Installed"
-        cd SDRPlay
-        sudo ./install_lib.sh
-
-        # SoapySDRPlay
-        cd $SIGPI_SOURCE
-        git clone https://github.com/SDRplay/SoapySDRPlay
-        cd SoapySDRPlay
-        mkdir build && cd build
-        cmake .. -Wno-dev
-        make -j4
-        sudo make install
-        sudo ldconfig
-
-        # Install RSPTCPServer"
-        cd $SIGPI_SOURCE
-        git clone https://github.com/SDRplay/RSPTCPServer
-        cd RSPTCPServer
-        mkdir build && cd build
-        cmake .. -Wno-dev
-        make -j4
-        sudo make install
-        sudo ldconfig
         cat $SIGPI_DEVLIST|grep "sdrplay" >> $SIGPI_INSTALLED_DEVICES
-
-        echo " "
-        echo "Finished. Current user guide can be found here..."
-        echo " "
-        echo "https://www.sdrplay.com/docs/SDRplay_RSP_TCP_Server_Guide.pdf"
         ;;&
 
     remove|purge|install|build|package )
