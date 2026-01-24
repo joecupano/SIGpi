@@ -1,0 +1,88 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_ggmorse
+###
+###
+### 20260124-1200
+###
+### Morse code decoding library
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GGmorrse"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo dpkg -r ggmorse
+        sed -i /ggmorse/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo dpkg -P ggmorse
+        sed -i /ggmorse/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt install libsdl2-dev
+        ;;&
+
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i ggmorse_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i ggmorse_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "ggmorse," >> $SIGPI_INSTALLED 
+        ;;&
+        
+    build )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/ggerganov/ggmorse --recursive
+        cd ggmorse
+        mkdir build && cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/ggmorse -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "ggmorse" >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/ggerganov/ggmorse --recursive
+        cd ggmorse
+        mkdir build && cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/ggmorse -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package|config )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GGmorse - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
