@@ -24,34 +24,14 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DireWolf (AFSK APRS)"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
-        remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r direwolf
-            sed -i /direwolf/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r direwolf
-            sed -i /direwolf/d $SIGPI_INSTALLED
-        fi
+    remove )
+        sudo dpkg -r direwolf
+        sed -i /direwolf/d $SIGPI_INSTALLED
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P direwolf
-            sed -i /direwolf/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P direwolf
-            sed -i /direwolf/d $SIGPI_INSTALLED
-        fi
+        sudo dpkg -P direwolf
+        sed -i /direwolf/d $SIGPI_INSTALLED
         ;;&
 
     install|build|package )
@@ -91,7 +71,7 @@ case "$1" in
 
         sudo cp /usr/local/share/doc/direwolf/scripts/dw-start.sh /usr/local/bin/run_direwolf
         sudo mkdir /usr/local/etc/direwolf
-        sudo cp /usr/local/share/doc/direwolf/conf/* /usr/local/etc/direwolf
+        sudo cp /usr/local/share/doc        sudo mv *.deb $SIGPI_DEBS/direwolf/conf/* /usr/local/etc/direwolf
         cat $SIGPI_PKGLIST|grep "direwolf" >> $SIGPI_INSTALLED 
 	
         ## DESKTOP
@@ -109,7 +89,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://www.github.com/wb2osz/direwolf.git
         cd direwolf
-        git reset --hard a231971 #v 1.8.1
+        git reset --hard a231971 #v         sudo mv *.deb $SIGPI_DEBS1.8.1
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
