@@ -1,0 +1,26 @@
+#!/bin/bash
+### smoketest
+### A minimal test package script for smoke testing setup_apps
+
+case "$1" in
+    install)
+        echo "[pkg_smoketest] install called"
+        # Simulate work
+        sleep 0.2
+        exit 0
+        ;;
+    remove)
+        echo "[pkg_smoketest] remove called"
+        sleep 0.2
+        exit 0
+        ;;
+    purge)
+        echo "[pkg_smoketest] purge called"
+        sleep 0.2
+        exit 0
+        ;;
+    *)
+        echo "Usage: $0 {install|remove|purge}"
+        exit 1
+        ;;
+esac

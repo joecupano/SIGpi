@@ -106,6 +106,9 @@ build_menu_items() {
     fi
     
     # Second pass: build menu items with aligned symbols
+    # Use the package short name (no spaces) as the whiptail tag
+    # and put the padded display name + status into the description so
+    # selections can be parsed safely.
     if [ -f "$SIGPI_PKGLIST" ]; then
         while IFS=',' read -r name version description date; do
             [ -z "$name" ] && continue
@@ -116,9 +119,9 @@ build_menu_items() {
                 else
                     status_text="○"
                 fi
-                # Pad the name with spaces for alignment
+                # Pad the name with spaces for alignment for display only
                 local padded_name=$(printf "%-${max_name_length}s" "$name")
-                menu_items+=("$padded_name $status_text" "(v$version) $description" "OFF")
+                menu_items+=("$name" "$padded_name $status_text — (v$version) $description" "OFF")
                 ((counter++))
             fi
         done < "$SIGPI_PKGLIST"
@@ -129,16 +132,16 @@ build_menu_items() {
             pkg_name=$(basename "$pkg_file" | sed 's/^pkg_//')
             description=$(grep -m 1 "^###" "$pkg_file" | tail -n 1 | sed 's/^### //' | sed 's/^##*//')
             [ -z "$description" ] && description="Package: $pkg_name"
-            
+
             local status_text=""
             if is_package_installed "$pkg_name"; then
                 status_text="✓"
             else
                 status_text="○"
             fi
-            # Pad the name with spaces for alignment
+            # Pad the name with spaces for alignment for display only
             local padded_name=$(printf "%-${max_name_length}s" "$pkg_name")
-            menu_items+=("$padded_name $status_text" "$description" "OFF")
+            menu_items+=("$pkg_name" "$padded_name $status_text — $description" "OFF")
             ((counter++))
         done
     fi
@@ -238,23 +241,23 @@ main_menu() {
         # Add action indicators to menu items based on selected actions
         local display_items=()
         for ((i=0; i<${#menu_items[@]}; i+=3)); do
-            local item="${menu_items[i]}"
+            local tag="${menu_items[i]}"
             local desc="${menu_items[i+1]}"
             local default="${menu_items[i+2]}"
-            
-            # Extract package name from item (remove padding and status)
-            local pkg_name=$(echo "$item" | sed 's/[[:space:]]*[✓○][[:space:]]*$//' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
-            
-            # Add action indicator if an action is set for this package
+
+            # Tag is the package short name (no spaces)
+            local pkg_name="$tag"
+
+            # Append action indicator to the description (keep tag unchanged)
             if [ -n "${pkg_actions[$pkg_name]}" ]; then
                 case "${pkg_actions[$pkg_name]}" in
-                    install) item="$item [→INSTALL]" ;;
-                    remove)  item="$item [→REMOVE]" ;;
-                    purge)   item="$item [→PURGE]" ;;
+                    install) desc="$desc [→INSTALL]" ;;
+                    remove)  desc="$desc [→REMOVE]" ;;
+                    purge)   desc="$desc [→PURGE]" ;;
                 esac
             fi
-            
-            display_items+=("$item" "$desc" "$default")
+
+            display_items+=("$tag" "$desc" "$default")
         done
         
         # Get terminal dimensions
@@ -315,11 +318,10 @@ main_menu() {
             continue
         fi
         
-        # Extract package names from selected items
+        # Extract package names (tags) from selected items
         selected_pkgs=""
         for item in $selected; do
-            # Remove action indicators, trailing status symbols and whitespace
-            pkg_name=$(echo "$item" | sed 's/\[→[A-Z]*\]//' | sed 's/[[:space:]]*[✓○][[:space:]]*$//' | sed 's/^[[:space:]]*//' | sed 's/[[:space:]]*$//')
+            pkg_name="$item"
             selected_pkgs="$selected_pkgs $pkg_name"
         done
         
@@ -537,5 +539,7 @@ main_menu() {
     read -p "Press ENTER to return to menu or Ctrl+C to exit..."
     done  # End outer while true loop
 }
-# Run main menu
-main_menu
+# Run main menu (skip if SIGPI_NO_MAIN is set)
+if [ -z "${SIGPI_NO_MAIN:-}" ]; then
+    main_menu
+fi
