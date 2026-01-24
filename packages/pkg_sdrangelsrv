@@ -91,54 +91,29 @@ case "$1" in
         fi
         cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
         cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/SDRangel/fftw-wisdom
+        ;;&
 
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
+    build|package )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel
+        #git reset --hard c4e57a1  # v7.22.5
+        #git reset --hard 502e751  # v7.22.10
+        git reset --hard 1236b11   # v7.23.0
+        mkdir build && cd build
+        cmake .. -Wno-dev -DBUILD_GUI=off
+        make -j4
         ;;&
 
     build )
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel
-        #git reset --hard c4e57a1  # v7.22.5
-        git reset --hard 502e751   # v7.22.10
-        
-        mkdir build && cd build
-        cmake .. -Wno-dev -DBUILD_GUI=off
-        make -j4
         sudo make install
         sudo ldconfig
-        
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-	    # Add to Menu
         ;;&
 
     package )
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel
-        #git reset --hard c4e57a1  # v7.22.5
-        git reset --hard 502e751   # v7.22.10
-        
-        mkdir build && cd build
-        cmake .. -Wno-dev -DBUILD_GUI=off
-        make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
-        
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-	    # Add to Menu
         ;;&
     
     remove|purge|install|build|package )
