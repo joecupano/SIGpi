@@ -56,7 +56,15 @@ case "$1" in
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
         mkdir build; cd build
-        cmake -DRNN_ENABLE_X86_RTCD=ON ..
+        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            cmake -DRNN_ENABLE_X86_RTCD=ON ..
+        fi
+        
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            cmake ..
+        fi
+        
         make -j4
         sudo make install
         sudo ldconfig
@@ -69,7 +77,15 @@ case "$1" in
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
         mkdir build && cd build
-        cmake -DRNN_ENABLE_X86_RTCD=ON ..
+
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            cmake -DRNN_ENABLE_X86_RTCD=ON ..
+        fi
+        
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            cmake ..
+        fi
+        
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
