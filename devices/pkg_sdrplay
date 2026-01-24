@@ -41,7 +41,7 @@ case "$1" in
         unzip $SIGPI_DEBS/SDRplay_RSP_API.zip
         cd SDRplay_RSP_API
         sudo ./install_lib.sh
-        sudo cp run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
+        sudo cp $SIGPI_SCRIPTS/run_SDRplay.sh /usr/local/bin/run_SDRplay.sh
         sudo chmod 755 /usr/local/bin/run_SDRplay.sh
         cat $SIGPI_DEVLIST|grep "sdrplay" >> $SIGPI_INSTALLED_DEVICES
         ;;&
