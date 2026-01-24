@@ -62,7 +62,7 @@ case "$1" in
         wget -qO- "https://www.w1hkj.org/files/flrig/flrig-2.0.10.tar.gz" | tar -xz -C $SIGPI_SOURCE
         cd $SIGPI_SOURCE
         cd flrig-2.0.10
-        ./configurehttps://www.w1hkj.org/files/fldigi/flrig-4.2.11.tar.gz
+        ./configure
         make -j4
 	    ;;&
 
