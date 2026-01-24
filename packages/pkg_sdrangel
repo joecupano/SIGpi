@@ -6,7 +6,7 @@
 ### pkg_sdrangel
 ###
 ###
-### 20260113-2300
+### 20260124-2300
 ###
 ### SDRangel package management script
 ###
@@ -121,17 +121,32 @@ case "$1" in
 	        sudo dpkg -i sdrangel_current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED 
-        
-        ### FFTW-WISDOM CHECK AND LINK
-        mkdir $HOME/.config/f4exb
-        mkdir $HOME/.local/share/f4exb
-        mkdir $HOME/.local/share/f4exb/SDRangel
-        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
-            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        fi
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
+        ;;&
 
+    build|package )
+        cd $SIGPI_SOURCE
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel     
+        #git reset --hard c4e57a1  # v7.22.5
+        #git reset --hard 502e751   # v7.22.10
+        git reset --hard 1236b11   # v7.23.0
+        mkdir build && cd build   
+        cmake -Wno-dev ..
+        make -j4
+        ;;&
+
+    build  )
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    install|build )
 	    ## DESKTOP
         # Add Icon      
         # Add Desktop
@@ -141,20 +156,6 @@ case "$1" in
         # Change Category
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
-        ;;&
-
-    build )
-        cd $SIGPI_SOURCE
-        git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel     
-        #git reset --hard c4e57a1  # v7.22.5
-        git reset --hard 502e751   # v7.22.10
-
-        mkdir build && cd build   
-        cmake -Wno-dev ..
-        make -j4
-        sudo checkinstall
-        sudo mv *.deb $SIGPI_DEBS
 
         ### FFTW-WISDOM CHECK AND LINK
         mkdir $HOME/.config/f4exb
@@ -165,43 +166,6 @@ case "$1" in
         fi
         cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
         cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
-
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-	    # Add to Menu
-        ;;&
-    
-    package )
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel     
-        #git reset --hard c4e57a1  # v7.22.5
-        git reset --hard 502e751   # v7.22.10
-        
-        mkdir build && cd build   
-        cmake -Wno-dev ..
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
-        ### FFTW-WISDOM CHECK AND LINK
-        mkdir $HOME/.config/f4exb
-        mkdir $HOME/.local/share/f4exb
-        mkdir $HOME/.local/share/f4exb/SDRangel
-        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
-            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
-        fi
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
-        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
-
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-	    # Add to Menu
         ;;&
     
     remove|purge|install|build|package )
