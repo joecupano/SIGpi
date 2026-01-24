@@ -87,7 +87,7 @@ fi
 
 # Install RigExpert Fobos
 if grep fobos "$SIGPI_INSTALLED_DEVICES"; then
-    source $SIGPI_DEVICES/pkg_fobos install
+    source $SIGPI_DEVICES/pkg_libfobos install
 fi
 
 # Install Ubertooth One
