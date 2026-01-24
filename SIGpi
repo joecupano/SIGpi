@@ -213,7 +213,7 @@ case "$1" in
         ;;
 
     menu )
-        source $SIGPI_SCRIPTS/SIGpi_pkg_menu.py
+        "$SIGPI_SCRIPTS/SIGpi_pkg_menu.py"
         ;;
 
     config )
