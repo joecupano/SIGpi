@@ -43,10 +43,10 @@ source $SIGPI_PACKAGES/pkg_direwolf install
 source $SIGPI_PACKAGES/pkg_linpac install
 # Install ggMorse (Morse decode)
 source $SIGPI_PACKAGES/pkg_ggmorse install
-# Install Inmarsat decoder
-source $SIGPI_PACKAGES/pkg_inmarsat install
-# Install RRnoise (noise suppression library)
-source $SIGPI_PACKAGES/pkg_rrnoise install
+# Install Inmarsatc decoder
+source $SIGPI_PACKAGES/pkg_inmarsatc install
+# Install RNnoise (noise suppression library)
+source $SIGPI_PACKAGES/pkg_rnnoise install
 # Install Dump1090
 #source $SIGPI_PACKAGES/pkg_dump1090 install
 # Install Radiosonde (Atmospheric Telemetry)
