@@ -46,7 +46,8 @@ case "$1" in
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        echo -e "Not available for ARM64"
+	        sudo dpkg -i srsran-4g_current_arm64.deb
+            cat $SIGPI_PKGLIST|grep "srsran-4g" >> $SIGPI_INSTALLED
         fi
 	    ;;&
 
@@ -61,6 +62,7 @@ case "$1" in
         cmake ../
         make -j4
         sudo make install
+        cat $SIGPI_PKGLIST|grep "srsran-4g" >> $SIGPI_INSTALLED
         ;;&
     
     package )
