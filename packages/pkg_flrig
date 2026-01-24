@@ -18,7 +18,7 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     exit 1
 fi
 
-case "$1" in 
+case "$1" in
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLrig"
@@ -49,7 +49,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i flrig_current_arm64.deb
         fi
-        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED
 
 	    ## DESKTOP
 	    # Add Icon
@@ -58,27 +58,27 @@ case "$1" in
         # Add to Menu.
         ;;&
 
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+    build|package )
+        curl -L "https://www.w1hkj.org/files/flrig/flrig-2.0.10.tar.gz" | tar -xz -C $SIGPI_SOURCE
+        cd $SIGPI_SOURCE
+        cd flrig-2.0.10
+        ./configurehttps://www.w1hkj.org/files/fldigi/flrig-4.2.11.tar.gz
+        make -j4
 	    ;;&
 
     build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+        sudo make install
+        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        mv *.deb $SIGPI_DEBS
 	    ;;&
-    
+
     remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLdigi - Completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLrig - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
-
-### 20240108-0500
-### sed: can't read /usr/share/applications/fldigi.desktop: No such file or directory
-### sed: can't read /usr/share/applications/flarq.desktop: No such file or directory
-### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
-### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist

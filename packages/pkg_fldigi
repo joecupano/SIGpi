@@ -6,7 +6,7 @@
 ### pkg_fldigi
 ###
 ###
-### 20260113-2300
+### 20260124-2300
 ###
 ### FLdigi installation script
 ###
@@ -58,16 +58,22 @@ case "$1" in
         # Add to Menu.
         ;;&
 
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+    build|package )
+        curl -L "https://www.w1hkj.org/files/fldigi/fldigi-4.2.11.tar.gz" | tar -xz -C $SIGPI_SOURCE
+        cd $SIGPI_SOURCE
+        cd fldigi-4.2.11
+        ./configure
+        make -j4
 	    ;;&
 
+    build )
+        sudo make install
+        cat $SIGPI_PKGLIST|grep "fldigi" >> $SIGPI_INSTALLED
+        ;;&
+
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
+        sudo checkinstall --install=no
+        mv *.deb $SIGPI_DEBS
 	    ;;&
 
     remove|purge|install )
