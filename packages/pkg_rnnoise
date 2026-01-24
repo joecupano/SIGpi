@@ -56,7 +56,7 @@ case "$1" in
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
         mkdir build; cd build
-        cmake -DCMAKE_INSTALL_PREFIX=/opt/install/rnnoise -DRNN_ENABLE_X86_RTCD=ON ..
+        cmake -DRNN_ENABLE_X86_RTCD=ON ..
         make -j4
         sudo make install
         sudo ldconfig
@@ -69,7 +69,7 @@ case "$1" in
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
         mkdir build && cd build
-        cmake -DCMAKE_INSTALL_PREFIX=/opt/install/rnnoise -DRNN_ENABLE_X86_RTCD=ON ..
+        cmake -DRNN_ENABLE_X86_RTCD=ON ..
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
