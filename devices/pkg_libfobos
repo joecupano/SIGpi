@@ -27,41 +27,19 @@ case "$1" in
         ;;&
 
    remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r libfobos
-            sudo dpkg -r soapyfobos
-            sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r libfobos
-            sudo dpkg -r soapyfobos
-            sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
-                fi
+        sudo dpkg -r libfobos
+        sudo dpkg -r soapyfobos
+        sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P libfobos
-            sudo dpkg -P soapyfobos
-            sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P libfobos
-            sudo dpkg -P soapyfobos
-            sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
-                fi
+        sudo dpkg -P libfobos
+        sudo dpkg -P soapyfobos
+        sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
+        rm -rf $SIGPI_SOURCE/libfobos
+        rm -rf $SIGPI_SOURCE/SoapyFobosSDR
         ;;&
     
     install )

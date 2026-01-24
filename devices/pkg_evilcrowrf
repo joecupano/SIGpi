@@ -34,6 +34,7 @@ case "$1" in
     purge )
         sudo dpkg -P evilcrowrf
         sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        rm -rf $SIGPI_SOURCE/evilcrowrf-v2
         ;;&
 
     install|build|package )
