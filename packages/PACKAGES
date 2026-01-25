@@ -43,6 +43,5 @@ suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
 vkfft,1.3.4,GPU-accelerated multidimensional Fast Fourier Transform library,20240206
 volk,3.2.0,Vector Optimized Library of Kernels,20250203
-wireshark,4.2.2,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231
 wsjtx,2.7.0,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20251001
 xastir,2.2.2,APRS client program with positional data in a graphical application,20250525
