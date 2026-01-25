@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 8.0: 2026-01-19
+## Release 8.0: 2026-01-26
 - Major Release. See [wiki](https://github.com/joecupano/SIGpi/wiki)
 
 ## Release 7.0: 2024-01-15
