@@ -38,7 +38,6 @@ serialdv,1.1.5,C++ interface to encode/decode audio with AMBE3000 devices in pac
 sgp4,1.0,Simplified perturbations models,20211231
 sigdigger,0.3.0,Qt5 digital signal analyzer using its own DSP library,20230319
 sigutils,0.3.0,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
-sigpi,7.0.1,SIGpi cmdline tool,20240321
 srsran-4g,25.10,end-to-end 4G network implementation with full-stack applications,20251111
 suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
