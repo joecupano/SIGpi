@@ -106,6 +106,7 @@ case "$1" in
         sudo apt-get install -y libqt5positioning5
         sudo apt-get install -y libqt5positioning5-plugins
         sudo apt-get install -y libqt5gamepad5-dev
+        sudo apt-get install -y gstreamer1.0-libav
         ;;&
 
     install )    
