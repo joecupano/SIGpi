@@ -37,7 +37,7 @@ case "$1" in
 
     install|build|package )
         ## DEPENDENCIES
-        sudo apt install libsdl2-dev
+        sudo apt install -y libsdl2-dev
         ;;&
 
     install )
