@@ -47,7 +47,7 @@ case "$1" in
 	        cd $SIGPI_SOURCE
             git clone https://github.com/jopohl/urh.git
             cd urh
-            python setup.py install
+            sudo python setup.py install
             
             ## DESKTOP
 	        # Add Icon
