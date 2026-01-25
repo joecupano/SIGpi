@@ -57,6 +57,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/suscan.git
         cd suscan
+        git submodule update --init --recursive
         mkdir build && cd build
         cmake ..
         make -j4
@@ -78,6 +79,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/suscan.git
         cd suscan
+        git submodule update --init --recursive
         mkdir build && cd build
         cmake ..
         make -j4
