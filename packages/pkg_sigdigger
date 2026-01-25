@@ -57,7 +57,6 @@ case "$1" in
 
     install)
         ## PACKAGE
-        cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i sigdigger_current_amd64.deb
@@ -128,6 +127,7 @@ case "$1" in
         ;;&
 
     package )
+        cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/sigutils
         cd sigutils
         mkdir -p build && cd build 
@@ -137,6 +137,7 @@ case "$1" in
         sudo mv *.deb $SIGPI_DEBS
         cd ../..
 
+        cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/suscan
         cd suscan 
         mkdir -p build && cd build 
@@ -146,6 +147,7 @@ case "$1" in
         sudo mv *.deb $SIGPI_DEBS
         cd ../..
 
+        cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SuWidgets
         cd SuWidgets 
         qmake6 SuWidgetsLib.pro 
@@ -154,6 +156,7 @@ case "$1" in
         sudo mv *.deb $SIGPI_DEBS 
         cd ..
 
+        cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SigDigger
         cd SigDigger 
         qmake6 SigDigger.pro 
