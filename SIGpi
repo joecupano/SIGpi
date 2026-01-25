@@ -74,6 +74,7 @@ SIGPI_BANNER_RESET="\e[0m"
 
 # Desktop Source directories
 SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
+SIGPI_BACKGROUND_CHOICE="file:///usr/share/backgrounds/SIGpi_background-two.png"
 SIGPI_ICONS=$SIGPI_HOME/icons
 SIGPI_LOGO=$SIGPI_HOME/logo
 SIGPI_DESKTOP=$SIGPI_HOME/desktop
