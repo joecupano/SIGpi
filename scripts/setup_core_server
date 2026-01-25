@@ -76,6 +76,7 @@ sudo apt-get install -y python-dev
 sudo apt-get install -y python3-dev
 
 # SDRdevice Baseline
+sudo apt-get install -y gstreamer1.0-libav
 
 ## RTLSDR
 sudo apt-get install -y libudev1 
