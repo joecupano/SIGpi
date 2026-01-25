@@ -168,15 +168,9 @@ sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
 
 # Copy Background images
-if [[ "$SIGPI_OSNAME" == "Debian GNU/Linux 11 (bullseye)" ]]; then
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
-    # Change Background image
-    pcmanfm --set-wallpaper=/usr/share/rpd-wallpaper/SIGpi_wallpaper.png
-else
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    # Change Background image
-    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
-fi
+sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
+# Change Background image
+gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_background-two.png
 
 # Copy SIGpi Menu and Directory files to XDG Dirs
 sudo cp $SIGPI_DESKTOP/SIGpi.directory $DESKTOP_DIRECTORY
