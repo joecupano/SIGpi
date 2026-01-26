@@ -151,7 +151,7 @@ case "$1" in
         if [ "$2" = "installed" ]; then
             echo " "
             echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list installed"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list installed"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
             echo " "
@@ -163,7 +163,7 @@ case "$1" in
         if [ "$2" = "packages" ]; then
             echo " "
             echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list packages"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list packages"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
             echo " "
@@ -177,7 +177,7 @@ case "$1" in
                 file2=$SIGPI_INSTALLED
                 echo " "
                 echo -e "${SIGPI_BANNER_COLOR} ##"
-                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list library"
+                echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list library"
                 echo -e "${SIGPI_BANNER_COLOR} ##"
                 echo -e "${SIGPI_BANNER_RESET}"
                 echo " "

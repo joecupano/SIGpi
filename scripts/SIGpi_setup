@@ -120,7 +120,7 @@ select_server() {
 system_current() {
     echo -e "${SIGPI_BANNER_COLOR}"
     echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##  System Update & Upgrade"
     echo -e "${SIGPI_BANNER_COLOR} ##"
     echo -e "${SIGPI_BANNER_RESET}"
 
@@ -188,12 +188,12 @@ case "$1" in
         
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Server Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Server Setup Complete !!"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         sleep 15
@@ -218,12 +218,12 @@ case "$1" in
 
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Framework Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Framework Setup Complete !!"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         sleep 15
@@ -253,12 +253,12 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Standard Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Standard Setup Complete !!"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         echo -e "${SIGPI_BANNER_RESET}"
         sleep 15
@@ -268,7 +268,7 @@ case "$1" in
         ;;
     * )
         echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: SIGpi setup <TARGET>"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: SIGpi setup <TARGET>"
         echo -e "${SIGPI_BANNER_COLOR} ##"
         ;;
 esac

@@ -11,7 +11,7 @@
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop "
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Desktop "
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -39,6 +39,6 @@ sudo chown $USER $HOME/Desktop/sigidwiki.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Desktop Complete"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
