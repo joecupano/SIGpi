@@ -31,12 +31,14 @@ case "$1" in
 	        cd $SIGPI_DEBS
             sudo dpkg -r aptdec
             sed -i /aptdec/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/aptdec.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r aptdec
             sed -i /aptdec/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/aptdec.desktop
         fi
         ;;&
 
@@ -46,12 +48,13 @@ case "$1" in
 	        cd $SIGPI_DEBS
             sudo dpkg -P aptdec
             sed -i /aptdec/d $SIGPI_INSTALLED
-        fi
+            sudo rm $DESKTOP_FILES/aptdec.desktop
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -P aptdec
             sed -i /aptdec/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/aptdec.desktop
         fi
         ;;&
 
@@ -78,7 +81,9 @@ case "$1" in
 
         ## DESKTOP
 	    # Add Icon
+        #sudo cp $SIGPI_ICONS/aptdec.icon $DESKTOP_ICONS
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/aptdec.desktop $DESKTOP_FILES
         # Change Category
 	    # Add to Menu
         ;;&

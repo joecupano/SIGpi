@@ -5,7 +5,7 @@
 ###
 ### pkg_bettercap
 ###
-###
+###1
 ### 20260117-2300
 ###
 
@@ -27,6 +27,7 @@ case "$1" in
         sudo apt remove -y bettercap
         sudo apt autoremove -y
         sed -i /bettercap/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/bettercap.desktop
         ;;&
 
     purge )
@@ -40,7 +41,7 @@ case "$1" in
 
         # Remove user-specific data for the current root user and standard users
         sudo rm -rf ~/.bettercap
-        ;;&
+        sudo rm $DESKTOP_FILES/bettercap.desktop
 
     install|build|package )
         # DEPENDENCIES
@@ -56,10 +57,11 @@ case "$1" in
 	
 	    ## DESKTOP
 	    # Add Icon
+        #sudo cp $SIGPI_ICONS/bettercap.icon $DESKTOP_ICONS
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/bettercap.desktop $DESKTOP_FILES
         # Change Category
 	    # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/bettercap.desktop
         ;;&
 
     build )

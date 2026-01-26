@@ -32,12 +32,14 @@ case "$1" in
 	        cd $SIGPI_DEBS
             sudo dpkg -r dsdcc
             sed -i /dsdcc/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/dsdcc.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r dsdcc
             sed -i /dsdcc/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/dsdcc.desktop
         fi
         ;;&
 
@@ -73,6 +75,7 @@ case "$1" in
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/dsdcc.desktop $DESKTOP_FILES
         # Change Category
 	    # Add to Menu
         ;;&

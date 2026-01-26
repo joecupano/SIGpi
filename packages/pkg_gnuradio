@@ -32,18 +32,15 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo apt-get remove gnuradio
             sed -i /gnuradio/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             sudo dpkg -r volk
             sudo dpkg -r gnuradio
-            sed -i /volk/d $SIGPI_INSTALLED
             sed -i /gnuradio/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         fi
-	    ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
     purge )
@@ -52,6 +49,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo apt-get purge gnuradio
             sed -i /gnuradio/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
@@ -59,12 +57,8 @@ case "$1" in
             sudo dpkg -P gnuradio
 	        sed -i /volk/d $SIGPI_INSTALLED
             sed -i /gnuradio/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         fi
-
-	    ### Remove Menu icon
-        sudo rm $DESKTOP_ICONS/gnuradio-grc.png
-        ### Remove Desktop links
-        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
     install )
@@ -132,10 +126,9 @@ case "$1" in
     	## DESKTOP
 	    # Add Icon
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/gnuradio-grc.desktop $DESKTOP_FILES
         # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/gnuradio-grc.desktop
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/gnuradio-grc.desktop
+	    # Add to Menu
         ;;&
 
     build )
