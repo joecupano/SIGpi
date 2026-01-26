@@ -9,52 +9,6 @@
 ### 20260126-0300
 ###
 
-
-# SIGpi Directory tree
-SIGPI_ROOT=$HOME/SIG
-SIGPI_SOURCE=$SIGPI_ROOT/source
-SIGPI_HOME=$SIGPI_ROOT/SIGpi
-SIGPI_ETC=$SIGPI_ROOT/etc
-SIGPI_DEVICES=$SIGPI_HOME/devices
-SIGPI_SCRIPTS=$SIGPI_HOME/scripts
-SIGPI_PACKAGES=$SIGPI_HOME/packages
-SIGPI_DEBS=$SIGPI_HOME/debs
-
-# SIGpi Install Support files
-SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
-SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
-SIGPI_INSTALLED_DEVICES=$SIGPI_ETC/INSTALLED_DEVICES
-SIGPI_DEVLIST=$SIGPI_DEVICES/DEVICES
-SIGPI_SCREEN_STANDARD=$SIGPI_SCRIPTS/screen_standard_setup
-SIGPI_SCREEN_SERVER=$SIGPI_SCRIPTS/screen_server_setup
-SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
-SIGPI_BANNER_RESET="\e[0m"
-
-# Desktop Source directories
-SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
-SIGPI_BACKGROUND_CHOICE="file:///usr/share/backgrounds/SIGpi_background-two.png"
-SIGPI_ICONS=$SIGPI_HOME/icons
-SIGPI_LOGO=$SIGPI_HOME/logo
-SIGPI_DESKTOP=$SIGPI_HOME/desktop
-
-# Desktop Destination Directories
-#DESKTOP_DIRECTORY=/usr/share/desktop-directories
-DESKTOP_BACKGROUNDS=/usr/share/backgrounds
-DESKTOP_FILES=/usr/share/applications
-DESKTOP_ICONS=/usr/share/icons     #   .png .svg
-#DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
-
-# SIGpi Menu category
-SIGPI_MENU_CATEGORY=SIGpi
-HAMRADIO_MENU_CATEGORY=HamRadio
-
-# Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
-SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS)
-SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
-# Is Platform good for install- true or false - we start with false
-SIGPI_CERTIFIED="false"
-
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Desktop "
@@ -63,33 +17,26 @@ echo -e "${SIGPI_BANNER_RESET}"
 
 # Copy desktop files
 sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+
 # Copy icons
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
+
 # Copy Background images
 sudo cp $SIGPI_BACKGROUNDS/* $DESKTOP_BACKGROUNDS
+
 # Change Background image
 gsettings set org.gnome.desktop.background picture-uri "$SIGPI_BACKGROUND_CHOICE"
 
-#
-# XDG Menu Setup
-#
-# Copy SIGpi Menu and Directory files to XDG Dirs
-#sudo cp $SIGPI_DESKTOP/SIGpi.directory $DESKTOP_DIRECTORY
-#sudo cp $SIGPI_DESKTOP/SIGpishell.directory $DESKTOP_DIRECTORY
-#sudo cp $SIGPI_DESKTOP/SIGpi.menu $DESKTOP_XDG_MENU
-#sudo cp $SIGPI_DESKTOP/SIGpishell.menu $DESKTOP_XDG_MENU
-# Copy SIGpi Desktop files to XDG Dirs
-#sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
-#sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
-#sudo chmod 755 $HOME/Desktop/SIGpi.desktop
-#sudo chown $USER $HOME/Desktop/SIGpi.desktop
-#sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
-#sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
-#sudo chown $USER $HOME/Desktop/sigidwiki.desktop
+# Setup Desktop Files
+sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
+sudo gio set $HOME/Desktop/SIGpi.desktop metadata::trusted true
+sudo chmod 755 $HOME/Desktop/SIGpi.desktop
+sudo chown $USER $HOME/Desktop/SIGpi.desktop
 
-# Add installed applications into SIGpi menu
-#xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigidwiki.desktop
-#xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigpi_home.desktop
+sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
+sudo gio set $HOME/Desktop/sigidwiki.desktop metadata::trusted true
+sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
+sudo chown $USER $HOME/Desktop/sigidwiki.desktop
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
