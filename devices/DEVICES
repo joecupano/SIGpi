@@ -5,7 +5,7 @@ libfobos,2.4.0,RigExpert Fobos,202601117
 hackrf,2026.01.02,HackRF,20260102
 hasviolet,1.0,HASviolet,20240101
 rtl-sdr-kerberos,1.0,Kerberos SDR,20190101
-libmirisdr,1.0,SDRplay RSP Devices,20240101
+libmirisdr,1.0,Legacy SDRplay RSP1 and clones,20240101
 limesuite,23.11.0,LimeSuite SDR,20231119
 plutosdr,0.25,PlutoSDR device,20230811
 rfm95w,1.0,Adafruit EFM95W Bonnet,20240101

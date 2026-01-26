@@ -6,9 +6,17 @@
 ### pkg_libmirisdr
 ###
 ###
-### 20260110-2300
+### 202601125-2300
 ###
-### SDRplay RSPx Device
+###
+### open-source driver specifically designed for SDR devices
+### built on the Mirics MSi001 + MSi2500 chipset. This includes:
+### 
+### - SDRplay RSP1
+### - MSI-SDR / "M3" Receivers (RSP1 clones)
+### - Mirics MSi2500 default dongles
+### - Hauppauge WinTV 133559 LF: A specific TV tuner model 
+### - AverMedia A859 Pure DVBT:
 ###
 
 case "$1" in 
@@ -19,41 +27,19 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r libmirisdr
-            sudo dpkg -r soapymirisdr
-            sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r libmirisdr
-            sudo dpkg -r soapymirisdr
-            sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
-                fi
+        cd $SIGPI_DEBS
+        sudo dpkg -r libmirisdr
+        sudo dpkg -r soapymirisdr
+        sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P libmirisdr
-            sudo dpkg -P soapymirisdr
-            sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P libmirisdr
-            sudo dpkg -P soapymirisdr
-            sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-            sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
-                fi
+        cd $SIGPI_DEBS
+        sudo dpkg -P libmirisdr
+        sudo dpkg -P soapymirisdr
+        sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install )
