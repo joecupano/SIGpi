@@ -16,7 +16,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # Copy desktop files
-sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+#sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
 
 # Copy icons
 sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
