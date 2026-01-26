@@ -26,11 +26,13 @@ case "$1" in
     remove )
         sudo apt-get remove js8call
         sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/js8call.desktop
         ;;&
 
     purge )
         sudo apt-get remove --purge js8call
         sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/js8call.desktop
         ;;&
 
     install )
@@ -63,9 +65,9 @@ case "$1" in
 	        # Add Icon
             #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
             # Add Desktop
-            sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
+            sudo cp $SIGPI_DESKTOP/js8call.desktop $DESKTOP_FILES
             # Change Category
-	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
+	        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
             # Add to Menu
             xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
         fi

@@ -28,12 +28,12 @@ case "$1" in
     remove )
         sudo apt-get remove kismet
         sed -i /kismet/d $SIGPI_INSTALLED
+        sudo rm -rf $DESKTOP_FILES/kismet.desktop
         ;;&
 
     purge )
         sudo apt-get purge kismet   
         sed -i /kismet/d $SIGPI_INSTALLED
-        sudo rm -rf $SIGPI_DESKTOP/kismet.desktop
         sudo rm -rf $DESKTOP_FILES/kismet.desktop
         ;;&
 
@@ -43,6 +43,7 @@ case "$1" in
         sudo apt update
         sudo apt install -y kismet
         cat $SIGPI_PKGLIST|grep "kismet" >> $SIGPI_INSTALLED
+        sudo cp $SIGPI_DESKTOP/kismet.desktop $DESKTOP_FILES
         ;;&
 
     build )

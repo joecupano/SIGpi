@@ -29,11 +29,13 @@ case "$1" in
     remove )
         sudo python3 -m pip uninstall urh
         sed -i /urh/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/urh.desktop
         ;;&
 
     purge )
         sudo python3 -m pip uninstall urh
         sed -i /urh/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/urh.desktop
         ;;&
 
     install )
@@ -53,14 +55,10 @@ case "$1" in
 	        # Add Icon
             #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
             # Add Desktop
-            sudo cp $SIGPI_HOME/desktop/urh.desktop $DESKTOP_FILES
+            sudo cp $SIGPI_DESKTOP/urh.desktop $DESKTOP_FILES
             # Change Category
-	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/urh.desktop
-            # Add to Menu
-            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/urh.desktop
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##   URH Installed"
-            echo -e "${SIGPI_BANNER_RESET}"
+          # Add to Menu
+  
             cat $SIGPI_PKGLIST|grep "urh" >> $SIGPI_INSTALLED
         else
             echo -e "${SIGPI_BANNER_COLOR}"

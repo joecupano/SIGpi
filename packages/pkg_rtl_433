@@ -31,12 +31,22 @@ case "$1" in
 	        cd $SIGPI_DEBS
             sudo dpkg -r rtl_433
             sed -i /rtl_433/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_ICONS/rtl_433.png
+            sudo rm $DESKTOP_FILES/rtl_433.desktop
+            sudo rm $DESKTOP_FILES/rtl_adsb.desktop
+            sudo rm $DESKTOP_FILES/rtl_fm.desktop
+            sudo rm $DESKTOP_FILES/rtl_test.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -r rtl_433
             sed -i /rtl_433/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_ICONS/rtl_433.png
+            sudo rm $DESKTOP_FILES/rtl_433.desktop
+            sudo rm $DESKTOP_FILES/rtl_adsb.desktop
+            sudo rm $DESKTOP_FILES/rtl_fm.desktop
+            sudo rm $DESKTOP_FILES/rtl_test.desktop
         fi
         ;;&
 
@@ -46,12 +56,22 @@ case "$1" in
 	        cd $SIGPI_DEBS
             sudo dpkg -P rtl_433
             sed -i /rtl_433/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_ICONS/rtl_433.png
+            sudo rm $DESKTOP_FILES/rtl_433.desktop
+            sudo rm $DESKTOP_FILES/rtl_adsb.desktop
+            sudo rm $DESKTOP_FILES/rtl_fm.desktop
+            sudo rm $DESKTOP_FILES/rtl_test.desktop
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -P rtl_433
             sed -i /rtl_433/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_ICONS/rtl_433.png
+            sudo rm $DESKTOP_FILES/rtl_433.desktop
+            sudo rm $DESKTOP_FILES/rtl_adsb.desktop
+            sudo rm $DESKTOP_FILES/rtl_fm.desktop
+            sudo rm $DESKTOP_FILES/rtl_test.desktop
         fi
         ;;&
 
@@ -72,6 +92,10 @@ case "$1" in
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
+        sudo cp $SIGPI_DESKTOP/rtl_433.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_DESKTOP/rtl_adsb.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_DESKTOP/rtl_fm.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_DESKTOP/rtl_test.desktop $DESKTOP_FILES 
         # Change Category
 	    # Add to Menu
         ;;&
