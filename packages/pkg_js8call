@@ -69,7 +69,7 @@ case "$1" in
             # Change Category
 	        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/js8call.desktop
             # Add to Menu
-            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
+            #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/js8call.desktop
         fi
         ;;&
 
