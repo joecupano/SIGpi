@@ -26,15 +26,14 @@ sudo cp $SIGPI_BACKGROUNDS/* $DESKTOP_BACKGROUNDS
 
 # Change Background image
 gsettings set org.gnome.desktop.background picture-uri "$SIGPI_BACKGROUND_CHOICE"
+gsettings set org.gnome.desktop.background picture-uri-dark "$SIGPI_BACKGROUND_CHOICE"
 
 # Setup Desktop Files
 sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
-sudo gio set $HOME/Desktop/SIGpi.desktop metadata::trusted true
 sudo chmod 755 $HOME/Desktop/SIGpi.desktop
 sudo chown $USER $HOME/Desktop/SIGpi.desktop
 
 sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
-sudo gio set $HOME/Desktop/sigidwiki.desktop metadata::trusted true
 sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
 sudo chown $USER $HOME/Desktop/sigidwiki.desktop
 
