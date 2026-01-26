@@ -71,7 +71,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/csete/gpredict.git   
         cd gpredict
-        ./configure
+        ./autogen.sh
         make -j4
         sudo make install
         cat $SIGPI_PKGLIST|grep "gpredict" >> $SIGPI_INSTALLED
@@ -81,7 +81,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/csete/gpredict.git   
         cd gpredict
-        ./configure
+        ./autogen.sh
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
