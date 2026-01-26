@@ -27,38 +27,17 @@ case "$1" in
         ;;&
         
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo apt-get remove gnuradio
-            sed -i /gnuradio/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            sudo dpkg -r volk
-            sudo dpkg -r gnuradio
-            sed -i /gnuradio/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-        fi
+        cd $SIGPI_DEBS
+        sudo dpkg -r gnuradio
+        -i /gnuradio/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo apt-get purge gnuradio
-            sed -i /gnuradio/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            #sudo dpkg -P volk
-            sudo dpkg -P gnuradio
-	        sed -i /volk/d $SIGPI_INSTALLED
-            sed -i /gnuradio/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
-        fi
+        cd $SIGPI_DEBS        
+        sudo dpkg -P gnuradio
+	    sed -i /gnuradio/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 
     install )

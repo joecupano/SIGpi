@@ -27,35 +27,16 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r dsdcc
-            sed -i /dsdcc/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/dsdcc.desktop
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r dsdcc
-            sed -i /dsdcc/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/dsdcc.desktop
-        fi
+	    cd $SIGPI_DEBS
+        sudo dpkg -r dsdcc
+        sed -i /dsdcc/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/dsdcc.desktop
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P dsdcc
-            sed -i /dsdcc/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P dsdcc
-            sed -i /dsdcc/d $SIGPI_INSTALLED
-        fi
+        cd $SIGPI_DEBS
+        sudo dpkg -P dsdcc
+        sed -i /dsdcc/d $SIGPI_INSTALLED
         ;;&
 
     install )

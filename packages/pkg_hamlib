@@ -24,24 +24,14 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_INSTALLED
-        fi
+        cd $SIGPI_DEBS
+        sudo dpkg -r hamlib
+        sed -i /hamlib/d $SIGPI_INSTALLED
         ;;&
 
     purge )
-        sudo dpkg -r hamlib
-        sed -i /hamlib/d $SIGPI_INSTALLED
-        sudo rm -rf $SIGPI_SOURCE/hamlib*
+        cd $SIGPI_DEBS
+        sudo dpkg -P hamlib
         sed -i /hamlib/d $SIGPI_INSTALLED
         ;;&
 

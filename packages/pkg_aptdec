@@ -26,36 +26,17 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r aptdec
-            sed -i /aptdec/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/aptdec.desktop
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r aptdec
-            sed -i /aptdec/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/aptdec.desktop
-        fi
+        cd $SIGPI_DEBS
+        sudo dpkg -r aptdec
+        sed -i /aptdec/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/aptdec.desktop
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P aptdec
-            sed -i /aptdec/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/aptdec.desktop
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -P aptdec
-            sed -i /aptdec/d $SIGPI_INSTALLED
-            sudo rm $DESKTOP_FILES/aptdec.desktop
-        fi
+        cd $SIGPI_DEBS
+        sudo dpkg -P aptdec
+        sed -i /aptdec/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/aptdec.desktop
         ;;&
 
     install|build|package )
