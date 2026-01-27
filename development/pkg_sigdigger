@@ -91,6 +91,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/sigutils
         cd sigutils 
+        git checkout 0.3.0
         mkdir -p build && cd build 
         cmake .. 
         make 
@@ -99,7 +100,8 @@ case "$1" in
 
         cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/suscan
-        cd suscan 
+        cd suscan
+        git checkout 0.3.0
         mkdir -p build && cd build 
         cmake .. 
         make 
@@ -108,16 +110,18 @@ case "$1" in
 
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SuWidgets
-        cd SuWidgets 
-        qmake6 SuWidgetsLib.pro 
+        cd SuWidgets
+        git checkout 0.3.0 
+        qmake SuWidgetsLib.pro 
         make 
         sudo make install 
         cd ..
 
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SigDigger
-        cd SigDigger 
-        qmake6 SigDigger.pro 
+        cd SigDigger
+        git checkout 0.3.0 
+        qmake SigDigger.pro 
         make 
         sudo make install 
         cd ..
@@ -135,6 +139,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/sigutils
         cd sigutils
+        git checkout 0.3.0
         mkdir -p build && cd build 
         cmake .. 
         make 
@@ -144,28 +149,31 @@ case "$1" in
 
         cd $SIGPI_SOURCE
         git clone --recursive https://github.com/BatchDrake/suscan
-        cd suscan 
+        cd suscan
+        git checkout 0.3.0 
         mkdir -p build && cd build 
         cmake .. 
-        make 
+        make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
         cd ../..
 
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SuWidgets
-        cd SuWidgets 
-        qmake6 SuWidgetsLib.pro 
-        make 
+        cd SuWidgets
+        git checkout 0.3.0 
+        qmake SuWidgetsLib.pro 
+        make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS 
         cd ..
 
         cd $SIGPI_SOURCE
         git clone https://github.com/BatchDrake/SigDigger
-        cd SigDigger 
-        qmake6 SigDigger.pro 
-        make 
+        cd SigDigger
+        git checkout 0.3.0 
+        qmake SigDigger.pro 
+        make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
         cd ..
