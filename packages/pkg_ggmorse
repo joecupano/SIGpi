@@ -61,7 +61,7 @@ case "$1" in
         git clone https://github.com/ggerganov/ggmorse --recursive
         cd ggmorse
         mkdir build && cd build
-        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/ggmorse -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
+        cmake -Wno-dev -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
         make -j4
         sudo make install
         sudo ldconfig
@@ -74,7 +74,7 @@ case "$1" in
         git clone https://github.com/ggerganov/ggmorse --recursive
         cd ggmorse
         mkdir build && cd build
-        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/ggmorse -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
+        cmake -Wno-dev -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS

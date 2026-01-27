@@ -57,7 +57,7 @@ case "$1" in
         cd inmarsatc
         git switch msvc
         mkdir build; cd build
-        cmake -DCMAKE_INSTALL_PREFIX=/opt/install/inmarsatc ..
+        cmake ..
         make -j4
         sudo make install
         sudo ldconfig
@@ -71,7 +71,7 @@ case "$1" in
         cd inmarsatc
         git switch msvc
         mkdir build; cd build
-        cmake -DCMAKE_INSTALL_PREFIX=/opt/install/inmarsatc ..
+        cmake ..
         make -j4
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
