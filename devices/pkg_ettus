@@ -43,16 +43,25 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i uhd_current_amd64.deb
+            cat $SIGPI_DEVLIST|grep "ettus" >> $SIGPI_INSTALLED_DEVICES
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-	        sudo dpkg -i uhd_current_arm64.deb
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
         fi
-        cat $SIGPI_DEVLIST|grep "ettus" >> $SIGPI_INSTALLED_DEVICES
         ;;&
     
     build|package )
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
+        fi
+
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/EttusResearch/uhd.git
