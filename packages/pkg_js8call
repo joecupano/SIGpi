@@ -47,6 +47,7 @@ case "$1" in
             echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Install Terminated"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
+            exit
         else
             ## PACKAGE
             cd $SIGPI_PACKAGES        
@@ -56,8 +57,10 @@ case "$1" in
             fi
 
             if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	            cd $SIGPI_DEBS
-	            sudo dpkg -i js8call_current_arm64.deb
+                echo -e "${SIGPI_BANNER_COLOR}"
+                echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
+                echo -e "${SIGPI_BANNER_RESET}"
+                exit
             fi
             
             cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED
@@ -73,15 +76,9 @@ case "$1" in
         fi
         ;;&
 
-    build )
+    build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;&
-
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1: option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
 
