@@ -1,0 +1,333 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_sdrangel
+###
+###
+### 20260128-1300
+###
+### SDRangel package management script
+###
+
+#
+# COMPILER OPTIMIZATION (OPTIONAL)
+#
+# For a 64-bit operating system on a Raspberry Pi 4:
+#export CXXFLAGS='-O3 -mtune=cortex-a72'
+#export CFLAGS='-O3 -mtune=cortex-a72'
+#
+# For a 64-bit operating system on a Raspberry Pi 5:
+#export CXXFLAGS='-O3 -mtune=cortex-a76'
+#export CFLAGS='-O3 -mtune=cortex-a76'
+#
+# For other operating systems:
+#export CXXFLAGS='-O3 -march=native -mtune=native'
+#export CFLAGS='-O3 -march=native -mtune=native'
+#
+
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        cd $SIGPI_PACKAGES        
+        sudo dpkg -r sdrangel
+        sed -i /sdrangel/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        cd $SIGPI_PACKAGES        
+        sudo dpkg -P sdrangel
+        sed -i /sdrangel/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package )
+        sudo apt-get install -y pkg-config libopencv-dev libxml2-dev libavcodec-dev
+        sudp apt-get install -y libavformat-dev graphviz bison flex ffmpeg libopus-dev
+        sudp apt-get install -y libfaad-dev libqt5webengine5 qtwebengine5-dev
+        sudp apt-get install -y qtbase5-private-dev libqt5svg5-dev libhidapi-dev
+        sudp apt-get install -y libsamplerate0-dev libqt5gamepad5-dev libtool 
+        sudp apt-get install -y libflac-dev zlib1g-dev libasound2-dev zlib1g zlib1g-dev
+       
+sudo apt-get update && sudo apt-get -y install \
+git cmake g++ pkg-config autoconf automake libtool libfftw3-dev libusb-1.0-0-dev libusb-dev libhidapi-dev libopengl-dev \
+qtbase5-dev qtchooser libqt5multimedia5-plugins qtmultimedia5-dev libqt5websockets5-dev \
+qttools5-dev qttools5-dev-tools libqt5opengl5-dev libqt5quick5 libqt5charts5-dev \
+qml-module-qtlocation  qml-module-qtpositioning qml-module-qtquick-window2 \
+qml-module-qtquick-dialogs qml-module-qtquick-controls qml-module-qtquick-controls2 qml-module-qtquick-layouts \
+libqt5serialport5-dev qtdeclarative5-dev qtpositioning5-dev qtlocation5-dev libqt5texttospeech5-dev \
+qtwebengine5-dev qtbase5-private-dev libqt5gamepad5-dev libqt5svg5-dev \
+libfaad-dev libflac-dev zlib1g-dev libboost-all-dev libasound2-dev pulseaudio libopencv-dev libxml2-dev bison flex \
+ffmpeg libavcodec-dev libavformat-dev libopus-dev doxygen graphviz
+
+        ## DEPENDENCIES
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y libusb-1.0-0-dev
+        sudo apt-get install -y libusb-dev
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libasound2-dev
+        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y gettext
+        sudo apt-get install -y pulseaudio
+        sudo apt-get install -y libopencv-dev
+        sudo apt-get install -y libxml2-dev
+        sudo apt-get install -y bison
+        sudo apt-get install -y flex
+        sudo apt-get install -y ffmpeg
+        sudo apt-get install -y libavcodec-dev
+        sudo apt-get install -y libavformat-dev
+        sudo apt-get install -y opus-tools
+        sudo apt-get install -y libopus-dev
+        sudo apt-get install -y graphviz
+        sudo apt-get install -y qt5-qmake
+        sudo apt-get install -y qtscript5-dev
+        sudo apt-get install -y qtbase5-dev
+        #sudo apt-get install -y qtbase5-dev-tool
+        sudo apt-get install -y qtchooser
+        sudo apt-get install -y qtmultimedia5-dev
+        sudo apt-get install -y qml-module-qtlocation
+        sudo apt-get install -y qml-module-qtpositioning
+        sudo apt-get install -y qml-module-qtquick-window2
+        sudo apt-get install -y qml-module-qtquick-dialogs
+        sudo apt-get install -y qml-module-qtquick-controls
+        sudo apt-get install -y qml-module-qtquick-layouts
+        sudo apt-get install -y qttools5-dev
+        sudo apt-get install -y qttools5-dev-tools
+        sudo apt-get install -y qtdeclarative5-dev
+        sudo apt-get install -y qtpositioning5-dev
+        sudo apt-get install -y qtlocation5-dev
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y libgl1-mesa-glx
+        sudo apt-get install -y libqt5opengl5-dev
+        sudo apt-get install -y libqt5quick5
+        sudo apt-get install -y libqt5charts5-dev
+        sudo apt-get install -y libqt5websockets5-dev
+        sudo apt-get install -y libqt5multimedia5-plugins
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5texttospeech5-dev
+        sudo apt-get install -y libqt5svg5-dev 
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5positioning5
+        sudo apt-get install -y libqt5positioning5-plugins
+        sudo apt-get install -y libqt5gamepad5-dev
+        sudo apt-get install -y gstreamer1.0-libav
+        ;;&
+
+    install )    
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sdrangel_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i sdrangel_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED 
+        ;;&
+
+    build|package )
+        sudo mkdir -p /opt/build
+        sudo chown $USER:users /opt/build
+        sudo mkdir -p /opt/install
+        sudo chown $USER:users /opt/install
+
+        mkdir -p ~/SDRangel
+
+        #APT
+        #Aptdec is a FOSS program that decodes images transmitted by NOAA weather satellites.
+        cd ~/SDRangel
+        git clone https://github.com/srcejon/aptdec.git
+        cd aptdec
+        git checkout libaptdec
+        git submodule update --init --recursive
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/aptdec ..
+        make -j $(nproc) install
+
+        #CM265cc
+        cd ~/SDRangel
+        git clone https://github.com/f4exb/cm256cc.git
+        cd cm256cc
+        git reset --hard 6f4a51802f5f302577d6d270a9fc0cb7a1ee28ef
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/cm256cc ..
+        make -j $(nproc) install
+
+        #LibDAB
+        cd ~/SDRangel
+        git clone https://github.com/srcejon/dab-cmdline
+        cd dab-cmdline/library
+        git checkout msvc
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libdab ..
+        make -j $(nproc) install
+
+        #MBElib
+        # If MBELIB is already installed, please skip this step.
+        cd ~/
+        git clone https://github.com/szechyjs/mbelib.git
+        cd mbelib
+        mkdir build; cd build
+        cmake ..
+        make -j $(nproc)
+        sudo make install
+
+        #SerialDV
+        cd ~/SDRangel
+        git clone https://github.com/f4exb/serialDV.git
+        cd serialDV
+        git reset --hard "v1.1.5"
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/serialdv ..
+        make -j $(nproc) install
+
+        #DSDcc
+        cd ~/SDRangel
+        git clone https://github.com/f4exb/dsdcc.git
+        cd dsdcc
+        git reset --hard "v1.9.6"
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/dsdcc -DUSE_MBELIB=ON -DLIBSERIALDV_INCLUDE_DIR=/opt/install/serialdv/include/serialdv -DLIBSERIALDV_LIBRARY=/opt/install/serialdv/lib/libserialdv.so ..
+        make -j $(nproc) install
+
+        #Codec2/FreeDV
+        # If codec2/freedv is already installed, please skip this step.
+        sudo apt install libspeexdsp-dev libsamplerate0-dev
+        cd ~/
+        git clone https://github.com/drowe67/codec2.git
+        cd codec2
+        mkdir build
+        cd build
+        cmake ..
+        make -j $(nproc)
+        sudo make install
+
+        # manually install freedv_rx since it's not part of the default install package
+        sudo install -m 0755 src/freedv_rx /usr/local/bin
+        sudo install -m 0755 src/freedv_tx /usr/local/bin
+        cd ../..
+        sudo ldconfig
+
+        #SGP4
+        cd ~/SDRangel
+        git clone https://github.com/dnwrnr/sgp4.git
+        cd sgp4
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/sgp4 ..
+        make -j $(nproc) install
+
+        #LibSigMF
+        #For Trixie and Ubuntu 24.04 and higher, LibSigMF will not compile with compiler optimization flags set.
+        unset CXXFLAGS
+        unset CFLAGS
+
+        cd ~/SDRangel
+        git clone https://github.com/f4exb/libsigmf.git
+        cd libsigmf
+        git checkout "new-namespaces"
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/libsigmf .. 
+        make -j $(nproc) install
+
+        #Restore the compiler flags from the beginning of this procedure.
+
+        #GGMorse
+        cd ~/SDRangel
+        git clone https://github.com/ggerganov/ggmorse.git
+        cd ggmorse
+        mkdir build; cd build
+        cmake -Wno-dev -DCMAKE_INSTALL_PREFIX=/opt/install/ggmorse -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
+        make -j $(nproc) install
+
+        # RNNoise: Install RNNoise from the Easy Effects procedure in Additional utilities.
+
+        # InmarsatC
+        cd ~/SDRangel
+        git clone https://github.com/srcejon/inmarsatc.git
+        cd inmarsatc
+        git switch msvc
+        mkdir build; cd build
+        cmake -DCMAKE_INSTALL_PREFIX=/opt/install/inmarsatc ..
+        make -j $(nproc) install
+        sudo ldconfig
+
+        cd ~/SDRangel
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel
+        mkdir build; cd build
+        cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON -DENABLE_FEATURE_DENOISER=ON \
+        -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+        -DHACKRF_DIR=/usr/local \
+        -DRTLSDR_DIR=/usr/lib/aarch64-linux-gnu \
+        -DSOAPYSDR_DIR=/usr/local \
+        -DUHD_DIR=/usr/local \
+        -DAPT_DIR=/opt/install/aptdec \
+        -DCM256CC_DIR=/opt/install/cm256cc \
+        -DDSDCC_DIR=/opt/install/dsdcc \
+        -DSERIALDV_DIR=/opt/install/serialdv \
+        -DSGP4_DIR=/opt/install/sgp4 \
+        -DLIBSIGMF_DIR=/opt/install/libsigmf \
+        -DDAB_DIR=/opt/install/libdab \
+        -DGGMORSE_DIR=/opt/install/ggmorse \
+        -DINMARSATC_DIR=/opt/install/inmarsatc \
+        -DCMAKE_INSTALL_PREFIX=/opt/install/sdrangel ..
+
+        # If make fails, it could be a memory issue. Try make -j1 install
+        make -j4 
+        ;;&
+
+    build  )
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    install|build )
+	    ## DESKTOP
+        # Add Icon      
+        # Add Desktop
+        sudo cp $SIGPI_DESKTOP/sdrangel.desktop $DESKTOP_FILES
+        # Add Run script
+        sudo cp $SIGPI_SCRIPTS/run_sdrangel.sh /usr/local/bin
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrangel.desktop
+
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir $HOME/.config/f4exb
+        mkdir $HOME/.local/share/f4exb
+        mkdir $HOME/.local/share/f4exb/SDRangel
+        if [ ! -f "$SIGPI_ETC/fftw-wisdom" ]; then
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.local/share/f4exb/SDRangel/fftw-wisdom
+        cp $SIGPI_ETC/fftw-wisdom $HOME/.config/f4exb/fftw-wisdom
+        ;;&
+    
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
