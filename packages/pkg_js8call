@@ -36,9 +36,13 @@ case "$1" in
         ;;&
 
     install )
-        ## DEPENDENCIES
-
-        ## PACKAGE
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
+        fi
+        
         if grep wsjtx "$SIGPI_INSTALLED"; then
             echo -e "${SIGPI_BANNER_COLOR}"
             echo -e "${SIGPI_BANNER_COLOR} ##"
@@ -50,19 +54,8 @@ case "$1" in
             exit
         else
             ## PACKAGE
-            cd $SIGPI_PACKAGES        
-            if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	            cd $SIGPI_DEBS
-	            sudo dpkg -i js8call_current_amd64.deb
-            fi
-
-            if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-                echo -e "${SIGPI_BANNER_COLOR}"
-                echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
-                echo -e "${SIGPI_BANNER_RESET}"
-                exit
-            fi
-            
+            cd $SIGPI_DEBS
+	        sudo dpkg -i js8call_current_amd64.deb
             cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED
             ## DESKTOP
 	        # Add Icon
