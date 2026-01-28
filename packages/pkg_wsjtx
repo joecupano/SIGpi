@@ -71,23 +71,17 @@ case "$1" in
 	        # Add Icon
             # Add Desktop
             # Change Category
-	        sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
-    	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+	        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
+    	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
             # Add to Menu
-            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
-            xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
+            #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
+            #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
         fi
         ;;&
 
-    build )
+    build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;&
-
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
 
