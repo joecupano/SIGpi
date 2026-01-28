@@ -15,7 +15,7 @@ case "$1" in
 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Ettus Research USRP Devices"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Ettus Research USRP Devices"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
@@ -48,7 +48,7 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##   $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
             echo -e "${SIGPI_BANNER_RESET}"
             exit
         fi
@@ -57,7 +57,7 @@ case "$1" in
     build|package )
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##   $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
             echo -e "${SIGPI_BANNER_RESET}"
             exit
         fi
@@ -88,7 +88,7 @@ case "$1" in
 
     install|build|package|remove|purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : Ettus Research USRP Devices completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Ettus Research USRP Devices completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 esac

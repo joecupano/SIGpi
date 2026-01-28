@@ -85,11 +85,6 @@ if grep sdrplay "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_sdrplay install
 fi
 
-# Install RigExpert Fobos
-if grep fobos "$SIGPI_INSTALLED_DEVICES"; then
-    source $SIGPI_DEVICES/pkg_libfobos install
-fi
-
 # Install Ubertooth One
 if grep ubertooth "$SIGPI_INSTALLED_DEVICES"; then
     source $SIGPI_DEVICES/pkg_ubertooth install

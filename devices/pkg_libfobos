@@ -22,7 +22,7 @@ fi
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : RigExpert Fobos"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RigExpert Fobos"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
@@ -109,7 +109,7 @@ case "$1" in
 
     install|build|package|remove|purge )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : RigExpert Fobos completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RigExpert Fobos completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
