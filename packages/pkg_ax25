@@ -5,7 +5,7 @@
 ###
 ### pkg_ax25
 ###
-### 20260112-2300
+### 20260128-2300
 ###
 ### Packet Radio AX.25
 ###
@@ -25,28 +25,24 @@ case "$1" in
         ;;&
     remove )
         sudo apt-get remove -y libncurses5 libax25 ax25-apps ax25-tools
-        sed -i /audacity/d $SIGPI_INSTALLED
+        sed -i /ax25/d $SIGPI_INSTALLED
         ;;&
     purge )
         sudo apt-get remove -y libncurses5 libax25 ax25-apps ax25-tools
         sudo rm -rf /etc/ax25/axports
-        sed -i /audacity/d $SIGPI_INSTALLED
+        sed -i /ax25/d $SIGPI_INSTALLED
         ;;&
     install )
         sudo apt-get install -y libncurses5 libax25 ax25-apps ax25-tools
         echo "ax0 N0CALL-3 1200 255 7 APRS" | sudo tee -a /etc/ax25/axports
         cat $SIGPI_PKGLIST|grep "ax25" >> $SIGPI_INSTALLED
         ;;&
-    build )
+    build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  Build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  Package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;&
+
     remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : AX.25 - Completed"

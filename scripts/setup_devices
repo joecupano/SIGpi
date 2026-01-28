@@ -42,7 +42,7 @@ echo -e "${SIGPI_BANNER_COLOR} ##  install : SoapyRemote - Completed"
 echo -e "${SIGPI_BANNER_RESET}"
 
 # Install AX.25
-#source $SIGPI_PACKAGES/pkg_ax25 install
+source $SIGPI_PACKAGES/pkg_ax25 install
 
 # Install bladeRF
 if grep bladerf "$SIGPI_INSTALLED_DEVICES"; then
