@@ -1,0 +1,66 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_kismet
+###
+###
+### 20260114-2300
+###
+### Package installer kismet
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : KISMET"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo apt-get remove kismet
+        sed -i /kismet/d $SIGPI_INSTALLED
+        sudo rm -rf $DESKTOP_FILES/kismet.desktop
+        ;;&
+
+    purge )
+        sudo apt-get purge kismet   
+        sed -i /kismet/d $SIGPI_INSTALLED
+        sudo rm -rf $DESKTOP_FILES/kismet.desktop
+        ;;&
+
+    install )
+        wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | gpg --dearmor | sudo tee /usr/share/keyrings/kismet-archive-keyring.gpg >/dev/null
+        echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/jammy jammy main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
+        sudo apt update
+        sudo apt install -y kismet
+        cat $SIGPI_PKGLIST|grep "kismet" >> $SIGPI_INSTALLED
+        sudo cp $SIGPI_DESKTOP/kismet.desktop $DESKTOP_FILES
+        ;;&
+
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : KISMET - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

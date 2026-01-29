@@ -1,0 +1,44 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### setup_core_desktop
+###
+###
+### 20260126-0300
+###
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Desktop "
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"
+
+# Copy desktop files
+#sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
+
+# Copy icons
+sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
+
+# Copy Background images
+sudo cp $SIGPI_BACKGROUNDS/* $DESKTOP_BACKGROUNDS
+
+# Change Background image
+gsettings set org.gnome.desktop.background picture-uri $SIGPI_BACKGROUND_CHOICE
+gsettings set org.gnome.desktop.background picture-uri-dark $SIGPI_BACKGROUND_CHOICE
+
+# Setup Desktop Files
+sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
+sudo chmod 755 $HOME/Desktop/SIGpi.desktop
+sudo chown $USER $HOME/Desktop/SIGpi.desktop
+
+sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
+sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
+sudo chown $USER $HOME/Desktop/sigidwiki.desktop
+
+echo -e "${SIGPI_BANNER_COLOR}"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Desktop Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##"
+echo -e "${SIGPI_BANNER_RESET}"

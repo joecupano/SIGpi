@@ -5,87 +5,80 @@
 ###
 ### pkg_flrig
 ###
+###
+### 20260113-2300
+###
+### FLrig installation script for SIGPI
+###
 
-case "$1" in 
-    remove )
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove FLrig"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLrig"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove )
         sudo dpkg -r flrig
         sed -i /flrig/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge FLrig"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    purge )
         sudo dpkg -P flrig
         sed -i /flrig/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install FLrig"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    install )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i flrig_2.0.03-1_amd64.deb
+	        sudo dpkg -i flrig_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i flrig_2.0.03-1_arm64.deb
+	        sudo dpkg -i flrig_current_arm64.deb
         fi
-        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED
 
 	    ## DESKTOP
 	    # Add Icon
         # Add Desktop
         # Add Category
-        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flrig.desktop
-        sudo sed -i "s/Categories.*/Categories=$HAMRADIO_MENU_CATEGORY;/" $DESKTOP_FILES/flarq.desktop
         # Add to Menu.
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flrig.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/flarq.desktop
-	    
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   FLrig Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+        ;;&
+
+    build|package )
+        wget -qO- "https://www.w1hkj.org/files/flrig/flrig-2.0.10.tar.gz" | tar -xz -C $SIGPI_SOURCE
+        cd $SIGPI_SOURCE
+        cd flrig-2.0.10
+        ./configure
+        make -j4
+	    ;;&
+
     build )
+        sudo make install
+        cat $SIGPI_PKGLIST|grep "flrig" >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        mv *.deb $SIGPI_DEBS
+	    ;;&
+
+    remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : FLrig - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
-
-### 20240108-0500
-### sed: can't read /usr/share/applications/fldigi.desktop: No such file or directory
-### sed: can't read /usr/share/applications/flarq.desktop: No such file or directory
-### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist
-### xdg-desktop-menu: file '/usr/share/desktop-directories/HamRadio.directory' does not exist

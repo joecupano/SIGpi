@@ -1,11 +1,13 @@
 #!/bin/bash
 
 ###
+### SIGpi
+###
 ### SIGpi_setup
 ###
 
 ###
-###  REVISION: 20240110-0100
+###  REVISION: 20260110-2300
 ###
 
 ###
@@ -21,41 +23,20 @@
 ### 
 
 # Are we the right hardware
-if [ "$SIGPI_HWARCH" = "x86_64" ]; then
+if [ "$SIGPI_HWARCH" = "x86_64" ] || [ "$SIGPI_HWARCH" = "aarch64" ]; then
     SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_HWARCH" = "aarch64" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_CERTIFIED" = "false" ]; then
-    echo "ERROR:"
-    echo "ERROR:  Incorrect Hardware"
-    echo "ERROR:"
-    echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
-    echo "ERROR:"
-    exit 1;
 fi
 
 # Are we the right operating system
-if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 11 (bullseye)" ]; then
+if [ "$SIGPI_OSNAME" = "jammy" ] || [ "$SIGPI_OSNAME" = "bookworm" ]; then
     SIGPI_CERTIFIED="true"
 fi
-
-if [ "$SIGPI_OSNAME" = "Debian GNU/Linux 12 (bookworm)" ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
-if [ "$SIGPI_OSNAME" = *Ubuntu 22.04* ]; then
-    SIGPI_CERTIFIED="true"
-fi
-
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:"
-    echo "ERROR:  Incorrect Operating System Release"
+    echo "ERROR:  Incorrect Hardware or Operating System"
     echo "ERROR:"
-    echo "ERROR:  Operating system incorrect - Aborting"
+    echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
+    echo "ERROR:  Operating system must be jammy or bookworm - Aborting"
     echo "ERROR:"
     exit 1;
 fi
@@ -91,12 +72,17 @@ select_startsrvscreen(){
 
 select_devices() {
     FUN=$(whiptail --title "Devices Setup" --clear --checklist --separate-output \
-        "Choose additional SDR devices " 20 80 12 \
+        "Choose SDR devices " 20 80 12 \
         "bladerf" "bladeRF " OFF \
         "ettus" "Ettus Research USRP UHD " OFF \
+        "fobos" "RigExpert Fobos " OFF\
+        "hackrf" "HackRF v1" ON\
+        "kerberos" "Kerberos SDR " OFF\
         "limesuite" "LimeSDR " OFF \
         "plutosdr" "PlutoSDR " OFF \
+        "rtlsdr-v4" "RTLSDR v4 " ON\
         "sdrplay" "SDRPlay " OFF \
+        "ubertooth" "Ubertooth One" OFF \
         3>&1 1>&2 2>&3)
     RET=$?
     if [ $RET -eq 1 ]; then
@@ -106,7 +92,7 @@ select_devices() {
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_INSTALDEV
+        echo $FUN >> $SIGPI_INSTALLED_DEVICES
     done
 }
 
@@ -117,7 +103,6 @@ select_server() {
         "rtltcpsrv" "RTL-TCP Server " OFF \
         "sdrangelsrv" "SDRangel Server " OFF \
         "soapysdrsrv" "SoapySDR Server " OFF \
-        "dump1090" "Dump1090 Server " OFF \
         "radiosonde" "RadioSonde AutoRX " OFF \
 		3>&1 1>&2 2>&3)
     RET=$?
@@ -128,8 +113,19 @@ select_server() {
     IFS=' '     # space is set as delimiter
     read -ra ADDR <<< "$FUN"   # str is read into an array as tokens separated by IFS
     for i in "${ADDR[@]}"; do   # access each element of array
-        echo $FUN >> $SIGPI_INSTALLER
+        echo $FUN >> $SIGPI_INSTALLED_DEVICES
     done
+}
+
+system_current() {
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_COLOR} ##  System Update & Upgrade"
+    echo -e "${SIGPI_BANNER_COLOR} ##"
+    echo -e "${SIGPI_BANNER_RESET}"
+
+    sudo apt-get -y update
+    sudo apt-get -y upgrade
 }
 
 
@@ -148,131 +144,131 @@ cd $SIGPI_SOURCE
 ## Server Install 
 ##
 
-if [ "$1" = "server" ]; then
-    calc_wt_size
-    select_startsrvscreen
-    select_devices
-    select_server
-    TERM=ansi whiptail --title "SIGpi Server Setup" --clear --msgbox "Ready to continue" 12 120
+case "$1" in
+    server )
+        calc_wt_size
+        select_startsrvscreen
+        select_devices
+        select_server
+        TERM=ansi whiptail --title "SIGpi Server Setup" --clear --msgbox "Ready to continue" 12 120
+        system_current
 
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_SOURCE
 
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
+        source $SIGPI_SCRIPTS/setup_core_server
+        source $SIGPI_SCRIPTS/setup_devices
+        source $SIGPI_SCRIPTS/setup_core_packages
 
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    cd $SIGPI_SOURCE
-
-    source $SIGPI_SCRIPTS/setup_core_server
-    source $SIGPI_SCRIPTS/setup_core_devices
-    source $SIGPI_SCRIPTS/setup_core_packages
-
-    # Copy SIGpi commands into /usr/local/bin
-    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
-    sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
+        # Copy SIGpi commands into /usr/local/bin
+        sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
+        sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
   
-    # Install RTL-TCP Server
-    if [ "$2" = "rtltcpsrv" ]; then
-        sudo cp $SIGPI_SCRIPTS/rtltcp.service /etc/systemd/system/sigpi-node.service
-        echo "sigpi-node_rtltcp" >> $SIGPI_CONFIG
-    fi
-    # Install SDRangel Server
-    if [ "$2" = "sdrangelsrv" ]; then
-        source $SIGPI_PACKAGES/pkg_sdrangelsrv install
-        sudo cp $SIGPI_SCRIPTS/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
-        echo "sigpi-node_sdrangelsrv" >> $SIGPI_CONFIG
-    fi
-    # Install SoapySDR Server
-    if [ "$2" = "soapysdrsrv" ]; then
-        sudo cp $SIGPI_SCRIPTS/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
-        echo "sigpi-node_soapysdrsrv" >> $SIGPI_CONFIG
-    fi
-    # Install OpenWebRX
-    if [ "$2" = "openwebrx" ]; then
-        source $SIGPI_PACKAGES/pkg_openwebrx install
-        #sudo cp $SIGPI_SOURCE/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
-        #echo "openwebrx" >> $SIGPI_CONFIG
-    fi
-    
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Server Setup Complete !!"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconsds unless CTRL-C hit"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sleep 15
-    sudo sync
-    sudo reboot
-    exit 0
-fi
+       # Install RTL-TCP Server
+        if [ "$2" = "rtltcpsrv" ]; then
+            sudo cp $SIGPI_CONFIG/rtltcp.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_rtltcp" >> $SIGPI_INSTALLED
+        fi
+       # Install SDRangel Server
+        if [ "$2" = "sdrangelsrv" ]; then
+            source $SIGPI_PACKAGES/pkg_sdrangelsrv install
+            sudo cp $SIGPI_CONFIG/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_sdrangelsrv" >> $SIGPI_INSTALLED
+        fi
+        # Install SoapySDR Server
+        if [ "$2" = "soapysdrsrv" ]; then
+            sudo cp $SIGPI_CONFIG/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+            echo "sigpi-node_soapysdrsrv" >> $SIGPI_INSTALLED
+        fi
+        # Install OpenWebRX
+        if [ "$2" = "openwebrx" ]; then
+            source $SIGPI_PACKAGES/pkg_openwebrx install
+            sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+            echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
+        fi
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Server Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        sleep 15
+        sudo sync
+        sudo reboot
+        exit 0
+        ;;
+    framework )
+        calc_wt_size
+        select_startscreen
+        select_devices
+        TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continue" 12 120
+        system_current
 
+        cd $SIGPI_SOURCE
+        source $SIGPI_SCRIPTS/setup_core_standard
+        source $SIGPI_SCRIPTS/setup_devices
+        
+        # Copy SIGpi commands into /usr/local/bin
+        sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
+        sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
-##
-## Standard Install
-##
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Framework Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        sleep 15
+        sudo sync
+        sudo reboot
+        exit 0
+        ;;
+    standard )
+        calc_wt_size
+        select_startscreen
+        select_devices
+        TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continue" 12 120
+        system_current
 
-if [ "$1" = "standard" ]; then
-    calc_wt_size
-    select_startscreen
-    select_devices
-    select_desktop
+        cd $SIGPI_SOURCE
 
-    TERM=ansi whiptail --title "SIGpi setup" --clear --msgbox "Ready to continuer" 12 120
+        source $SIGPI_SCRIPTS/setup_core_standard
+        source $SIGPI_SCRIPTS/setup_devices
+        source $SIGPI_SCRIPTS/setup_core_packages
+        source $SIGPI_SCRIPTS/setup_core_desktop
 
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
+        # Copy SIGpi commands into /usr/local/bin
+        sudo cp $SIGPI_SCRIPTS/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
+        sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
-    sudo apt-get -y update
-    sudo apt-get -y upgrade
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System Update & Upgrade Complete"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_RESET}"
-
-    cd $SIGPI_SOURCE
-
-    source $SIGPI_SCRIPTS/setup_core_standard
-    source $SIGPI_SCRIPTS/setup_core_devices
-    source $SIGPI_SCRIPTS/setup_core_packages
-
-    # Copy SIGpi commands into /usr/local/bin
-    sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
-    sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
-
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Setup Complete !!"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##"
-    echo -e "${SIGPI_BANNER_COLOR} ##   System needs to reboot for all changes to occur"
-    echo -e "${SIGPI_BANNER_COLOR} ##   Reboot will begin in 15 seconds unless CTRL-C hit"
-    echo -e "${SIGPI_BANNER_RESET}"
-    sleep 15
-    sudo sync
-    sudo reboot
-    exit 0
-fi
-
-echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: SIGpi setup <TARGET>"
-echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Standard Setup Complete !!"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  System needs to reboot for all changes to occur"
+        echo -e "${SIGPI_BANNER_COLOR} ##  Reboot will begin in 15 seconsds unless CTRL-C hit"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        sleep 15
+        sudo sync
+        sudo reboot
+        exit 0
+        ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: SIGpi setup <TARGET>"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        ;;
+esac

@@ -5,66 +5,122 @@
 ###
 ### pkg_xastir
 ###
+###
+### 20260119-2300
+###
+### Xastir Package Script
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Xastir"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Xastir"
-        echo -e "${SIGPI_BANNER_RESET}"
-       
-        sudo apt-get remove xastir
-        sed -i /xastir/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Xastir"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        sudo apt-get remove --purge xastir
-        sed -i /xastir/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
 
-	echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Xastir"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P xastir
+            sed -i /xastir/d $SIGPI_INSTALLED
+        fi
+        ;;&
+    
+    install|build|package )
+        sudo apt update
+        sudo apt install -y build-essential git autoconf automake \
+        libmotif-dev libxext-dev libxpm-dev libxt-dev \
+        libcurl4-openssl-dev shapelib libshp-dev \
+        libgeotiff-dev libpcre3-dev libdb-dev \
+        graphicsmagick libgraphicsmagick1-dev \
+        gv festival festival-dev
+        ;;&
         
-	## DEPENDENCIES
-
+    install)
         ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i xastir_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i xastir_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         cd $SIGPI_SOURCE
-        sudo apt-get install -y xastir
+        git clone https://github.com/Xastir/Xastir.git
+        cd Xastir
+        ./bootstrap.sh
+        mkdir build && cd build   
+        ../configure
+        make -j4
+        sudo make install
         cat $SIGPI_PKGLIST|grep "xastir" >> $SIGPI_INSTALLED 
         
         ## DESKTOP
-	# Add Icon
+	    # Add Icon
         # Add Desktop
         # Change Category
-	sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
+	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/xastir.desktop
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/xastir.desktop
-        
+        ;;&
+
+    package )
+        cd $SIGPI_SOURCE
+        git clone https://github.com/Xastir/Xastir.git
+        cd Xastir
+        ./bootstrap.sh
+        mkdir build && cd build   
+        ../configure
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+	    ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Xastir Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi Build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Xastir - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

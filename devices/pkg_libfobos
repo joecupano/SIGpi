@@ -1,0 +1,115 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_libfobos
+###
+###
+### 20260120-2300
+###
+### RigExpert Fobos Device
+###
+
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RigExpert Fobos"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+   remove )
+        sudo dpkg -r libfobos
+        sudo dpkg -r soapyfobos
+        sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
+        ;;&
+
+    purge )
+        sudo dpkg -P libfobos
+        sudo dpkg -P soapyfobos
+        sed -i /libfobos/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapyfobos/d $SIGPI_INSTALLED_DEVICES
+        rm -rf $SIGPI_SOURCE/libfobos
+        rm -rf $SIGPI_SOURCE/SoapyFobosSDR
+        ;;&
+    
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i libfobos_current_amd64.deb
+            sudo dpkg -i soapyfobos_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -i libfobos_current_arm64.deb
+            sudo dpkg -i soapyfobos_current_arm64.deb
+        fi
+        cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
+        cat $SIGPI_DEVLIST|grep "soapyfobos" >> $SIGPI_INSTALLED_DEVICES
+        ;;&
+    
+    build )
+        ## Fobos driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/libfobos
+        cd libfobos
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo udevadm control --reload-rules
+        sudo udevadm trigger
+        cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
+    
+        ## SoapyFobosSDR Driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/SoapyFobosSDR
+        cd SoapyFobosSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_DEVLIST|grep "soapyfobos" >> $SIGPI_INSTALLED_DEVICES
+        ;;&
+
+    package)
+        ## Fobos driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/libfobos
+        cd libfobos
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        ## SoapyFobosSDR Driver
+        cd $SIGPI_SOURCE
+        git clone https://github.com/rigexpert/SoapyFobosSDR
+        cd SoapyFobosSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    install|build|package|remove|purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RigExpert Fobos completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

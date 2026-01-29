@@ -6,6 +6,8 @@
 ### pkg_cm256cc  
 ###
 ###
+### 20260117-2300
+###
 ### cm256cc is a simple library for erasure codes. From given data it generates redundant data that can be used to recover the originals.
 ###
 ### The erasure code is parameterized by three values (OriginalCount, RecoveryCount, BlockBytes). These are:
@@ -14,50 +16,81 @@
 ###    The number of blocks of redundant data (RecoveryCount), which must be no more than 256 - OriginalCount.
 ###
 
-case "$1" in 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : cm256cc"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove cm256cc"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/cm256cc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/cm256cc
-        sed -i /cm256cc/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge cm256cc"
-        echo -e "${SIGPI_BANNER_RESET}"
-                
-        cd $SIGPI_SOURCE/cm256cc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/cm256cc
-        sed -i /cm256cc/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P cm256cc
+            sed -i /cm256cc/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install cm256cc"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i cm256cc_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i cm256cc_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "cm256cc" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
+        git reset --hard da87adb  #v1.1.2
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -70,24 +103,16 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build cm256cc"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    package )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/cm256cc.git
         cd cm256cc
+        git reset --hard da87adb  #v1.1.2
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
@@ -99,24 +124,11 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
+        ;;&
 
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   cm256cc built. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : cm256cc - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

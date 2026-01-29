@@ -1,0 +1,106 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_evilcrowrf
+###
+###
+### 20260113-0100
+###
+### Evil Crow RF V2 driver installer
+###
+
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Evil Crow RF V2"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo dpkg -r evilcrowrf
+        sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo dpkg -P evilcrowrf
+        sed -i /evilcrowrf/d $SIGPI_INSTALLED
+        rm -rf $SIGPI_SOURCE/evilcrowrf-v2
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y \
+            build-essential \
+            cmake \
+            git \
+            libusb-1.0-0-dev \
+            libusb-dev \
+            pkg-config
+        ;;&
+
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i evilcrowrf_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i evilcrowrf_current_arm64.deb
+        fi
+        cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_INSTALLED_DEVICES"
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        sudo cp "$SIGPI_HOME"/desktop/evilcrowrf.desktop "$DESKTOP_FILES"
+        # Change Category
+        # Add to Menu
+        xdg-desktop-menu install --novendor --noupdate "$DESKTOP_DIRECTORY"/SIGpishell.directory "$DESKTOP_FILES"/evilcrowrf.desktop
+        ;;&
+
+    build )
+        ## PACKAGE
+        cd "$SIGPI_SOURCE"
+        git clone https://github.com/joelsernamoreno/evilcrowrf-v2.git
+        cd evilcrowrf-v2
+        mkdir -p build
+        cd build
+        cmake ..
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_DEVICES"
+        ;;&
+
+    package )       
+        ## PACKAGE
+        cd "$SIGPI_SOURCE"
+        git clone https://github.com/joelsernamoreno/evilcrowrf-v2.git
+        cd evilcrowrf-v2
+        mkdir -p build
+        cd build
+        cmake ..
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb "$SIGPI_DEBS"
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Evil Crow RF V2 - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

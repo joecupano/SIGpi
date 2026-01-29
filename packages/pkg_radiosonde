@@ -5,13 +5,27 @@
 ###
 ### pkg_radiosonde
 ###
+###
+### 20260118-2300
+###
+### Radiosonde (Atmospheric Telemetry) Installation Script
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Radiosonde"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Radiosonde"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo rm /usr/local/bin/rs92gps
         sudo rm /usr/local/bin/rs41ptu
         sudo rm /usr/local/bin/rd94drop
@@ -54,16 +68,9 @@ case "$1" in
         sudo rm /usr/local/bin/pos2gpx.pl
         sudo rm /usr/local/bin/pos2kml.pl
         sudo rm /usr/local/bin/pos2nmea.pl
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Radiosonde Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Radiosonde"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo rm /usr/local/bin/rs92gps
         sudo rm /usr/local/bin/rs41ptu
         sudo rm /usr/local/bin/rd94drop
@@ -106,18 +113,9 @@ case "$1" in
         sudo rm /usr/local/bin/pos2gpx.pl
         sudo rm /usr/local/bin/pos2kml.pl
         sudo rm /usr/local/bin/pos2nmea.pl
-      
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Radiosonde Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Radiosonde (Atmospheric Telemetry)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    install|build )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -269,24 +267,23 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   RadioSonde Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
-    * )
+
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Radiosonde - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

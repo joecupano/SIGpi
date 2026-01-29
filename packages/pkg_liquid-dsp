@@ -6,50 +6,80 @@
 ### pkg_liquid-dsp
 ###
 ###
+### 20260113-2300
+###
 ### liquid-dsp is a free and open-source digital signal processing (DSP) library designed specifically for software-defined radios on embedded platforms.
 ### The aim is to provide a lightweight DSP library that does not rely on a myriad of external dependencies or proprietary and otherwise cumbersome frameworks.
 ### All signal processing elements are designed to be flexible, scalable, and dynamic, including filters, filter design, oscillators, modems,
 ### synchronizers, complex mathematical operations, and much more.
 ###
 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Liquid-DSP"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Liquid-DSP"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/liquid-dsp
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Liquid-DSP"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/liquid-dsp
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/liquid-dsp
-        sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Liquid-DSP"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P liquid-dsp
+            sed -i /liquid-dsp/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i liquid-dsp_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i liquid-dsp_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "liquid-dsp" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -68,23 +98,9 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build Liquid-DSP"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -102,14 +118,11 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Liquid-DSP Built. Debian package available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Liquid-DSP - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

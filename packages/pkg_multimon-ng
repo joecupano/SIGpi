@@ -5,47 +5,83 @@
 ###
 ### pkg_multimon-ng
 ###
+###
+### 20260113-2300
+###
+### Multimon-NG is a decoder for various digital transmission protocols
+### including POCSAG, FSK, AFSK, DTMF, and X10.
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Multimon-NG"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Multimon-NG"
-        echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r multimon-ng
+            sed -i /multimon-ng/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/multimon-ng.desktop
+        fi
 
-        cd $SIGPI_SOURCE/multimon-ng/build
-        sudo make uninstall
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/multimon-ng
-        sed -i /multimon-ng/d $SIGPI_INSTALLED
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r multimon-ng
+            sed -i /multimon-ng/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/multimon-ng.desktop
+        fi
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Multimon-NG"
-        echo -e "${SIGPI_BANNER_RESET}"
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P multimon-ng
+            sed -i /multimon-ng/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/multimon-ng.desktop
+        fi
 
-        cd $SIGPI_SOURCE/multimon-ng/build
-        sudo make uninstall
-        cd $SIGPI_SOURCE
-        rm -rf $SIGPI_SOURCE/multimon-ng
-        sed -i /multimon-ng/d $SIGPI_INSTALLED
-        sudo rm -rf $SIGPI_DESKTOP/multimon-ng.desktop
-        sudo rm -rf $DESKTOP_FILES/multimon-ng.desktop
-                
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P multimon-ng
+            sed -i /multimon-ng/d $SIGPI_INSTALLED
+            sudo rm $DESKTOP_FILES/multimon-ng.desktop
+        fi
+        ;;&
 
+    install)
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i multimon-ng_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i multimon-ng_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "multimon-ng" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_DESKTOP/multimon-ng.desktop $DESKTOP_FILES
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -66,24 +102,9 @@ case "$1" in
         # Change Category
         # Add to Menu
         xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/multimon-ng.desktop
+        ;;&
 
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -101,14 +122,11 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
         
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Multimon-NG Built. Debian package available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Multimon-NG - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

@@ -3,11 +3,10 @@
 ###
 ### SIGpi
 ###
-###  20240110-0100
+###  20260117-2300
 ###
-
 ###
-###  Usage:  SIGpi [ACTION] [TARGET]
+###  Usage:  SIGpi [ACTION] [TARGET|DEVICE]
 ###
 ###       ACTION
 ###  
@@ -15,40 +14,37 @@
 ###          remove                 remove installed TARGET
 ###          purge                  remove installed TARGET and purge configs
 ###          build                  compile and install TARGET (option may not be available)
-###          update                 check for update of TARGET
+###          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+###          menu                   Gtk Menu for SIGpi package management
+###          update                 check for TARGET updates
 ###          upgrade                upgrade TARGET to latest release
+###
+###          device
+###                 install         install DEVICE
+###                 remove          remove DEVICE
+###                 purge           purge DEVICE
+###                 build           compile and install DEVICE (option may not be available)
+###                 package         compile only and copy package to SIG/debs directory (option may not be available)
+###
+###          setup
+###                 standard        First time setup for desktop
+###                 server          First time setup for server
+###                 apps            Manage applications (install/remove)
+###
+###          list
+###                 packages        List all packages included with SIGpi
+###                 installed       List installed SIGpi packages
+###                 library         List all packages included with SIGpi with installed ones marked with an *  
+###
+###          shell           provide SIGpi env variables around a TARGET
 ###
 ###       TARGET
 ###
 ###          A SIGpi package
 ###
+###       DEVICE
 ###
-###  Usage:  SIGpi device [ACTION] [TARGET]
-###
-###       ACTION
-###  
-###          install                install TARGET from current release
-###          remove                 remove installed TARGET
-###          purge                  remove installed TARGET and purge configs
-###          build                  compile and install TARGET (option may not be available)
-###          update                 check for update of TARGET
-###          upgrade                upgrade TARGET to latest release
-###
-###       TARGET
-###
-###          A SDR device
-###
-###
-###  Usage:  SIGpi [ACTION]
-###
-###       ACTION
-###
-###          SIGpi setup standard   First time setup for desktop
-###          SIGpi setup server     First time setup for server
-###          SIGpi list packages    List all packages included with SIGpi
-###          SIGpi list installed   List installed SIGpi packages
-###          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
-###          SIGpi shell            provide SIGpi env variables around a TARGET
+###          A support SDR device
 ###
 
 
@@ -68,13 +64,31 @@ SIGPI_DEBS=$SIGPI_HOME/debs
 
 # SIGpi Install Support files
 SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
-SIGPI_INSTALDEV=$SIGPI_ETC/INSTALLED_DEVS
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
+SIGPI_INSTALLED_DEVICES=$SIGPI_ETC/INSTALLED_DEVICES
 SIGPI_DEVLIST=$SIGPI_DEVICES/DEVICES
 SIGPI_SCREEN_STANDARD=$SIGPI_SCRIPTS/screen_standard_setup
 SIGPI_SCREEN_SERVER=$SIGPI_SCRIPTS/screen_server_setup
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
+
+# Desktop Source directories
+SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
+SIGPI_BACKGROUND_CHOICE=/usr/share/backgrounds/SIGpi_background_two.png
+SIGPI_ICONS=$SIGPI_HOME/icons
+SIGPI_LOGO=$SIGPI_HOME/logo
+SIGPI_DESKTOP=$SIGPI_HOME/desktop
+
+# Desktop Destination Directories
+#DESKTOP_DIRECTORY=/usr/share/desktop-directories
+DESKTOP_BACKGROUNDS=/usr/share/backgrounds
+DESKTOP_FILES=/usr/share/applications
+DESKTOP_ICONS=/usr/share/icons     #   .png .svg
+#DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
+
+# SIGpi Menu category
+SIGPI_MENU_CATEGORY=SIGpi
+HAMRADIO_MENU_CATEGORY=HamRadio
 
 # Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
@@ -82,24 +96,6 @@ SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
-
-# Desktop Source directories
-SIGPI_BACKGROUNDS=$SIGPI_HOME/backgrounds
-SIGPI_ICONS=$SIGPI_HOME/icons
-SIGPI_LOGO=$SIGPI_HOME/logo
-SIGPI_DESKTOP=$SIGPI_HOME/desktop
-
-# Desktop Destination Directories
-DESKTOP_DIRECTORY=/usr/share/desktop-directories
-DESKTOP_FILES=/usr/share/applications
-DESKTOP_ICONS=/usr/share/icons
-DESKTOP_XDG_MENU=/usr/share/extra-xdg-menus
-
-# SIGpi Menu category
-SIGPI_MENU_CATEGORY=SIGpi
-HAMRADIO_MENU_CATEGORY=HamRadio
-
-# If we reached this point our hardware and operating system are certified for SIGpi
 
 
 ###
@@ -138,15 +134,24 @@ SPACKAGE=$2
 SPKGSCRIPT="pkg_$2"
 SCFGSCRIPT="cfg_$2"
 
+if [ "$1" = "device" ]; then
+    SPKGSCRIPT="pkg_$3"
+fi
+
 case "$1" in 
     setup )
-        source $SIGPI_SCRIPTS/SIGpi_setup $2
+        if [ "$2" = "apps" ]; then
+            source $SIGPI_SCRIPTS/setup_apps
+        elif [ "$2" = "standard" ]; then
+            source $SIGPI_SCRIPTS/SIGpi_setup $2
+        fi
         ;;
+
     list )
         if [ "$2" = "installed" ]; then
             echo " "
-                echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list installed"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list installed"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
             echo " "
@@ -154,10 +159,11 @@ case "$1" in
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_INSTALLED|more
         fi
+
         if [ "$2" = "packages" ]; then
             echo " "
-                echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list packages"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list packages"
             echo -e "${SIGPI_BANNER_COLOR} ##"
             echo -e "${SIGPI_BANNER_RESET}"
             echo " "
@@ -165,12 +171,13 @@ case "$1" in
             echo " "
             awk 'BEGIN {FS=","} {printf "%-15s %-15s %-15s\n", $1, $2, $3}' $SIGPI_PKGLIST|more
         fi
+
         if [ "$2" = "library" ]; then
                 file1=$SIGPI_PKGLIST
                 file2=$SIGPI_INSTALLED
                 echo " "
                 echo -e "${SIGPI_BANNER_COLOR} ##"
-                echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi list library"
+                echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi list library"
                 echo -e "${SIGPI_BANNER_COLOR} ##"
                 echo -e "${SIGPI_BANNER_RESET}"
                 echo " "
@@ -185,56 +192,76 @@ case "$1" in
                 done < "$file1"
         fi
         ;;
-    device )
-        SDEVSCRIPT="device_$4"
-        if [ "$3" = "build" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT build
-        fi
-        if [ "$3" = "package" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT package
-        fi
-        if [ "$3" = "remove" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT remove
-        fi
-        if [ "$3" = "purge" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT purge
-        fi
-        if [ "$3" = "install" ]; then
-            source $SIGPI_DEVICES/$SDEVSCRIPT install
-        fi
-        ;;
+
     build )
         source $SIGPI_PACKAGES/$SPKGSCRIPT build
         #sudo dpkg -i $SIGPI_DEBS/$2
         ;;
+
     package )
         source $SIGPI_PACKAGES/$SPKGSCRIPT package
         ;;
+
     remove )
         source $SIGPI_PACKAGES/$SPKGSCRIPT remove
         ;;
+
     purge )
         source $SIGPI_PACKAGES/$SPKGSCRIPT purge
         ;;
+
     install )
         source $SIGPI_PACKAGES/$SPKGSCRIPT install
         ;;
+
+    menu )
+        "$SIGPI_SCRIPTS/SIGpi_pkg_menu.py"
+        ;;
+
     config )
         source $SIGPI_PACKAGES/$SCFGSCRIPT $3
         ;;
+
     update )
         sigpi_update $3
-        ;;
+        ;;###
+
     upgrade)
         sigpi_upgrade $3
         ;;
+
+    device )
+        case "$2" in
+            build )
+                source $SIGPI_DEVICES/$SPKGSCRIPT build
+                ;;
+        
+            package )
+                source $SIGPI_DEVICES/$SPKGSCRIPT package
+                ;;
+
+            remove )
+                source $SIGPI_DEVICES/$SPKGSCRIPT remove
+                ;;
+
+            purge )
+                source $SIGPI_DEVICES/$SPKGSCRIPT purge
+                ;;
+
+            install )
+                source $SIGPI_DEVICES/$SPKGSCRIPT install
+                ;;
+        esac
+        ;;
+
     shell )
         source $2
         ;;
+
     * )
         cat <<EOF
 
-  Usage:  SIGpi [ACTION] [TARGET]
+       Usage:  SIGpi [ACTION] [TARGET|DEVICE]
 
        ACTION
   
@@ -242,38 +269,37 @@ case "$1" in
           remove                 remove installed TARGET
           purge                  remove installed TARGET and purge configs
           build                  compile and install TARGET (option may not be available)
-          update                 check for update of TARGET
+          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+          menu                   Gtk Menu for pSIGpi package management
+          update                 check for TARGET updates
           upgrade                upgrade TARGET to latest release
+
+          device
+                 install         install DEVICE
+                 remove          remove DEVICE
+                 purge           purge DEVICE
+                 build           compile and install DEVICE (option may not be available)
+                 package         compile only and copy package to SIG/debs directory (option may not be available)
+
+          setup
+                 standard        First time setup for desktop
+                 server          First time setup for server
+                 apps            Manage applications (install/remove)
+
+          list
+                 packages        List all packages included with SIGpi
+                 installed       List installed SIGpi packages
+                 library         List all packages included with SIGpi with installed ones marked with an *  
+
+          shell           provide SIGpi env variables around a TARGET
 
        TARGET
 
           A SIGpi package
-                 
-  Usage:  SIGpi device [ACTION] [TARGET]
 
-       ACTION
-  
-          install                install TARGET from current release
-          remove                 remove installed TARGET
-          purge                  remove installed TARGET and purge configs
-          build                  compile and install TARGET (option may not be available)
-          update                 check for update of TARGET
-          upgrade                upgrade TARGET to latest release
+       DEVICE
 
-       TARGET
-
-          A SDR device
-
-  Usage:  SIGpi [ACTION]
-
-       ACTION
-
-          SIGpi setup standard   First time setup for desktop
-          SIGpi setup server     First time setup for server
-          SIGpi list packages    List all packages included with SIGpi
-          SIGpi list installed   List installed SIGpi packages
-          SIGpi list library     List all packages included with SIGpi with installed ones marked with an *
-          SIGpi shell            provide SIGpi env variables around a TARGET
+          A support SDR device
 
 EOF
 ;;

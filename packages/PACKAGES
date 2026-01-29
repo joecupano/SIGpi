@@ -1,52 +1,44 @@
-audacity,3.4.2,Multi-track audio editor,20211231
-aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20211231
-bettercap,2.32.0,recon and attacking WiFi BLE HID devices and Ethernet networks,20211231
-bettercapui,1.3.0,Web UI for bettercap,20211231
-cm256cc,1.1.0,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20211231
-codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20211231
-cubicsdr,0.2.4,Cross-Platform Software-Defined Radio Application,20211231
-cygnusrfi,1.0,Open-source RFI analysis tool based on Python,20211231
-direwolf,1.7,Software soundcard AX25 packet and APRS encoder-decoder,20231029
+aptdec,1.8.0,Decodes images transmitted by NOAA weather satellites,20230122
+audacity,2.4.2,Multi-track audio editor,20260114
+ax25,1.0.0,AX.25 Packet protocol Tools,20260113
+bettercap,2.41.5,recon and attacking WiFi BLE HID devices and Ethernet networks,20251231
+chrony,4.8.2,NTP implementation,20260117
+cm256cc,1.1.2,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20250920
+codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20230724
+direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,20251113
 dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20221227
-dsdcc,1.9.5,Digital Speech Decoder rewritten as a C++ library,20211231
-dump1090,1.0,Mode S decoder specifically designed for RTLSDR devices,20211231
-fftw,3.3.10,Create wisdom pre-optimized FFTs files for SDR,20230831
-fldigi,4.1.27,Soundcard modem program for most of the digital modes used by radio amateurs,20230828
-flrig,2.0.03,Rig control program, cooperates with fldigi,20230828
-gnuradio,3.10.5,Software development toolkit providing signal processing blocks for SDRs,20230201
-gpredict,2.2.1,Real-time satellite tracking and orbit prediction application,20211231
-gqrx,2.17,SDR app powered GNU Radio and the Qt graphical toolkit,20211231
-hamlib,4.6.4,Radio Control Library providing programs a consistent API for controlling radios and rotators,20250824
-inspectrum,0.3.1,Tool for analysing captured signals primarily from SDRs,20211231
-js8call,2.2.0,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20211231
-kismet,2023-07-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,20230828
+dsdcc,1.9.6,Digital Speech Decoder rewritten as a C++ library,20250920
+fldigi,4.2.11,Soundcard modem program for most of the digital modes used by radio amateurs,20250904
+flrig,2.0.10,Rig control program cooperates with fldigi,20251005
+ggmorse,1.0,Morse code decoding library,20260124
+gnuradio,3.10.12,Software development toolkit providing signal processing blocks for SDRs,20251201
+gpredict,2.4,Real-time satellite tracking and orbit prediction application,20251227
+gpsd,3.2.2,interface daemon for GPS receivers,20260113
+gqrx,2.15.8,SDR app powered GNU Radio and the Qt graphical toolkit,20220125
+hamlib,4.6.5,Radio Control Library providing API for controlling radios and rotators,20250905
+inmarsatc,1.0,Cplusplus library with functions to receive Inmarsat-C signals,20260124
+js8call,2.3.1,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20250628
+kismet,2025-09-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,20250901
 libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
 libdab,1.0,DAB decoding library,20211231
 libsigmf,1.0,header-only C++ library for working with SigMF metadata,20211231
 linpac,0.2.0,Packet Radio terminal,20211231
-liquid-dsp,1.6.0,digital signal processing library for SDRs,20211231
+liquid-dsp,1.7.0,digital signal processing library for SDRs,20250201
 mbelib,1.0,P25 Phase 1 and ProVoice vocoder,20211231
-multimon-ng,1.3.0,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20211231
-nrsc5,1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20211231
-openwebrx,1.0,Open source multi-user SDR receiver software with web interface,20211231
+multimon-ng,1.4.1,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10, 20250222
+nrsc5,3.1.0,Receives NRSC-5 digital radio stations using an RTLSDR dongle, 20251221
 pavucontrol,5.0,simple GTK based mixer for the PulseAudio sound server,20211231
 qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
+rnnoise,1.0,Recurrent neural network for audio noise reduction,20260124
 radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
-rtl_433,23.11,Generic data receiver ISM bands,20211231
-sdrangel,7.22.5,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20250703
-sdrangelsrv,7.22.5,Open-source SDR server,20250703
-sdrpp,1.1.0,Cross-platform and open source SDR software,20211231
-serialdv,1.1.4,C++ interface to encode/decode audio with AMBE3000 devices in packet mode over a serial link,20211231
+rtl_433,25.12,Generic data receiver ISM bands,20251212
+sdrangel,7.22.10,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20251225
+sdrpp,1.2.1,Cross-platform and open source SDR software,20251212
+serialdv,1.1.5,C++ interface encode/decode audio with AMBE3000 devices serial link,20250404
 sgp4,1.0,Simplified perturbations models,20211231
-sigdigger,0.3.0,Qt5 digital signal analyzer using its own DSP library,20230319
-sigutils,0.3.0,DSP library written in C designed for blind signal analysis and automatic demodulation,20230319
-sigpi,7.0.1,SIGpi cmdline tool,20240321
-splat,1.0,RF Signal Propagation, Loss, And Terrain analysis tool,20211231
-srsran,23.11,Open-source 4G and 5G software radio suite,20230319
-suscan,0.3.0,Realtime DSP processing library. used by SigDigger,20230319
+srsran-4g,25.10,end-to-end 4G network implementation with full-stack applications,20251111
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
-vkfft,1.3.2,GPU-accelerated multidimensional Fast Fourier Transform library,20211231
-wireshark,4.2.2,Open-source packet analyzer used for network troubleshooting amd protocol analysis,20211231
-wsjtx,2.6.1,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20211231
-xastir,2.1.8,APRS client program with positional data in a graphical application,20211231
-zerotier,1.12.2,securemulti-point vpn,20211231
+vkfft,1.3.4,GPU-accelerated multidimensional Fast Fourier Transform library,20240206
+volk,3.2.0,Vector Optimized Library of Kernels,20250203
+wsjtx,2.7.0,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20251001
+xastir,2.2.2,APRS client program with positional data in a graphical application,20250525

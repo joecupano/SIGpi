@@ -6,51 +6,36 @@
 ### pkg_hamlib
 ###
 ###
+### 20260113-2300
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Hamlib"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Hamlib"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_PACKAGES        
-        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_INSTALLED
-        fi
-
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-	        cd $SIGPI_DEBS
-            sudo dpkg -r hamlib
-            sed -i /hamlib/d $SIGPI_INSTALLED
-        fi
-
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Hamlib"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        cd $SIGPI_DEBS
         sudo dpkg -r hamlib
         sed -i /hamlib/d $SIGPI_INSTALLED
-        sudo rm -rf $SIGPI_SOURCE/hamlib*
-        sed -i /hamlib/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+    purge )
+        cd $SIGPI_DEBS
+        sudo dpkg -P hamlib
+        sed -i /hamlib/d $SIGPI_INSTALLED
+        ;;&
+
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Hamlib"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -71,62 +56,45 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Package Hamlib"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        wget https://github.com/Hamlib/Hamlib
-        cd Hamlib
-        ./bootstrap
-        ./configure
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib packaged"
-        echo -e "${SIGPI_BANNER_RESET}"   
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Hamlib"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
-        wget https://github.com/Hamlib/Hamlib
+        git clone https://github.com/Hamlib/Hamlib
         cd Hamlib
+        git reset --hard 8a6bd56 # v4.6.5
         ./bootstrap
         ./configure
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
+        sudo make install
+        sudo ldconfig
+        
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
+        ;;&
+
+    package )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/Hamlib/Hamlib
+        cd Hamlib
+        git reset --hard 8a6bd56 # v4.6.5
+        ./bootstrap
+        ./configure
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Hamlib Installed. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Hamlib - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

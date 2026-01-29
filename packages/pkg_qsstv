@@ -5,45 +5,37 @@
 ###
 ### pkg_qsstv
 ###
+###
+### 20260113-2300
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : QSSTV"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove QSSTV"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         sudo apt-get remove qsstv
-        sudo rm -rf $DESKTOP_FILES/qsstv.desktop
-        rm -rf ~/.local/share/applications/qsstv.desktop
-        sudo xdg-desktop-menu forceupdate --mode system
         sed -i /qsstv/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/qsstv.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge QSSTV"
-        echo -e "${SIGPI_BANNER_RESET}"
-       
         sudo apt-get remove --purge qsstv
-        sudo rm -rf $DESKTOP_FILES/qsstv.desktop
-        rm -rf ~/.local/share/applications/qsstv.desktop
-        sudo xdg-desktop-menu forceupdate --mode system
         sed -i /qsstv/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/qsstv.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install QSSTV"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         ## DEPENDENCIES
 
         ## PACKAGE
@@ -55,29 +47,28 @@ case "$1" in
 	    # Add Icon
         #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
         # Add Desktop
-        sudo cp $SIGPI_HOME/desktop/js8call.desktop $DESKTOP_FILES
+        sudo cp $SIGPI_DESKTOP/qsstv.desktop $DESKTOP_FILES
         # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
+	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/qsstv.desktop
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/qsstv.desktop
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/qsstv.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   QSSTV Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
 	    ;;
-    * )
+
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : QSSTV - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

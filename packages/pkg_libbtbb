@@ -6,45 +6,75 @@
 ### pkg_libbtbb
 ###
 ###
+### 20260113-2300
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : LibBTbb"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove LibBTbb"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/libbtbb/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/libbtbb
-        sed -i /libbtbb/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge LibBTbb"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/libbtbb/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/libbtbb
-        sed -i /libbtbb/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P libbtbb
+            sed -i /libbtbb/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install LibBTbb"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i libbtbb_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i libbtbb_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+
+    build )
         ## DEPENDNCIES
 
         ## PACKAGE
@@ -58,37 +88,14 @@ case "$1" in
         sudo ldconfig
         cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED 
 
-        ### BTBR Plugin
-        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-        make -j4
-        sudo make install
-        sudo ldconfig
-
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        ;;&
+
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build LibBTbb"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDNCIES
 
         ## PACKAGE
@@ -101,28 +108,16 @@ case "$1" in
         sudo checkinstall --install=no
         sudo mv *.deb $SIGPI_DEBS
 
-        ### BTBR Plugin
-        git clone https://github.com/greatscottgadgets/libbtbb/wireshark/plugins/btbredr.git
-        cd $SIGPI_SOURCE/libbtbb/wireshark/plugins/btbredr
-        mkdir build && cd build
-        cmake -DCMAKE_INSTALL_LIBDIR=/usr/lib/x86_64-linux-gnu/wireshark/libwireshark3/plugins ..
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-
         ## DESKTOP
 	    # Add Icon
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
+        ;;&
+    
+     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   LibBTbb Built. Debian package available in $SIGPI_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : LibBTbb - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

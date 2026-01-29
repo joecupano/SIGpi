@@ -1,0 +1,73 @@
+#!/bin/bash
+
+###
+### SIGPI
+###
+### pkg_js8call
+###
+###
+### 20260113-2300
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : JS8CALL"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo apt-get remove js8call
+        sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/js8call.desktop
+        ;;&
+
+    purge )
+        sudo apt-get remove --purge js8call
+        sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/js8call.desktop
+        ;;&
+
+    install )
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
+        fi
+        
+        if grep wsjtx "$SIGPI_INSTALLED"; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: JS8CALL cannot be installed while WSJT-X is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   JS8CALL Install Terminated"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
+        else
+            cd $SIGPI_DEBS
+	        sudo dpkg -i js8call_current_amd64.deb
+            cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED 
+        fi
+        ;;&
+
+    build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1: option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : JS8CALL - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

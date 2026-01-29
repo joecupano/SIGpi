@@ -6,42 +6,39 @@
 ### pkg_sdrpp-deb
 ###
 ###
+### 20260113-2300
+###
+### SDR++ Package Management Script
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
 case "$1" in 
-    remove )
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove SDR++"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDR++"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    remove )
         sudo dpkg -r sdrpp
         sed -i /sdrpp/d $SIGPI_INSTALLED
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge SDR++"
-        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
 
+    purge )
         sudo dpkg -P sdrpp
         sed -i /sdrpp/d $SIGPI_INSTALLED
    
         sudo rm -rf $SIGPI_DESKTOP/sdrpp.desktop
         sudo rm -rf $DESKTOP_FILES/sdrpp.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDR++-"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+    install|build|package )
         ## DEPENDENCIES
         sudo apt-get install -y libglew-dev
         sudo apt-get install -y libglfw3-dev
@@ -52,17 +49,19 @@ case "$1" in
         sudo apt-get install -y libcodec2-dev
         sudo apt-get install -y libvolk2-bin libvolk2-dev
         sudo apt-get install -y libzstd-dev
-        
+        ;;&
+
+    install )
         ## PACKAGE
         cd $SIGPI_PACKAGES        
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrpp_1.1.0-1_amd64.deb
+	        sudo dpkg -i sdrpp_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
-	        sudo dpkg -i sdrpp_1.1.0-1_arm64.deb
+	        sudo dpkg -i sdrpp_current_arm64.deb
         fi
         cat $SIGPI_PKGLIST|grep "sdrpp" >> $SIGPI_INSTALLED 
         
@@ -70,63 +69,26 @@ case "$1" in
 	    # Add Icon
         # Add Desktop
         # Change Category
-	    sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
+	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/sdrpp.desktop
         # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrpp.desktop
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sdrpp.desktop
+        ;;&
+
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install SDR++-"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-        
-        ## DEPENDENCIES
-        sudo apt-get install -y libglew-dev
-        sudo apt-get install -y libglfw3-dev
-        sudo apt-get install -y libsoapysdr-dev
-        sudo apt-get install -y libad9361-dev 
-        sudo apt-get install -y libairspyhf-dev 
-        sudo apt-get install -y librtaudio-dev
-        sudo apt-get install -y libcodec2-dev
-        sudo apt-get install -y libvolk2-bin libvolk2-dev
-        sudo apt-get install -y libzstd-dev
-        
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/AlexandreRouma/SDRPlusPlus
-        cd SDRPlusPlus
-        #git reset --hard f539cfad329859ffd0d99e1ae03dd06da35aadf7 #v1.0.4
-        mkdir build && cd build
-        cmake ../ -DOPT_BUILD_AUDIO_SINK=OFF \
-        -DOPT_BUILD_BLADERF_SOURCE=OFF \
-        -DOPT_BUILD_M17_DECODER=ON \
-        -DOPT_BUILD_NEW_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_PLUTOSDR_SOURCE=ON \
-        -DOPT_BUILD_PORTAUDIO_SINK=ON \
-        -DOPT_BUILD_SOAPY_SOURCE=ON \
-        -DOPT_BUILD_AIRSPY_SOURCE=OFF
-        make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+	    ;;&
 
-        ## DESKTOP
-	    # Add Icon
-        # Add Desktop
-        # Change Category
-        # Add to Menu
-        
+    package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SDR++ Built. Debian package available in $SIGPI_DEBS"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    * )
+	    ;;&
+
+    remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDR++ - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

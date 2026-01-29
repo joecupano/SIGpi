@@ -6,6 +6,8 @@
 ### pkg_codec2
 ###
 ###
+### 20260117-2300
+###
 ### Codec 2 is an open source (LGPL 2.1) low bit rate speech codec: http://rowetel.com/codec2.html
 ###
 ### Also included:
@@ -19,51 +21,80 @@
 ###    FDMDV DPSK modem README_fdmdv for HF channels
 ###
 
-case "$1" in 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Codec 2"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;& 
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Codec 2"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/codec2/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -r codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Codec 2"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/codec2/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/codec2
-        sed -i /codec2/d $SIGPI_INSTALLED
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+            sudo dpkg -P codec2
+            sed -i /codec2/d $SIGPI_INSTALLED
+        fi
+        ;;&
+
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Codec 2"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i codec2_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i codec2_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "codec2" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        mkdir build_linux; cd build_linux
+        git reset --hard 06d4c11 # v1.20
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo make install
@@ -75,25 +106,17 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
-        
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build Codec 2"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        ;;&
+
+    package )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/drowe67/codec2.git
         cd codec2
-        mkdir build_linux; cd build_linux
+        git hard reset --hard 06d4c11 # v1.20
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no
@@ -104,24 +127,11 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
-        
+        ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Codec 2 built. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
-    package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Codec 2 - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac

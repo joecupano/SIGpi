@@ -6,13 +6,13 @@
 ### setup_core_standard
 ###
 ###
-### 20240110-0100
+### 20260111-2300
 ###
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Standard "
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Standard: Starting"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -21,9 +21,10 @@ sudo apt-get install -y build-essential pkg-config git cmake g++ gcc autoconf au
 sudo apt-get install -y software-properties-common   # Needed for aarch64
 sudo apt-get install -y libssl-dev libavahi-client-dev libavahi-common-dev libaio-dev
 sudo apt-get install -y libtool libudev1 libusb-1.0-0 libusb-1.0-0-dev libusb-dev
-sudo apt-get install -y libsamplerate-dev
+sudo apt-get install -y libsamplerate0-dev 
 sudo apt-get install -y libboost-all-dev
-sudo apt-get install -y libpcap-dev libnetfilter-queue-dev
+sudo apt-get install -y libpcap-dev libnetfilter-queue-dev net-tools
+sudo apt-get install -y libcurl4-openssl-dev
 
 # Install Dynamic Kernel Module Support 
 sudo apt-get install -y dkms
@@ -32,7 +33,6 @@ sudo apt-get install -y dkms
 #
 # Following need to occur earlier in build
 sudo apt-get install -y doxygen zlib1g zlib1g-dev libpng-dev libfaad-dev libfaac-dev faac faad pulseaudio pcmanfm
-# libwxgtk3.0-dev has no candidate in Ubuntu 20.04, libwxgtk3.0-gtk3-dev is its replacement
 sudo apt-get install -y libwxgtk3.0-gtk3-dev libgps-dev
 sudo apt-get install -y zstd
 
@@ -42,6 +42,7 @@ sudo apt-get install -y qtchooser
 sudo apt-get install -y qt5-qmake
 sudo apt-get install -y qtbase5-dev-tools
 sudo apt-get install -y qtwebengine5-dev qtbase5-private-dev
+sudo apt-get install -y qmake6
 
 # Python Baseline
 sudo apt-get install -y python3-pip
@@ -88,9 +89,10 @@ sudo apt-get install -y python-is-python3
 sudo apt-get install -y python-dev-is-python3
 
 # Install Go Language
-sudo apt-get install -y golang
+sudo apt-get install -y golang-1.23-go
 
 # SDRdevice Baseline
+sudo apt-get install -y gstreamer1.0-libav
 
 ## RTLSDR
 sudo apt-get install -y libudev1 
@@ -147,57 +149,12 @@ ffmpeg libavcodec-dev libavformat-dev libopus-dev doxygen graphviz
 # Vulkan Drivers to leverage GPU as FFT for SDR
 sudo apt install -y mesa-vulkan-drivers vulkan-tools
 
-
-###
-###   Setup Desktop Environment
-###
-
-
-# Local Settings Extras XDG-USER-DIR
-#/.local
-#/.local/share
-#/.local/share/applications
-#/.local/share/desktop-directories
-
 # Copy SIGpi commands into /usr/local/bin
 sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
 sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
 
-# Copy icons
-sudo cp $SIGPI_ICONS/* $DESKTOP_ICONS
-
-# Copy Background images
-if [[ "$SIGPI_OSNAME" == "Debian GNU/Linux 11 (bullseye)" ]]; then
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/rpd-wallpaper
-    # Change Background image
-    pcmanfm --set-wallpaper=/usr/share/rpd-wallpaper/SIGpi_wallpaper.png
-else
-    sudo cp $SIGPI_HOME/backgrounds/* /usr/share/backgrounds
-    # Change Background image
-    gsettings set org.gnome.desktop.background picture-uri /usr/share/backgrounds/SIGpi_wallpaper.png
-fi
-
-# Copy SIGpi Menu and Directory files to XDG Dirs
-sudo cp $SIGPI_DESKTOP/SIGpi.directory $DESKTOP_DIRECTORY
-sudo cp $SIGPI_DESKTOP/SIGpishell.directory $DESKTOP_DIRECTORY
-sudo cp $SIGPI_DESKTOP/SIGpi.menu $DESKTOP_XDG_MENU
-sudo cp $SIGPI_DESKTOP/SIGpishell.menu $DESKTOP_XDG_MENU
-
-# Copy SIGpi Desktop files to XDG Dirs
-sudo cp $SIGPI_DESKTOP/*.desktop $DESKTOP_FILES
-sudo cp $SIGPI_DESKTOP/sigpi_home.desktop $HOME/Desktop/SIGpi.desktop
-sudo chmod 755 $HOME/Desktop/SIGpi.desktop
-sudo chown $USER $HOME/Desktop/SIGpi.desktop
-sudo cp $SIGPI_DESKTOP/sigidwiki.desktop $HOME/Desktop/sigidwiki.desktop
-sudo chmod 755 $HOME/Desktop/sigidwiki.desktop
-sudo chown $USER $HOME/Desktop/sigidwiki.desktop
-
-# Add installed applications into SIGpi menu
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigidwiki.desktop
-xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/sigpi_home.desktop
-
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Setup Core Standard Complete"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Standard: Complete"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"

@@ -1,0 +1,94 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_plutosdr
+###
+### 20260117-2300
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : PlutoSDR"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove|purge )
+        sudo dpkg -r libiio
+        sudo dpkg -r SoapyPlutoSDR
+        sed -i /libiio/d $SIGPI_INSTALLED_DEVICES
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y libaio-dev libusb-1.0-0-dev 
+        sudo apt-get install -y libserialport-dev libavahi-client-dev 
+        sudo apt-get install -y libxml2-dev bison flex libcdk5-dev 
+        sudo apt-get install -y python3 python3-pip python3-setuptools
+        ;;&
+
+    install|build )
+        # INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/analogdevicesinc/libiio.git
+        cd libiio
+        #20230924  need to chekcout v0.25 so SoapPlutoSDR works
+        git checkout v0.25
+        mkdir build && cd build
+        #20230830 Compile error not finding ZSTD though installed. So disable for now
+        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        make -j4
+        sudo make install
+        sudo ldconfig
+
+        # SoapyPlutoSDR
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyPlutoSDR.git
+        cd SoapyPlutoSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_DEVLIST|grep "plutosdr" >> $SIGPI_INSTALLED_DEVICES
+        ;;&
+
+    package )
+        # INSTALL
+        cd $SIGPI_SOURCE
+        git clone https://github.com/analogdevicesinc/libiio.git
+        cd libiio
+        #20230924  need to chekcout v0.25 so SoapPlutoSDR works
+        git checkout v0.25
+        mkdir build && cd build
+        #20230830 Compile error not finding ZSTD though installed. So disable for now
+        cmake .. -Wno-dev -WITH_ZSTD=OFF
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+
+        cd $SIGPI_SOURCE
+        git clone https://github.com/pothosware/SoapyPlutoSDR.git
+        cd SoapyPlutoSDR
+        mkdir build && cd build
+        cmake .. -Wno-dev
+        make -j4
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+    
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : PlutoSDR - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+esac

@@ -6,12 +6,14 @@
 ### setup_core_packages
 ###
 ###
-### 20240110-0100
+### 20260110-2300
+###
+### Install core libraries, codecs, and utilities
 ###
 
 echo -e "${SIGPI_BANNER_COLOR}"
 echo -e "${SIGPI_BANNER_COLOR} ##"
-echo -e "${SIGPI_BANNER_COLOR} ##   Install Core Packages"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Packages"
 echo -e "${SIGPI_BANNER_COLOR} ##"
 echo -e "${SIGPI_BANNER_RESET}"
 
@@ -29,26 +31,32 @@ source $SIGPI_PACKAGES/pkg_dsdcc install
 source $SIGPI_PACKAGES/pkg_codec2 install
 # Install SGP4
 source $SIGPI_PACKAGES/pkg_sgp4 install
-# Install Radiosonde (Atmospheric Telemetry)
-source $SIGPI_PACKAGES/pkg_radiosonde install
+# Generate FFT Wisdom file
+source $SIGPI_PACKAGES/pkg_fftw install
+# Install RTL_433
+source $SIGPI_PACKAGES/pkg_rtl_433 install
 # Install HamLib
 source $SIGPI_PACKAGES/pkg_hamlib install
 # Install Direwolf (AFSK APRS)
 source $SIGPI_PACKAGES/pkg_direwolf install
-# Install RTL_433
-source $SIGPI_PACKAGES/pkg_rtl_433 install
-# Generate FFT Wisdom file
-source $SIGPI_PACKAGES/pkg_fftw install
-# Install NRSC5 (HD Radio)
-source $SIGPI_PACKAGES/pkg_nrsc5 install
 # Install Linpac (AX.25 Terminal
 source $SIGPI_PACKAGES/pkg_linpac install
-# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
-source $SIGPI_PACKAGES/pkg_multimon-ng install
+# Install ggMorse (Morse decode)
+source $SIGPI_PACKAGES/pkg_ggmorse install
+# Install Inmarsatc decoder
+source $SIGPI_PACKAGES/pkg_inmarsatc install
+# Install RNnoise (noise suppression library)
+source $SIGPI_PACKAGES/pkg_rnnoise install
 # Install Dump1090
-source $SIGPI_PACKAGES/pkg_dump1090 install
+#source $SIGPI_PACKAGES/pkg_dump1090 install
+# Install Radiosonde (Atmospheric Telemetry)
+#source $SIGPI_PACKAGES/pkg_radiosonde install
+# Install NRSC5 (HD Radio)
+#source $SIGPI_PACKAGES/pkg_nrsc5 install
+# Install Multimon-NG (POCSAG, FSK, AFSK, DTMF, X10)
+#source $SIGPI_PACKAGES/pkg_multimon-ng install
 
 
 echo -e "${SIGPI_BANNER_COLOR}"
-echo -e "${SIGPI_BANNER_COLOR} ##   Core Packages Installed"
+echo -e "${SIGPI_BANNER_COLOR} ##  Setup Core Packages complete"
 echo -e "${SIGPI_BANNER_RESET}"

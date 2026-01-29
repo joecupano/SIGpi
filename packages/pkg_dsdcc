@@ -6,55 +6,69 @@
 ### pkg_dsdcc
 ###
 ###
+### 20260113-2300
+###
 ### DSD is able to decode several digital voice formats from discriminator tap audio
 ### and synthesize the decoded speech. Speech synthesis requires mbelib, which is a separate package.
 ###
 
-case "$1" in 
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DSDcc"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
     remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove DSDcc"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    
-        cd $SIGPI_SOURCE/dsdcc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/dsdcc
+	    cd $SIGPI_DEBS
+        sudo dpkg -r dsdcc
         sed -i /dsdcc/d $SIGPI_INSTALLED
+        sudo rm $DESKTOP_FILES/dsdcc.desktop
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge DSDcc"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
-        cd $SIGPI_SOURCE/dsdcc/build
-        sudo make uninstall
-        sudo ldconfig
-        rm -rf $SIGPI_SOURCE/dsdcc
+        cd $SIGPI_DEBS
+        sudo dpkg -P dsdcc
         sed -i /dsdcc/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install DSDcc (Digital Speech Decoder)"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
+        ## PACKAGE
+        cd $SIGPI_PACKAGES        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i dsdcc_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i dsdcc_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "dsdcc" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        sudo cp $SIGPI_DESKTOP/dsdcc.desktop $DESKTOP_FILES
+        # Change Category
+	    # Add to Menu
+        ;;&
+    
+    build )
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/dsdcc.git
         cd dsdcc
-        git reset --hard "v1.9.3"   #20220910  latest 1.9.4 should be fine 
+        git reset --hard f27b32d   # v1.9.6 
         mkdir build; cd build
         cmake -Wno-dev -DUSE_MBELIB=ON ..
         make -j4
@@ -67,31 +81,17 @@ case "$1" in
         # Add Desktop
         # Change Category
 	    # Add to Menu
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     package )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    build )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Build DSDcc"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-        
         ## DEPENDENCIES
 
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/dsdcc.git
         cd dsdcc
-        #20220910  latest 1.9.4 should be fine 
-        mkdir build_linux; cd build_linux
+        git reset --hard f27b32d   # v1.9.6 
+        mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
         sudo checkinstall --install=no
@@ -102,14 +102,11 @@ case "$1" in
         # Add Desktop
         # Change Category
         # Add to Menu
-        
+	    ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   DSDcc built. Debian package available in $SIG_DEBS"
-        echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : DSDcc - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
