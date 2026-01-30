@@ -1,0 +1,192 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_sdrangel_aarch64
+###
+### 20260129-0001
+###
+### SDRangel package management script (aarch64-focused)
+###
+
+set -euo pipefail
+
+if [[ ! "${1:-}" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+if [[ "${SIGPI_HWARCH:-}" != "aarch64" ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: This script is intended for aarch64 only"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+nproc_safe() {
+    local n
+    n="$(nproc 2>/dev/null || echo 1)"
+    if [[ -z "$n" || "$n" -lt 1 ]]; then
+        echo 1
+    else
+        echo "$n"
+    fi
+}
+
+pi_cpu_flags() {
+    # Allow override via SIGPI_CFLAGS
+    if [[ -n "${SIGPI_CFLAGS:-}" ]]; then
+        echo "${SIGPI_CFLAGS}"
+        return
+    fi
+
+    # Detect Raspberry Pi 5 vs Pi 4 based on cpuinfo
+    if grep -q "Raspberry Pi 5" /proc/cpuinfo 2>/dev/null; then
+        echo "-mcpu=cortex-a76 -mtune=cortex-a76"
+    else
+        # Default to Pi 4 class
+        echo "-mcpu=cortex-a72 -mtune=cortex-a72"
+    fi
+}
+
+deps_install() {
+    sudo apt-get update -y
+    sudo apt-get install -y \
+        libfftw3-dev \
+        libusb-1.0-0-dev \
+        libusb-dev \
+        libboost-all-dev \
+        libasound2-dev \
+        libgl1-mesa-dev \
+        gettext \
+        pulseaudio \
+        libopencv-dev \
+        libxml2-dev \
+        bison \
+        flex \
+        ffmpeg \
+        libavcodec-dev \
+        libavformat-dev \
+        opus-tools \
+        libopus-dev \
+        graphviz \
+        qt5-qmake \
+        qtscript5-dev \
+        qtbase5-dev \
+        qtchooser \
+        qtmultimedia5-dev \
+        qml-module-qtlocation \
+        qml-module-qtpositioning \
+        qml-module-qtquick-window2 \
+        qml-module-qtquick-dialogs \
+        qml-module-qtquick-controls \
+        qml-module-qtquick-layouts \
+        qttools5-dev \
+        qttools5-dev-tools \
+        qtdeclarative5-dev \
+        qtpositioning5-dev \
+        qtlocation5-dev \
+        libgl1-mesa-glx \
+        libqt5opengl5-dev \
+        libqt5quick5 \
+        libqt5charts5-dev \
+        libqt5websockets5-dev \
+        libqt5multimedia5-plugins \
+        libqt5serialport5-dev \
+        libqt5texttospeech5-dev \
+        libqt5svg5-dev \
+        libqt5positioning5 \
+        libqt5positioning5-plugins \
+        libqt5gamepad5-dev \
+        gstreamer1.0-libav \
+        checkinstall \
+        cmake \
+        build-essential
+}
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel (aarch64)"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        cd "$SIGPI_DEBS"
+        sudo dpkg -r sdrangel || true
+        sed -i /sdrangel/d "$SIGPI_INSTALLED"
+        ;;&
+
+    purge )
+        cd "$SIGPI_DEBS"
+        sudo dpkg -P sdrangel || true
+        sed -i /sdrangel/d "$SIGPI_INSTALLED"
+        ;;&
+
+    install|build|package )
+        deps_install
+        ;;&
+
+    install )
+        cd "$SIGPI_DEBS"
+        if [[ ! -f sdrangel_current_arm64.deb ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Missing sdrangel_current_arm64.deb in $SIGPI_DEBS"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 1
+        fi
+        sudo dpkg -i sdrangel_current_arm64.deb
+        cat "$SIGPI_PKGLIST" | grep "sdrangel," >> "$SIGPI_INSTALLED"
+        ;;&
+
+    build|package )
+        cd "$SIGPI_SOURCE"
+        if [[ -d sdrangel ]]; then
+            rm -rf sdrangel
+        fi
+        git clone https://github.com/f4exb/sdrangel.git
+        cd sdrangel
+        git reset --hard 1236b11   # v7.23.0
+        mkdir -p build
+        cd build
+        CFLAGS="$(pi_cpu_flags)" CXXFLAGS="$(pi_cpu_flags)" cmake -Wno-dev ..
+        make -j"$(nproc_safe)"
+        ;;&
+
+    build )
+        sudo make install
+        sudo ldconfig
+        cat "$SIGPI_PKGLIST" | grep "sdrangel," >> "$SIGPI_INSTALLED"
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv ./*.deb "$SIGPI_DEBS"
+        ;;&
+
+    install|build )
+        ## DESKTOP
+        sudo cp "$SIGPI_DESKTOP/sdrangel.desktop" "$DESKTOP_FILES"
+        sudo cp "$SIGPI_SCRIPTS/run_sdrangel.sh" /usr/local/bin
+        xdg-desktop-menu install --novendor --noupdate "$DESKTOP_DIRECTORY/SIGpi.directory" "$DESKTOP_FILES/sdrangel.desktop"
+
+        ### FFTW-WISDOM CHECK AND LINK
+        mkdir -p "$HOME/.config/f4exb"
+        mkdir -p "$HOME/.local/share/f4exb/SDRangel"
+        if [[ ! -f "$SIGPI_ETC/fftw-wisdom" ]]; then
+            fftwf-wisdom -v -n -o "$SIGPI_ETC/fftw-wisdom" 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
+        cp "$SIGPI_ETC/fftw-wisdom" "$HOME/.local/share/f4exb/SDRangel/fftw-wisdom"
+        cp "$SIGPI_ETC/fftw-wisdom" "$HOME/.config/f4exb/fftw-wisdom"
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel (aarch64) - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+
+esac
