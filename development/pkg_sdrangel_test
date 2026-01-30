@@ -3,28 +3,35 @@
 ###
 ### SIGpi
 ###
-### pkg_sdrangel_aarch64
+### pkg_sdrangel
 ###
-### 20260129-0001
+### 20260130-2300
 ###
 ### SDRangel package management script (aarch64-focused)
 ###
 
-set -euo pipefail
+#
+# COMPILER OPTIMIZATION (OPTIONAL)
+#
+# For a 64-bit operating system on a Raspberry Pi 3:
+#export CXXFLAGS='-O3 -mtune=cortex-a53'
+#export CFLAGS='-O3 -mtune=cortex-a53'
+#
+# For a 64-bit operating system on a Raspberry Pi 4:
+#export CXXFLAGS='-O3 -mtune=cortex-a72'
+#export CFLAGS='-O3 -mtune=cortex-a72'
+#
+# For a 64-bit operating system on a Raspberry Pi 5:
+#export CXXFLAGS='-O3 -mtune=cortex-a76'
+#export CFLAGS='-O3 -mtune=cortex-a76'
+#
+# For other operating systems:
+#export CXXFLAGS='-O3 -march=native -mtune=native'
+#export CFLAGS='-O3 -march=native -mtune=native'
+#
 
-if [[ ! "${1:-}" =~ ^(remove|purge|install|build|package)$ ]]; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
-    echo -e "${SIGPI_BANNER_RESET}"
-    exit 1
-fi
 
-if [[ "${SIGPI_HWARCH:-}" != "aarch64" ]]; then
-    echo -e "${SIGPI_BANNER_COLOR}"
-    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: This script is intended for aarch64 only"
-    echo -e "${SIGPI_BANNER_RESET}"
-    exit 1
-fi
+# FUNCTIONS
 
 nproc_safe() {
     local n
@@ -36,21 +43,31 @@ nproc_safe() {
     fi
 }
 
-pi_cpu_flags() {
+cpu_flags() {
     # Allow override via SIGPI_CFLAGS
     if [[ -n "${SIGPI_CFLAGS:-}" ]]; then
         echo "${SIGPI_CFLAGS}"
         return
     fi
 
-    # Detect Raspberry Pi 5 vs Pi 4 based on cpuinfo
-    if grep -q "Raspberry Pi 5" /proc/cpuinfo 2>/dev/null; then
-        echo "-mcpu=cortex-a76 -mtune=cortex-a76"
+    if [[ -r /proc/cpuinfo ]]; then
+        if grep -qi "Raspberry Pi 5" /proc/cpuinfo; then
+            echo "-mcpu=cortex-a76 -mtune=cortex-a76"
+            return 0
+        fi
+        if grep -qi "Raspberry Pi 4" /proc/cpuinfo; then
+            echo "-mcpu=cortex-a72 -mtune=cortex-a72"
+            return 0
+        fi
+        if grep -qi "Raspberry Pi 3" /proc/cpuinfo; then
+            echo "-mcpu=cortex-a53 -mtune=cortex-a53"
+            return 0
+        fi
     else
-        # Default to Pi 4 class
-        echo "-mcpu=cortex-a72 -mtune=cortex-a72"
+        echo "-O3 -march=native -mtune=native"
+        return 0    
     fi
-}
+}  
 
 deps_install() {
     sudo apt-get update -y
@@ -107,10 +124,22 @@ deps_install() {
         build-essential
 }
 
+
+# MAIN
+
+set -euo pipefail
+
+if [[ ! "${1:-}" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
 case "$1" in
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel (aarch64)"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;&
 
@@ -131,28 +160,28 @@ case "$1" in
         ;;&
 
     install )
-        cd "$SIGPI_DEBS"
-        if [[ ! -f sdrangel_current_arm64.deb ]]; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Missing sdrangel_current_arm64.deb in $SIGPI_DEBS"
-            echo -e "${SIGPI_BANNER_RESET}"
-            exit 1
+        ## PACKAGE
+	    cd $SIGPI_DEBS 
+        
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        sudo dpkg -i sdrangel_current_amd64.deb
         fi
-        sudo dpkg -i sdrangel_current_arm64.deb
-        cat "$SIGPI_PKGLIST" | grep "sdrangel," >> "$SIGPI_INSTALLED"
+        
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        sudo dpkg -i sdrangel_current_arm64.deb
+        fi
+        
+        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED 
         ;;&
 
     build|package )
-        cd "$SIGPI_SOURCE"
-        if [[ -d sdrangel ]]; then
-            rm -rf sdrangel
-        fi
+        cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
         git reset --hard 1236b11   # v7.23.0
         mkdir -p build
         cd build
-        CFLAGS="$(pi_cpu_flags)" CXXFLAGS="$(pi_cpu_flags)" cmake -Wno-dev ..
+        CFLAGS="$(cpu_flags)" CXXFLAGS="$(cpu_flags)" cmake -Wno-dev ..
         make -j"$(nproc_safe)"
         ;;&
 
@@ -171,7 +200,6 @@ case "$1" in
         ## DESKTOP
         sudo cp "$SIGPI_DESKTOP/sdrangel.desktop" "$DESKTOP_FILES"
         sudo cp "$SIGPI_SCRIPTS/run_sdrangel.sh" /usr/local/bin
-        xdg-desktop-menu install --novendor --noupdate "$DESKTOP_DIRECTORY/SIGpi.directory" "$DESKTOP_FILES/sdrangel.desktop"
 
         ### FFTW-WISDOM CHECK AND LINK
         mkdir -p "$HOME/.config/f4exb"
@@ -179,13 +207,14 @@ case "$1" in
         if [[ ! -f "$SIGPI_ETC/fftw-wisdom" ]]; then
             fftwf-wisdom -v -n -o "$SIGPI_ETC/fftw-wisdom" 128 256 512 1024 2048 4096 8192 16384 32768
         fi
+        
         cp "$SIGPI_ETC/fftw-wisdom" "$HOME/.local/share/f4exb/SDRangel/fftw-wisdom"
         cp "$SIGPI_ETC/fftw-wisdom" "$HOME/.config/f4exb/fftw-wisdom"
         ;;&
 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel (aarch64) - Completed"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 

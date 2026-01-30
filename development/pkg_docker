@@ -6,41 +6,34 @@
 ### pkg_docker
 ###
 ###
-### 2026110-2300
+### 20260130-2300
 ###
 
-case "$1" in 
-    remove )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Remove Docker"
-        echo -e "${SIGPI_BANNER_RESET}"
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
 
+case "$1" in 
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Docker"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
         sudo apt-get remove docker
         sed -i /docker/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Removed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     purge )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Purge Docker"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         sudo apt-get remove --purge docker
         sed -i /docker/d $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Purged"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     install )
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Install Docker"
-        echo -e "${SIGPI_BANNER_COLOR} ##"
-        echo -e "${SIGPI_BANNER_RESET}"
-
         # DEPENDENCIES
 
         # INSTALL
@@ -56,24 +49,23 @@ case "$1" in
         sudo pip3 install docker-compose
         docker-compose version
         cat $SIGPI_PKGLIST|grep "docker" >> $SIGPI_INSTALLED
+        ;;&
 
-        echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   Docker Installed"
-        echo -e "${SIGPI_BANNER_RESET}"
-        ;;
     build )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi build option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
+	    ;;&
+
     package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_COLOR} ##  SIGpi package option not available"
         echo -e "${SIGPI_BANNER_RESET}"
-	    ;;
-    * )
+	    ;;&
+
+    remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
-        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Docker - Completed"
         echo -e "${SIGPI_BANNER_RESET}"
         ;;
 esac
