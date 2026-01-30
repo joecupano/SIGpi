@@ -182,6 +182,35 @@ case "$1" in
         mkdir -p build
         cd build
         CFLAGS="$(cpu_flags)" CXXFLAGS="$(cpu_flags)" cmake -Wno-dev ..
+cmake -Wno-dev -DDEBUG_OUTPUT=ON -DRX_SAMPLE_24BIT=ON \
+-DCMAKE_BUILD_TYPE=RelWithDebInfo \
+-DMIRISDR_DIR=/usr/local/lib/libmirisdr \
+-DAIRSPY_DIR=/usr/local/lib/libairspy \
+-DAIRSPYHF_DIR=/usr/local/lib/libairspyhf \
+-DBLADERF_DIR=/usr/local/lib/libbladeRF \
+-DHACKRF_DIR=/usr/local/lib/libhackrf \
+-DRTLSDR_DIR=/usr/local/lib/librtlsdr \
+-DLIMESUITE_DIR=/usr/local/lib/LimeSuite \
+-DIIO_DIR=/usr/local/lib/libiio \
+-DPERSEUS_DIR=/usr/local/lib/libperseus \
+-DXTRX_DIR=/usr/local/lib/xtrx-images \
+-DSOAPYSDR_DIR=/usr/local/lib/SoapySDR \
+-DUHD_DIR=/usr/local/lib/uhd \
+-DAPT_DIR=/usr/local/lib/aptdec \
+-DCM256CC_DIR=/usr/local/lib/cm256cc \
+-DDSDCC_DIR=/usr/local/lib/dsdcc \
+-DSERIALDV_DIR=/usr/local/lib/serialdv \
+-DMBE_DIR=/usr/local/lib/mbelib \
+-DCODEC2_DIR=/usr/local/lib/codec2 \
+-DSGP4_DIR=/usr/local/lib/sgp4 \
+-DLIBSIGMF_DIR=/usr/local/lib/libsigmf \
+-DDAB_DIR=/usr/local/lib/libdab \
+-DGGMORSE_DIR=/usr/local/lib/ggmorse \
+-DINMARSATC_DIR=/usr/local/lib/inmarsatc \
+-DCMAKE_INSTALL_PREFIX=/usr/local/lib/sdrangel ..
+make -j $(nproc) install
+
+
         make -j"$(nproc_safe)"
         ;;&
 
