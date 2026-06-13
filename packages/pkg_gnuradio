@@ -29,7 +29,7 @@ case "$1" in
     remove )
         cd $SIGPI_DEBS
         sudo dpkg -r gnuradio
-        -i /gnuradio/d $SIGPI_INSTALLED
+        sed -i /gnuradio/d $SIGPI_INSTALLED
         sudo rm $DESKTOP_FILES/gnuradio-grc.desktop
         ;;&
 

@@ -1,7 +1,7 @@
 bladerf,2023.02,BladeRF,20230215
 ettus,4.9.0.1,Ettus Research UHD,20251013
 evilcrowrf,1.0,Evil Crow RF,20251017
-libfobos,2.4.0,RigExpert Fobos,202601117
+libfobos,2.4.0,RigExpert Fobos,20260117
 hackrf,2026.01.02,HackRF,20260102
 hasviolet,1.0,HASviolet,20240101
 rtl-sdr-kerberos,1.0,Kerberos SDR,20190101

@@ -61,14 +61,15 @@ SIGPI_DEVICES=$SIGPI_HOME/devices
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_DEBS=$SIGPI_HOME/debs
+SIGPI_CONFIG=$SIGPI_HOME/config
 
 # SIGpi Install Support files
 SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
 SIGPI_PKGLIST=$SIGPI_PACKAGES/PACKAGES
 SIGPI_INSTALLED_DEVICES=$SIGPI_ETC/INSTALLED_DEVICES
 SIGPI_DEVLIST=$SIGPI_DEVICES/DEVICES
-SIGPI_SCREEN_STANDARD=$SIGPI_SCRIPTS/screen_standard_setup
-SIGPI_SCREEN_SERVER=$SIGPI_SCRIPTS/screen_server_setup
+SIGPI_SCREEN_STANDARD=$SIGPI_CONFIG/screen_standard_setup
+SIGPI_SCREEN_SERVER=$SIGPI_CONFIG/screen_server_setup
 SIGPI_BANNER_COLOR="\e[0;104m\e[K"   # blue
 SIGPI_BANNER_RESET="\e[0m"
 
@@ -104,16 +105,21 @@ SIGPI_CERTIFIED="false"
 
 sigpi_update(){
     # Check for available updates to package
-    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
-    
-    if grep $3 "$HOME/Downloads/PACKAGES"; then
-        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
-        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
-        if [$SIG_PKGNEW != $SIG_PKGSTAMP]; then
-            echo "Update $SIG_PKGNEW is available"
+    local pkg="$1"
+    mkdir -p "$HOME/Downloads"
+    wget -q https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -O "$HOME/Downloads/PACKAGES"
+
+    if grep -q "^$pkg," "$HOME/Downloads/PACKAGES"; then
+        local current_version new_version
+        current_version=$(grep "^$pkg," "$SIGPI_PKGLIST" | cut -d',' -f2)
+        new_version=$(grep "^$pkg," "$HOME/Downloads/PACKAGES" | cut -d',' -f2)
+        if [ "$new_version" != "$current_version" ]; then
+            echo "Update $new_version is available (current: $current_version)"
         else
             echo "No updates available"
         fi
+    else
+        echo "Unknown package: $pkg"
     fi
 }
 
@@ -143,6 +149,8 @@ case "$1" in
         if [ "$2" = "apps" ]; then
             source $SIGPI_SCRIPTS/setup_apps
         elif [ "$2" = "standard" ]; then
+            source $SIGPI_SCRIPTS/SIGpi_setup $2
+        elif [ "$2" = "server" ]; then
             source $SIGPI_SCRIPTS/SIGpi_setup $2
         fi
         ;;
@@ -223,11 +231,11 @@ case "$1" in
         ;;
 
     update )
-        sigpi_update $3
-        ;;###
+        sigpi_update $2
+        ;;
 
     upgrade)
-        sigpi_upgrade $3
+        sigpi_upgrade
         ;;
 
     device )

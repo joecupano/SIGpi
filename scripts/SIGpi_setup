@@ -63,7 +63,7 @@ calc_wt_size() {
 }
 
 select_startscreen(){
-    TERM=ansi whiptail --title "SIGpi Setup" --clear --textbox $SIGPI_SCREEN_DESKTOP 34 100 16
+    TERM=ansi whiptail --title "SIGpi Setup" --clear --textbox $SIGPI_SCREEN_STANDARD 34 100 16
 }
 
 select_startsrvscreen(){
@@ -164,25 +164,25 @@ case "$1" in
         sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
   
        # Install RTL-TCP Server
-        if [ "$2" = "rtltcpsrv" ]; then
+        if grep -q "rtltcpsrv" "$SIGPI_INSTALLED_DEVICES"; then
             sudo cp $SIGPI_CONFIG/rtltcp.service /etc/systemd/system/sigpi-node.service
             echo "sigpi-node_rtltcp" >> $SIGPI_INSTALLED
         fi
        # Install SDRangel Server
-        if [ "$2" = "sdrangelsrv" ]; then
+        if grep -q "sdrangelsrv" "$SIGPI_INSTALLED_DEVICES"; then
             source $SIGPI_PACKAGES/pkg_sdrangelsrv install
             sudo cp $SIGPI_CONFIG/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
             echo "sigpi-node_sdrangelsrv" >> $SIGPI_INSTALLED
         fi
         # Install SoapySDR Server
-        if [ "$2" = "soapysdrsrv" ]; then
+        if grep -q "soapysdrsrv" "$SIGPI_INSTALLED_DEVICES"; then
             sudo cp $SIGPI_CONFIG/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
             echo "sigpi-node_soapysdrsrv" >> $SIGPI_INSTALLED
         fi
         # Install OpenWebRX
-        if [ "$2" = "openwebrx" ]; then
+        if grep -q "openwebrx" "$SIGPI_INSTALLED_DEVICES"; then
             source $SIGPI_PACKAGES/pkg_openwebrx install
-            sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+            sudo cp $SIGPI_CONFIG/openwebrx.service /etc/systemd/system/openwebrx.service
             echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
         fi
         
