@@ -98,9 +98,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
-        #git reset --hard c4e57a1  # v7.22.5
-        #git reset --hard 502e751  # v7.22.10
-        git reset --hard 1236b11   # v7.23.0
+        git checkout v7.26.1   # latest release
         mkdir build && cd build
         cmake .. -Wno-dev -DBUILD_GUI=off
         make -j4

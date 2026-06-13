@@ -28,7 +28,8 @@ if [ "$SIGPI_HWARCH" = "x86_64" ] || [ "$SIGPI_HWARCH" = "aarch64" ]; then
 fi
 
 # Are we the right operating system
-if [ "$SIGPI_OSNAME" = "jammy" ] || [ "$SIGPI_OSNAME" = "bookworm" ]; then
+SIGPI_OSCODENAME=`cat /etc/os-release|grep "VERSION_CODENAME"|awk -F'=' '{print $2}'`
+if [ "$SIGPI_OSCODENAME" = "noble" ] || [ "$SIGPI_OSCODENAME" = "bookworm" ]; then
     SIGPI_CERTIFIED="true"
 fi
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
@@ -36,7 +37,7 @@ if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  Incorrect Hardware or Operating System"
     echo "ERROR:"
     echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
-    echo "ERROR:  Operating system must be jammy or bookworm - Aborting"
+    echo "ERROR:  Operating system must be noble (Ubuntu 24.04) or bookworm (RPi OS) - Aborting"
     echo "ERROR:"
     exit 1;
 fi
@@ -184,6 +185,11 @@ case "$1" in
             source $SIGPI_PACKAGES/pkg_openwebrx install
             sudo cp $SIGPI_CONFIG/openwebrx.service /etc/systemd/system/openwebrx.service
             echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
+        fi
+        # Install RadioSonde AutoRX
+        if grep -q "radiosonde" "$SIGPI_INSTALLED_DEVICES"; then
+            source $SIGPI_PACKAGES/pkg_radiosonde_autorx install
+            echo "sigpi-node_radiosonde_autorx" >> $SIGPI_INSTALLED
         fi
         
         echo -e "${SIGPI_BANNER_COLOR}"

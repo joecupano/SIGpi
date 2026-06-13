@@ -27,13 +27,13 @@ case "$1" in
 
     remove )
         cd $SIGPI_PACKAGES        
-        sudo dpkg -r wsjtx_2.7.0
+        sudo dpkg -r wsjtx
         sed -i /wsjtx/d $SIGPI_INSTALLED
         ;;&
 
     purge )
         cd $SIGPI_PACKAGES        
-        sudo dpkg -P wsjtx_2.7.0
+        sudo dpkg -P wsjtx
         rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop
         sudo rm -rf $DESKTOP_FILES/wsjtx.desktop
@@ -45,38 +45,28 @@ case "$1" in
         sudo apt-get install -y libqt5multimedia5-plugins libqt5sql5-sqlite autoconf automake libtool texinfo
         sudo apt-get install -y libusb-1.0-0-dev libudev-dev libboost-all-dev asciidoctor
 
-        if grep js8call "$SIGPI_INSTALLED"; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: WSJT-X cannot be installed while JS8CALL is installed due to library conflicts"
-            echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##   WSJT-X Install Terminated"
-            echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR}"
-        else
-            ## PACKAGE
-            cd $SIGPI_PACKAGES
-            if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
-                cd $SIGPI_DEBS
-                sudo dpkg -i wsjtx_current_amd64.deb
-                cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED 
-            fi
-
-            if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-                cd $SIGPI_DEBS
-                sudo dpkg -i wsjtx_current_arm64.deb
-                cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED 
-            fi
-       	    ## DESKTOP
-	        # Add Icon
-            # Add Desktop
-            # Change Category
-	        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
-    	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
-            # Add to Menu
-            #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
-            #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
+        ## PACKAGE
+        cd $SIGPI_PACKAGES
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            cd $SIGPI_DEBS
+            sudo dpkg -i wsjtx_current_amd64.deb
+            cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED
         fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            cd $SIGPI_DEBS
+            sudo dpkg -i wsjtx_current_arm64.deb
+            cat $SIGPI_PKGLIST|grep "wsjtx" >> $SIGPI_INSTALLED
+        fi
+   	    ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/wsjtx.desktop
+	    #sudo sed -i "s/Categories.*/Categories=$SIGPI_MENU_CATEGORY;/" $DESKTOP_FILES/message_aggregator.desktop
+        # Add to Menu
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/wsjtx.desktop
+        #xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/HamRadio.directory $DESKTOP_FILES/message_aggregator.desktop
         ;;&
 
     build|package )

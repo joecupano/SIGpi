@@ -27,21 +27,21 @@ case "$1" in
         ;;&
 
     remove )
-        sudo python3 -m pip uninstall urh
+        sudo python3 -m pip uninstall --break-system-packages urh
         sed -i /urh/d $SIGPI_INSTALLED
         sudo rm -f $DESKTOP_FILES/urh.desktop
         ;;&
 
     purge )
-        sudo python3 -m pip uninstall urh
+        sudo python3 -m pip uninstall --break-system-packages urh
         sed -i /urh/d $SIGPI_INSTALLED
         sudo rm -f $DESKTOP_FILES/urh.desktop
         ;;&
 
     install|build )
         ## DEPENDENCIES
-        sudo python3 -m pip install setuptools
-        sudo python3 -m pip install cython
+        sudo python3 -m pip install --break-system-packages setuptools
+        sudo python3 -m pip install --break-system-packages cython
 
         ## PACKAGE
         cd $SIGPI_PACKAGES        

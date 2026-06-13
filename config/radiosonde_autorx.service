@@ -1,0 +1,16 @@
+[Unit]
+Description=SigPi RadioSonde AutoRX
+
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+ExecStartPre=/bin/sleep 15
+ExecStart=/bin/sh -c "/home/pi/SIG/source/radiosonde_auto_rx/auto_rx/venv/bin/python3 /home/pi/SIG/source/radiosonde_auto_rx/auto_rx/auto_rx.py -c /home/pi/SIG/source/radiosonde_auto_rx/auto_rx/station.cfg"
+WorkingDirectory=/home/pi/SIG/source/radiosonde_auto_rx/auto_rx
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

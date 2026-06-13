@@ -1,0 +1,92 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_radiosonde_autorx
+###
+###
+### 20260613-2300
+###
+### radiosonde_auto_rx (Project Horus) automatically scans for, identifies,
+### decodes and tracks radiosonde telemetry (RS41, RS92, DFM, M10/M20, iMet,
+### Meisei, etc) using an RTL-SDR, providing a live web map/UI and uploading
+### positions to SondeHub, APRS-IS and other services.
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RadioSonde AutoRX"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo systemctl stop radiosonde_autorx
+        sudo systemctl disable radiosonde_autorx
+        sudo rm -f /etc/systemd/system/radiosonde_autorx.service
+        sudo systemctl daemon-reload
+        sed -i /radiosonde_autorx/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        sudo systemctl stop radiosonde_autorx
+        sudo systemctl disable radiosonde_autorx
+        sudo rm -f /etc/systemd/system/radiosonde_autorx.service
+        sudo systemctl daemon-reload
+        sudo rm -rf $SIGPI_SOURCE/radiosonde_auto_rx
+        sed -i /radiosonde_autorx/d $SIGPI_INSTALLED
+        ;;&
+
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+
+    install )
+        ## DEPENDENCIES
+        sudo apt-get install -y python3 python3-venv sox git build-essential libtool cmake
+        sudo apt-get install -y usbutils libusb-1.0-0-dev rng-tools libsamplerate-dev
+        sudo apt-get install -y libatlas3-base libgfortran5 libopenblas-dev rtl-sdr
+
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone -b master https://github.com/projecthorus/radiosonde_auto_rx.git
+        cd radiosonde_auto_rx/auto_rx
+
+        ### Build demodulators (fsk_demod, rs41mod, dfm09mod, m10mod, rs92mod, etc)
+        ./build.sh
+
+        ### Python virtual environment
+        python3 -m venv venv
+        venv/bin/pip install -r requirements.txt
+
+        ### Station configuration template - edit before first run
+        cp station.cfg.example station.cfg
+
+        ## SERVICE
+        sudo cp $SIGPI_CONFIG/radiosonde_autorx.service /etc/systemd/system/radiosonde_autorx.service
+        sudo systemctl daemon-reload
+        sudo systemctl enable radiosonde_autorx
+        ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : RadioSonde AutoRX - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

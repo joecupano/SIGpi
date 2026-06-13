@@ -1,0 +1,113 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_satdump
+###
+###
+### 20260613-2300
+###
+### SatDump is a generic satellite data processing software, providing
+### tools to work with satellite images and telemetry from many missions
+### (NOAA, Meteor-M2, GOES, Meteosat, etc), in real time or from recordings.
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SatDump"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        cd $SIGPI_DEBS
+        sudo dpkg -r satdump
+        sed -i /satdump/d $SIGPI_INSTALLED
+        ;;&
+
+    purge )
+        cd $SIGPI_DEBS
+        sudo dpkg -P satdump
+        sed -i /satdump/d $SIGPI_INSTALLED
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y build-essential
+        sudo apt-get install -y cmake
+        sudo apt-get install -y pkgconf
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y libpng-dev
+        sudo apt-get install -y libtiff-dev
+        sudo apt-get install -y libjemalloc-dev
+        sudo apt-get install -y libcurl4-openssl-dev
+        sudo apt-get install -y libvolk-dev
+        sudo apt-get install -y libnng-dev
+        sudo apt-get install -y libglfw3-dev
+        sudo apt-get install -y zenity
+        sudo apt-get install -y portaudio19-dev
+        sudo apt-get install -y libzstd-dev
+        sudo apt-get install -y libhdf5-dev
+        sudo apt-get install -y libhackrf-dev
+        sudo apt-get install -y libairspy-dev
+        sudo apt-get install -y libairspyhf-dev
+        sudo apt-get install -y libad9361-dev
+        sudo apt-get install -y libiio-dev
+        sudo apt-get install -y libbladerf-dev
+        sudo apt-get install -y libomp-dev
+        sudo apt-get install -y ocl-icd-opencl-dev
+        sudo apt-get install -y intel-opencl-icd
+        sudo apt-get install -y mesa-opencl-icd
+        ;;&
+
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i satdump_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i satdump_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "satdump," >> $SIGPI_INSTALLED
+        ;;&
+
+    build|package )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/SatDump/SatDump.git
+        cd SatDump
+        git checkout 1.2.2   # latest release
+        mkdir build && cd build
+        cmake -DCMAKE_BUILD_TYPE=Release -Wno-dev ..
+        make -j4
+        ;;&
+
+    build )
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "satdump," >> $SIGPI_INSTALLED
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SatDump - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

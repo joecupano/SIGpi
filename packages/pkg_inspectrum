@@ -1,0 +1,113 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_inspectrum
+###
+###
+### 20260613-2300
+###
+### inspectrum is a tool for analysing wireless signals using time-frequency
+### analysis (spectrograms), useful for reverse-engineering and inspecting
+### raw IQ recordings.
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Inspectrum"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        cd $SIGPI_DEBS
+        sudo dpkg -r inspectrum
+        sed -i /inspectrum/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/inspectrum.desktop
+        ;;&
+
+    purge )
+        cd $SIGPI_DEBS
+        sudo dpkg -P inspectrum
+        sed -i /inspectrum/d $SIGPI_INSTALLED
+        sudo rm -f $DESKTOP_FILES/inspectrum.desktop
+        ;;&
+
+    install|build|package )
+        ## DEPENDENCIES
+        sudo apt-get install -y build-essential
+        sudo apt-get install -y cmake
+        sudo apt-get install -y pkg-config
+        sudo apt-get install -y libfftw3-dev
+        sudo apt-get install -y qtbase5-dev
+
+        ## liquid-dsp (no apt package - build and install from source)
+        cd $SIGPI_SOURCE
+        git clone https://github.com/jgaeddert/liquid-dsp.git
+        cd liquid-dsp
+        ./bootstrap.sh
+        ./configure --enable-fftoverride
+        make -j4
+        sudo make install
+        sudo ldconfig
+        ;;&
+
+    install )
+        ## PACKAGE
+        cd $SIGPI_PACKAGES
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i inspectrum_current_amd64.deb
+        fi
+
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i inspectrum_current_arm64.deb
+        fi
+        cat $SIGPI_PKGLIST|grep "inspectrum," >> $SIGPI_INSTALLED
+
+        ## DESKTOP
+        sudo cp $SIGPI_DESKTOP/inspectrum.desktop $DESKTOP_FILES
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/inspectrum.desktop
+        ;;&
+
+    build|package )
+        ## PACKAGE
+        cd $SIGPI_SOURCE
+        git clone https://github.com/miek/inspectrum.git
+        cd inspectrum
+        git checkout v0.4.0   # latest release
+        mkdir build && cd build
+        cmake -Wno-dev ..
+        make -j4
+        ;;&
+
+    build )
+        sudo make install
+        sudo ldconfig
+        cat $SIGPI_PKGLIST|grep "inspectrum," >> $SIGPI_INSTALLED
+
+        ## DESKTOP
+        sudo cp $SIGPI_DESKTOP/inspectrum.desktop $DESKTOP_FILES
+        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpi.directory $DESKTOP_FILES/inspectrum.desktop
+        ;;&
+
+    package )
+        sudo checkinstall --install=no
+        sudo mv *.deb $SIGPI_DEBS
+        ;;&
+
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Inspectrum - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

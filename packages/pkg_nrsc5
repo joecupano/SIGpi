@@ -58,7 +58,7 @@ case "$1" in
 
     install|build|package )
         ## DEPENDENCIES
-        sudo apt install -y libao-dev libfftw3-dev librtlsdr-dev
+        sudo apt install -y libao-dev libfftw3-dev
         ;;&
 
     install)

@@ -11,8 +11,9 @@
             <Filename>CubicSDR.desktop</Filename>
             <Filename>gnuradio-grc.desktop</Filename>
             <Filename>gpredict.desktop</Filename>
-            <Filename>gqrx.desktop</Filename>
+            <Filename>inspectrum.desktop</Filename>
             <Filename>lime-suite.desktop</Filename>
+            <Filename>satdump.desktop</Filename>
             <Filename>sdrangel.desktop</Filename>
             <Filename>sdrpp.desktop</Filename>
             <Filename>wireshark.desktop</Filename>

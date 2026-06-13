@@ -51,16 +51,16 @@ case "$1" in
         sudo apt-get install -y libatlas-base-dev python3-dev python3-setuptools 
         sudo apt-get install -y libffi-dev python3-tk pkg-config libfreetype6-dev php-cli
         sudo apt-get install -y libusb-1.0-0-dev
-        pip3 install numpy
-        pip3 install matplotlib
-        pip3 install scipy
-        pip3 install cairocffi
-        pip3 install pyapril
-        pip3 install pyargus
-        pip3 install pyqtgraph
-        pip3 install peakutils
-        pip3 install bottle
-        pip3 install paste
+        sudo pip3 install --break-system-packages numpy
+        sudo pip3 install --break-system-packages matplotlib
+        sudo pip3 install --break-system-packages scipy
+        sudo pip3 install --break-system-packages cairocffi
+        sudo pip3 install --break-system-packages pyapril
+        sudo pip3 install --break-system-packages pyargus
+        sudo pip3 install --break-system-packages pyqtgraph
+        sudo pip3 install --break-system-packages peakutils
+        sudo pip3 install --break-system-packages bottle
+        sudo pip3 install --break-system-packages paste
         ;;&
 
      install )

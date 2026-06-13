@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=inspectrum
+GenericName=Signal analysis tool
+Comment=Analyse captured signals using time-frequency analysis (spectrograms)
+Exec=inspectrum
+Icon=sigpi_icon_menu.png
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=SIGpi;

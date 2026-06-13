@@ -14,9 +14,9 @@ ggmorse,1.0,Morse code decoding library,20260124
 gnuradio,3.10.12,Software development toolkit providing signal processing blocks for SDRs,20251201
 gpredict,2.4,Real-time satellite tracking and orbit prediction application,20251227
 gpsd,3.2.2,interface daemon for GPS receivers,20260113
-gqrx,2.15.8,SDR app powered GNU Radio and the Qt graphical toolkit,20220125
 hamlib,4.6.5,Radio Control Library providing API for controlling radios and rotators,20250905
 inmarsatc,1.0,Cplusplus library with functions to receive Inmarsat-C signals,20260124
+inspectrum,0.4.0,Tool for visualising and analysing signals using time-frequency analysis,20260613
 js8call,2.3.1,JS8 Digital Mode providing weak signal keyboard to keyboard messaging,20250628
 kismet,2025-09-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,20250901
 libbtbb,2020-12-R1,Bluetooth baseband decoding library,20211231
@@ -32,7 +32,8 @@ qsstv,1.0,receiving and transmitting SSTV and HAMDRM aka DSSTV,20211231
 rnnoise,1.0,Recurrent neural network for audio noise reduction,20260124
 radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc, 20211231
 rtl_433,25.12,Generic data receiver ISM bands,20251212
-sdrangel,7.22.10,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20251225
+satdump,1.2.2,Generic multi-mission satellite data processing and decoding software,20260613
+sdrangel,7.26.1,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20260603
 sdrpp,1.2.1,Cross-platform and open source SDR software,20251212
 serialdv,1.1.5,C++ interface encode/decode audio with AMBE3000 devices serial link,20250404
 sgp4,1.0,Simplified perturbations models,20211231
@@ -40,5 +41,5 @@ srsran-4g,25.10,end-to-end 4G network implementation with full-stack application
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
 vkfft,1.3.4,GPU-accelerated multidimensional Fast Fourier Transform library,20240206
 volk,3.2.0,Vector Optimized Library of Kernels,20250203
-wsjtx,2.7.0,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20251001
+wsjtx,3.0.1 amd64 / 2.7.0 arm64,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20260613
 xastir,2.2.2,APRS client program with positional data in a graphical application,20250525

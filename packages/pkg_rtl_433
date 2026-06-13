@@ -102,8 +102,7 @@ case "$1" in
 
     build )
         ## DEPENDENCIES
-        #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
-        sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
+        sudo apt-get install -y libtool libusb-1.0-0-dev libssl-dev
 
         ## PACKAGE
         cd $SIGPI_SOURCE
@@ -135,8 +134,7 @@ case "$1" in
 
     package )
         ## DEPENDENCIES
-        #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
-        sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
+        sudo apt-get install -y libtool libusb-1.0-0-dev libssl-dev
 
         ## PACKAGE
         cd $SIGPI_SOURCE
