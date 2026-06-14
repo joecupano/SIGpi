@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=SigDigger
+GenericName=Digital Signal Analyzer
+Comment=Blind signal analysis, parameter estimation and demodulation
+Exec=/usr/local/bin/SigDigger
+Icon=sigdigger
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=SIGpi;

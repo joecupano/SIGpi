@@ -37,6 +37,7 @@ sdrangel,7.26.1,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20260603
 sdrpp,1.2.1,Cross-platform and open source SDR software,20251212
 serialdv,1.1.5,C++ interface encode/decode audio with AMBE3000 devices serial link,20250404
 sgp4,1.0,Simplified perturbations models,20211231
+sigdigger,0.3.0,Digital signal analyzer for blind RF signal analysis and demodulation,20260613
 srsran-4g,25.10,end-to-end 4G network implementation with full-stack applications,20251111
 urh,2.9.5,Universal Radio Hacker: Investigate Wireless Protocols,20211231
 vkfft,1.3.4,GPU-accelerated multidimensional Fast Fourier Transform library,20240206
