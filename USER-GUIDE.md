@@ -23,9 +23,10 @@ install <package>` / `SIGpi remove <package>` to manage packages, and `SIGpi dev
 install <name>` / `SIGpi device remove <name>` for hardware drivers. Version numbers
 below are the versions SIGpi pins/builds, not necessarily the latest upstream release.
 
-Targets: **x86_64** = Ubuntu 24.04 LTS (noble) on Intel or Raspberry Pi 4/5; **aarch64**
-= Raspberry Pi OS Bookworm on Raspberry Pi 3/4/5. A few packages/devices are
-arch-restricted — these are called out below.
+Targets: **x86_64** = Ubuntu 24.04 LTS (noble) on Intel; **aarch64** = Ubuntu 24.04 LTS
+(noble) on Raspberry Pi 4/5 (Full Install) or Raspberry Pi 3/4/5 (Server Only).
+Raspberry Pi OS is not supported. A few packages/devices are arch-restricted — these
+are called out below.
 
 ---
 
@@ -144,9 +145,10 @@ across the hardware below.
 
 - **bladeRF** `2023.02` — Nuand bladeRF 2.0 (xA4/xA9): wideband (47MHz–6GHz),
   full-duplex 2x2 MIMO transceiver via SoapyBladeRF.
-  > Installed from Nuand's Ubuntu PPA (`ppa:nuandllc/bladerf`). PPAs are an
-  > Ubuntu-specific mechanism — on aarch64 (Raspberry Pi OS) this install path may not
-  > work as written. Full bandwidth (up to 61.44MHz) requires USB3.
+  > Installed from Nuand's Ubuntu PPA (`ppa:nuandllc/bladerf`). `add-apt-repository`
+  > works on both x86_64 and aarch64 under Ubuntu 24.04, but whether the PPA publishes
+  > arm64 binaries for `noble` is untested. Full bandwidth (up to 61.44MHz) requires
+  > USB3.
 
 - **Ettus USRP (UHD)** `4.9.0.1` — USRP B-series and other UHD-supported devices.
   > **x86_64 only** — the script explicitly reports "not available for aarch64" and has

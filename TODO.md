@@ -15,10 +15,11 @@ current functionality, but worth tracking.
 ## Untested cross-arch paths
 
 - `devices/pkg_bladerf` and `devices/pkg_limesuite` install via Ubuntu PPAs
-  (`ppa:nuandllc/bladerf`, `ppa:myriadrf/drivers`) with no `$SIGPI_HWARCH` branch.
-  `add-apt-repository ppa:...` is Ubuntu-specific and likely fails on aarch64
-  (Raspberry Pi OS / Debian). Needs an aarch64 install path or an explicit
-  "not available for aarch64" guard like `devices/pkg_ettus` already has.
+  (`ppa:nuandllc/bladerf`, `ppa:myriadrf/drivers`) with no `$SIGPI_HWARCH` branch. Now
+  that aarch64 means Ubuntu 24.04 (noble) rather than Raspberry Pi OS,
+  `add-apt-repository` itself works, but it's unverified whether these PPAs publish
+  arm64 binaries for `noble`. If not, needs an explicit "not available for aarch64"
+  guard like `devices/pkg_ettus` already has.
 
 ## Cleanup candidates
 

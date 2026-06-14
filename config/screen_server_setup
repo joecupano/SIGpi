@@ -10,7 +10,7 @@ Server Setup
 This script installs drivers and applications for signals intelligence (SIGINT) 
 use on the following:
 
-- aarch64: Raspberry Pi OS "Bookworm" 64-bit on RPi4 4GB RAM, 32GB SD Card minimum
+- aarch64: Ubuntu 24.04 LTS 64-bit on Raspberry Pi 3/4/5, 32GB SD Card minimum
 - amd64: Ubuntu 24.04 LTS 4GB RAM, 32GB HD space minimum
 
 Hit any key to continue

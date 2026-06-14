@@ -5,11 +5,11 @@
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT applications and devices building/installing SIGINT tools on the following platforms:
 
 **Full Install**
-- Ubuntu 24.04 LTS (64-bit) on Intel or Rasberry Pi 4/5
+- Ubuntu 24.04 LTS (64-bit) on Intel or Raspberry Pi 4/5
 - 4GB RAM, 32GB storage
 
 **Server Only**
-- Ubuntu 24.04 LTS (64-bit) on Intel or Rasberry Pi 3/4/5
+- Ubuntu 24.04 LTS (64-bit) on Intel or Raspberry Pi 3/4/5
 
 The [wiki](https://github.com/joecupano/SIGpi/wiki) goes deep on all things SIGpi.
 

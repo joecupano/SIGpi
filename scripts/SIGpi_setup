@@ -29,7 +29,7 @@ fi
 
 # Are we the right operating system
 SIGPI_OSCODENAME=`cat /etc/os-release|grep "VERSION_CODENAME"|awk -F'=' '{print $2}'`
-if [ "$SIGPI_OSCODENAME" = "noble" ] || [ "$SIGPI_OSCODENAME" = "bookworm" ]; then
+if [ "$SIGPI_OSCODENAME" = "noble" ]; then
     SIGPI_CERTIFIED="true"
 fi
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
@@ -37,7 +37,7 @@ if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:  Incorrect Hardware or Operating System"
     echo "ERROR:"
     echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
-    echo "ERROR:  Operating system must be noble (Ubuntu 24.04) or bookworm (RPi OS) - Aborting"
+    echo "ERROR:  Operating system must be noble (Ubuntu 24.04 LTS) - Aborting"
     echo "ERROR:"
     exit 1;
 fi
