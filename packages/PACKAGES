@@ -5,6 +5,7 @@ bettercap,2.41.7,recon and attacking WiFi BLE HID devices and Ethernet networks,
 chrony,4.6.1,NTP implementation,20260910
 cm256cc,1.1.2,Fast GF(256) Cauchy MDS Block Erasure Codec in C++,20260910
 codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,20230724
+cuda,535+,NVIDIA CUDA Toolkit and GPU driver (minimum driver version 535),20260910
 direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,20251113
 dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20260910
 dsdcc,1.9.6,Digital Speech Decoder rewritten as a C++ library,20260910

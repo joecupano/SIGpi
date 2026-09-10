@@ -1,0 +1,120 @@
+
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_cuda
+###
+###
+### 20260910-2346
+###
+### CUDA Toolkit via NVIDIA's network apt repo (cuda-keyring), which always
+### serves the current driver/toolkit builds - SIGpi requires driver 535+,
+### enforced by checking the repo's cuda-drivers candidate before install.
+###
+
+case "$1" in 
+    remove )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Remove CUDA Toolkit"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove -y cuda cuda-toolkit cuda-drivers
+        sudo ldconfig
+        sed -i /cuda/d $SIGPI_INSTALLED
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   CUDA Toolkit Removed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    purge )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Purge CUDA Toolkit"
+        echo -e "${SIGPI_BANNER_RESET}"
+
+        sudo apt-get remove --purge -y cuda cuda-toolkit cuda-drivers cuda-keyring
+        sudo ldconfig
+        rm -rf $SIGPI_SOURCE/cuda-toolkit
+        sed -i /cuda/d $SIGPI_INSTALLED
+
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   CUDA Toolkit Purged"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Install CUDA Toolkit"
+        echo -e "${SIGPI_BANNER_COLOR} ##"
+        echo -e "${SIGPI_BANNER_RESET}"
+        
+        ## DEPENDENCIES
+
+        ## PACKAGE
+        cd $SIGPI_PACKAGES
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            CUDA_REPO_ARCH="x86_64"
+        elif [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            CUDA_REPO_ARCH="sbsa"
+        else
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: Unsupported architecture $SIGPI_HWARCH"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 1
+        fi
+
+        cd $SIGPI_SOURCE
+        mkdir cuda-toolkit && cd cuda-toolkit
+
+        ## Network repo (keyring-based) instead of a pinned local-installer
+        ## .deb, so this always resolves to NVIDIA's current driver/toolkit
+        ## builds rather than a driver version baked in at write-time.
+        wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/${CUDA_REPO_ARCH}/cuda-keyring_1.1-1_all.deb
+        sudo dpkg -i cuda-keyring_1.1-1_all.deb
+        sudo apt-get update
+
+        ## SIGpi requires driver 535+ - refuse to proceed if the repo's
+        ## current cuda-drivers candidate can't satisfy that floor
+        CUDA_MIN_DRIVER=535
+        CUDA_CANDIDATE=$(apt-cache policy cuda-drivers 2>/dev/null | awk '/Candidate:/ {print $2}' | cut -d. -f1)
+        if ! [[ "$CUDA_CANDIDATE" =~ ^[0-9]+$ ]] || [[ "$CUDA_CANDIDATE" -lt "$CUDA_MIN_DRIVER" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: cuda-drivers candidate is ${CUDA_CANDIDATE:-unavailable}, need >= ${CUDA_MIN_DRIVER}"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 1
+        fi
+
+        ## "cuda" is the top-level meta-package (pulls in cuda-toolkit and
+        ## cuda-drivers) - installing it, not the sub-packages directly,
+        ## is what lets `dpkg -s cuda` in SIGpi_pkg_menu.py match the
+        ## "cuda" name registered in PACKAGES
+        sudo apt-get -y install cuda
+        cat $SIGPI_PKGLIST|grep "cuda" >> $SIGPI_INSTALLED
+
+	    ## DESKTOP
+	    # Add Icon
+        # Add Desktop
+        # Change Category
+	    # Add to Menu
+        
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   CUDA Toolkit Installed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+    build )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   SIGpi package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;
+    * )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unkown action or package"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac
