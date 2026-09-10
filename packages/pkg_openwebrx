@@ -6,7 +6,7 @@
 ### pkg_openwebrx
 ###
 ###
-### 20260118-2300
+### 20260910-0100
 ###
 ### OpenWebRX is a software-defined radio receiver application with a web-based
 ### user interface that allows multiple users to listen to and control a remote
@@ -126,7 +126,13 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/jketterl/openwebrx.git
-        
+        cd openwebrx
+        # jketterl/openwebrx's "master" branch has not advanced past tag 1.2.2 (Oct 2023);
+        # ongoing work happens on the unreleased "develop" branch instead, so 1.2.2 IS
+        # current master/stable - pin to it explicitly instead of a moving branch name.
+        git checkout 1.2.2
+        cd $SIGPI_SOURCE
+
         ### Data Storage
         sudo mkdir /var/lib/openwebrx
         sudo chown pi /var/lib/openwebrx

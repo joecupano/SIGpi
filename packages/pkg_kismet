@@ -6,7 +6,7 @@
 ### pkg_kismet
 ###
 ###
-### 20260114-2300
+### 20260910-0100
 ###
 ### Package installer kismet
 ###
@@ -38,8 +38,11 @@ case "$1" in
         ;;&
 
     install )
+        # Kismet's apt repo (https://www.kismetwireless.net/repos/apt/release/) publishes
+        # packages directly for both "noble" (Ubuntu 24.04) and "trixie" (Debian 13), so we
+        # use $SIGPI_OSCODENAME directly instead of the old hardcoded "jammy" fallback.
         wget -O - https://www.kismetwireless.net/repos/kismet-release.gpg.key --quiet | gpg --dearmor | sudo tee /usr/share/keyrings/kismet-archive-keyring.gpg >/dev/null
-        echo 'deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/jammy jammy main' | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
+        echo "deb [signed-by=/usr/share/keyrings/kismet-archive-keyring.gpg] https://www.kismetwireless.net/repos/apt/release/${SIGPI_OSCODENAME} ${SIGPI_OSCODENAME} main" | sudo tee /etc/apt/sources.list.d/kismet.list >/dev/null
         sudo apt update
         sudo apt install -y kismet
         cat $SIGPI_PKGLIST|grep "kismet" >> $SIGPI_INSTALLED

@@ -6,9 +6,14 @@
 ### pkg_sdrpp-deb
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 ### SDR++ Package Management Script
+###
+### SDR++ has no semantic-version tagged releases beyond 1.0.4; upstream ships a
+### continuously-updated "nightly" GitHub release (currently self-labelled 1.3.0)
+### with prebuilt Debian packages, which is what "current" stable means here.
+### install/build/package are unchanged (no build path in this script - see below).
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then

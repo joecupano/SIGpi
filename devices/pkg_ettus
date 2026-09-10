@@ -6,7 +6,7 @@
 ### pkg_ettus
 ###
 ###
-### 20260117-2300
+### 20260910-0100
 ###
 ### Ettus Research USRP Devices
 ###
@@ -39,7 +39,7 @@ case "$1" in
 
     install )
         ## PACKAGE
-        cd $SIGPI_PACKAGES        
+        cd $SIGPI_PACKAGES
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i uhd_current_amd64.deb
@@ -47,26 +47,23 @@ case "$1" in
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
-            echo -e "${SIGPI_BANNER_RESET}"
-            exit
+	        cd $SIGPI_DEBS
+	        sudo dpkg -i uhd_current_arm64.deb
+            cat $SIGPI_DEVLIST|grep "ettus" >> $SIGPI_INSTALLED_DEVICES
         fi
         ;;&
-    
-    build|package )
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
-            echo -e "${SIGPI_BANNER_RESET}"
-            exit
-        fi
 
+    build|package )
         ## PACKAGE
+        # 20260910: UHD builds on aarch64 (Raspberry Pi 4/5, and Jetson/other
+        # arm64 boards) via the same cmake-based host build used for x86_64 -
+        # confirmed via UHD's linux-aarch64 conda-forge build and current
+        # EttusResearch/uhd issue tracker (no open arm64 build blockers on
+        # this release). No arch-specific cmake flags are required.
         cd $SIGPI_SOURCE
         git clone https://github.com/EttusResearch/uhd.git
         cd uhd
-        git checkout v4.9.0.1
+        git checkout v4.11.0.0
         cd host
         mkdir build	&& cd build
         cmake .. -Wno-dev
@@ -82,8 +79,10 @@ case "$1" in
         ;;&
 
     package )
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "uhd" "4.11.0.0" "$(pwd)/pkgroot" "Ettus Research USRP Hardware Driver (UHD)"
+        rm -rf pkgroot
         ;;&
 
     install|build|package|remove|purge )

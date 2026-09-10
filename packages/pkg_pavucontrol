@@ -6,7 +6,7 @@
 ### pkg_pavucontrol
 ###
 ###
-### 20230113-2300
+### 20260910-0100
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then

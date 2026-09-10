@@ -6,11 +6,16 @@
 ### pkg_sdrangelsrv
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 ### SDRangel Server package management script
 ###
-### sdrangelsrv,7.22.10,Open-source SDR server,20251225
+### sdrangelsrv,7.27.2,Open-source SDR server,20260910
+###
+### Headless (BUILD_GUI=off) counterpart to pkg_sdrangel. SDRangel's own wiki
+### (Hardware requirements) recommends armv8/aarch64 boards such as the
+### Raspberry Pi 3B/4/5 specifically for this server-only build, unlike the
+### full GUI app - so unlike pkg_sdrangel this script does NOT exclude aarch64.
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -48,7 +53,8 @@ case "$1" in
         sudo apt-get install -y libusb-dev
         sudo apt-get install -y libboost-all-dev
         sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y libgl1-mesa-dev
+        sudo apt-get install -y libunwind-dev
         sudo apt-get install -y gettext
         sudo apt-get install -y pulseaudio
         sudo apt-get install -y libopencv-dev
@@ -100,7 +106,8 @@ case "$1" in
         cd sdrangel
         #git reset --hard c4e57a1  # v7.22.5
         #git reset --hard 502e751  # v7.22.10
-        git reset --hard 1236b11   # v7.23.0
+        #git reset --hard 1236b11  # v7.23.0
+        git reset --hard 97e9e21   # v7.27.2
         mkdir build && cd build
         cmake .. -Wno-dev -DBUILD_GUI=off
         make -j4
@@ -112,8 +119,10 @@ case "$1" in
         ;;&
 
     package )
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "sdrangelsrv" "7.27.2" "$(pwd)/pkgroot" "Open-source SDR server (headless SDRangel)"
+        rm -rf pkgroot
         ;;&
     
     remove|purge|install|build|package )

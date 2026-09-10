@@ -6,7 +6,7 @@
 ### pkg_ggmorse
 ###
 ###
-### 20260124-1200
+### 20260910-0100
 ###
 ### Morse code decoding library
 ###
@@ -60,6 +60,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/ggerganov/ggmorse --recursive
         cd ggmorse
+        git reset --hard 7b4822a # no tagged releases upstream; pinned to HEAD as of 2026-08-24
         mkdir build && cd build
         cmake .. -Wno-dev -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
         make -j4
@@ -73,11 +74,14 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/ggerganov/ggmorse --recursive
         cd ggmorse
+        git reset --hard 7b4822a # no tagged releases upstream; pinned to HEAD as of 2026-08-24
         mkdir build && cd build
         cmake .. -Wno-dev -DGGMORSE_BUILD_TESTS=OFF -DGGMORSE_BUILD_EXAMPLES=OFF ..
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "ggmorse" "1.0" "$(pwd)/pkgroot" "Morse code decoding library"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package|config )

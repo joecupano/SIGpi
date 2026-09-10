@@ -6,7 +6,7 @@
 ### pkg_rtlsdr-v4
 ###
 ###
-### 20260117-2300
+### 20260910-0100
 ###
 ### RTLSDR v4
 ###
@@ -41,10 +41,10 @@ case "$1" in
         sudo apt-get install -y libusb-1.0-0-dev
         ;;&
 
-    install|build )    
+    install|build )
         ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+        git clone --depth 1 --branch V1.4.0 https://github.com/rtlsdrblog/rtl-sdr-blog
         cd rtl-sdr-blog
         mkdir build && cd build
         cmake ../ -DINSTALL_UDEV_RULES=ON -DDETACH_KERNEL_DRIVER=ON -DENABLE_ZEROCOPY=ON
@@ -53,13 +53,13 @@ case "$1" in
         sudo ldconfig
         echo 'blacklist dvb_usb_rtl28xxu' | sudo tee --append /etc/modprobe.d/blacklist-rtl.conf
         cat $SIGPI_DEVLIST|grep "rtlsdr-v4" >> $SIGPI_INSTALLED_DEVICES
-        
+
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyRTLSDR.git
+        git clone --depth 1 --branch soapy-rtlsdr-0.3.0 https://github.com/pothosware/SoapyRTLSDR.git
         cd SoapyRTLSDR
         mkdir build && cd build
         cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-        make -j4        
+        make -j4
         sudo make install
         sudo ldconfig
         ;;&
@@ -67,22 +67,26 @@ case "$1" in
      package )
         ## PACKAGE
         cd $SIGPI_SOURCE
-        git clone https://github.com/rtlsdrblog/rtl-sdr-blog
+        git clone --depth 1 --branch V1.4.0 https://github.com/rtlsdrblog/rtl-sdr-blog
         cd rtl-sdr-blog
         mkdir build && cd build
         cmake ../ -DINSTALL_UDEV_RULES=ON
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "rtlsdrv4" "1.4.0" "$(pwd)/pkgroot" "RTL-SDR Blog V4 dongle host tools and libraries"
+        rm -rf pkgroot
 
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyRTLSDR.git
+        git clone --depth 1 --branch soapy-rtlsdr-0.3.0 https://github.com/pothosware/SoapyRTLSDR.git
         cd SoapyRTLSDR
         mkdir build && cd build
         cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "soapyrtlsdr" "0.3.0" "$(pwd)/pkgroot" "SoapySDR module for RTL-SDR devices"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

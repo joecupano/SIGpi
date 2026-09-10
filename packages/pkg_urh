@@ -6,10 +6,12 @@
 ### pkg_urh
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
-### Universal Radio hacker install 
+### Universal Radio hacker install
 ###
+### NOTE: upstream jopohl/urh was archived (read-only, no more releases/fixes) on
+### 2026-03-29, pinned here at its final release, v2.10.0.
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -49,8 +51,9 @@ case "$1" in
 	        cd $SIGPI_SOURCE
             git clone https://github.com/jopohl/urh.git
             cd urh
+            git checkout v2.10.0
             sudo python setup.py install
-            
+
             ## DESKTOP
 	        # Add Icon
             #sudo cp $SIGPI_ICONS/myicon.png $DESKTOP_ICONS
@@ -62,7 +65,15 @@ case "$1" in
             cat $SIGPI_PKGLIST|grep "urh" >> $SIGPI_INSTALLED
         else
             echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##   URH not stable for Raspberry Pi OS"
+            echo -e "${SIGPI_BANNER_COLOR} ##   URH not available for Raspberry Pi OS (aarch64)"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   As of 2026-09 upstream (now archived/unmaintained) has two open,"
+            echo -e "${SIGPI_BANNER_COLOR} ##   unfixed reports specific to this target: a Cython/numpy build"
+            echo -e "${SIGPI_BANNER_COLOR} ##   failure installing on a Raspberry Pi 5 running trixie with"
+            echo -e "${SIGPI_BANNER_COLOR} ##   Python 3.13 (jopohl/urh#1203), and incorrect signal magnitude/"
+            echo -e "${SIGPI_BANNER_COLOR} ##   demodulation results on Raspberry Pi 5 aarch64 (jopohl/urh#1160)."
+            echo -e "${SIGPI_BANNER_COLOR} ##   Since the repo is archived, neither will be"
+            echo -e "${SIGPI_BANNER_COLOR} ##   fixed upstream, so it stays disabled here."
             echo -e "${SIGPI_BANNER_RESET}"
         fi
         ;;&

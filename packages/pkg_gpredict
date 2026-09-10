@@ -6,7 +6,7 @@
 ### pkg_gpredict
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -69,8 +69,9 @@ case "$1" in
 
     build )
         cd $SIGPI_SOURCE
-        git clone https://github.com/csete/gpredict.git   
+        git clone https://github.com/csete/gpredict.git
         cd gpredict
+        git checkout v2.6 # v2.6
         ./autogen.sh
         make -j4
         sudo make install
@@ -79,12 +80,15 @@ case "$1" in
 
     package )
         cd $SIGPI_SOURCE
-        git clone https://github.com/csete/gpredict.git   
+        git clone https://github.com/csete/gpredict.git
         cd gpredict
+        git checkout v2.6 # v2.6
         ./autogen.sh
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "gpredict" "2.6" "$(pwd)/pkgroot" "Real-time satellite tracking and orbit prediction application"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

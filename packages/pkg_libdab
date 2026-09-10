@@ -6,11 +6,16 @@
 ### pkg_libdab
 ###
 ###
-### 20260124-1200
+### 20260910-0100
 ###
 ### The DAB library provides entries for the functionality to handle DAB/DAB+ through some simple calls.
 ### A few callback functions provide the communication back from the library to the caller.
 ### The library interface is given in dab-api.h
+###
+### Upstream JvanKatwijk/dab-cmdline has no real tagged releases (its only git tag,
+### dab-cmdline-0.8, dates from 2017); pinned below to the latest commit on the
+### default branch as of 2026-09 for reproducibility (previously an unpinned clone
+### of master HEAD).
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -64,13 +69,16 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/JvanKatwijk/dab-cmdline.git
+        cd dab-cmdline
+        git checkout 8b82305 # latest commit as of 2026-06 (no tagged release since dab-cmdline-0.8, 2017)
+
         cd $SIGPI_SOURCE/dab-cmdline/library
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig
-        
+
         cd $SIGPI_SOURCE/dab-cmdline/example-2
         mkdir build && cd build
         cmake .. -DRTLSDR=on
@@ -83,19 +91,27 @@ case "$1" in
         ## PACKAGE
         cd $SIGPI_SOURCE
         git clone https://github.com/JvanKatwijk/dab-cmdline.git
+        cd dab-cmdline
+        git checkout 8b82305 # latest commit as of 2026-06 (no tagged release since dab-cmdline-0.8, 2017)
+        rm -rf pkgroot && mkdir -p pkgroot
+
         cd $SIGPI_SOURCE/dab-cmdline/library
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-        
+        make DESTDIR="$SIGPI_SOURCE/dab-cmdline/pkgroot" install
+
         cd $SIGPI_SOURCE/dab-cmdline/example-2
         mkdir build && cd build
         cmake .. -DRTLSDR=on
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        make DESTDIR="$SIGPI_SOURCE/dab-cmdline/pkgroot" install
+
+        # Both the library and the example-2 CLI tool are staged into one shared
+        # pkgroot so they land in a single libdab_current_<arch>.deb, matching
+        # what the install case above expects.
+        sigpi_stage_package "libdab" "2026.06" "$SIGPI_SOURCE/dab-cmdline/pkgroot" "DAB/DAB+ decoding library and command-line example"
+        rm -rf $SIGPI_SOURCE/dab-cmdline/pkgroot
         ;;&
 
     remove|purge|install|build|package|config )

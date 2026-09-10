@@ -6,7 +6,7 @@
 ### pkg_libmirisdr
 ###
 ###
-### 202601125-2300
+### 20260910-0100
 ###
 ###
 ### open-source driver specifically designed for SDR devices
@@ -67,7 +67,7 @@ case "$1" in
 
         ## SDRplay driver
         cd $SIGPI_SOURCE
-        git clone https://github.com/ericek111/libmirisdr-5
+        git clone --depth 1 --branch v1.1.2 https://github.com/ericek111/libmirisdr-5
         cd libmirisdr-5
         mkdir build && cd build
         cmake .. -Wno-dev
@@ -77,6 +77,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/ericek111/SoapyMiri
         cd SoapyMiri
+        git checkout 1e0a125ebab4ab492266fc61cab52600c7dc675f # 20260910: no tagged releases upstream, pinned to HEAD as of this date
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
@@ -95,12 +96,16 @@ case "$1" in
     
     package)
         cd $SIGPI_SOURCE/libmirisdr-5/build
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "libmirisdr" "1.1.2" "$(pwd)/pkgroot" "Open source driver for Mirics MSi001/MSi2500 based SDR devices"
+        rm -rf pkgroot
 
         cd $SIGPI_SOURCE/SoapyMiri/build
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "soapymirisdr" "0+git20260910" "$(pwd)/pkgroot" "SoapySDR module for Mirics MSi001/MSi2500 based SDR devices"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package)

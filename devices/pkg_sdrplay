@@ -5,9 +5,13 @@
 ###
 ### pkg_sdrplay
 ###
-### 20260124-2300
+### 20260910-0100
 ###
-###
+### Not a checkinstall/source-build package: unzips the proprietary vendor
+### SDK ($SIGPI_DEBS/SDRplay_RSP_API.zip) already checked into the repo.
+### API v3.15 confirmed as SDRplay's current major API version (see their
+### published API spec); the exact 3.15.x sub-version of the checked-in zip
+### was not independently re-verified.
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
