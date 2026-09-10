@@ -1,3 +1,10 @@
 archived/
 test/
 staged/
+
+# Runtime/build-scratch dirs, now created inside the repo checkout
+# (SIGPI_ROOT and SIGPI_HOME collapsed to the same directory)
+/source/
+/etc/
+
+__pycache__/

@@ -14,7 +14,7 @@
 ###          remove                 remove installed TARGET
 ###          purge                  remove installed TARGET and purge configs
 ###          build                  compile and install TARGET (option may not be available)
-###          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+###          package                compile only and copy packaged to SIGpi/debs directory (option may not be available)
 ###          menu                   Gtk Menu for SIGpi package management
 ###          update                 check for TARGET updates
 ###          upgrade                upgrade TARGET to latest release
@@ -24,7 +24,7 @@
 ###                 remove          remove DEVICE
 ###                 purge           purge DEVICE
 ###                 build           compile and install DEVICE (option may not be available)
-###                 package         compile only and copy package to SIG/debs directory (option may not be available)
+###                 package         compile only and copy package to SIGpi/debs directory (option may not be available)
 ###
 ###          setup
 ###                 standard        First time setup for desktop
@@ -52,10 +52,12 @@
 ### INIT VARIABLES AND DIRECTORIES
 ###
 
-# SIGpi Directory tree
-SIGPI_ROOT=$HOME/SIG
+# SIGpi Directory tree - the repo is cloned directly to $SIGPI_ROOT, so
+# SIGPI_HOME (the repo checkout) and SIGPI_ROOT (the project root) are the
+# same directory; source/ and etc/ are untracked runtime dirs inside it.
+SIGPI_ROOT=$HOME/SIGpi
+SIGPI_HOME=$SIGPI_ROOT
 SIGPI_SOURCE=$SIGPI_ROOT/source
-SIGPI_HOME=$SIGPI_ROOT/SIGpi
 SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_DEVICES=$SIGPI_HOME/devices
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
@@ -289,7 +291,7 @@ case "$1" in
           remove                 remove installed TARGET
           purge                  remove installed TARGET and purge configs
           build                  compile and install TARGET (option may not be available)
-          package                compile only and copy packaged to SIG/debs directory (option may not be available)
+          package                compile only and copy packaged to SIGpi/debs directory (option may not be available)
           menu                   Gtk Menu for pSIGpi package management
           update                 check for TARGET updates
           upgrade                upgrade TARGET to latest release
@@ -299,7 +301,7 @@ case "$1" in
                  remove          remove DEVICE
                  purge           purge DEVICE
                  build           compile and install DEVICE (option may not be available)
-                 package         compile only and copy package to SIG/debs directory (option may not be available)
+                 package         compile only and copy package to SIGpi/debs directory (option may not be available)
 
           setup
                  standard        First time setup for desktop

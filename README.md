@@ -16,20 +16,18 @@ The [wiki](https://github.com/joecupano/SIGpi/wiki) goes deep on all things SIGp
 ## Setup
 
 - Login as pi or sudo user on supported platform
-- From your home directory, create a directory called SIG and switch into it
-- Clone the SIGpi repo 
-- Change directory into SIGpi
+- From your home directory, clone the SIGpi repo directly into ~/SIGpi
+- Change directory into ~/SIGpi
 
 ```
 sudo apt update && sudo apt upgrade
 sudo apt-get install -y build-essential cmake git
 cd ~
-mkdir ~/SIG && cd ~/SIG
-git clone https://github.com/joecupano/SIGpi.git
-cd SIGpi
+git clone https://github.com/joecupano/SIGpi.git ~/SIGpi
+cd ~/SIGpi
 ```
 
-Run the following command from **$HOME/SIG/SIGpi** to install 
+Run the following command from **$HOME/SIGpi** to install 
 
 ```
 ./SIGpi setup standard
@@ -70,7 +68,7 @@ SIGpi remove <package>
 SIGpi purge <package>
 ```
 
-Periodically new applications will be added to SIGpiand notifications sent to those watching the repo. To add applcations available for install into your SIGpi instance simple run run the following from within your /home/pi/SIG/SIGpi directory
+Periodically new applications will be added to SIGpi and notifications sent to those watching the repo. To add applications available for install into your SIGpi instance simply run the following from within your /home/pi/SIGpi directory
 
 ```
 git pull

@@ -11,10 +11,11 @@
 ### INIT VARIABLES AND DIRECTORIES
 ###
 
-# SIGpi Directory tree
-SIGPI_ROOT=$HOME/SIG
+# SIGpi Directory tree - the repo is cloned directly to $SIGPI_ROOT, so
+# SIGPI_HOME and SIGPI_ROOT are the same directory
+SIGPI_ROOT=$HOME/SIGpi
+SIGPI_HOME=$SIGPI_ROOT
 SIGPI_SOURCE=$SIGPI_ROOT/source
-SIGPI_HOME=$SIGPI_ROOT/SIGpi
 SIGPI_ETC=$SIGPI_ROOT/etc
 SIGPI_DEVICES=$SIGPI_HOME/devices
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
