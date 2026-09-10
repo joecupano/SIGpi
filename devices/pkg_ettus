@@ -10,6 +10,11 @@
 ###
 ### Ettus Research USRP Devices
 ###
+### 20260910: DEVICES documents 4.9.0.1 - the version actually staged in
+### $SIGPI_DEBS/uhd_current_amd64.deb (no arm64 build exists yet). This
+### script's build/package path still targets the newer v4.11.0.0 below; once
+### that's actually built and staged for both arches, bump DEVICES to match.
+###
 
 # Fail fast on build errors: a failed compile/install step must not result
 # in a broken .deb being staged or the package being marked installed.

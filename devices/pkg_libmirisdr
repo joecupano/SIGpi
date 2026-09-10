@@ -37,17 +37,17 @@ case "$1" in
     remove )
         cd $SIGPI_DEBS
         sudo dpkg -r libmirisdr
-        sudo dpkg -r soapymirisdr
+        sudo dpkg -r soapymiri
         sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymiri/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     purge )
         cd $SIGPI_DEBS
         sudo dpkg -P libmirisdr
-        sudo dpkg -P soapymirisdr
+        sudo dpkg -P soapymiri
         sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymiri/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install )
@@ -56,16 +56,17 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i libmirisdr_current_amd64.deb
-            sudo dpkg -i soapymirisdr_current_amd64.deb
+            sudo dpkg -i soapymiri_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -i libmirisdr_current_arm64.deb
-            sudo dpkg -i soapymirisdr_current_arm64.deb
+            sudo dpkg -i soapymiri_current_arm64.deb
         fi
+        # soapymiri has no row of its own in DEVICES (same convention as
+        # soapybladerf/soapyhackrf/etc.) - only libmirisdr gets marked here.
         cat $SIGPI_DEVLIST|grep "libmirisdr" >> $SIGPI_INSTALLED_DEVICES
-        cat $SIGPI_DEVLIST|grep "soapymirisdr" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     build|package )
@@ -112,7 +113,7 @@ case "$1" in
         cd $SIGPI_SOURCE/SoapyMiri/build
         rm -rf pkgroot && mkdir -p pkgroot
         make DESTDIR="$(pwd)/pkgroot" install
-        sigpi_stage_package "soapymirisdr" "0+git20260910" "$(pwd)/pkgroot" "SoapySDR module for Mirics MSi001/MSi2500 based SDR devices"
+        sigpi_stage_package "soapymiri" "0+git20260910" "$(pwd)/pkgroot" "SoapySDR module for Mirics MSi001/MSi2500 based SDR devices"
         rm -rf pkgroot
         ;;&
 

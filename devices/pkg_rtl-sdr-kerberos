@@ -83,7 +83,7 @@ case "$1" in
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i rtl-sdr-kerberos_current_arm64.deb
         fi
-        cat $SIGPI_PKGLIST|grep "rtl-sdr-kerberos" >> $SIGPI_INSTALLED_DEVICES
+        cat $SIGPI_DEVLIST|grep "rtl-sdr-kerberos" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     build )

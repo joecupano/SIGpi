@@ -94,7 +94,7 @@ case "$1" in
         cmake .. -Wno-dev
         make -j4
         sudo make install
-        cat $SIGPI_DEVLIST|grep "libbtbb" >> $SIGPI_INSTALLED_DEVICES
+        cat $SIGPI_DEVLIST|grep "ubertooth" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     package )

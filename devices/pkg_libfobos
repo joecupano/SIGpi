@@ -64,10 +64,11 @@ case "$1" in
             sudo dpkg -i libfobos_current_arm64.deb
             sudo dpkg -i soapyfobos_current_arm64.deb
         fi
+        # soapyfobos has no row of its own in DEVICES (same convention as
+        # soapybladerf/soapyhackrf/etc.) - only libfobos gets marked here.
         cat $SIGPI_DEVLIST|grep "libfobos" >> $SIGPI_INSTALLED_DEVICES
-        cat $SIGPI_DEVLIST|grep "soapyfobos" >> $SIGPI_INSTALLED_DEVICES
         ;;&
-    
+
     build )
         ## Fobos driver
         cd $SIGPI_SOURCE
@@ -91,7 +92,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_DEVLIST|grep "soapyfobos" >> $SIGPI_INSTALLED_DEVICES
+        # soapyfobos has no row of its own in DEVICES - nothing to mark here.
         ;;&
 
     package)

@@ -10,6 +10,15 @@
 ###
 ### Evil Crow RF V2 driver installer
 ###
+### Moved here from devices/ on 20260910: `install` depends on a pre-staged
+### $SIGPI_DEBS/evilcrowrf_current_<arch>.deb that has never actually been
+### built - neither the amd64 nor arm64 file exists, so `SIGpi device install
+### evilcrowrf` fails on every platform. `build`/`package` (source clone +
+### cmake) look otherwise intact. To bring this back to devices/: run
+### `SIGpi device package evilcrowrf` on each target arch to stage the
+### missing .deb(s), verify `install` against them, then move this file back
+### and re-add its row to devices/DEVICES.
+###
 
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -90,7 +99,7 @@ case "$1" in
         make -j4
         sudo make install
         sudo ldconfig
-        cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_DEVICES"
+        cat "$SIGPI_DEVLIST" | grep "evilcrowrf" >> "$SIGPI_INSTALLED_DEVICES"
         ;;&
 
     package )
