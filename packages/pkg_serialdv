@@ -6,7 +6,7 @@
 ### pkg_serialdv
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 ### SerialDV is inspired from the OpenDV project but retains only
 ### the minimal interface to encode and decode audio with AMBE3000 based devices
@@ -18,6 +18,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -105,8 +113,10 @@ case "$1" in
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "serialdv" "1.1.5" "$(pwd)/pkgroot" "C++ interface encode/decode audio with AMBE3000 devices serial link"
+        rm -rf pkgroot
         
         ## DESKTOP
 	    # Add Icon

@@ -6,7 +6,7 @@
 ### pkg_libmirisdr
 ###
 ###
-### 202601125-2300
+### 20260910-0100
 ###
 ###
 ### open-source driver specifically designed for SDR devices
@@ -19,7 +19,15 @@
 ### - AverMedia A859 Pure DVBT:
 ###
 
-case "$1" in 
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
+fi
+
+case "$1" in
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##   $1 : libmirisdr"
@@ -29,17 +37,17 @@ case "$1" in
     remove )
         cd $SIGPI_DEBS
         sudo dpkg -r libmirisdr
-        sudo dpkg -r soapymirisdr
+        sudo dpkg -r soapymiri
         sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymiri/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     purge )
         cd $SIGPI_DEBS
         sudo dpkg -P libmirisdr
-        sudo dpkg -P soapymirisdr
+        sudo dpkg -P soapymiri
         sed -i /libmirisdr/d $SIGPI_INSTALLED_DEVICES
-        sed -i /soapymirisdr/d $SIGPI_INSTALLED_DEVICES
+        sed -i /soapymiri/d $SIGPI_INSTALLED_DEVICES
         ;;&
 
     install )
@@ -48,16 +56,17 @@ case "$1" in
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
 	        cd $SIGPI_DEBS
 	        sudo dpkg -i libmirisdr_current_amd64.deb
-            sudo dpkg -i soapymirisdr_current_amd64.deb
+            sudo dpkg -i soapymiri_current_amd64.deb
         fi
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
             sudo dpkg -i libmirisdr_current_arm64.deb
-            sudo dpkg -i soapymirisdr_current_arm64.deb
+            sudo dpkg -i soapymiri_current_arm64.deb
         fi
+        # soapymiri has no row of its own in DEVICES (same convention as
+        # soapybladerf/soapyhackrf/etc.) - only libmirisdr gets marked here.
         cat $SIGPI_DEVLIST|grep "libmirisdr" >> $SIGPI_INSTALLED_DEVICES
-        cat $SIGPI_DEVLIST|grep "soapymirisdr" >> $SIGPI_INSTALLED_DEVICES
         ;;&
 
     build|package )
@@ -67,7 +76,7 @@ case "$1" in
 
         ## SDRplay driver
         cd $SIGPI_SOURCE
-        git clone https://github.com/ericek111/libmirisdr-5
+        git clone --depth 1 --branch v1.1.2 https://github.com/ericek111/libmirisdr-5
         cd libmirisdr-5
         mkdir build && cd build
         cmake .. -Wno-dev
@@ -77,6 +86,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/ericek111/SoapyMiri
         cd SoapyMiri
+        git checkout 1e0a125ebab4ab492266fc61cab52600c7dc675f # 20260910: no tagged releases upstream, pinned to HEAD as of this date
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
@@ -95,12 +105,16 @@ case "$1" in
     
     package)
         cd $SIGPI_SOURCE/libmirisdr-5/build
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "libmirisdr" "1.1.2" "$(pwd)/pkgroot" "Open source driver for Mirics MSi001/MSi2500 based SDR devices"
+        rm -rf pkgroot
 
         cd $SIGPI_SOURCE/SoapyMiri/build
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "soapymiri" "0+git20260910" "$(pwd)/pkgroot" "SoapySDR module for Mirics MSi001/MSi2500 based SDR devices"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package)

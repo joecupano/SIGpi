@@ -6,7 +6,7 @@
 ### pkg_hackrf
 ###
 ###
-### 20260117-2300
+### 20260910-0100
 ###
 ### HackRF
 ###
@@ -16,6 +16,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -39,10 +47,10 @@ case "$1" in
         sudo apt-get install -y libusb-1.0-0-dev libfftw3-dev
         ;;&
 
-    install|build )  
+    install|build )
         ## INSTALL
         cd $SIGPI_SOURCE
-        git clone https://github.com/mossmann/hackrf.git
+        git clone --depth 1 --branch v2026.01.3 https://github.com/greatscottgadgets/hackrf.git
         cd hackrf/host
         mkdir build && cd build
         cmake .. -Wno-dev
@@ -51,11 +59,11 @@ case "$1" in
         sudo ldconfig
 
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyHackRF.git
+        git clone --depth 1 --branch soapy-hackrf-0.3.4 https://github.com/pothosware/SoapyHackRF.git
         cd SoapyHackRF
         mkdir build && cd build
         cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-        make -j4        
+        make -j4
         sudo make install
         sudo ldconfig
         cat $SIGPI_DEVLIST|grep "hackrf" >> $SIGPI_INSTALLED_DEVICES
@@ -64,22 +72,26 @@ case "$1" in
      package )
         ## INSTALL
         cd $SIGPI_SOURCE
-        git clone https://github.com/mossmann/hackrf.git
+        git clone --depth 1 --branch v2026.01.3 https://github.com/greatscottgadgets/hackrf.git
         cd hackrf/host
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
-        
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "hackrf" "2026.01.3" "$(pwd)/pkgroot" "HackRF host tools and libraries"
+        rm -rf pkgroot
+
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyHackRF.git
+        git clone --depth 1 --branch soapy-hackrf-0.3.4 https://github.com/pothosware/SoapyHackRF.git
         cd SoapyHackRF
         mkdir build && cd build
         cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release
-        make -j4        
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        make -j4
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "soapyhackrf" "0.3.4" "$(pwd)/pkgroot" "SoapySDR module for HackRF devices"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

@@ -6,7 +6,7 @@
 ### pkg_volk
 ###
 ###
-###  20260113-2300
+###  20260910-0100
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -14,6 +14,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -75,10 +83,10 @@ case "$1" in
         ;;&
 
     build )
-        cd $SIGPI_SOURCE 
+        cd $SIGPI_SOURCE
         git clone https://github.com/gnuradio/volk.git
         cd volk
-        git checkout v3.2.0
+        git checkout v3.3.0
         mkdir build && cd build
         git submodule update --init
         cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 -DENABLE_MANPAGES=OFF ../
@@ -87,18 +95,20 @@ case "$1" in
         sudo make install
         sudo ldconfig
         ;;&
-    
+
     package )
-        cd $SIGPI_SOURCE 
+        cd $SIGPI_SOURCE
         git clone https://github.com/gnuradio/volk.git
         cd volk
-        git checkout v3.2.0
+        git checkout v3.3.0
         mkdir build && cd build
         git submodule update --init
         cmake -DCMAKE_BUILD_TYPE=Release -DPYTHON_EXECUTABLE=/usr/bin/python3 ../
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "volk" "3.3.0" "$(pwd)/pkgroot" "Vector Optimized Library of Kernels"
+        rm -rf pkgroot
         ;;&
     
     remove|purge|install|build|package )

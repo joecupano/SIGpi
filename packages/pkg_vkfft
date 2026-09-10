@@ -5,6 +5,7 @@
 ###
 ### pkg_vkfft
 ###
+### 20260910-0100
 ###
 ### VkFFT is an efficient GPU-accelerated multidimensional Fast Fourier Transform library for
 ### Vulkan/CUDA/HIP/OpenCL/Level Zero/Metal projects. VkFFT aims to provide the community with an open-source alternative 
@@ -17,6 +18,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in
@@ -86,8 +95,17 @@ case "$1" in
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
-        sudo checkinstall
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "vkfft" "1.3.4" "$(pwd)/pkgroot" "GPU-accelerated multidimensional Fast Fourier Transform library"
+        if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
+            sudo dpkg -i "$SIGPI_DEBS/vkfft_current_amd64.deb"
+        fi
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            sudo dpkg -i "$SIGPI_DEBS/vkfft_current_arm64.deb"
+        fi
+        sudo ldconfig
+        rm -rf pkgroot
         ;;&
 
     package )
@@ -101,8 +119,10 @@ case "$1" in
         mkdir build; cd build
         cmake -Wno-dev ..
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "vkfft" "1.3.4" "$(pwd)/pkgroot" "GPU-accelerated multidimensional Fast Fourier Transform library"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

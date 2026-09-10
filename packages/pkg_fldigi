@@ -6,7 +6,7 @@
 ### pkg_fldigi
 ###
 ###
-### 20260124-2300
+### 20260910-0100
 ###
 ### FLdigi installation script
 ###
@@ -16,6 +16,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in
@@ -59,9 +67,9 @@ case "$1" in
         ;;&
 
     build|package )
-        wget -qO- "https://www.w1hkj.org/files/fldigi/fldigi-4.2.11.tar.gz" | tar -xz -C $SIGPI_SOURCE
+        wget -qO- "https://www.w1hkj.org/files/fldigi/fldigi-4.2.13.tar.gz" | tar -xz -C $SIGPI_SOURCE
         cd $SIGPI_SOURCE
-        cd fldigi-4.2.11
+        cd fldigi-4.2.13
         ./configure
         make -j4
 	    ;;&
@@ -72,8 +80,10 @@ case "$1" in
         ;;&
 
     package )
-        sudo checkinstall --install=no
-        mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "fldigi" "4.2.13" "$(pwd)/pkgroot" "Soundcard modem program for most of the digital modes used by radio amateurs"
+        rm -rf pkgroot
 	    ;;&
 
     remove|purge|install )

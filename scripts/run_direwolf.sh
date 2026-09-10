@@ -10,7 +10,7 @@
 ###  REVISION: 20260110-2300
 ###
 
-/usr/local/bin/direwolf -p -c $HOME/SIG/SIGpi/etc/direwolf.conf
+/usr/local/bin/direwolf -p -c $HOME/SIGpi/etc/direwolf.conf
 
 
 

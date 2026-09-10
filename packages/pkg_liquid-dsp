@@ -6,7 +6,7 @@
 ### pkg_liquid-dsp
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 ### liquid-dsp is a free and open-source digital signal processing (DSP) library designed specifically for software-defined radios on embedded platforms.
 ### The aim is to provide a lightweight DSP library that does not rely on a myriad of external dependencies or proprietary and otherwise cumbersome frameworks.
@@ -19,6 +19,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -86,12 +94,13 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/jgaeddert/liquid-dsp.git
         cd liquid-dsp
+        git checkout v1.8.2
         ./bootstrap.sh
-        ./configure --enable-fftoverride 
+        ./configure --enable-fftoverride
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "liquid-dsp" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "liquid-dsp" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon
@@ -107,11 +116,14 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/jgaeddert/liquid-dsp.git
         cd liquid-dsp
+        git checkout v1.8.2
         ./bootstrap.sh
-        ./configure --enable-fftoverride 
+        ./configure --enable-fftoverride
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "liquid-dsp" "1.8.2" "$(pwd)/pkgroot" "Digital signal processing library for software-defined radios"
+        rm -rf pkgroot
 
         ## DESKTOP
 	    # Add Icon

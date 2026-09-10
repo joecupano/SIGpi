@@ -5,31 +5,29 @@
 SIGpi is a "go-kit" for Signal Intelligence (SIGINT) enthusiasts with capabilities in the HF, VHF, UHF, and SHF spectrum. It includes a framework for simple installation and management of popular SIGINT applications and devices building/installing SIGINT tools on the following platforms:
 
 **Full Install**
-- Ubuntu 22.04 LTS (64-bit) on Intel or Rasberry Pi 4/5
+- Ubuntu 24.04 LTS (amd64) on Intel/AMD, or Debian 13 "trixie" / Raspberry Pi OS "trixie" (arm64) on Raspberry Pi 4/5
 - 4GB RAM, 32GB storage
 
 **Server Only**
-- Ubuntu 22.04 LTS (64-bit) on Intel or Rasberry Pi 3/4/5
+- Ubuntu 24.04 LTS (amd64) on Intel/AMD, or Debian 13 "trixie" / Raspberry Pi OS "trixie" (arm64) on Raspberry Pi 3/4/5
 
 The [wiki](https://github.com/joecupano/SIGpi/wiki) goes deep on all things SIGpi.
 
 ## Setup
 
 - Login as pi or sudo user on supported platform
-- From your home directory, create a directory called SIG and switch into it
-- Clone the SIGpi repo 
-- Change directory into SIGpi
+- From your home directory, clone the SIGpi repo directly into ~/SIGpi
+- Change directory into ~/SIGpi
 
 ```
 sudo apt update && sudo apt upgrade
 sudo apt-get install -y build-essential cmake git
 cd ~
-mkdir ~/SIG && cd ~/SIG
-git clone https://github.com/joecupano/SIGpi.git
-cd SIGpi
+git clone https://github.com/joecupano/SIGpi.git ~/SIGpi
+cd ~/SIGpi
 ```
 
-Run the following command from **$HOME/SIG/SIGpi** to install 
+Run the following command from **$HOME/SIGpi** to install 
 
 ```
 ./SIGpi setup standard
@@ -70,7 +68,7 @@ SIGpi remove <package>
 SIGpi purge <package>
 ```
 
-Periodically new applications will be added to SIGpiand notifications sent to those watching the repo. To add applcations available for install into your SIGpi instance simple run run the following from within your /home/pi/SIG/SIGpi directory
+Periodically new applications will be added to SIGpi and notifications sent to those watching the repo. To add applications available for install into your SIGpi instance simply run the following from within your /home/pi/SIGpi directory
 
 ```
 git pull
@@ -94,7 +92,7 @@ SIGpi upgrade sdrangel
 
 ## Server-only Setup
 
-SIGpi includes a headless server option. From a fresh **Ubuntu 22.04 LTS server** install run the following
+SIGpi includes a headless server option. From a fresh **Ubuntu 24.04 LTS server** (or Debian 13 "trixie" / Raspberry Pi OS "trixie") install run the following
 
 ```
 ./SIGpi setup server

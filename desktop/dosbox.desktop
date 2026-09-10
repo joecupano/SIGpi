@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=DOSbox
 GenericName=MS-DOS emulator
-Exec=dosbox -conf ~/SIG/etc/sigpi_dosbox.conf
+Exec=dosbox -conf ~/SIGpi/etc/sigpi_dosbox.conf
 Terminal=false
 Categories=Emulator;
 Icon=dosbox

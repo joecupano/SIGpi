@@ -6,7 +6,7 @@
 ### pkg_sdrangel
 ###
 ###
-### 20260124-2300
+### 20260910-0100
 ###
 ### SDRangel package management script
 ###
@@ -16,6 +16,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -62,7 +70,8 @@ case "$1" in
         sudo apt-get install -y libusb-dev
         sudo apt-get install -y libboost-all-dev
         sudo apt-get install -y libasound2-dev
-        sudo apt-get install -y libgl1-mesa-dev 
+        sudo apt-get install -y libgl1-mesa-dev
+        sudo apt-get install -y libunwind-dev
         sudo apt-get install -y gettext
         sudo apt-get install -y pulseaudio
         sudo apt-get install -y libopencv-dev
@@ -127,18 +136,27 @@ case "$1" in
     build|package )
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : not available for aarch64"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GUI build not available for aarch64 (Raspberry Pi)"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SDRangel's own wiki (Hardware requirements) says even a Pi 4 is"
+            echo -e "${SIGPI_BANNER_COLOR} ##  underpowered for the GUI application, and as of 2026-09 a native"
+            echo -e "${SIGPI_BANNER_COLOR} ##  build on Debian trixie/aarch64 hits an unresolved upstream link"
+            echo -e "${SIGPI_BANNER_COLOR} ##  failure against libunwind's aarch64 unwinder (undefined references"
+            echo -e "${SIGPI_BANNER_COLOR} ##  to _Uaarch64_*, see f4exb/sdrangel issue #2741, no fix upstream yet)."
+            echo -e "${SIGPI_BANNER_COLOR} ##  Use pkg_sdrangelsrv (headless server, BUILD_GUI=off) on Raspberry"
+            echo -e "${SIGPI_BANNER_COLOR} ##  Pi hardware and drive it remotely from a full SDRangel GUI client."
             echo -e "${SIGPI_BANNER_RESET}"
             exit
         fi
 
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
-        cd sdrangel     
+        cd sdrangel
         #git reset --hard c4e57a1  # v7.22.5
         #git reset --hard 502e751   # v7.22.10
-        git reset --hard 1236b11   # v7.23.0
-        mkdir build && cd build   
+        #git reset --hard 1236b11   # v7.23.0
+        git reset --hard 97e9e21   # v7.27.2
+        mkdir build && cd build
         cmake -Wno-dev ..
         make -j4
         ;;&
@@ -150,8 +168,10 @@ case "$1" in
         ;;&
 
     package )
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "sdrangel" "7.27.2" "$(pwd)/pkgroot" "Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer"
+        rm -rf pkgroot
         ;;&
 
     install|build )

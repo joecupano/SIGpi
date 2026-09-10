@@ -6,7 +6,7 @@
 ### pkg_bladerf
 ###
 ###
-### 20260117-2300
+### 20260910-0100
 ###
 ### Nuand bladeRF and SoapyBladeRF
 ###
@@ -16,6 +16,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -80,7 +88,7 @@ case "$1" in
         
         ### BladeRF
         cd $SIGPI_SOURCE
-        git clone --depth 1 https://github.com/Nuand/bladeRF.git
+        git clone --depth 1 --branch 2025.10 https://github.com/Nuand/bladeRF.git
         cd bladeRF/host
         mkdir build && cd build
         cmake .. -Wno-dev
@@ -88,10 +96,10 @@ case "$1" in
         sudo make install
         sudo ldconfig
         cat $SIGPI_DEVLIST|grep "bladerf" >> $SIGPI_INSTALLED_DEVICES
-        
+
         ### SoapyBladeRF
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyBladeRF.git
+        git clone --depth 1 --branch soapy-bladerf-0.4.2 https://github.com/pothosware/SoapyBladeRF.git
         cd SoapyBladeRF
         mkdir build && cd build
         cmake .. -Wno-dev
@@ -104,23 +112,27 @@ case "$1" in
 
         ### BladeRF
         cd $SIGPI_SOURCE
-        git clone --depth 1 https://github.com/Nuand/bladeRF.git
+        git clone --depth 1 --branch 2025.10 https://github.com/Nuand/bladeRF.git
         cd bladeRF/host
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "bladerf" "2025.10" "$(pwd)/pkgroot" "Nuand bladeRF host tools and libraries"
+        rm -rf pkgroot
 
         ### SoapyBladeRF
         cd $SIGPI_SOURCE
-        git clone https://github.com/pothosware/SoapyBladeRF.git
+        git clone --depth 1 --branch soapy-bladerf-0.4.2 https://github.com/pothosware/SoapyBladeRF.git
         cd SoapyBladeRF
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall --install=no
-	    sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "soapybladerf" "0.4.2" "$(pwd)/pkgroot" "SoapySDR module for Nuand bladeRF devices"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

@@ -8,10 +8,12 @@ import subprocess
 import os
 from pathlib import Path
 
-# SIGpi Directory tree
-SIGPI_ROOT = os.path.expanduser('~/SIG')
+# SIGpi Directory tree - the repo is cloned directly to SIGPI_ROOT, so
+# SIGPI_HOME and SIGPI_ROOT are the same directory (see SIGpi's own
+# variable block for the equivalent bash definitions)
+SIGPI_ROOT = os.path.expanduser('~/SIGpi')
+SIGPI_HOME = SIGPI_ROOT
 SIGPI_SOURCE = os.path.join(SIGPI_ROOT, 'source')
-SIGPI_HOME = os.path.join(SIGPI_ROOT, 'SIGpi')
 SIGPI_ETC = os.path.join(SIGPI_ROOT, 'etc')
 SIGPI_DEVICES = os.path.join(SIGPI_HOME, 'devices')
 SIGPI_SCRIPTS = os.path.join(SIGPI_HOME, 'scripts')

@@ -6,7 +6,7 @@
 ### pkg_hamlib
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -14,6 +14,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -65,7 +73,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/Hamlib/Hamlib
         cd Hamlib
-        git reset --hard 8a6bd56 # v4.6.5
+        git reset --hard 40f6348 # v4.7.2
         ./bootstrap
         ./configure
         make -j4
@@ -84,12 +92,14 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/Hamlib/Hamlib
         cd Hamlib
-        git reset --hard 8a6bd56 # v4.6.5
+        git reset --hard 40f6348 # v4.7.2
         ./bootstrap
         ./configure
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "hamlib" "4.7.2" "$(pwd)/pkgroot" "Radio Control Library providing API for controlling radios and rotators"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package )

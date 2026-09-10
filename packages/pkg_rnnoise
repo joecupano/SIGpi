@@ -6,7 +6,7 @@
 ### pkg_rnnoise
 ###
 ###
-### 20260124-1200
+### 20260910-0100
 ###
 ### Recurrent neural network for audio noise reduction 
 ###
@@ -16,6 +16,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -55,16 +63,17 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
+        git reset --hard c5a3a81 # no tagged releases upstream; pinned to HEAD as of 2026-01-11
         mkdir build; cd build
-        
+
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
             cmake -DRNN_ENABLE_X86_RTCD=ON ..
         fi
-        
+
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             cmake ..
         fi
-        
+
         make -j4
         sudo make install
         sudo ldconfig
@@ -76,19 +85,22 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/rnnoise
         cd rnnoise
+        git reset --hard c5a3a81 # no tagged releases upstream; pinned to HEAD as of 2026-01-11
         mkdir build && cd build
 
         if [[ "$SIGPI_HWARCH" == "x86_64" ]]; then
             cmake -DRNN_ENABLE_X86_RTCD=ON ..
         fi
-        
+
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
             cmake ..
         fi
-        
+
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "rnnoise" "1.0" "$(pwd)/pkgroot" "Recurrent neural network for audio noise reduction"
+        rm -rf pkgroot
         ;;&
 
     remove|purge|install|build|package|config )

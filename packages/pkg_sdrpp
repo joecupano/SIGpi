@@ -6,9 +6,16 @@
 ### pkg_sdrpp-deb
 ###
 ###
-### 20260113-2300
+### 20260910-0100
 ###
 ### SDR++ Package Management Script
+###
+### SDR++ has no semantic-version tagged releases beyond 1.0.4; upstream ships a
+### continuously-updated "nightly" GitHub release with prebuilt Debian packages,
+### which is what "current" stable means here. There is no build path in this
+### script (see below) - $SIGPI_DEBS/sdrpp_current_<arch>.deb is staged manually
+### from that nightly release, currently at 1.2.1-1487 (PACKAGES: 1.2.1). Bump
+### PACKAGES only after a newer nightly .deb actually replaces the staged file.
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -16,6 +23,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 

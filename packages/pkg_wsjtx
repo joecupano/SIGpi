@@ -6,7 +6,7 @@
 ### pkg_wsjtx
 ###
 ###
-### 20260114-2300
+### 20260910-0100
 ###
 ### WSJT-X Package Management Script
 ###
@@ -18,6 +18,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     exit 1
 fi
 
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
+fi
+
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"
@@ -26,14 +34,18 @@ case "$1" in
         ;;&
 
     remove )
-        cd $SIGPI_PACKAGES        
-        sudo dpkg -r wsjtx_2.7.0
+        cd $SIGPI_PACKAGES
+        # dpkg -r/-P take the installed Debian package name ("wsjtx"), not a
+        # name_version string - the .deb's actual Package: field is "wsjtx"
+        # regardless of which version is staged, so this must never be
+        # hardcoded to a version.
+        sudo dpkg -r wsjtx
         sed -i /wsjtx/d $SIGPI_INSTALLED
         ;;&
 
     purge )
-        cd $SIGPI_PACKAGES        
-        sudo dpkg -P wsjtx_2.7.0
+        cd $SIGPI_PACKAGES
+        sudo dpkg -P wsjtx
         rm -rf $HOME/.config/WSJT-X.INI
         sudo rm -rf $SIGPI_DESKTOP/wsjtx.desktop
         sudo rm -rf $DESKTOP_FILES/wsjtx.desktop

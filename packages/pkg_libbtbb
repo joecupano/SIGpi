@@ -6,7 +6,11 @@
 ### pkg_libbtbb
 ###
 ###
-### 20260113-2300
+### 20260910-0100
+###
+### Upstream's last tagged release is still 2020-12-R1 (no newer release as of
+### 2026-09) - pinned explicitly below for reproducibility (previously an
+### unpinned clone of master HEAD).
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -14,6 +18,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -81,12 +93,13 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/greatscottgadgets/libbtbb.git
         cd libbtbb
+        git checkout 2020-12-R1
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
         sudo make install
         sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "libbtbb" >> $SIGPI_INSTALLED
 
         ## DESKTOP
 	    # Add Icon
@@ -102,11 +115,14 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/greatscottgadgets/libbtbb.git
         cd libbtbb
+        git checkout 2020-12-R1
         mkdir build && cd build
         cmake .. -Wno-dev
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "libbtbb" "2020-12-R1" "$(pwd)/pkgroot" "Bluetooth baseband decoding library"
+        rm -rf pkgroot
 
         ## DESKTOP
 	    # Add Icon

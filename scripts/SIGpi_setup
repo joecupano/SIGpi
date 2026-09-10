@@ -23,20 +23,27 @@
 ### 
 
 # Are we the right hardware
+SIGPI_HWARCH_OK="false"
 if [ "$SIGPI_HWARCH" = "x86_64" ] || [ "$SIGPI_HWARCH" = "aarch64" ]; then
+    SIGPI_HWARCH_OK="true"
+fi
+
+# Are we the right operating system - codename, not the PRETTY_NAME string
+SIGPI_OS_OK="false"
+if [ "$SIGPI_OSCODENAME" = "noble" ] || [ "$SIGPI_OSCODENAME" = "trixie" ]; then
+    SIGPI_OS_OK="true"
+fi
+
+if [ "$SIGPI_HWARCH_OK" = "true" ] && [ "$SIGPI_OS_OK" = "true" ]; then
     SIGPI_CERTIFIED="true"
 fi
 
-# Are we the right operating system
-if [ "$SIGPI_OSNAME" = "jammy" ] || [ "$SIGPI_OSNAME" = "bookworm" ]; then
-    SIGPI_CERTIFIED="true"
-fi
 if [ "$SIGPI_CERTIFIED" = "false" ]; then
     echo "ERROR:"
     echo "ERROR:  Incorrect Hardware or Operating System"
     echo "ERROR:"
-    echo "ERROR:  Hardware must be x86_64 or aarch64 hardware - Aborting"
-    echo "ERROR:  Operating system must be jammy or bookworm - Aborting"
+    echo "ERROR:  Hardware must be x86_64 or aarch64 - Aborting"
+    echo "ERROR:  Operating system must be Ubuntu 24.04 (noble), Debian 13 (trixie), or Raspberry Pi OS (trixie) - Aborting"
     echo "ERROR:"
     exit 1;
 fi
@@ -163,26 +170,29 @@ case "$1" in
         sudo cp $SIGPI_HOME/scripts/SIGpi_exec-in-shell /usr/local/bin/SIGpi_exec-in-shell 
         sudo cp $SIGPI_HOME/SIGpi /usr/local/bin/SIGpi
   
-       # Install RTL-TCP Server
-        if [ "$2" = "rtltcpsrv" ]; then
-            sudo cp $SIGPI_CONFIG/rtltcp.service /etc/systemd/system/sigpi-node.service
+       # Install RTL-TCP Server (server choice comes from select_server(), stored in
+       # SIGPI_INSTALLED_DEVICES - not $2, which is never set for this invocation).
+       # Substitute the actual installing user's home dir for the template's /home/pi,
+       # since amd64/Ubuntu installs aren't necessarily running as user "pi".
+        if grep -q "rtltcpsrv" "$SIGPI_INSTALLED_DEVICES" 2>/dev/null; then
+            sed "s#/home/pi#$HOME#" $SIGPI_CONFIG/rtltcp.service | sudo tee /etc/systemd/system/sigpi-node.service > /dev/null
             echo "sigpi-node_rtltcp" >> $SIGPI_INSTALLED
         fi
        # Install SDRangel Server
-        if [ "$2" = "sdrangelsrv" ]; then
+        if grep -q "sdrangelsrv" "$SIGPI_INSTALLED_DEVICES" 2>/dev/null; then
             source $SIGPI_PACKAGES/pkg_sdrangelsrv install
-            sudo cp $SIGPI_CONFIG/sdrangelsrv.service /etc/systemd/system/sigpi-node.service
+            sed "s#/home/pi#$HOME#" $SIGPI_CONFIG/sdrangelsrv.service | sudo tee /etc/systemd/system/sigpi-node.service > /dev/null
             echo "sigpi-node_sdrangelsrv" >> $SIGPI_INSTALLED
         fi
         # Install SoapySDR Server
-        if [ "$2" = "soapysdrsrv" ]; then
-            sudo cp $SIGPI_CONFIG/soapysdrsrv.service /etc/systemd/system/sigpi-node.service
+        if grep -q "soapysdrsrv" "$SIGPI_INSTALLED_DEVICES" 2>/dev/null; then
+            sed "s#/home/pi#$HOME#" $SIGPI_CONFIG/soapysdrsrv.service | sudo tee /etc/systemd/system/sigpi-node.service > /dev/null
             echo "sigpi-node_soapysdrsrv" >> $SIGPI_INSTALLED
         fi
         # Install OpenWebRX
-        if [ "$2" = "openwebrx" ]; then
+        if grep -q "openwebrx" "$SIGPI_INSTALLED_DEVICES" 2>/dev/null; then
             source $SIGPI_PACKAGES/pkg_openwebrx install
-            sudo cp $SIGPI_CONFIG/scripts/openwebrx.service /etc/systemd/system/openwebrx.service
+            sed "s#/home/pi#$HOME#" $SIGPI_CONFIG/openwebrx.service | sudo tee /etc/systemd/system/openwebrx.service > /dev/null
             echo "sigpi-node_openwebrx" >> $SIGPI_INSTALLED
         fi
         

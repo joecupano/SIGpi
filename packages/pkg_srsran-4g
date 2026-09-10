@@ -6,7 +6,11 @@
 ### pkg_srsran-4g
 ###
 ###
-### 20260113-2300
+### 20260910-0100
+###
+### Verified arm64: build is a plain cmake/make flow with no arch-specific flags, and
+### upstream documents building srsRAN 4G the same way on Raspberry Pi 4/5 (aarch64) as
+### on x86_64. release_25_10 (v25.10) is current upstream stable for both architectures.
 ###
 
 if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
@@ -14,6 +18,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
     echo -e "${SIGPI_BANNER_RESET}"
     exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
 fi
 
 case "$1" in 
@@ -58,6 +70,7 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/srsRAN/srsRAN_4G.git
         cd srsRAN_4G
+        git checkout release_25_10 # v25.10
         mkdir build ; cd build
         cmake ../
         make -j4
@@ -72,11 +85,14 @@ case "$1" in
         cd $SIGPI_SOURCE
         git clone https://github.com/srsRAN/srsRAN_4G.git
         cd srsRAN_4G
+        git checkout release_25_10 # v25.10
         mkdir build ; cd build
         cmake ../
         make -j4
-        sudo checkinstall --install=no
-        sudo mv *.deb $SIGPI_DEBS
+        rm -rf pkgroot && mkdir -p pkgroot
+        make DESTDIR="$(pwd)/pkgroot" install
+        sigpi_stage_package "srsran-4g" "25.10" "$(pwd)/pkgroot" "end-to-end 4G network implementation with full-stack applications"
+        rm -rf pkgroot
 	    ;;&
 
     remove|purge|install|build|package )
