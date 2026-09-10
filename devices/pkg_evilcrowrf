@@ -19,6 +19,14 @@ if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
     exit 1
 fi
 
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
+fi
+
 case "$1" in 
     remove|purge|install|build|package )
         echo -e "${SIGPI_BANNER_COLOR}"

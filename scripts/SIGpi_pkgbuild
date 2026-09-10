@@ -67,3 +67,27 @@ EOF
     mkdir -p "$SIGPI_DEBS"
     dpkg-deb --build --root-owner-group "$pkgroot" "$SIGPI_DEBS/${pkgname}_current_${debarch}.deb"
 }
+
+# sigpi_build_failed <script> <action> <line> <exit-code>
+#
+# ERR-trap handler. Every pkg_* script's install|build|package case opens
+# with:
+#
+#     if [[ "$1" =~ ^(install|build|package)$ ]]; then
+#         set -Eeo pipefail
+#         trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
+#     fi
+#
+# so the first command that fails anywhere in a compile/install (a bad
+# `cmake`, `make`, `make install`, or `sigpi_stage_package` call included)
+# aborts the script immediately with a clear error, instead of continuing on
+# to stage a broken .deb or mark a failed build as installed in
+# $SIGPI_INSTALLED / $SIGPI_INSTALLED_DEVICES.
+sigpi_build_failed(){
+    local script="$1" action="$2" line="$3" code="$4"
+    echo -e "${SIGPI_ERROR_COLOR}"
+    echo -e "${SIGPI_ERROR_COLOR} ##  ERROR: $(basename "$script") $action failed at line $line (exit $code)"
+    echo -e "${SIGPI_ERROR_COLOR} ##  Aborting - no package was staged or marked installed."
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit "$code"
+}
