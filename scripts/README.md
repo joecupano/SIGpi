@@ -18,9 +18,13 @@ Used for server-only installs. Installs devices selected and core packages runni
 ## SIGpi_pkg_menu.py
 This is a Gtk menu called by the **SIGpi menu** commnand used for **install**, **remove**, and **purge** of SIGpi applications
 
+## SIGpi_pkgbuild
+Debian-native packaging helper functions (`sigpi_stage_package`, `sigpi_deb_arch`), sourced
+by the root **SIGpi** script so every `packages/pkg_*` and `devices/pkg_*` script can build a
+`.deb` with `dpkg-deb` instead of `checkinstall`
+
 ## Various support scripts
 
-**SIGpi_env**
 **SIGpi_exec-in-shell**
 **run_SDRplay.sh**
 **run_direwolf.sh**

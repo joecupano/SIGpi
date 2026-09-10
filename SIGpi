@@ -61,6 +61,7 @@ SIGPI_DEVICES=$SIGPI_HOME/devices
 SIGPI_SCRIPTS=$SIGPI_HOME/scripts
 SIGPI_PACKAGES=$SIGPI_HOME/packages
 SIGPI_DEBS=$SIGPI_HOME/debs
+SIGPI_CONFIG=$SIGPI_HOME/config
 
 # SIGpi Install Support files
 SIGPI_INSTALLED=$SIGPI_ETC/INSTALLED_PKGS
@@ -92,10 +93,20 @@ HAMRADIO_MENU_CATEGORY=HamRadio
 
 # Detect architecture (x86, x86_64, aarch64, ARMv8, ARMv7)
 SIGPI_HWARCH=`lscpu|grep Architecture|awk '{print $2}'`
-# Detect Operating system (Debian GNU/Linux 11 (bullseye) or Ubuntu 22.04.3 LTS)
+# Detect Operating system display name (Debian GNU/Linux 13 (trixie) or Ubuntu 24.04.4 LTS)
 SIGPI_OSNAME=`cat /etc/os-release|grep "PRETTY_NAME"|awk -F'"' '{print $2}'`
+# Detect Operating system codename (noble, trixie) - this is what we actually certify against
+SIGPI_OSCODENAME=`. /etc/os-release; echo "$VERSION_CODENAME"`
+# Is this box a Raspberry Pi (as opposed to generic amd64/arm64 Debian/Ubuntu hardware)
+SIGPI_IS_RPI="false"
+if grep -qi "Raspberry Pi" /proc/device-tree/model 2>/dev/null; then
+    SIGPI_IS_RPI="true"
+fi
 # Is Platform good for install- true or false - we start with false
 SIGPI_CERTIFIED="false"
+
+# Debian-native packaging helper functions (replaces checkinstall)
+source $SIGPI_SCRIPTS/SIGpi_pkgbuild
 
 
 ###
@@ -104,16 +115,25 @@ SIGPI_CERTIFIED="false"
 
 sigpi_update(){
     # Check for available updates to package
-    wget https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -P $HOME/Downloads
-    
-    if grep $3 "$HOME/Downloads/PACKAGES"; then
-        SIG_PKGSTAMP = 'grep $3 "$SIGPI_HOME/packages/PACKAGES"| cut -d,-f2'
-        SIG_PKGNEW = 'grep $3 "$HOME/Downloads/PACKAGES"| cut -d,-f2'
-        if [$SIG_PKGNEW != $SIG_PKGSTAMP]; then
+    local pkgname="$1"
+    if [ -z "$pkgname" ]; then
+        echo "Usage: SIGpi update <package>"
+        return 1
+    fi
+
+    mkdir -p "$HOME/Downloads"
+    wget -q https://raw.githubusercontent.com/joecupano/SIGpi/main/packages/PACKAGES -O "$HOME/Downloads/PACKAGES.latest"
+
+    if grep -q "^$pkgname," "$HOME/Downloads/PACKAGES.latest"; then
+        SIG_PKGSTAMP=$(grep "^$pkgname," "$SIGPI_PKGLIST" | cut -d, -f2)
+        SIG_PKGNEW=$(grep "^$pkgname," "$HOME/Downloads/PACKAGES.latest" | cut -d, -f2)
+        if [ "$SIG_PKGNEW" != "$SIG_PKGSTAMP" ]; then
             echo "Update $SIG_PKGNEW is available"
         else
             echo "No updates available"
         fi
+    else
+        echo "Unknown package: $pkgname"
     fi
 }
 
@@ -142,7 +162,7 @@ case "$1" in
     setup )
         if [ "$2" = "apps" ]; then
             source $SIGPI_SCRIPTS/setup_apps
-        elif [ "$2" = "standard" ]; then
+        elif [ "$2" = "standard" ] || [ "$2" = "server" ] || [ "$2" = "framework" ]; then
             source $SIGPI_SCRIPTS/SIGpi_setup $2
         fi
         ;;
@@ -223,11 +243,11 @@ case "$1" in
         ;;
 
     update )
-        sigpi_update $3
-        ;;###
+        sigpi_update $2
+        ;;
 
     upgrade)
-        sigpi_upgrade $3
+        sigpi_upgrade $2
         ;;
 
     device )

@@ -1,0 +1,69 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### SIGpi_pkgbuild
+###
+###
+### 20260910-0100
+###
+### Debian-native packaging helpers, sourced by the root SIGpi script so every
+### packages/pkg_* and devices/pkg_* script inherits them. Replaces checkinstall:
+### a package's `package`/`build` case stages a normal DESTDIR install and calls
+### sigpi_stage_package to turn it into a .deb with dpkg-deb (dpkg-dev), which is
+### part of the base Debian/Ubuntu toolchain rather than a third-party add-on.
+###
+### Usage from a pkg_* script's `package` case, after `make`/`make -j4`:
+###
+###     rm -rf pkgroot && mkdir -p pkgroot
+###     make DESTDIR="$(pwd)/pkgroot" install
+###     sigpi_stage_package "codec2" "1.20" "$(pwd)/pkgroot" "Open source speech codec"
+###     rm -rf pkgroot
+###
+### The resulting file is $SIGPI_DEBS/<name>_current_<arch>.deb - same filename
+### every pkg_* script's `install` case already looks for via `dpkg -i`, so no
+### install-case logic needs to change. The package's internal DEBIAN/control
+### now carries the real name/version/arch, unlike checkinstall's guesswork.
+###
+
+# Map SIGPI_HWARCH (x86_64, aarch64) to Debian architecture (amd64, arm64)
+sigpi_deb_arch(){
+    case "$SIGPI_HWARCH" in
+        x86_64 )  echo "amd64" ;;
+        aarch64 ) echo "arm64" ;;
+        * )       echo "$SIGPI_HWARCH" ;;
+    esac
+}
+
+# sigpi_stage_package <name> <version> <staged-root-dir> <description>
+#
+# Writes <staged-root-dir>/DEBIAN/control and builds
+# $SIGPI_DEBS/<name>_current_<deb-arch>.deb from the staged tree.
+sigpi_stage_package(){
+    local pkgname="$1"
+    local pkgversion="$2"
+    local pkgroot="$3"
+    local pkgdesc="$4"
+    local debarch
+    debarch=$(sigpi_deb_arch)
+
+    if [ -z "$pkgname" ] || [ -z "$pkgversion" ] || [ -z "$pkgroot" ]; then
+        echo "sigpi_stage_package: usage: sigpi_stage_package <name> <version> <staged-root-dir> <description>"
+        return 1
+    fi
+
+    mkdir -p "$pkgroot/DEBIAN"
+    cat > "$pkgroot/DEBIAN/control" <<EOF
+Package: $pkgname
+Version: $pkgversion
+Section: hamradio
+Priority: optional
+Architecture: $debarch
+Maintainer: SIGpi <https://github.com/joecupano/SIGpi>
+Description: ${pkgdesc:-$pkgname}
+EOF
+
+    mkdir -p "$SIGPI_DEBS"
+    dpkg-deb --build --root-owner-group "$pkgroot" "$SIGPI_DEBS/${pkgname}_current_${debarch}.deb"
+}
