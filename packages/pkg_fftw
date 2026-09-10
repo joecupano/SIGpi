@@ -50,9 +50,15 @@ case "$1" in
         sudo apt-get install -y libgl1-mesa-glx
 
         ## PACKAGE
-        # Generate a new wisdom file for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
-        # This will take a very long time.
-        fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        # Use an existing wisdom file if one is already present. Otherwise generate a new
+        # one for FFT sizes : 128, 256, 512, 1024, 2048, 4096, 8192, 16384 and 32768.
+        # Generating is optional and will take a very long time.
+        if [ -s "$SIGPI_ETC/fftw-wisdom" ]; then
+            echo -e "${SIGPI_BANNER_COLOR} ##  Existing FFTW wisdom file found at $SIGPI_ETC/fftw-wisdom - using it"
+            echo -e "${SIGPI_BANNER_RESET}"
+        else
+            fftwf-wisdom -v -n -o $SIGPI_ETC/fftw-wisdom 128 256 512 1024 2048 4096 8192 16384 32768
+        fi
         cat $SIGPI_PKGLIST|grep "fftw" >> $SIGPI_INSTALLED
 
 	    ## DESKTOP
