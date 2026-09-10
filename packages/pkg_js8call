@@ -1,0 +1,92 @@
+#!/bin/bash
+
+###
+### SIGpi
+###
+### pkg_js8call
+###
+###
+### 20260910-0100
+###
+### JS8Call Package Management Script
+###
+
+if [[ ! "$1" =~ ^(remove|purge|install|build|package)$ ]]; then
+    echo -e "${SIGPI_BANNER_COLOR}"
+    echo -e "${SIGPI_BANNER_COLOR} ##  ERROR: Unknown action or package"
+    echo -e "${SIGPI_BANNER_RESET}"
+    exit 1
+fi
+
+# Fail fast on build errors: a failed compile/install step must not result
+# in a broken .deb being staged or the package being marked installed.
+# See sigpi_build_failed() in SIGpi_pkgbuild.
+if [[ "$1" =~ ^(install|build|package)$ ]]; then
+    set -Eeo pipefail
+    trap 'sigpi_build_failed "${BASH_SOURCE[0]}" "$1" "$LINENO" "$?"' ERR
+fi
+
+case "$1" in
+    remove|purge|install|build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : JS8Call"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    remove )
+        sudo dpkg -r js8call
+        sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm -rf $DESKTOP_FILES/js8call.desktop
+        ;;&
+
+    purge )
+        sudo dpkg -P js8call
+        sed -i /js8call/d $SIGPI_INSTALLED
+        sudo rm -rf $DESKTOP_FILES/js8call.desktop
+        ;;&
+
+    install )
+        ## PACKAGE
+        # No arm64 build is staged yet - $SIGPI_DEBS only carries
+        # js8call_current_amd64.deb (see debs/README.md).
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##   JS8Call: not available for aarch64"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 0
+        fi
+
+        if grep -q wsjtx "$SIGPI_INSTALLED"; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   ERROR: JS8Call cannot be installed while WSJT-X is installed due to library conflicts"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##   JS8Call Install Terminated"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit 0
+        fi
+
+        cd $SIGPI_DEBS
+        sudo dpkg -i js8call_current_amd64.deb
+        cat $SIGPI_PKGLIST|grep "js8call" >> $SIGPI_INSTALLED
+
+        ## DESKTOP
+        # Add Icon
+        # Add Desktop
+        # Change Category
+        # Add to Menu
+        ;;&
+
+    build|package )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   $1 : option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
+
+    remove|purge|install )
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##  $1 : JS8Call - Completed"
+        echo -e "${SIGPI_BANNER_RESET}"
+        ;;
+esac

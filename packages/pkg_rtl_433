@@ -109,58 +109,18 @@ case "$1" in
         ;;&
 
     build )
-        ## DEPENDENCIES
-        #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
-        sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
-
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/merbanan/rtl_433.git
-        cd rtl_433
-        git reset --hard ea7d504 # v25.12
-        mkdir build && cd build
-        cmake .. -Wno-dev
-        make -j4
-        sudo make install
-        sudo ldconfig
-        cat $SIGPI_PKGLIST|grep "rtl_433" >> $SIGPI_INSTALLED 
-
-	    ## DESKTOP
-	    # Add Icon
-        sudo cp $SIGPI_ICONS/rtl_433.png $DESKTOP_ICONS
-        # Add Desktop
-        sudo cp $SIGPI_HOME/desktop/rtl_433.desktop $DESKTOP_FILES
-        sudo cp $SIGPI_HOME/desktop/rtl_adsb.desktop $DESKTOP_FILES
-        sudo cp $SIGPI_HOME/desktop/rtl_fm.desktop $DESKTOP_FILES
-        sudo cp $SIGPI_HOME/desktop/rtl_test.desktop $DESKTOP_FILES
-	    # Change Category
-        # Add to Menu
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/rtl_433.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/rtl_adsb.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/rtl_fm.desktop
-        xdg-desktop-menu install --novendor --noupdate $DESKTOP_DIRECTORY/SIGpishell.directory $DESKTOP_FILES/rtl_test.desktop
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Build option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
 	    ;;&
 
     package )
-        ## DEPENDENCIES
-        #sudo apt-get install -y libtool libusb-1.0-0-dev librtlsdr-dev rtl-sdr libssl-dev
-        sudo apt-get install -y libtool libusb-1.0-0-dev rtl-sdr libssl-dev
+        echo -e "${SIGPI_BANNER_COLOR}"
+        echo -e "${SIGPI_BANNER_COLOR} ##   Package option not available"
+        echo -e "${SIGPI_BANNER_RESET}"
+	    ;;&
 
-        ## PACKAGE
-        cd $SIGPI_SOURCE
-        git clone https://github.com/merbanan/rtl_433.git
-        cd rtl_433
-        git reset --hard ea7d504 # v25.12
-        mkdir build && cd build
-        cmake .. -Wno-dev
-        make -j4
-        rm -rf pkgroot && mkdir -p pkgroot
-        make DESTDIR="$(pwd)/pkgroot" install
-        sigpi_stage_package "rtl_433" "25.12" "$(pwd)/pkgroot" "Generic data receiver for ISM bands"
-        rm -rf pkgroot
-        ;;&
-
-    remove|purge|install|build|package )
+    remove|purge|install )
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : rtl_433 - Completed"
         echo -e "${SIGPI_BANNER_RESET}"

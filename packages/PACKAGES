@@ -8,6 +8,7 @@ codec2,1.2.0,Open source speech codec for low bandwidth HF/VHF digital radio,202
 direwolf,1.8.1,Software soundcard AX25 packet and APRS encoder-decoder,20251113
 dosbox,0.74-3,Open Source DOS emulator to run old DOS games,20260910
 dsdcc,1.9.6,Digital Speech Decoder rewritten as a C++ library,20260910
+fftw,3.3.10,FFTW library plus a pre-generated wisdom file for common FFT sizes,20260910
 fldigi,4.2.13,Soundcard modem program for most of the digital modes used by radio amateurs,20260910
 flrig,2.0.12,Rig control program cooperates with fldigi,20260910
 ggmorse,1.0,Morse code decoding library,20260910
@@ -22,7 +23,7 @@ kismet,2025-09-R1,Wired and wireless network sniffer for Wi-Fi Bluetooth Zigbee,
 libbtbb,2020-12-R1,Bluetooth baseband decoding library,20260910
 libdab,2026.06,DAB decoding library,20260910
 libsigmf,1.0.2,header-only C++ library for working with SigMF metadata,20260910
-linpac,0.2.0,Packet Radio terminal,20211231
+linpac,0.28,Packet Radio terminal,20260910
 liquid-dsp,1.8.2,digital signal processing library for SDRs,20260910
 mbelib,1.3.0,P25 Phase 1 and ProVoice vocoder,20260910
 multimon-ng,1.4.1,Decodes POCSAG FLEX EAS FSK AFSK DTMF EEA EIA CCIR X10,20260910
@@ -35,12 +36,12 @@ radiosonde,1.0,Weather balloon decoding RS92 RS41 M10 imet etc,20260910
 rtl_433,25.12,Generic data receiver ISM bands,20260910
 sdrangel,7.27.2,Open-source Qt5 OpenGL 3.0+ SDR and signal analyzer,20260910
 sdrangelsrv,7.27.2,Headless SDRangel server (RTLSDR/SDRangel/SoapySDR remote backend),20260910
-sdrpp,1.3.0,Cross-platform and open source SDR software,20260910
+sdrpp,1.2.1,Cross-platform and open source SDR software,20260910
 serialdv,1.1.5,C++ interface encode/decode audio with AMBE3000 devices serial link,20260910
 sgp4,1.0,Simplified perturbations models,20260910
 srsran-4g,25.10,end-to-end 4G network implementation with full-stack applications,20260910
 urh,2.10.0,Universal Radio Hacker: Investigate Wireless Protocols,20260910
 vkfft,1.3.4,GPU-accelerated multidimensional Fast Fourier Transform library,20260910
 volk,3.3.0,Vector Optimized Library of Kernels,20260910
-wsjtx,3.0.2,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20260910
+wsjtx,2.7.0,Digital modes FT4  FT8  JT4  JT9  JT65  Q65  MSK144  and WSPR,20260910
 xastir,2.2.4,APRS client program with positional data in a graphical application,20260910
