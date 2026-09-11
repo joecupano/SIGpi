@@ -55,7 +55,7 @@ case "$1" in
         sudo apt-get install -y ffmpeg
         sudo apt-get install -y opus-tools
         sudo apt-get install -y libopus-dev
-        sudo apt-get install -y libgl1-mesa-glx
+        sudo apt-get install -y libgl1
 
         ## PACKAGE
         # Use an existing wisdom file if one is already present. Otherwise generate a new
