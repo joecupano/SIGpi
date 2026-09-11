@@ -66,6 +66,7 @@ case "$1" in
         sudo apt-get install -y gettext
         sudo apt-get install -y pulseaudio
         sudo apt-get install -y libopencv-dev
+        sudo apt-get install -y libopencv-imgcodecs-dev
         sudo apt-get install -y libxml2-dev
         sudo apt-get install -y bison
         sudo apt-get install -y flex
@@ -74,6 +75,35 @@ case "$1" in
         sudo apt-get install -y libavformat-dev
         sudo apt-get install -y opus-tools
         sudo apt-get install -y libopus-dev
+        sudo apt-get install -y libfaad-dev
+        sudo apt-get install -y libflac-dev
+        sudo apt-get install -y zlib1g-dev
+        sudo apt-get install -y ca-certificates
+        sudo apt-get install -y libavahi-client-dev
+        sudo apt-get install -y libavahi-common-dev
+        sudo apt-get install -y libaio-dev
+        sudo apt-get install -y xxd
+        sudo apt-get install -y libhidapi-dev
+        sudo apt-get install -y libairspy-dev
+        sudo apt-get install -y libairspyhf-dev
+        sudo apt-get install -y libsoapysdr-dev
+        sudo apt-get install -y python3-numpy
+        sudo apt-get install -y python3-mako
+        sudo apt-get install -y python3-cheetah
+        ## Qt5 - CMakeLists.txt requires these unconditionally (Core, Widgets,
+        ## WebSockets, Multimedia, MultimediaWidgets, Positioning, Charts,
+        ## SerialPort), even with -DBUILD_GUI=off - none were previously
+        ## captured here, so a from-scratch headless build/install (e.g. on
+        ## a bare Raspberry Pi) would fail cmake configure outright
+        sudo apt-get install -y qtbase5-dev
+        sudo apt-get install -y qttools5-dev
+        sudo apt-get install -y qttools5-dev-tools
+        sudo apt-get install -y qtmultimedia5-dev
+        sudo apt-get install -y libqt5multimedia5-plugins
+        sudo apt-get install -y qtpositioning5-dev
+        sudo apt-get install -y libqt5charts5-dev
+        sudo apt-get install -y libqt5serialport5-dev
+        sudo apt-get install -y libqt5websockets5-dev
         sudo apt-get install -y qml-module-qtlocation
         sudo apt-get install -y qml-module-qtpositioning
         sudo apt-get install -y qml-module-qtquick-window2
