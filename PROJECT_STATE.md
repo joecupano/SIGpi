@@ -4,11 +4,16 @@ Working notes on where this branch stands right now. Not user-facing (see
 [RELEASE_HISTORY.md](RELEASE_HISTORY.md) for that) - this is a handoff/status
 doc for whoever picks up work here next.
 
-**Branch:** `release/noble-trixie-native-pkg` (pushed to `origin`, not yet
-merged to `main`). `main` is still at the pre-native-packaging state
-(`5c772c6`); this branch is ~11 commits ahead with the checkinstall -> dpkg-deb
-migration, the noble/trixie platform switch, and two full catalog-accuracy
-passes (packages/, then devices/).
+**Branch:** `main`. `release/noble-trixie-native-pkg` (the checkinstall ->
+dpkg-deb migration, the noble/trixie platform switch, and the two
+catalog-accuracy passes described below) merged via PR #66 (`568a87e`).
+Since the merge, `main` has picked up: `a906d28` (CUDA driver install),
+`e3ba8af` (SDRangel package-install tweaks, superseded by the arm64 policy
+change below), `5860b30` (fixed a `libgl1-mesa-glx` compile error), `c47ccfe`
+(banner update), and `e8e43dc` (a real arm64 rebuild of 16 packages - see
+Known issues). All device-catalog fixes that used to be listed as
+"uncommitted" in this doc landed in `f804030`; `evilcrowrf`'s move to
+`development/` is likewise committed.
 
 ## What this branch has done
 
@@ -69,6 +74,12 @@ passes (packages/, then devices/).
     fail every time). Now just print "option not available" like the other
     apt/prebuilt-only scripts (`kismet`, `gpsd`, etc.); `remove`/`purge`/
     `install` are untouched.
+  - `pkg_sdrangel`: `build`/`package` on arm64 now reject immediately (moved
+    the aarch64 check ahead of the ~70-package apt dependency list, instead of
+    installing all of it first and only then bailing); `install` on arm64
+    prints the version it's about to install, read live from
+    `sdrangel_current_arm64.deb` via `dpkg-deb -f` rather than a hardcoded
+    string, so the banner can't drift from what's actually staged.
 - **DEVICES accuracy pass** (same method, applied to `devices/`): compared
   every `devices/pkg_*` script's version pin against `devices/DEVICES`, then
   cross-checked which scripts actually depend on a pre-staged `.deb` for
@@ -135,46 +146,56 @@ passes (packages/, then devices/).
 ## Uncommitted right now
 
 ```
- D debs/libmirisdr_1.1.2-1_amd64.deb
- D debs/libmirisdr_current_arm64.deb
-RM devices/pkg_evilcrowrf -> development/pkg_evilcrowrf
- M devices/DEVICES
- M devices/pkg_ettus
- M devices/pkg_libfobos
- M devices/pkg_libmirisdr
- M devices/pkg_rtl-sdr-kerberos
- M devices/pkg_ubertooth
-?? debs/libmirisdr_current_amd64.deb
+ M PROJECT_STATE.md
+ M packages/pkg_sdrangel
 ```
 
-(The packages/ accuracy pass - PACKAGES, pkg_openwebrx, pkg_rtl_433,
-pkg_sdrpp, pkg_wsjtx, pkg_js8call - is already committed, in `d603fb1`.)
+`pkg_sdrangel`: `build`/`package` now reject arm64 immediately (before the
+apt dependency list runs, not after), and `install` on arm64 prints the
+version it's about to install, read live via `dpkg-deb -f` from
+`sdrangel_current_arm64.deb` (currently `7.22.5-1`) instead of a hardcoded
+string. See "What this branch has done" above for the full rationale.
 
 ## Known issues / not yet acted on
 
-- **arm64 `.deb`s are broadly stale or missing.** amd64 was rebuilt to match
-  the version-refresh pass; arm64 mostly wasn't (no ARM/RPi hardware was
-  available - see `d8b73cb`'s commit message). Confirmed via `dpkg-deb -f`:
-  hamlib (4.6.5, not 4.7.2), sdrangel/sdrangelsrv (7.22.5, not 7.27.2),
-  gpredict (2.4), liquid-dsp (1.7.0), mbelib (1.0), nrsc5 (3.1.0), volk
-  (3.1.0), xastir (2.2.3), fldigi (4.2.11), flrig (2.0.10), libdab (1.0),
-  libsigmf (1.0) all lag their amd64/PACKAGES counterparts. `uhd` (ettus) and
-  both `libmirisdr` sub-files have **no arm64 `.deb` at all**. Needs a real
-  rebuild on arm64/RPi hardware, not a text fix.
-- **Two corrupted arm64 artifacts** (found incidentally, not yet fixed):
-  `debs/libbtbb_current_arm64.deb`'s internal version is truncated to
-  `20-12-R1-1` (should be `2020-12-R1-1`), and
-  `debs/multimon-ng_current_arm64.deb`'s internal package name is misspelled
-  `multimon-g` (should be `multimon-ng`). Both need a rebuild, not a text fix.
-- **`js8call`/`sdrpp` have no arm64 `.deb` at all** - both scripts exit
-  cleanly on aarch64 rather than failing, but neither is actually installable
-  on Raspberry Pi yet.
+- **arm64 `.deb`s were largely refreshed in `e8e43dc` ("arm64 package
+  updates"), but a few stragglers remain.** Confirmed via `dpkg-deb -f`:
+  aptdec, cm256cc, direwolf, dsdcc, fldigi (4.2.13), flrig (2.0.12), ggmorse,
+  gpredict (2.6), hamlib (4.7.2), inmarsatc, libdab (2026.06), liquid-dsp
+  (1.8.2), mbelib (1.3.0), multimon-ng, nrsc5 (3.2.0), and rnnoise all got
+  real arm64 rebuilds and now match their amd64/PACKAGES versions. Still
+  lagging: **volk** (3.1.0), **xastir** (2.2.3), **libsigmf** (1.0). Still
+  **no arm64 `.deb` at all**: `uhd` (ettus), both `libmirisdr` sub-components
+  (only `libmirisdr_current_amd64.deb` exists in `debs/` now - the arm64 file
+  and its `soapymiri` sub-file are both still missing), and `js8call`.
+  `sdrpp` **now has** an arm64 `.deb` (`sdrpp_current_arm64.deb` exists,
+  correcting an earlier note here that it didn't).
+- **`sdrangel`/`sdrangelsrv` arm64 are deliberately frozen at `7.22.5-1`, not
+  stale.** `pkg_sdrangel`'s `build`/`package` now hard-reject arm64 (GUI build
+  hits an unresolved upstream `libunwind` aarch64-unwinder link failure, see
+  f4exb/sdrangel issue #2741) rather than attempting a rebuild; `install`
+  installs the pre-built `7.22.5-1` `.deb` and prints its version so this
+  doesn't look like silent staleness. `pkg_sdrangelsrv` (headless,
+  `BUILD_GUI=off`) is the recommended arm64/Pi path, deliberately *does*
+  build on aarch64 (per its own header comment), and wasn't touched by this
+  change.
+- **One corrupted arm64 artifact remains**: `debs/libbtbb_current_arm64.deb`'s
+  internal version is still truncated to `20-12-R1-1` (should be
+  `2020-12-R1-1`) - needs a rebuild, not a text fix. (The
+  `multimon-ng_current_arm64.deb` misspelled-package-name issue noted here
+  previously is fixed - its `Package:` field now correctly reads
+  `multimon-ng`, apparently as a side effect of the `e8e43dc` rebuild.)
+- **`js8call` has no arm64 `.deb` at all** - the script exits cleanly on
+  aarch64 rather than failing, but it isn't actually installable on Raspberry
+  Pi yet.
 - **`evilcrowrf` is parked in `development/`**, not installable on any
   platform until its `.deb`s are actually built and staged (see its header
   comment for the exact steps to bring it back).
-- **`devices/pkg_sdrplay` and `devices/pkg_ubertooth`** both have the same
-  corrupted error string on their unknown-action path (`"ERROR: Unknown case
-  "$1" in wn action or package"`) - cosmetic, flagged but not fixed.
+- **`devices/pkg_ubertooth`** still has the corrupted error string on its
+  unknown-action path (`"ERROR: Unknown case "$1" in wn action or
+  package"`) - cosmetic, flagged but not fixed. (`devices/pkg_sdrplay`'s
+  matching issue noted here previously is fixed - it now reads the normal
+  `"ERROR: Unknown action or package"`.)
 - **`rtl-sdr-kerberos`'s DEVICES version (`1.0`) will drift on the next
   rebuild** - the script tags fresh unpinned-HEAD builds `0+git<date>`, so a
   future `SIGpi device package rtl-sdr-kerberos` will stage something DEVICES
@@ -194,24 +215,34 @@ pkg_sdrpp, pkg_wsjtx, pkg_js8call - is already committed, in `d603fb1`.)
   will now hard-fail instead of silently doing nothing. Four instances of
   exactly that were just found and fixed (see above) - worth a quick sweep
   for the same pattern next time a `pkg_*` script is touched.
-- **Not verified on real hardware** (per `d8b73cb`): actual arm64 compiles,
-  and full builds of the heavier packages (SDRangel, GNU Radio, WSJT-X, etc.)
-  on either architecture. Everything above was checked by reading scripts,
-  running `bash -n`/functional dry-runs with mocked `sudo`/`git`/`cmake`/
-  `make`/`pip3`/`dpkg`, and inspecting committed `.deb` metadata - not by
-  running a real install on target hardware.
+- **Partially verified on real hardware now.** `e8e43dc` shows 16 packages
+  actually got rebuilt arm64 `.deb`s (real binary changes, not text edits),
+  so at least those had a genuine arm64 build. `volk`, `xastir`, `libsigmf`,
+  `uhd`, `libmirisdr`, `js8call`, `libbtbb`, and any heavier package not in
+  that list (GNU Radio, WSJT-X, etc.) are still unconfirmed on real arm64
+  hardware. Everything in this doc not covered by that rebuild was still only
+  checked by reading scripts, `bash -n`/functional dry-runs with mocked
+  `sudo`/`git`/`cmake`/`make`/`pip3`/`dpkg`, and inspecting committed `.deb`
+  metadata.
 
 ## Suggested next steps
 
-1. Commit the uncommitted devices-accuracy fixes above.
+1. Commit this pass's `packages/pkg_sdrangel` change.
 2. Get access to arm64/RPi hardware (or cross-build tooling) to refresh the
-   stale/missing/corrupted arm64 `.deb`s (uhd, libmirisdr's two components,
-   hamlib, sdrangel/sdrangelsrv, gpredict, liquid-dsp, mbelib, nrsc5, volk,
-   xastir, fldigi, flrig, libdab, libsigmf, libbtbb, multimon-ng).
+   remaining stale/missing/corrupted arm64 `.deb`s: `volk`, `xastir`,
+   `libsigmf` (stale); `uhd`, `libmirisdr`'s two components (missing
+   entirely); `libbtbb` (corrupted version string).
 3. Build/stage `evilcrowrf`'s `.deb`s (amd64 + arm64) and move it back to
    `devices/`.
-4. Decide whether `wsjtx`/`sdrpp` should stay manually-staged `.deb`s forever
-   or gain a real `build`/`package` path so PACKAGES version bumps and the
-   staged artifact can't drift apart again.
+4. Decide whether `wsjtx` should stay a manually-staged `.deb` forever or gain
+   a real `build`/`package` path so PACKAGES version bumps and the staged
+   artifact can't drift apart again (`sdrpp` now has an arm64 `.deb` staged,
+   same open question still applies to it too).
 5. Build/stage an arm64 `js8call` `.deb` if Raspberry Pi support is wanted
    for it.
+6. Fix `devices/pkg_ubertooth`'s corrupted "Unknown case" error string
+   (cosmetic, low priority).
+7. No action needed on `pkg_sdrangelsrv`: its header comment already
+   explains it deliberately does *not* exclude aarch64 like `pkg_sdrangel`
+   now does - the headless (`BUILD_GUI=off`) build is the recommended
+   arm64/Pi path, so it keeps its normal build/package logic on that arch.
