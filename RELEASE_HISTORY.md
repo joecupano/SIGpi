@@ -1,20 +1,20 @@
 # Release Notes
 
 ## Release 9.0: 2026-09-10
-- Major Release. See [wiki](https://github.com/joecupano/SIGpi/wiki)
-- New certified platforms: Ubuntu 24.04 LTS (amd64), Debian 13 "trixie" and Raspberry Pi OS
-  "trixie" (arm64, RPi 3/4/5) - Ubuntu 22.04/Debian 12 "bookworm" are no longer certified
-- Native Debian packaging: every package's `package`/`build` step now stages a DESTDIR
-  install and builds a real `.deb` with `dpkg-deb`, replacing `checkinstall` across the board
+- Migrated to Ubuntu 24.04 LTS (amd64), Debian 13 "trixie" and Raspberry Pi OS
+  "trixie" (arm64, RPi 3/4/5). Ubuntu 22.04/Debian 12 "bookworm" are no longer supported
 - Refreshed nearly every package and device driver to its current upstream stable release
   and added a real version pin (git tag/commit) to scripts that previously built an
   unpinned moving HEAD
-- Raspberry Pi (arm64) build support added/repaired for Ettus UHD and GNU Radio; SDRangel's
-  GUI build remains x86_64-only pending an upstream libunwind/aarch64 linker fix, but the
-  headless `sdrangelsrv` now builds on both architectures
-- Fixed several install-framework bugs: dead OS-codename certification check, `SIGpi setup
-  server` not dispatching, an undefined `$SIGPI_CONFIG` breaking systemd service/blacklist
-  installs, and non-functional `SIGpi update`/`upgrade` commands
+- Raspberry Pi (arm64) build support added/repaired for Ettus UHD and GNU Radio
+- SDRangel's GUI build remains x86_64-only pending an upstream libunwind/aarch64 linker fix but the
+  headless `sdrangelsrv` builds on both architectures
+- Fixed several install-framework bugs
+- Added CUDA Toolkit install support
+- SDRangel: arm64 always installs the pre-built 7.22.X debian package. SDRangel's own wiki calls an
+  RPi4 underpowered for the GUI
+- Refreshed 16 arm64 packages (aptdec, cm256cc, direwolf, dsdcc, fldigi, flrig, ggmorse,
+  gpredict, hamlib, inmarsatc, libdab, liquid-dsp, mbelib, multimon-ng, nrsc5, rnnoise)
 
 ## Release 8.0: 2026-01-26
 - Major Release. See [wiki](https://github.com/joecupano/SIGpi/wiki)
