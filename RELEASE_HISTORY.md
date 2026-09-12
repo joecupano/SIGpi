@@ -1,6 +1,6 @@
 # Release Notes
 
-## Release 9.0: 2026-09-10
+## Release 9.0: 2026-09-12
 - Migrated to Ubuntu 24.04 LTS (amd64), Debian 13 "trixie" and Raspberry Pi OS
   "trixie" (arm64, RPi 3/4/5). Ubuntu 22.04/Debian 12 "bookworm" are no longer supported
 - Refreshed nearly every package and device driver to its current upstream stable release
