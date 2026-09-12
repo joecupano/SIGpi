@@ -6,7 +6,7 @@
 ### pkg_sdrangel
 ###
 ###
-### 20260910-0100
+### 20260912-0000
 ###
 ### SDRangel package management script
 ###
@@ -31,6 +31,27 @@ case "$1" in
         echo -e "${SIGPI_BANNER_COLOR}"
         echo -e "${SIGPI_BANNER_COLOR} ##  $1 : SDRangel"
         echo -e "${SIGPI_BANNER_RESET}"
+        ;;&
+
+    build|package )
+        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
+            echo -e "${SIGPI_BANNER_COLOR}"
+            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : Not supported for arm64 (Raspberry Pi)"
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##  SDRangel is not built from source for arm64 here. SDRangel's own"
+            echo -e "${SIGPI_BANNER_COLOR} ##  wiki (Hardware requirements) says even a Pi 4 is underpowered for"
+            echo -e "${SIGPI_BANNER_COLOR} ##  the GUI application, and a native build on Debian trixie/aarch64"
+            echo -e "${SIGPI_BANNER_COLOR} ##  hits an unresolved upstream link failure against libunwind's"
+            echo -e "${SIGPI_BANNER_COLOR} ##  aarch64 unwinder (undefined references to _Uaarch64_*, see"
+            echo -e "${SIGPI_BANNER_COLOR} ##  f4exb/sdrangel issue #2741, no fix upstream yet)."
+            echo -e "${SIGPI_BANNER_COLOR} ##"
+            echo -e "${SIGPI_BANNER_COLOR} ##  Run 'install' instead to install the pre-built"
+            echo -e "${SIGPI_BANNER_COLOR} ##  debs/sdrangel_current_arm64.deb, or use pkg_sdrangelsrv"
+            echo -e "${SIGPI_BANNER_COLOR} ##  (headless server, BUILD_GUI=off) and drive it remotely from a"
+            echo -e "${SIGPI_BANNER_COLOR} ##  full SDRangel GUI client."
+            echo -e "${SIGPI_BANNER_RESET}"
+            exit
+        fi
         ;;&
 
     remove )
@@ -147,27 +168,19 @@ case "$1" in
 
         if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
 	        cd $SIGPI_DEBS
+	        SDRANGEL_ARM64_VERSION="$(dpkg-deb -f sdrangel_current_arm64.deb Version 2>/dev/null)"
+	        echo -e "${SIGPI_BANNER_COLOR}"
+	        echo -e "${SIGPI_BANNER_COLOR} ##  Installing pre-built sdrangel_current_arm64.deb"
+	        echo -e "${SIGPI_BANNER_COLOR} ##  SDRangel version: ${SDRANGEL_ARM64_VERSION:-unknown}"
+	        echo -e "${SIGPI_BANNER_COLOR} ##  (not built from source on arm64 - see 'build'/'package' for why)"
+	        echo -e "${SIGPI_BANNER_RESET}"
 	        sudo dpkg -i sdrangel_current_arm64.deb
         fi
-        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED 
+        cat $SIGPI_PKGLIST|grep "sdrangel," >> $SIGPI_INSTALLED
         ;;&
 
     build|package )
-        if [[ "$SIGPI_HWARCH" == "aarch64" ]]; then
-            echo -e "${SIGPI_BANNER_COLOR}"
-            echo -e "${SIGPI_BANNER_COLOR} ##  $1 : GUI build not available for aarch64 (Raspberry Pi)"
-            echo -e "${SIGPI_BANNER_COLOR} ##"
-            echo -e "${SIGPI_BANNER_COLOR} ##  SDRangel's own wiki (Hardware requirements) says even a Pi 4 is"
-            echo -e "${SIGPI_BANNER_COLOR} ##  underpowered for the GUI application, and as of 2026-09 a native"
-            echo -e "${SIGPI_BANNER_COLOR} ##  build on Debian trixie/aarch64 hits an unresolved upstream link"
-            echo -e "${SIGPI_BANNER_COLOR} ##  failure against libunwind's aarch64 unwinder (undefined references"
-            echo -e "${SIGPI_BANNER_COLOR} ##  to _Uaarch64_*, see f4exb/sdrangel issue #2741, no fix upstream yet)."
-            echo -e "${SIGPI_BANNER_COLOR} ##  Use pkg_sdrangelsrv (headless server, BUILD_GUI=off) on Raspberry"
-            echo -e "${SIGPI_BANNER_COLOR} ##  Pi hardware and drive it remotely from a full SDRangel GUI client."
-            echo -e "${SIGPI_BANNER_RESET}"
-            exit
-        fi
-
+        ## x86_64 only - the aarch64 case exits above.
         cd $SIGPI_SOURCE
         git clone https://github.com/f4exb/sdrangel.git
         cd sdrangel
